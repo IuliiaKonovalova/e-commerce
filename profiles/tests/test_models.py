@@ -41,18 +41,7 @@ class TestModels(TestCase):
             created_at='2020-01-01',
             updated_at='2020-01-01'
         )
-        self.address2 = Address.objects.create(
-            user=self.user,
-            country='Canada',
-            county_region='Ontario',
-            city='Toronto',
-            address_line='456 Main St',
-            zip_code='54321',
-            phone_number='0987654321',
-            is_primary=True,
-            created_at='2020-01-01',
-            updated_at='2020-01-01'
-        )
+
     def test_role_name(self):
         """Test the name field."""
         self.assertEqual(self.role1.name, 'Customer')
@@ -117,7 +106,7 @@ class TestModels(TestCase):
 
     def test_address_creation(self):
         """Test address creation."""
-        self.assertEqual(Address.objects.all().count(), 2)
+        self.assertEqual(Address.objects.all().count(), 1)
 
 
     def test_address_user(self):
@@ -137,3 +126,34 @@ class TestModels(TestCase):
         address = Address.objects.get(id=1)
         self.assertEqual(str(address), 'testuser - 12345 - False')
 
+    def test_address_is_primary(self):
+        """Test address is_primary property."""
+        self.address2 = Address.objects.create(
+            user=self.user,
+            country='Canada',
+            county_region='Ontario',
+            city='Toronto',
+            address_line='456 Main St',
+            zip_code='54321',
+            phone_number='0987654321',
+            is_primary=True,
+            created_at='2020-01-01',
+            updated_at='2020-01-01'
+        )
+        self.assertEqual(self.address2.is_primary, True)
+        self.address3 = Address.objects.create(
+            user=self.user,
+            country='USA',
+            county_region='California',
+            city='San Francisco',
+            address_line='999 Main St',
+            zip_code='13000',
+            phone_number='1234567890',
+            is_primary=True,
+            created_at='2020-01-01',
+            updated_at='2020-01-01'
+        )
+        # Check whether the primary address is updated for address2
+        address2 = Address.objects.get(id=2)
+        self.assertEqual(address2.is_primary, False)
+        self.assertEqual(self.address3.is_primary, True)
