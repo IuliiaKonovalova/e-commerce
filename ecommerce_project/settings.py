@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary_storage',
     'cloudinary',
+    'profiles',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,8 @@ TEMPLATES = [
         },
     },
 ]
+
+SITE_ID = 1
 
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
