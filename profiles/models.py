@@ -198,5 +198,10 @@ class Address(models.Model):
     def __str__(self):
         return f'{self.user.username} - {self.zip_code} - {self.is_primary}'
 
-
-
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if self.is_primary:
+            for address in self.user.addresses.all():
+                print(address)
+                address.is_primary = False
+                address.save()
