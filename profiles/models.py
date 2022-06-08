@@ -112,3 +112,91 @@ class Profile(models.Model):
         if self.avatar:
             return self.avatar.url
         return '/static/images/default_avatar.svg'
+
+
+class Address(models.Model):
+    """Model for the addresses."""
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='addresses',
+        verbose_name='User',
+        help_text=(
+            'format: required'
+        )
+    )
+    country = models.CharField(
+        max_length=50,
+        blank=False,
+        null=False,
+        verbose_name='Country',
+        help_text=(
+            'format: required, max_length=50'
+        )
+    )
+    county_region = models.CharField(
+        max_length=50,
+        blank=False,
+        null=False,
+        verbose_name='County/region',
+        help_text=(
+            'format: required, max_length=50'
+        )
+    )
+    city = models.CharField(
+        max_length=50,
+        blank=False,
+        null=False,
+        verbose_name='City',
+        help_text=(
+            'format: required, max_length=50'
+        )
+    )
+    address_line = models.CharField(
+        max_length=150,
+        blank=False,
+        null=False,
+        verbose_name='Address line',
+        help_text=(
+            'format: required, max_length=150'
+        )
+    )
+    zip_code = models.CharField(
+        max_length=10,
+        blank=False,
+        null=False,
+        verbose_name='Zip code',
+        help_text=(
+            'format: required, max_length=10'
+        )
+    )
+    phone_number = models.CharField(
+        max_length=15,
+        blank=False,
+        null=False,
+        verbose_name='Phone',
+        help_text=(
+            'format: required, max_length=15'
+        )
+    )
+    is_primary = models.BooleanField(
+        default=False,
+        verbose_name='Is primary',
+        help_text=(
+            'format: not required'
+        )
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Created at',
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Updated at',
+    )
+
+    def __str__(self):
+        return f'{self.user.username} - {self.zip_code} - {self.is_primary}'
+
+
+
