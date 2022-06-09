@@ -2,6 +2,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from datetime import date
 
 
 class Role(models.Model):
@@ -112,6 +113,24 @@ class Profile(models.Model):
         if self.avatar:
             return self.avatar.url
         return '/static/images/default_avatar.svg'
+
+    @property
+    def age(self):
+        if self.birthday:
+            today = date.today()
+            birthday = (
+                today.year -
+                self.birthday.year -
+                (
+                    (today.month, today.day) < (
+                        self.birthday.month, self.birthday.day
+                    )
+                )
+            )
+            if birthday < 0:
+                return 'Invalid birthday'
+            return birthday
+        return None
 
 
 class Address(models.Model):
