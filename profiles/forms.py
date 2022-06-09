@@ -9,13 +9,28 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['first_name', 'last_name', 'birthday', 'avatar', 'subscription']
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'birthday': forms.DateInput(attrs={'class': 'form-control'}),
-            'avatar': forms.ClearableFileInput(attrs={
-                    'multiple': False,
-                    'class': 'edit-avatar-btn'
-                }),
+            'first_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=50',
+                    'placeholder': 'First name',
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=50',
+                    'placeholder': 'Last name',
+                }
+            ),
+            'birthday': forms.DateInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'YYYY-MM-DD',
+                    'placeholder': 'Birthday',
+                }
+            ),
+            'avatar': forms.HiddenInput(),
             'subscription': forms.CheckboxInput(
                 attrs={'class': 'form-check-input'}
             )
