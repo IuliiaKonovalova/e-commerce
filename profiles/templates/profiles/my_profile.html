@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+My Profile
+
+<div>{{ my_profile.first_name }} {{ my_profile.last_name }}</div>
+
+{% if my_addresses %}
+{% for address in my_addresses %}
+<div>{{ address }}</div>
+{% endfor %}
+{% else %}
+<div>No addresses found</div>
+{% endif %}
+
+{% endblock %}
