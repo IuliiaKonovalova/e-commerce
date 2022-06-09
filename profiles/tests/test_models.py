@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from profiles.models import Role, Profile, Address
 import cloudinary
 import cloudinary.uploader
+from datetime import date
 
 
 class TestModels(TestCase):
@@ -29,6 +30,16 @@ class TestModels(TestCase):
             password='Password987',
             email='testuser2@gmail.com'
         )
+
+        # self.profile33 = Profile.objects.create(
+        #     user=self.user2,
+        #     first_name='Test',
+        #     last_name='User',
+        #     birthday='2000-01-01',
+        #     avatar='',
+        #     subscription=True
+        # )
+
         self.address1 = Address.objects.create(
             user=self.user,
             country='USA',
@@ -103,6 +114,19 @@ class TestModels(TestCase):
     #         "static/images/default_avatar.svg")
     #     profile.save()
     #     self.assertTrue('res.cloudinary.com' in profile.avatar_url)
+
+    def test_profile_age(self):
+        """Test profile age property."""
+        profile = Profile.objects.get(user=self.user2)
+        self.assertEqual(profile.age, None)
+        profile.birthday = date(1990, 1, 1)
+        self.assertEqual(profile.age, 32)
+        profile.birthday = date(4990, 1, 1)
+        self.assertEqual(profile.age, 'Invalid birthday')
+        profile.birthday = date(1999, 1, 1)
+        self.assertEqual(profile.age, 23)
+        profile.birthday = date(2000, 1, 1)
+        self.assertEqual(profile.age, 22)
 
     def test_address_creation(self):
         """Test address creation."""
