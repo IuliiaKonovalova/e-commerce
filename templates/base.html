@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    {% block meta %}
+      {% comment %} Required meta tags {% endcomment %}
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="" />
+      <meta name="keywords" content="" />
+      <meta name="author" content="Iuliia Konovalova" />
+      {% comment %} Favicon {% endcomment %}
+    {% endblock%}
+
+    {% block extra_meta %}
+    {% endblock%}
+
+    {% block corecss %}
+      {% comment %} Link to css {% endcomment %}
+      <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% endblock%}
+
+    {% block extra_css %}
+    {% endblock%}
+
+    {% block corejs %}
+      {% comment %} Link to fontawesome {% endcomment %}
+      <script src="https://kit.fontawesome.com/7a0af02583.js" crossorigin="anonymous"></script>
+    {% endblock%}
+
+    {% block extra_js %}
+    {% endblock%}
+
+    <title>E-commerce {% block extra_title %}{% endblock %}</title>
+  </head>
+
+  <body>
+    <header class="header">
+      {% comment %} Navbar {% endcomment %}
+      <nav class="navbar">
+      {% comment %} Logo container {% endcomment %}
+        <div class="logo__container">
+          
+        </div>
+        {% comment %} Navbar content {% endcomment %}
+        <ul class="navbar__items">
+          {% if not request.user.is_authenticated %}
+            <li class="navbar__item">
+              
+            </li>
+          {% endif %}
+          {% comment %} Links for school members {% endcomment %}
+          {% if request.user.is_authenticated %}
+            <li class="navbar__item">
+              
+            </li>
+          {% comment %} Links acccessable to every member {% endcomment %}
+          {% else %}
+            <li class="navbar__item ">
+              
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </header>
+    {% comment %} Main content container {% endcomment %}
+    <main class="main">
+      <div class="content__container">
+      {% comment %} Messages {% endcomment %}
+        {% if messages %}
+          <div class="message-container" id="messages-notes">
+            {% for message in messages %}
+            <div class="message-container__message">
+              <p class="message-container__message--text">{{ message }}</p>
+            </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        {% block page_header %}
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+      </div>
+    </main>
+    {% comment %} Footer {% endcomment %}
+    <footer class="footer">
+      
+    </footer>
+    {% block postloadjs %}
+      <script src="{% static 'js/base.js' %}" type="module"></script>
+    {% endblock %}
+  </body>
+</html>
