@@ -1,10 +1,8 @@
 """Tests for the forms of the profile app."""
 from django.test import TestCase
 from django.contrib.auth.models import User
-from profiles.forms import ProfileForm
+from profiles.forms import ProfileForm, AddressForm
 from profiles.models import Role, Profile, Address
-import cloudinary
-import cloudinary.uploader
 
 
 class TestForms(TestCase):
@@ -55,6 +53,36 @@ class TestForms(TestCase):
                 'birthday': '2020-01-01',
                 'avatar': '',
                 'subscription': True
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_address_form_has_fields(self):
+        """Test the address form has the correct fields."""
+        form = AddressForm()
+        expected = [
+            'country',
+            'county_region',
+            'city',
+            'address_line',
+            'zip_code',
+            'phone_number',
+            'is_primary'
+        ]
+        actual = list(form.fields)
+        self.assertSequenceEqual(expected, actual)
+
+    def test_address_form(self):
+        """Test the address form."""
+        form = AddressForm(
+            data={
+                'country': 'USA',
+                'county_region': 'California',
+                'city': 'San Francisco',
+                'address_line': '123 Main St',
+                'zip_code': '12345',
+                'phone_number': '1234567890',
+                'is_primary': False
             }
         )
         self.assertTrue(form.is_valid())
