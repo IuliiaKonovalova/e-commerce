@@ -1,10 +1,11 @@
 """Views for the profiles app."""
 from django.views import View
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponseRedirect
 from .models import Role, Profile, Address
 from .forms import ProfileForm, AddressForm
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 
 class UserProfileView(View):
@@ -86,22 +87,36 @@ class EditUserProfileView(View):
             if request.POST['form_type'] == 'profile':
                 profile_form = ProfileForm(
                     request.POST, instance=request.user.profile)
-                print(request.FILES)
-                print(request.POST)
                 if profile_form.is_valid():
-                    profile_form.save()
+                    request.user.profile = profile_form.save()
                     return JsonResponse({'success': True})
                 return JsonResponse(
                     {'success': False, 'errors': profile_form.errors}
                 )
             if request.POST['form_type'] == 'password':
-                password_form = PasswordChangeForm(request.POST)
+                password_form = PasswordChangeForm(request.user, request.POST)
                 if password_form.is_valid():
                     password_form.save()
+                    update_session_auth_hash(request, password_form.user)
                     return JsonResponse({'success': True})
                 return JsonResponse(
                     {'success': False, 'errors': password_form.errors}
                 )
+        else:
+            return render(
+                request,
+                'account/login.html'
+            )
+
+
+class DeleteProfileView(View):
+    """View for the delete profile page."""
+    def post(self, request, *args, **kwargs):
+        """Post request for the delete profile page."""
+        if request.user.is_authenticated:
+            user = request.user
+            user.delete()
+            return redirect('home')
         else:
             return render(
                 request,
