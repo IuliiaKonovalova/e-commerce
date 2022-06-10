@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+
+:root {
+  --clr-bg--100: #1100ff;
+  --clr-bg--300: #050048;
+  --clr-bg--500: #06032e;
+  --clr-bg--900: #151422;
+  --clr-accent--300: #c3faff;
+  --clr-accent--500: #95f2fa;
+  --clr-accent--700: #22e0f0;
+  --clr-accent--800: #45baff;
+  --clr-accent--900: #7119f9;
+  --clr-text--100: #ffffff;
+  --clr-text--300: #898989;
+  --clr-text--500: #363636;
+  --clr-text--900: #191919;
+  --fs: calc(60% + 0.8vmin);
+  --ff-primary: 'Lato', sans-serif;
+  --br: 0.5em;
+}
+
+.hidden {
+  display: none;
+}
+
+img {
+  width: 300px;
+  height: 300px;
+}
