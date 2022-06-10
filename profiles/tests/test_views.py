@@ -56,6 +56,14 @@ class TestViews(TestCase):
         self.edit_avatar_url = reverse('edit_avatar_ajax')
         self.reset_avatar_url = reverse('reset-avatar')
         self.delete_user_url = reverse('delete-user')
+        self.addresses_url = reverse(
+            'my_addresses',
+            kwargs={'user': 'testuser'}
+        )
+        self.add_address_url = reverse(
+            'add_address',
+            kwargs={'user': 'testuser'}
+        )
 
     def test_user_profile_view(self):
         """Test user profile view."""
@@ -215,6 +223,17 @@ class TestViews(TestCase):
             },
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_addresses_get_view(self):
+        """Test addresses get view."""
+        self.client.force_login(self.user)
+        response = self.client.get(self.addresses_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/my_addresses.html')
+        self.client.logout()
+        response = self.client.get(self.addresses_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
 
