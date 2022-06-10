@@ -56,3 +56,34 @@ The following screenshot will confirm that the passwords in both cases were hash
 
 ![Testing JsonResponse on Password change](documentation/testing/tests_issues3.png)
 As it might seem, I am not able to test the response of the JsonResponse.
+
+
+
+## Bugs
+
+**Solved bugs:**
+1. I was getting an error message when I tried to test the JsonResponse response on Password change.
+
+*Solution:*
+
+Added `request.user` argument to the `PasswordChangeForm` form.
+
+```python
+    password_form = PasswordChangeForm(request.user, request.POST)
+```
+
+2. I was logged out right after the user logged in and the tests were showing the error `The view profiles.views.EditUserProfileView didn't return an HttpResponse object. It returned None instead.`
+
+*Solution:*
+
+Add additional import to the profiles views: `update_session_auth_hash`
+And after saving the form, call the `update_session_auth_hash` function:
+
+```python
+    from django.contrib.auth import update_session_auth_hash
+
+    if password_form.is_valid():
+    password_form.save()
+    update_session_auth_hash(request, password_form.user)
+    return JsonResponse({'success': True})
+```
