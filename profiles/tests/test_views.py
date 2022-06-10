@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from profiles.models import Role, Profile, Address
 import cloudinary
 import cloudinary.uploader
+from django.contrib.auth.hashers import make_password
 
 
 class TestViews(TestCase):
@@ -12,8 +13,7 @@ class TestViews(TestCase):
 
     def setUp(self):
         """Set up the test."""
-        self.client = Client()
-        self.user_profile_url = reverse('my_profile', kwargs={'user': 'testuser'})
+
         self.role1 = Role.objects.create(
             name='Customer',
             description='Customer'
@@ -44,6 +44,15 @@ class TestViews(TestCase):
             created_at='2020-01-01',
             updated_at='2020-01-01'
         )
+        self.client = Client()
+        self.user_profile_url = reverse(
+            'my_profile',
+            kwargs={'user': 'testuser'}
+        )
+        self.edit_user_profile_url = reverse(
+            'edit_profile',
+            kwargs={'user': 'testuser'}
+        )
 
     def test_user_profile_view(self):
         """Test user profile view."""
@@ -53,5 +62,89 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'profiles/my_profile.html')
         self.client.logout()
         response = self.client.get(self.user_profile_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_profile_get_view(self):
+        """Test edit profile get view."""
+        self.client.force_login(self.user)
+        response = self.client.get(self.edit_user_profile_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/edit_profile.html')
+        self.assertIn('profile_form', response.context)
+        self.assertIn('password_form', response.context)
+        self.client.logout()
+        response = self.client.get(self.edit_user_profile_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_profile_post_view(self):
+        """Test edit profile post view."""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.edit_user_profile_url,
+            data={
+                'form_type': 'profile',
+                'first_name': 'Test',
+                'last_name': 'User',
+                'birthday': '2020-01-01',
+                'subscription': True
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        response = self.client.post(
+            self.edit_user_profile_url,
+            data={
+                'form_type': 'profile',
+                'first_name': 'Test',
+                'last_name': 'User',
+                'birthday': '20-01-01',
+                'subscription': True
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.json()['success'], False)
+        self.client.logout()
+        pwd = make_password('123')
+        self.user33 = User.objects.create(
+            username='testuser33',
+            password = pwd,
+            email='user3gmail.com'
+        )
+        self.client.force_login(self.user33)
+        pwd2 = make_password('12345')
+        print('User password', self.user33.password)
+        print(pwd)
+        print(pwd2)
+        response = self.client.post(
+            self.edit_user_profile_url,
+            data={
+                'form_type': 'password',
+                'old_password': pwd,
+                'new_password': pwd2,
+                'confirm_password': pwd2
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        response = self.client.post(
+
+            self.edit_user_profile_url,
+            data={
+
+                'form_type': 'password',
+                'old_password': 'Password987',
+                'new_password': 'Password987',
+                'confirm_password': 'Password987'
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.json()['success'], False)
+        self.client.logout()
+        response = self.client.post(
+            self.edit_user_profile_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
