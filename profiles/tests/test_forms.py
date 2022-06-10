@@ -7,7 +7,6 @@ from profiles.models import Role, Profile, Address
 
 class TestForms(TestCase):
     """Tests for the forms of the profile app."""
-
     def setUp(self):
         """Set up the test."""
         self.role1 = Role.objects.create(
@@ -40,7 +39,7 @@ class TestForms(TestCase):
     def test_profile_form_has_fields(self):
         """Test the profile form has the correct fields."""
         form = ProfileForm()
-        expected = ['first_name', 'last_name', 'birthday', 'avatar', 'subscription']
+        expected = ['first_name', 'last_name', 'birthday', 'subscription']
         actual = list(form.fields)
         self.assertSequenceEqual(expected, actual)
 
@@ -51,7 +50,6 @@ class TestForms(TestCase):
                 'first_name': 'Test',
                 'last_name': 'User',
                 'birthday': '2020-01-01',
-                'avatar': '',
                 'subscription': True
             }
         )
