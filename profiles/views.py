@@ -35,15 +35,29 @@ class UserProfileView(View):
 
 
 class EditAvatarAjaxView(View):
+    """View for the edit avatar page."""
     def post(self, request, *args, **kwargs):
-        user = request.user
-        new_avatar = request.FILES['avatar']
-        user.profile.avatar = new_avatar
-        user.profile.save()
-        avatar_url = user.profile.avatar.url
-        return JsonResponse({'success': True, 'avatar_url': avatar_url})
+        """Post request for the edit avatar page."""
+        if request.is_ajax():
+            user = request.user
+            new_avatar = request.FILES['avatar']
+            user.profile.avatar = new_avatar
+            user.profile.save()
+            avatar_url = user.profile.avatar.url
+            return JsonResponse({'success': True, 'avatar_url': avatar_url})
+        return JsonResponse({'success': False})
 
 
+class ResetAvatarView(View):
+    """View for the reset avatar page."""
+    def post(self, request, *args, **kwargs):
+        """Post request for the reset avatar page."""
+        if request.is_ajax():
+            user = request.user
+            user.profile.avatar = None
+            user.profile.save()
+            return JsonResponse({'success': True})
+        return JsonResponse({'success': False})
 
 
 class EditUserProfileView(View):
