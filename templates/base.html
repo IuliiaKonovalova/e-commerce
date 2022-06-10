@@ -25,9 +25,15 @@
     {% block extra_css %}
     {% endblock%}
 
+
+
+    {% block jslibraries %}
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://kit.fontawesome.com/8e4b08b302.js" crossorigin="anonymous"></script>
+    {% endblock %}
     {% block corejs %}
       {% comment %} Link to fontawesome {% endcomment %}
-      <script src="https://kit.fontawesome.com/7a0af02583.js" crossorigin="anonymous"></script>
     {% endblock%}
 
     {% block extra_js %}
@@ -48,13 +54,22 @@
         <ul class="navbar__items">
           {% if not request.user.is_authenticated %}
             <li class="navbar__item">
-              
+              <a href="{% url 'account_signup' %}" class="">SignUp</a>
+              <a href="{% url 'account_login' %}" class="">Login</a>
             </li>
           {% endif %}
           {% comment %} Links for school members {% endcomment %}
           {% if request.user.is_authenticated %}
             <li class="navbar__item">
-              
+              <a href="{% url 'my_profile' user=request.user %}" aria-label="Go to Profile page"
+                class="account__option">
+                Profile
+              </a>
+            </li>
+            <li class="navbar__item">
+              <a href="{% url 'account_logout' %}" aria-label="Logout" class="">
+                Logout
+              </a>
             </li>
           {% comment %} Links acccessable to every member {% endcomment %}
           {% else %}
