@@ -55,6 +55,7 @@ class TestViews(TestCase):
         )
         self.edit_avatar_url = reverse('edit_avatar_ajax')
         self.reset_avatar_url = reverse('reset-avatar')
+        self.delete_user_url = reverse('delete-user')
 
     def test_user_profile_view(self):
         """Test user profile view."""
@@ -171,10 +172,8 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['success'], False)
         response = self.client.post(
-
             self.edit_user_profile_url,
             data={
-
                 'form_type': 'password',
                 'old_password': 'Password987',
                 'new_password': 'Password987',
@@ -188,3 +187,34 @@ class TestViews(TestCase):
             self.edit_user_profile_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_profile_view(self):
+        """Test delete profile view."""
+        pwd = make_password('123')
+        self.user33 = User.objects.create(
+            username='testuser33',
+            password = pwd,
+            email='user3gmail.com'
+        )
+        self.client.force_login(self.user33)
+        self.assertEqual(User.objects.filter(username='testuser33').count(), 1)
+        response = self.client.post(
+            self.delete_user_url,
+            data={
+                'password': 'pwd'
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertRedirects(response, '/')
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(User.objects.filter(username='testuser33').count(), 0)
+        response = self.client.post(
+            self.delete_user_url,
+            data={
+                'password': 'pwd'
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
