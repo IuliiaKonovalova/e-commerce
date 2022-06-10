@@ -76,6 +76,34 @@ class TestViews(TestCase):
             {'avatar': avatar},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
+        self.assertEqual(response.status_code, 200)
+        # check whether AJAX response has failed
+        self.client.logout()
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.edit_avatar_url,
+            {'avatar': avatar}
+        )
+        self.assertEqual(response.json()['success'], False)
+
+    def test_reset_avatar_ajax_view(self):
+        """Test reset avatar ajax view."""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.reset_avatar_url,
+            {},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        # check whether AJAX response has failed
+        self.client.logout()
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.reset_avatar_url,
+            {'avatar': 'test'}
+        )
+        self.assertEqual(response.json()['success'], False)
+
 
     def test_edit_profile_get_view(self):
         """Test edit profile get view."""
