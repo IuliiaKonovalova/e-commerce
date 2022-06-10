@@ -34,6 +34,16 @@ class UserProfileView(View):
             )
 
 
+class EditAvatarAjaxView(View):
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        new_avatar = request.FILES['avatar']
+        user.profile.avatar = new_avatar
+        user.profile.save()
+        avatar_url = user.profile.avatar.url
+        return JsonResponse({'success': True, 'avatar_url': avatar_url})
+
+
 
 
 class EditUserProfileView(View):
