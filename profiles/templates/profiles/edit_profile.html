@@ -1,0 +1,288 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extracss %}
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+  Edit Profile:
+  {% comment %} Editing Profile Avatar {% endcomment %}
+  <div class="avatar__edit--form">
+    <div class="">
+      {% if user.profile.avatar %}
+      <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
+      {% else %}
+      <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
+      {% endif %}
+      <div class="avatar-buttons">
+        <button class="" id="edit-avatar-btn">Edit</button>
+        <button class="" id="reset-avatar-btn">Remove avatar</button>
+      </div>
+    </div>
+    {% comment %} Editing Profile Data {% endcomment %}
+    <div class="">
+      <form class="profile__edit--form">
+        {% csrf_token %}
+        {{ profile_form }}
+        <button class="save-form profile-bio-edit-btn" id="profile-save-btn">Save changes</button>
+      </form>
+      <form class="profile__password--form">
+        <h2 class="">Edit password</h2>
+        {% csrf_token %}
+        {{ password_form }}
+        <button class="save-form password-form-btn" id="save-password-btn">Change password</button>
+      </form>
+    </div>
+
+    {% comment %} Delete Profile Form {% endcomment %}
+    <div class="profile__delete--form">
+      <button class="btn__delete" id="btn-delete-profile">
+        Delete account <i class="fas fa-trash-alt"></i>
+      </button>
+      <div class="profile__delete--dropdown hidden" id="delete-dropwdown">
+        <p>Are you sure you want to permanently delete your account?</p>
+        <p>This action is irreversible!!!</p>
+        <div class="">
+          <a id="delete-confirm" href="#">Yes, delete</a>
+          <a id="delete-cancel" href="javascript:void(0);">No, cancel</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#edit-avatar-btn').on('click', () => {
+        let fileInput = document.createElement('input');
+        fileInput.type = 'file';
+        fileInput.accept = 'image/*';
+        fileInput.click();
+        $(fileInput).on('change', (e) => {
+          let file = e.target.files[0];
+          e.target.value = '';
+          let currentAvatarUrl = $('img.avatar').attr('src');
+          let editBtnBackup = $('#edit-avatar-btn');
+          $('.avatar').attr('src', URL.createObjectURL(file));
+          // replacing edit button with save and cancel buttons
+          let buttons = `<button id="save-avatar-btn">Save <i class="fas fa-check"></i></button>
+                          <button id="cancel-avatar-btn">Cancel <i class="fas fa-times"></i></button>`;
+          $('#edit-avatar-btn').after(buttons);
+          $('#edit-avatar-btn').hide();
+          $('#cancel-avatar-btn').on('click', () => {
+            $('.avatar').attr('src', currentAvatarUrl);
+            $('#edit-avatar-btn').show();
+            $('#save-avatar-btn').remove();
+            $('#cancel-avatar-btn').remove();
+          })
+          $('#save-avatar-btn').on('click', () => {
+            // display loading icon
+            $('#save-avatar-btn i').replaceWith('<i class="fas fa-spinner fa-spin"></i>');
+            // disable buttons
+            $('#save-avatar-btn').prop('disabled', true);
+            $('#cancel-avatar-btn').prop('disabled', true);
+
+            let formData = new FormData();
+            formData.append('avatar', file);
+            formData.append('csrfmiddlewaretoken', "{{ csrf_token }}");
+            $.ajax({
+              url: "{% url 'edit_avatar_ajax' %}",
+              type: 'POST',
+              processData: false,
+              contentType: false,
+              cache: false,
+              data: formData,
+              success: function (data) {
+                $('.avatar').attr('src', data.avatar_url);
+                $('#edit-avatar-btn').show();
+                $('#save-avatar-btn').remove();
+                $('#cancel-avatar-btn').remove();
+                // show success message for 3 seconds
+                $('#reset-avatar-btn').after('<span class="success-message">Saved!</span>');
+                setTimeout(() => {
+                  $('.success-message').remove();
+                }, 3000);
+              },
+              error: function (data) {
+                $('.avatar').attr('src', currentAvatarUrl);
+                $('#edit-avatar-btn').show();
+                $('#save-avatar-btn').remove();
+                $('#cancel-avatar-btn').remove();
+                // show error message for 3 seconds
+                $('#reset-avatar-btn').after('<span class="error-message">Error!</span>');
+                setTimeout(() => {
+                  $('.error-message').remove();
+                }, 3000);
+              }
+            });
+          })
+        })
+      })
+
+      $('#reset-avatar-btn').on('click', () => {
+        let currentAvatarUrl = $('img.avatar').attr('src');
+        let defaultAvatarUrl = "{% static 'images/default_avatar.svg' %}";
+        $('img.avatar').attr('src', defaultAvatarUrl);
+        let confirmation = confirm('Are you sure you want to reset your avatar?');
+        if (confirmation) {
+          // display loading icon
+          $('#reset-avatar-btn').append('<i class="fas fa-spinner fa-spin"></i>');
+          // disable buttons
+          $('#reset-avatar-btn').prop('disabled', true);
+          $('#edit-avatar-btn').prop('disabled', true);
+          $.ajax({
+            url: "{% url 'reset-avatar' %}",
+            type: 'POST',
+            data: {
+              'csrfmiddlewaretoken': "{{ csrf_token }}"
+            },
+            success: function (data) {
+              // remove loading icon
+              $('#reset-avatar-btn i').remove();
+              // enable buttons
+              $('#reset-avatar-btn').prop('disabled', false);
+              $('#edit-avatar-btn').prop('disabled', false);
+              // show success message for 3 seconds
+              $('#reset-avatar-btn').after('<span class="success-message">Saved!</span>');
+              setTimeout(() => {
+                $('.success-message').remove();
+              }, 3000);
+            },
+            error: function (data) {
+              // remove loading icon
+              $('#reset-avatar-btn i').remove();
+              // enable buttons
+              $('#reset-avatar-btn').prop('disabled', false);
+              $('#edit-avatar-btn').prop('disabled', false);
+              // show error message for 3 seconds
+              $('#reset-avatar-btn').after('<span class="error-message">Error!</span>');
+              setTimeout(() => {
+                $('.error-message').remove();
+              }, 3000);
+            }
+          });
+        }
+      });
+      $('#id_birth_date').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'yy-mm-dd',
+        yearRange: '-100:-12',
+
+      });
+      $('#profile-save-btn').on('click', () => {
+        let form = $('.profile__edit--form');
+        let data = form.serialize();
+        // append 'form_type' to the data
+        data += '&form_type=profile';
+        // make all inputs disabled
+        form.find('input').prop('disabled', true);
+        // make all buttons disabled
+        form.find('button').prop('disabled', true);
+        // make all selects disabled
+        form.find('select').prop('disabled', true);
+        // make all textareas disabled
+        form.find('textarea').prop('disabled', true);
+        // add loading icon next to save button
+        $('#profile-save-btn').append('<i class="fas fa-spinner fa-spin"></i>');
+        $.ajax({
+          url: "{% url 'edit_profile' user=request.user %}",
+          type: 'POST',
+          data: data,
+          success: function (data) {
+            // remove loading icon
+            $('#profile-save-btn i').remove();
+            // make all inputs enabled
+            form.find('input').prop('disabled', false);
+            // make all buttons enabled
+            form.find('button').prop('disabled', false);
+            // make all selects enabled
+            form.find('select').prop('disabled', false);
+            // make all textareas enabled
+            form.find('textarea').prop('disabled', false);
+            // show success message
+            $('#profile-save-btn').after('<span class="success-message">Saved!</span>');
+            // remove success message after 3 seconds
+            setTimeout(() => {
+              $('.success-message').remove();
+            }, 3000);
+          },
+          error: function (data) {
+            // remove loading icon
+            $('#profile-save-btn i').remove();
+            // make all inputs enabled
+            form.find('input').prop('disabled', false);
+            // make all buttons enabled
+            form.find('button').prop('disabled', false);
+            // make all selects enabled
+            form.find('select').prop('disabled', false);
+            // make all textareas enabled
+            form.find('textarea').prop('disabled', false);
+            // show error message
+            $('#profile-save-btn').after('<span class="error-message">Error!</span>');
+            // remove error message after 3 seconds
+            setTimeout(() => {
+              $('.error-message').remove();
+            }, 3000);
+          }
+        })
+      })
+      $('#save-password-btn').on('click', () => {
+        let form = $('.profile__password--form');
+        let data = form.serialize();
+        // append 'form_type' to the data
+        data += '&form_type=password';
+        // make all inputs disabled
+        form.find('input').prop('disabled', true);
+        // make all buttons disabled
+        form.find('button').prop('disabled', true);
+        // add loading icon next to save button
+        $('#save-password-btn').append('<i class="fas fa-spinner fa-spin"></i>');
+        $.ajax({
+          url: "{% url 'edit_profile' user=request.user %}",
+          type: 'POST',
+          data: data,
+          success: function (data) {
+            // clean all inputs
+            form.find('input').val('');
+            // remove loading icon
+            $('#save-password-btn i').remove();
+            // make all inputs enabled
+            form.find('input').prop('disabled', false);
+            // make all buttons enabled
+            form.find('button').prop('disabled', false);
+            // show success message
+            $('#save-password-btn').after('<span class="success-message">Saved!</span>');
+            // remove success message after 3 seconds
+            setTimeout(() => {
+              $('.success-message').remove();
+            }, 3000);
+          },
+          error: function (data) {
+            // remove loading icon
+            $('#save-password-btn i').remove();
+            // make all inputs enabled
+            form.find('input').prop('disabled', false);
+            // make all buttons enabled
+            form.find('button').prop('disabled', false);
+            // show error message for 3 seconds
+            $('#save-password-btn').after('<span class="error-message">Error!</span>');
+            setTimeout(() => {
+              $('.error-message').remove();
+            }, 3000);
+          }
+        })
+      })
+
+      $('#btn-delete-profile').on('click', (e) => {
+        $('#delete-dropwdown').toggleClass('hidden');
+        $('html, body').animate({
+          scrollTop: $(document).height()
+        }, 'slow');
+      });
+      $('#delete-cancel').on('click', (e) => {
+        $('#delete-dropwdown').addClass('hidden');
+      });
+    });
+  </script>
+
+{% endblock %}
