@@ -53,6 +53,8 @@ class TestViews(TestCase):
             'edit_profile',
             kwargs={'user': 'testuser'}
         )
+        self.edit_avatar_url = reverse('edit_avatar_ajax')
+        self.reset_avatar_url = reverse('reset-avatar')
 
     def test_user_profile_view(self):
         """Test user profile view."""
@@ -64,6 +66,16 @@ class TestViews(TestCase):
         response = self.client.get(self.user_profile_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_avatar_ajax_view(self):
+        """Test edit avatar ajax view."""
+        self.client.force_login(self.user)
+        avatar = open('static/images/default_testing_avatar.jpg', 'rb')
+        response = self.client.post(
+            self.edit_avatar_url,
+            {'avatar': avatar},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
 
     def test_edit_profile_get_view(self):
         """Test edit profile get view."""
@@ -129,7 +141,7 @@ class TestViews(TestCase):
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(response.json()['success'], False)
         response = self.client.post(
 
             self.edit_user_profile_url,
