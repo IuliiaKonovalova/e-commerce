@@ -19,9 +19,14 @@ class UserProfileView(View):
             my_addresses = Address.objects.filter(
                 user=request.user
             )
+            primary_address = Address.objects.filter(
+                user=request.user,
+                is_primary=True
+            )
             context = {
                 'my_profile': my_profile,
-                'my_addresses': my_addresses
+                'my_addresses': my_addresses,
+                'primary_address': primary_address
             }
             return render(
                 request,
@@ -130,7 +135,7 @@ class AddressesView(View):
         if request.user.is_authenticated:
             addresses = Address.objects.filter(user=request.user)
             context = {
-                'addresses': addresses
+                'addresses': addresses,
             }
             return render(
                 request,
@@ -230,6 +235,26 @@ class EditAddressView(View):
                 request,
                 'profiles/edit_address.html',
                 {'address_form': address_form}
+            )
+        else:
+            return render(
+                request,
+                'account/login.html'
+            )
+
+
+class DeleteAddressView(View):
+    """View for the delete address page."""
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            address_id = kwargs['pk']
+            address = get_object_or_404(Address, id=address_id)
+            address.delete()
+            return HttpResponseRedirect(
+                reverse(
+                    'my_addresses',
+                    kwargs={'user': request.user.username}
+                )
             )
         else:
             return render(
