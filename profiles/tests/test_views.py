@@ -237,3 +237,15 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
 
+    def test_add_address_get_view(self):
+        """Test add address get view."""
+        self.client.force_login(self.user)
+        response = self.client.get(self.add_address_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/add_address.html')
+        self.client.logout()
+        response = self.client.get(self.add_address_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+
