@@ -1,6 +1,6 @@
 """Views for the profiles app."""
 from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.http import JsonResponse, HttpResponseRedirect
 from .models import Role, Profile, Address
 from .forms import ProfileForm, AddressForm
@@ -122,3 +122,25 @@ class DeleteProfileView(View):
                 request,
                 'account/login.html'
             )
+
+
+class AddressesView(View):
+    """View for the addresses page."""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            addresses = Address.objects.filter(user=request.user)
+            context = {
+                'addresses': addresses
+            }
+            return render(
+                request,
+                'profiles/my_addresses.html',
+                context
+            )
+        else:
+            return render(
+                request,
+                'account/login.html'
+            )
+
+
