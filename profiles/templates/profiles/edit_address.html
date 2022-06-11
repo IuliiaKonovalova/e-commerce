@@ -11,7 +11,7 @@
   <div>
     <p>Add new address.</p>
     <div class="">
-      <form class="address__add--form" method="post" action="{% url 'add_address' user=request.user %}">
+      <form class="address__add--form" method="post">
         {% csrf_token %}
         {{ address_form.as_p }}
         <button class="" id="save-address-btn" type="submit">Save changes</button>
