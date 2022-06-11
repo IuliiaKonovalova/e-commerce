@@ -74,3 +74,85 @@ img {
   width: 300px;
   height: 300px;
 }
+
+#id_first_name,
+#id_last_name,
+#id_country,
+#id_county_region,
+#id_address_line,
+#id_city,
+#id_bio {
+  width: 100% !important;
+  height: 28px;
+  line-height: 28px;
+  padding-left: 8px;
+  color: #444;
+  font-size: large;
+  line-height: 1.5em;
+  border-radius: 4px;
+  border: 1px solid #aaa !important;
+}
+
+#id_first_name,
+#id_last_name,
+#id_bio {
+  width: 100%;
+}
+
+/* Address cards */
+
+.addresses__all {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  grid-gap: 1rem;
+}
+
+.addresses__all>div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--br);
+  background-color: var(--clr-bg--100);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  color: white;
+  padding: 1em;
+}
+
+.address__card--primary {
+  background-color: var(--clr-bg--300) !important;
+}
+
+.addresses__all div a {
+  color: white;
+}
+
+.address__card {}
+
+.address__card--edit,
+.address__card--disable,
+.address__card--enable {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.address__card--edit {
+  background-color: var(--clr-accent--900);
+  margin-bottom: 0.2em;
+}
+
+.address__card--disable {
+  background-color: var(--clr-accent--700);
+}
+
+.address__card--enable {
+  background-color: green;
+}
