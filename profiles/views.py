@@ -144,3 +144,47 @@ class AddressesView(View):
             )
 
 
+class AddAddressView(View):
+    """View for the add address page."""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            address_form = AddressForm()
+            user = request.user.username
+            context = {
+                'address_form': address_form,
+                'user': user
+            }
+            return render(
+                request,
+                'profiles/add_address.html',
+                context
+            )
+        else:
+            return render(
+                request,
+                'account/login.html'
+            )
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            address_form = AddressForm(request.POST)
+            user_name = request.user.username
+            if address_form.is_valid():
+                address = address_form.save(commit=False)
+                address.user = request.user
+                address.save()
+                return HttpResponseRedirect(
+                    reverse(
+                        'my_addresses',
+                        kwargs={'user': user_name}
+                    )
+                )
+            return render(
+                request,
+                'profiles/add_address.html',
+                {'address_form': address_form}
+            )
+        else:
+            return render(
+                request,
+                'account/login.html'
+            )
