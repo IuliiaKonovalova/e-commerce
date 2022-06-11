@@ -5,7 +5,11 @@ from profiles.views import (
     UserProfileView,
     EditAvatarAjaxView,
     ResetAvatarView,
-    EditUserProfileView
+    EditUserProfileView,
+    DeleteProfileView,
+    AddressesView,
+    AddAddressView,
+    EditAddressView
 )
 
 
@@ -31,3 +35,23 @@ class TestUrls(SimpleTestCase):
         """Test edit user profile url."""
         url = reverse('edit_profile', kwargs={'user': 'testuser'})
         self.assertEquals(resolve(url).func.view_class, EditUserProfileView)
+
+    def test_delete_profile_url(self):
+        """Test delete profile url."""
+        url = reverse('delete-user')
+        self.assertEquals(resolve(url).func.view_class, DeleteProfileView)
+
+    def test_addresses_url(self):
+        """Test addresses url."""
+        url = reverse('my_addresses', kwargs={'user': 'testuser'})
+        self.assertEquals(resolve(url).func.view_class, AddressesView)
+
+    def test_add_address_url(self):
+        """Test add address url."""
+        url = reverse('add_address', kwargs={'user': 'testuser'})
+        self.assertEquals(resolve(url).func.view_class, AddAddressView)
+
+    def test_edit_address_url(self):
+        """Test edit address url."""
+        url = reverse('edit_address', kwargs={'user': 'testuser', 'pk': 1})
+        self.assertEquals(resolve(url).func.view_class, EditAddressView)
