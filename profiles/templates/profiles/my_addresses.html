@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="">
+  <div>Your addresses:</div>
+  <div class="addresses__all">
+    {% if addresses %}
+    {% for address in addresses %}
+    {% if address.is_primary %}
+    <div class="address__card address__card--primary">
+      <div>
+        Country: {{ address.country }}
+      </div>
+      <div>
+        County/region/state: {{ address.county_region }}
+      </div>
+      <div>
+        City: {{ address.city }}
+      </div>
+      <div>
+        Address Line: {{ address.address_line }}
+      </div>
+      <div>
+        Zip/postal code: {{ address.zip_code }}
+      </div>
+      <div>
+        Phone: {{ address.phone_number }}
+      </div>
+      <div>
+        Primary: {{ address.is_primary }}
+      </div>
+      <div class="address__card--edit">
+        <a href="#">Edit</a>
+      </div>
+      <div class="address__card--disable">
+        <a href="#">Disable as Primary</a>
+      </div>
+    </div>
+    {% else %}
+    <div class="address__card">
+      <div>
+        Country: {{ address.country }}
+      </div>
+      <div>
+        County/region/state: {{ address.county_region }}
+      </div>
+      <div>
+        City: {{ address.city }}
+      </div>
+      <div>
+        Address Line: {{ address.address_line }}
+      </div>
+      <div>
+        Zip/postal code: {{ address.zip_code }}
+      </div>
+      <div>
+        Phone: {{ address.phone_number }}
+      </div>
+      <div>
+        Primary: {{ address.is_primary }}
+      </div>
+      <div class="address__card--edit">
+        <a href="#">Edit</a>
+      </div>
+      <div class="address__card--enable" id="address-enable">
+        <a href="#">Enable as Primary</a>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <div>
+      <a href="{% url 'add_address' user=request.user %}">
+        Add new address
+        <i class="fas fa-plus-circle"></i>
+      </a>
+    </div>
+    {% else %}
+    <p>You have no addresses.</p>
+
+    {% endif %}
+  </div>
+</div>
+</div>
+<script>
+  $(document).ready(function () {
+    $('#address-enable').click(function () {
+      // set the address as primary in database
+      $.ajax({
+        {% comment %} url: "{% url 'edit_address' user=request.user %}", {% endcomment %}
+        type: 'POST',
+        data: {
+          'address_id': $(this).parent().data('address-id'),
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+          console.log(data);
+          // reload the page
+          location.reload();
+        }
+      });
+    });
+  });
+</script>
+
+{% endblock %}
