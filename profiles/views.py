@@ -188,3 +188,51 @@ class AddAddressView(View):
                 request,
                 'account/login.html'
             )
+
+
+class EditAddressView(View):
+    """View for the edit address page."""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            address_id = kwargs['pk']
+            address = get_object_or_404(Address, id=address_id)
+            address_form = AddressForm(instance=address)
+            user = request.user.username
+            context = {
+                'address_form': address_form,
+                'address': address,
+                'user': user
+            }
+            return render(
+                request,
+                'profiles/edit_address.html',
+                context
+            )
+        else:
+            return render(
+                request,
+                'account/login.html'
+            )
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            address_id = kwargs['pk']
+            address = get_object_or_404(Address, id=address_id)
+            address_form = AddressForm(request.POST, instance=address)
+            if address_form.is_valid():
+                address_form.save()
+                return HttpResponseRedirect(
+                    reverse(
+                        'my_addresses',
+                        kwargs={'user': request.user.username}
+                    )
+                )
+            return render(
+                request,
+                'profiles/edit_address.html',
+                {'address_form': address_form}
+            )
+        else:
+            return render(
+                request,
+                'account/login.html'
+            )
