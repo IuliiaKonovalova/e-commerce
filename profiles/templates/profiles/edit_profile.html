@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block extracss %}
+{% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 {% block content %}
@@ -162,12 +162,14 @@
           });
         }
       });
-      $('#id_birth_date').datepicker({
+      $('#id_birthday').datepicker({
         changeMonth: true,
         changeYear: true,
         dateFormat: 'yy-mm-dd',
         yearRange: '-100:-12',
-
+      });
+      $( function() {
+        $( "#id_subscription" ).checkboxradio();
       });
       $('#profile-save-btn').on('click', () => {
         let form = $('.profile__edit--form');
