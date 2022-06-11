@@ -22,9 +22,9 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
   $(document).ready(function () {
-    let user_country = '{{ user.address.country }}';
-    let user_county_region = '{{ user.address.county_region }}';
-    let user_city = '{{ user.address.city }}';
+    let user_country = '{{ address.country }}';
+    let user_county_region = '{{ address.county_region }}';
+    let user_city = '{{ address.city }}';
     $('#id_country').select2(
       {
         placeholder: "Select a country",
@@ -82,6 +82,7 @@
             }
           }));
         }
+        $('#id_country').val(user_country).trigger('change');
       }
 
     })
@@ -133,6 +134,7 @@
           $.each(data.geonames, function (key, value) {
             city.append('<option value="' + value.geonameId + '">' + value.name + '</option>');
           });
+          $('#id_city').val(user_city);
         }
       });
     })
