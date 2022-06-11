@@ -248,4 +248,53 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
 
+    def test_add_address_post_view(self):
+        """Test add address post view."""
+        self.client.force_login(self.user)
+        self.assertEqual(Address.objects.filter(user=self.user).count(), 1)
+        response = self.client.post(
+            self.add_address_url,
+            data={
+                'country': 'Test country',
+                'county_region': 'Test county region',
+                'city': 'Test city',
+                'address_line': 'Test street',
+                'zip_code': '12345',                
+                'phone_number': '123456789',
+                'is_primary': True
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Address.objects.filter(user=self.user).count(), 2)
+        self.assertEqual(response.url, self.addresses_url)
+        response = self.client.post(
+            self.add_address_url,
+            data={
+                'country': 'Test country',
+                'county_region': 'Test county region',
+                'city': 'Test city',
+                'address_line': 'Test street',
+                'zip_code': '12345',
+                'phone_number': '',
+                'is_primary': True
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/add_address.html')
+        self.assertEqual(Address.objects.filter(user=self.user).count(), 2)
+        self.client.logout()
+        response = self.client.post(
+            self.add_address_url,
+            data={
+                'country': 'Test country',
+                'county_region': 'Test county region',
+                'city': 'Test city',
+                'address_line': 'Test street',
+                'zip_code': '12345',                
+                'phone_number': '123456789',
+                'is_primary': True
+            },
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
 
