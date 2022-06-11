@@ -220,7 +220,6 @@ class Address(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if self.is_primary:
-            for address in self.user.addresses.all():
-                print(address)
+            for address in self.user.addresses.all().exclude(id=self.id):
                 address.is_primary = False
                 address.save()
