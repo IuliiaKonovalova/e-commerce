@@ -32,10 +32,10 @@
         Primary: {{ address.is_primary }}
       </div>
       <div class="address__card--edit">
-        <a href="#">Edit</a>
+        <a href="{% url 'edit_address' user=request.user pk=address.pk %}" aria-label="Go to Edit Address Page">Edit</a>
       </div>
       <div class="address__card--disable">
-        <a href="#">Disable as Primary</a>
+        <a href="#" aria-label="Disable Primary Address">Disable as Primary</a>
       </div>
     </div>
     {% else %}
@@ -62,10 +62,10 @@
         Primary: {{ address.is_primary }}
       </div>
       <div class="address__card--edit">
-        <a href="#">Edit</a>
+        <a href="{% url 'edit_address' user=request.user pk=address.pk %}" aria-label="Go to Edit Address Page">Edit</a>
       </div>
       <div class="address__card--enable" id="address-enable">
-        <a href="#">Enable as Primary</a>
+        <a href="#" aria-label="Enable Primary Address">Enable as Primary</a>
       </div>
     </div>
     {% endif %}
@@ -88,7 +88,7 @@
     $('#address-enable').click(function () {
       // set the address as primary in database
       $.ajax({
-        {% comment %} url: "{% url 'edit_address' user=request.user %}", {% endcomment %}
+        {% comment %} url: "{% url 'edit_address' user=request.user pk=address.pk %}", {% endcomment %}
         type: 'POST',
         data: {
           'address_id': $(this).parent().data('address-id'),
