@@ -18,6 +18,21 @@
       </form>
     </div>
   </div>
+  {% comment %} Delete Address Form {% endcomment %}
+  <div class="profile__delete--form">
+    <button class="btn__delete" id="btn-delete-address">
+      Delete account <i class="fas fa-trash-alt"></i>
+    </button>
+    <div class="address__delete--dropdown hidden" id="delete-dropwdown">
+      <p>Are you sure you want to permanently delete this address?</p>
+      <p>This action is irreversible!!!</p>
+      <div class="">
+        <a id="delete-confirm" href="{% url 'delete_address' user=request.user pk=address.pk %}">Yes, delete my
+          account</a>
+        <a id="delete-cancel" href="javascript:void(0);">No, cancel</a>
+      </div>
+    </div>
+  </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
@@ -132,7 +147,7 @@
           console.log(data);
           city.html('<option value="" selected disabled>Select City</option>');
           $.each(data.geonames, function (key, value) {
-            city.append('<option value="' + value.geonameId + '">' + value.name + '</option>');
+            city.append('<option value="' + value.name + '">' + value.name + '</option>');
           });
           $('#id_city').val(user_city);
         }
@@ -140,6 +155,16 @@
     })
     $(function () {
       $("#id_is_primary").checkboxradio();
+    });
+
+    $('#btn-delete-address').on('click', (e) => {
+      $('#delete-dropwdown').toggleClass('hidden');
+      $('html, body').animate({
+        scrollTop: $(document).height()
+      }, 'slow');
+    });
+    $('#delete-cancel').on('click', (e) => {
+      $('#delete-dropwdown').addClass('hidden');
     });
   });
 </script>
