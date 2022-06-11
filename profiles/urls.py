@@ -5,7 +5,10 @@ from .views import (
     EditAvatarAjaxView,
     ResetAvatarView,
     EditUserProfileView,
-    DeleteProfileView
+    DeleteProfileView,
+    AddressesView,
+    AddAddressView,
+    EditAddressView
 )
 
 urlpatterns = [
@@ -14,4 +17,7 @@ urlpatterns = [
     path('my_profile/delete/', DeleteProfileView.as_view(), name='delete-user'),
     path('<str:user>/', UserProfileView.as_view(), name='my_profile'),
     path('<str:user>/edit/', EditUserProfileView.as_view(), name='edit_profile'),
+    path('<str:user>/addresses/', AddressesView.as_view(), name='my_addresses'),
+    path('<str:user>/addresses/add/', AddAddressView.as_view(), name='add_address'),
+    path('<str:user>/addresses/<int:pk>/edit/', EditAddressView.as_view(), name='edit_address'),
 ]
