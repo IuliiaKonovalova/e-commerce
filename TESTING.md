@@ -87,3 +87,25 @@ And after saving the form, call the `update_session_auth_hash` function:
     update_session_auth_hash(request, password_form.user)
     return JsonResponse({'success': True})
 ```
+3. I was struggling to get countries, county/regions, cities using various libraries. At the very begginging I was using the `django-cities-light` library but it was taking too much available memory. Thus, I decided to use the [geonames](https://www.geonames.org/). The first issue that I encountered was that the link to the geonames website was not working. It was simply solved be enabling my account to use the geonames website. The following issue was regarding the selection regions and cities.
+
+*Solution:*
+
+Rather than searching for the regions by country name/code, I used country id to search for the regions.
+
+```javascript
+    let countryId = $('#id_country').find(':selected').data('id');
+```
+
+After retrieving the regions, I was able to get the first word of the region name and use it to search for the cities by link:
+
+```javascript
+    let stateName = $('#id_county_region').find(':selected').text();
+    let stateNameFirstWord = stateName.split(' ')[0];
+```
+
+and url for AJAX request:
+
+```javascript
+    url: 'https://secure.geonames.org/searchJSON?q=' + stateNameFirstWord + '&username=<my_account_name>&style=FULL&fclName=city, village,...&maxRows=1000',
+```
