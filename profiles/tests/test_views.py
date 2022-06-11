@@ -64,6 +64,10 @@ class TestViews(TestCase):
             'add_address',
             kwargs={'user': 'testuser'}
         )
+        self.edit_address_url = reverse(
+            'edit_address',
+            kwargs={'user': 'testuser', 'pk': self.address1.id}
+        )
 
     def test_user_profile_view(self):
         """Test user profile view."""
@@ -259,11 +263,13 @@ class TestViews(TestCase):
                 'county_region': 'Test county region',
                 'city': 'Test city',
                 'address_line': 'Test street',
-                'zip_code': '12345',                
+                'zip_code': '99999',                
                 'phone_number': '123456789',
                 'is_primary': True
             },
         )
+        # print address
+        print(Address.objects.filter(user=self.user))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Address.objects.filter(user=self.user).count(), 2)
         self.assertEqual(response.url, self.addresses_url)
@@ -298,3 +304,59 @@ class TestViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
 
+    def test_edit_address_get_view(self):
+        """Test edit address get view."""
+        self.client.force_login(self.user)
+        response = self.client.get(self.edit_address_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/edit_address.html')
+        self.client.logout()
+        response = self.client.get(self.edit_address_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_address_post_view(self):
+        """Test edit address post view."""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.edit_address_url,
+            data={
+                'country': 'Test country',
+                'county_region': 'Test county region',
+                'city': 'Test city',
+                'address_line': 'Test street',
+                'zip_code': '99999',                
+                'phone_number': '123456789',
+                'is_primary': True
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, self.addresses_url)
+        response = self.client.post(
+            self.edit_address_url,
+            data={
+                'country': 'Test country',
+                'county_region': 'Test county region',
+                'city': 'Test city',
+                'address_line': 'Test street',
+                'zip_code': '12345',
+                'phone_number': '',
+                'is_primary': True
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.client.logout()
+        response = self.client.post(
+            self.edit_address_url,
+            data={
+                'country': 'Test country',
+                'county_region': 'Test county region',
+                'city': 'Test city',
+                'address_line': 'Test street',
+                'zip_code': '12345',
+                'phone_number': '',
+                'is_primary': True
+            },
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
