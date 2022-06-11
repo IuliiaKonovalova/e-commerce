@@ -13,7 +13,7 @@ Add address:
   </div>
 
   <div class="">
-    <form class="address__add--form">
+    <form class="address__add--form" method="post" action="{% url 'add_address' user=request.user %}">
       {% csrf_token %}
       {{ address_form.as_p }}
       <button class="" id="save-address-btn" type="submit">Save changes</button>
