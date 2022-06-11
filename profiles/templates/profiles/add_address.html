@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+Add address:
+
+<div class="">
+  <div>
+    <p>Add new address.</p>
+
+  </div>
+
+  <div class="">
+    <form class="address__add--form">
+      {% csrf_token %}
+      {{ address_form.as_p }}
+      <button class="" id="save-address-btn" type="submit">Save changes</button>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function () {
+    let user_country = '{{ user.address.country }}';
+    let user_county_region = '{{ user.address.county_region }}';
+    let user_city = '{{ user.address.city }}';
+    $('#id_country').select2(
+      {
+        placeholder: "Select a country",
+        allowClear: true,
+      }
+    );
+    $('#id_county_region').select2(
+      {
+        placeholder: "Select a county or region",
+        allowClear: true,
+      }
+    );
+    $('#id_city').select2(
+      {
+        placeholder: "Select a city",
+        allowClear: true,
+      }
+    );
+    $('#id_country').on('select2:open', function () {
+      $('body').css('overflow-x', 'hidden');
+    });
+    $('#id_city').on('select2:open', function () {
+      $('body').css('overflow-x', 'hidden');
+    });
+
+    $('#id_county_region').on('select2:open', function () {
+      $('body').css('overflow-x', 'hidden');
+    });
+    $('#id_country').on('select2:close', function () {
+      $('body').css('overflow-x', 'auto');
+    });
+    $('#id_county_region').on('select2:close', function () {
+      $('body').css('overflow-x', 'auto');
+    });
+    $('#id_city').on('select2:close', function () {
+      $('body').css('overflow-x', 'auto');
+    });
+
+
+
+    // need to fetch only country names from geonames.org
+    $.ajax({
+      url: 'https://secure.geonames.org/countryInfoJSON?username=juliia55',
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        let select = $('#id_country');
+        for (var i = 0; i < data.geonames.length; i++) {
+          select.append($('<option>', {
+            value: data.geonames[i].countryName,
+            text: data.geonames[i].countryName,
+            data: {
+              code: data.geonames[i].countryCode,
+              id: data.geonames[i].geonameId,
+            }
+          }));
+        }
+      }
+
+    })
+    $('#id_country').on('change', () => {
+      let countryId = $('#id_country').find(':selected').data('id');
+      $.ajax({
+        url: 'https://secure.geonames.org/childrenJSON?geonameId=' + countryId + '&username=juliia55',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+          let select = $('#id_county_region');
+          select.empty();
+          select.append($('<option>', {
+            value: '',
+            text: 'Select a county or region',
+            data: {
+              code: '',
+              id: '',
+            }
+          }));
+          for (var i = 0; i < data.geonames.length; i++) {
+            select.append($('<option>', {
+              value: data.geonames[i].name,
+              text: data.geonames[i].name,
+              data: {
+                code: data.geonames[i].countryCode,
+                id: data.geonames[i].geonameId,
+              }
+            }));
+          }
+          // select user's county or region by default
+          $('#id_county_region').val(user_county_region).trigger('change');
+        }
+      })
+    })
+
+    $('#id_county_region').on('change', () => {
+      let stateName = $('#id_county_region').find(':selected').text();
+      let stateNameFirstWord = stateName.split(' ')[0];
+      const city = $('#id_city');
+
+      $.ajax({
+        url: 'https://secure.geonames.org/searchJSON?q=' + stateNameFirstWord + '&username=juliia55&style=FULL&fclName=city, village,...&maxRows=1000',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+          console.log(data);
+          city.html('<option value="" selected disabled>Select City</option>');
+          $.each(data.geonames, function (key, value) {
+            city.append('<option value="' + value.geonameId + '">' + value.name + '</option>');
+          });
+        }
+      });
+    })
+    $(function () {
+      $("#id_is_primary").checkboxradio();
+    });
+  });
+</script>
+
+{% endblock %}
