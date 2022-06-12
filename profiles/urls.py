@@ -8,7 +8,8 @@ from .views import (
     DeleteProfileView,
     AddressesView,
     AddAddressView,
-    EditAddressView
+    EditAddressView,
+    DeleteAddressView
 )
 
 urlpatterns = [
@@ -20,4 +21,5 @@ urlpatterns = [
     path('<str:user>/addresses/', AddressesView.as_view(), name='my_addresses'),
     path('<str:user>/addresses/add/', AddAddressView.as_view(), name='add_address'),
     path('<str:user>/addresses/<int:pk>/edit/', EditAddressView.as_view(), name='edit_address'),
+    path('<str:user>/addresses/<int:pk>/delete/', DeleteAddressView.as_view(), name='delete_address'),
 ]
