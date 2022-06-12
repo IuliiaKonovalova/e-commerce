@@ -11,6 +11,7 @@ from django.contrib.auth import update_session_auth_hash
 class UserProfileView(View):
     """View for the profile page."""
     def get(self, request, *args, **kwargs):
+        """Get the profile page."""
         if request.user.is_authenticated:
             my_profile = get_object_or_404(
                 Profile,
@@ -69,6 +70,7 @@ class ResetAvatarView(View):
 class EditUserProfileView(View):
     """View for the edit profile page."""
     def get(self, request, *args, **kwargs):
+        """Get request for the edit profile page."""
         if request.user.is_authenticated:
             profile_form = ProfileForm(instance=request.user.profile)
             password_form = PasswordChangeForm(user=request.user)
@@ -88,6 +90,7 @@ class EditUserProfileView(View):
                 'account/login.html'
             )
     def post(self, request, *args, **kwargs):
+        """Post request for the edit profile page."""
         if request.user.is_authenticated:
             if request.POST['form_type'] == 'profile':
                 profile_form = ProfileForm(
@@ -152,6 +155,7 @@ class AddressesView(View):
 class AddAddressView(View):
     """View for the add address page."""
     def get(self, request, *args, **kwargs):
+        """Get request for the add address page."""
         if request.user.is_authenticated:
             address_form = AddressForm()
             user = request.user.username
@@ -170,6 +174,7 @@ class AddAddressView(View):
                 'account/login.html'
             )
     def post(self, request, *args, **kwargs):
+        """Post request for the add address page."""
         if request.user.is_authenticated:
             address_form = AddressForm(request.POST)
             user_name = request.user.username
@@ -198,6 +203,7 @@ class AddAddressView(View):
 class EditAddressView(View):
     """View for the edit address page."""
     def get(self, request, *args, **kwargs):
+        """Get request for the edit address page."""
         if request.user.is_authenticated:
             address_id = kwargs['pk']
             address = get_object_or_404(Address, id=address_id)
@@ -219,6 +225,7 @@ class EditAddressView(View):
                 'account/login.html'
             )
     def post(self, request, *args, **kwargs):
+        """Post request for the edit address page."""
         if request.user.is_authenticated:
             address_id = kwargs['pk']
             address = get_object_or_404(Address, id=address_id)
@@ -252,6 +259,7 @@ class EditAddressView(View):
 class DeleteAddressView(View):
     """View for the delete address page."""
     def get(self, request, *args, **kwargs):
+        """Get request for the delete address page."""
         if request.user.is_authenticated:
             address_id = kwargs['pk']
             address = get_object_or_404(Address, id=address_id)
@@ -269,10 +277,10 @@ class DeleteAddressView(View):
             )
 
 
-# create AJAX view for changing primary address
 class ChangePrimaryAddressView(View):
     """View for changing primary address."""
     def post(self, request, *args, **kwargs):
+        """Post request for changing primary address."""
         if request.is_ajax():
             address_id = request.POST['address_id']
             address = get_object_or_404(Address, id=address_id)
