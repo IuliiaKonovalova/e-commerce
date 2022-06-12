@@ -267,3 +267,24 @@ class DeleteAddressView(View):
                 request,
                 'account/login.html'
             )
+
+
+# create AJAX view for changing primary address
+class ChangePrimaryAddressView(View):
+    """View for changing primary address."""
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            address_id = request.POST['address_id']
+            address = get_object_or_404(Address, id=address_id)
+            primary = True
+            if address.is_primary:
+                address.is_primary = False
+                address.save()
+                primary = False
+                return JsonResponse({'success': True, 'primary': primary})
+            address.is_primary = True
+            address.save()
+            primary = True
+            return JsonResponse({'success': True, 'primary': primary})
+        else:
+            return JsonResponse({'success': False})
