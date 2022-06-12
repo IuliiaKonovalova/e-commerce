@@ -223,18 +223,24 @@ class EditAddressView(View):
             address_id = kwargs['pk']
             address = get_object_or_404(Address, id=address_id)
             address_form = AddressForm(request.POST, instance=address)
+            user = request.user.username
+            context = {
+                'address_form': address_form,
+                'address': address,
+                'user': user
+            }
             if address_form.is_valid():
                 address_form.save()
                 return HttpResponseRedirect(
                     reverse(
                         'my_addresses',
-                        kwargs={'user': request.user.username}
+                        kwargs={'user': user}
                     )
                 )
             return render(
                 request,
                 'profiles/edit_address.html',
-                {'address_form': address_form}
+                context
             )
         else:
             return render(
@@ -245,7 +251,7 @@ class EditAddressView(View):
 
 class DeleteAddressView(View):
     """View for the delete address page."""
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             address_id = kwargs['pk']
             address = get_object_or_404(Address, id=address_id)
