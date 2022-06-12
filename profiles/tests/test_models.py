@@ -30,16 +30,6 @@ class TestModels(TestCase):
             password='Password987',
             email='testuser2@gmail.com'
         )
-
-        # self.profile33 = Profile.objects.create(
-        #     user=self.user2,
-        #     first_name='Test',
-        #     last_name='User',
-        #     birthday='2000-01-01',
-        #     avatar='',
-        #     subscription=True
-        # )
-
         self.address1 = Address.objects.create(
             user=self.user,
             country='USA',
@@ -68,7 +58,10 @@ class TestModels(TestCase):
         # profile should already exist because of signals
         self.assertEqual(Profile.objects.count(), 2)
         self.assertEqual(Profile.objects.get(user=self.user).user, self.user)
-        self.assertEqual(Profile.objects.get(user=self.user2).user, self.user2)
+        self.assertEqual(
+            Profile.objects.get(user=self.user2).user,
+            self.user2
+        )
 
     def test_profile_user(self):
         """Test the user field."""
@@ -103,17 +96,17 @@ class TestModels(TestCase):
         profile.last_name='Test2Last'
         self.assertEqual(str(profile), 'Test2First Test2Last')
 
-    # def test_profile_avatar_url(self):
-    #     """Test profile avatar_url property."""
-    #     profile = Profile.objects.get(user=self.user)
-    #     self.assertEqual(
-    #         profile.avatar_url,
-    #         "/static/images/default_avatar.svg"
-    #     )
-    #     profile.avatar = cloudinary.uploader.upload_image(
-    #         "static/images/default_avatar.svg")
-    #     profile.save()
-    #     self.assertTrue('res.cloudinary.com' in profile.avatar_url)
+    def test_profile_avatar_url(self):
+        """Test profile avatar_url property."""
+        profile = Profile.objects.get(user=self.user)
+        self.assertEqual(
+            profile.avatar_url,
+            "/static/images/default_avatar.svg"
+        )
+        profile.avatar = cloudinary.uploader.upload_image(
+            "static/images/default_avatar.svg")
+        profile.save()
+        self.assertTrue('res.cloudinary.com' in profile.avatar_url)
 
     def test_profile_age(self):
         """Test profile age property."""
