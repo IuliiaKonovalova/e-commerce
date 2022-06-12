@@ -36,7 +36,8 @@ DEBUG = os.environ.get("DEBUG") == "True"
 ALLOWED_HOSTS = [
     '',
     'localhost',
-    '127.0.0.1'
+    '127.0.0.1',
+    '0.0.0.0',
 ]
 
 
@@ -55,6 +56,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary_storage',
     'cloudinary',
+    'crispy_forms',
+    'home',
     'profiles',
 ]
 
@@ -69,6 +72,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ecommerce_project.urls'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -85,8 +89,17 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 SITE_ID = 1
