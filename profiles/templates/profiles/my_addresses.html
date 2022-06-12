@@ -31,12 +31,13 @@
       <div>
         Primary: {{ address.is_primary }}
       </div>
-      <div class="address__card--edit">
-        <a href="{% url 'edit_address' user=request.user pk=address.pk %}" aria-label="Go to Edit Address Page">Edit</a>
-      </div>
-      <div class="address__card--disable">
-        <a href="#" aria-label="Disable Primary Address">Disable as Primary</a>
-      </div>
+      <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}" aria-label="Go to Edit Address Page">
+      Edit
+      <i class="fas fa-edit"></i>
+      </a>
+      <a class="address__primary--btn address__card--disable" href="#" aria-label="Disable Primary Address" data-id="{{ address.id }}">
+        Disable as Primary
+      </a>
     </div>
     {% else %}
     <div class="address__card">
@@ -61,12 +62,13 @@
       <div>
         Primary: {{ address.is_primary }}
       </div>
-      <div class="address__card--edit">
-        <a href="{% url 'edit_address' user=request.user pk=address.pk %}" aria-label="Go to Edit Address Page">Edit</a>
-      </div>
-      <div class="address__card--enable" id="address-enable">
-        <a href="#" aria-label="Enable Primary Address">Enable as Primary</a>
-      </div>
+      <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}" aria-label="Go to Edit Address Page">
+      Edit
+            <i class="fas fa-edit"></i>
+      </a>
+      <a class="address__primary--btn address__card--enable" href="#" aria-label="Enable Primary Address" data-id="{{ address.pk }}">
+        <div >Enable as Primary</div>
+      </a>
     </div>
     {% endif %}
     {% endfor %}
@@ -85,23 +87,53 @@
 </div>
 <script>
   $(document).ready(function () {
-    $('#address-enable').click(function () {
-      // set the address as primary in database
-      $.ajax({
-        {% comment %} url: "{% url 'edit_address' user=request.user pk=address.pk %}", {% endcomment %}
-        type: 'POST',
-        data: {
-          'address_id': $(this).parent().data('address-id'),
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        success: function (data) {
-          console.log(data);
-          // reload the page
-          location.reload();
-        }
+    let disableAddress = document.querySelector('.address__card--disable');
+    $('.address__primary--btn').each(function(address) {
+      $(this).on('click', function(e) {
+        e.preventDefault();
+        let addressId = $(this).data('id');
+        $(this).append('<i class="fas fa-spinner fa-spin"></i>');
+        $.ajax({
+          url: "{% url 'set_primary_address' %}",
+          type: 'POST',
+          data: {
+            'address_id': addressId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function(data) {
+            console.log(data);
+
+            // reset all other addresses to not primary
+            $('.address__card').each(function(address) {
+              $(this).removeClass('address__card--primary');
+              
+            });
+            $('.address__primary--btn').each(function(address) {
+              $(this).removeClass('address__card--disable');
+              $(this).addClass('address__card--enable');
+              $(this).text('Enable as Primary');
+            });
+            $('.fa-spinner').remove();
+            if (data.primary) {
+              let cardParent = $('[data-id="' + addressId + '"]').parent();
+              console.log(cardParent);
+              cardParent.addClass('address__card--primary');
+              $('[data-id="' + addressId + '"]').removeClass('address__card--enable');
+              $('[data-id="' + addressId + '"]').addClass('address__card--disable');
+              $('[data-id="' + addressId + '"]').text('Disable as Primary');
+            }
+            setTimeout(() => {
+              $('.success-message').remove();
+            }, 3000);
+          },
+          error: function (data) {
+            console.log(data);
+          }
+        });
       });
-    });
+    })
   });
+
 </script>
 
 {% endblock %}
