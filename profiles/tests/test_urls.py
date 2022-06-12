@@ -10,7 +10,8 @@ from profiles.views import (
     AddressesView,
     AddAddressView,
     EditAddressView,
-    DeleteAddressView
+    DeleteAddressView,
+    ChangePrimaryAddressView,
 )
 
 
@@ -61,3 +62,11 @@ class TestUrls(SimpleTestCase):
         """Test delete address url."""
         url = reverse('delete_address', kwargs={'user': 'testuser', 'pk': 1})
         self.assertEquals(resolve(url).func.view_class, DeleteAddressView)
+
+    def test_change_primary_address_url(self):
+        """Test change primary address url."""
+        url = reverse('set_primary_address')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            ChangePrimaryAddressView
+        )
