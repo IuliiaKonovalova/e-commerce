@@ -4,6 +4,8 @@
   --clr-bg--100: #1100ff;
   --clr-bg--300: #050048;
   --clr-bg--500: #06032e;
+  --clr-bg--700: #3d2f6d91;
+  --clr-bg--800: #28253291;
   --clr-bg--900: #151422;
   --clr-accent--300: #c3faff;
   --clr-accent--500: #95f2fa;
@@ -14,9 +16,13 @@
   --clr-text--300: #898989;
   --clr-text--500: #363636;
   --clr-text--900: #191919;
+  --clr-btn--700: #2d698c;
+  --clr-btn--800: #666666;
+  --clr-btn--900: #42286a;
   --fs: calc(60% + 0.8vmin);
   --ff-primary: 'Lato', sans-serif;
   --br: 0.5em;
+  --br-buttons: 0.2em;
 }
 
 
@@ -32,6 +38,9 @@
 html {
   scroll-behavior: smooth;
   font-size: var(--fs);
+  font-family: var(--ff-primary);
+  background-color: var(--clr-bg--900);
+  color: var(--clr-text--100);
 }
 
 body,
@@ -57,6 +66,7 @@ ul li {
 a {
   text-decoration: none;
   cursor: pointer;
+  color: var(--clr-accent--300);
 }
 
 img {
@@ -116,7 +126,7 @@ img {
   width: 100%;
   height: 100%;
   border-radius: var(--br);
-  background-color: var(--clr-bg--100);
+  background-color: var(--clr-bg--800);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
   color: white;
@@ -124,35 +134,44 @@ img {
 }
 
 .address__card--primary {
-  background-color: var(--clr-bg--300) !important;
+  background-color: var(--clr-bg--700) !important;
 }
 
 .addresses__all div a {
   color: white;
 }
 
-.address__card {}
-
 .address__card--edit,
-.address__card--disable,
-.address__card--enable {
+.address__primary--btn {
   width: 100%;
-
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: 1.3rem;
+  padding: 0.2em 0.5em;
+  border-radius: var(--br-buttons);
+}
+
+.address__card--edit i,
+.address__primary--btn i {
+  font-size: 1rem;
+  padding-left: 0.5rem;
+  margin-top: 0.0.5em;
+}
+
+.address__primary--btn {
+  padding-bottom: 0.35em;
 }
 
 .address__card--edit {
-  background-color: var(--clr-accent--900);
+  background-color: var(--clr-btn--700);
   margin-bottom: 0.2em;
 }
 
 .address__card--disable {
-  background-color: var(--clr-accent--700);
+  background-color: var(--clr-btn--800);
 }
 
 .address__card--enable {
-  background-color: green;
+  background-color: var(--clr-btn--900);
 }
