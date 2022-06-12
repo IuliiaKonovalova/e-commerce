@@ -4,6 +4,14 @@
 
 ### Django unit testing
 
+**Profiles app:**
+
+![Django unit testing. Profiles. Coverage](documentation/testing/coverage/coverage_profiles.png)
+The missing coverage is due to the fact that I was not able to test the edit profile view on the password form. The description of the view is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
+
+![Django unit testing. Profiles. Coverage. Missing](documentation/testing/coverage/coverage_profiles_views_missing.png)
+### Django unit testing Issues
+
 **Solved issues:**
 
 1. I couldn't figure out how to test save methods in Address model as I was receiving the correct result in my print statements in the terminal but at the same time I was getting an error message.
