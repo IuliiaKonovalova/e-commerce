@@ -66,7 +66,11 @@ class TestViews(TestCase):
         )
         self.edit_address_url = reverse(
             'edit_address',
-            kwargs={'user': 'testuser', 'pk': self.address1.id}
+            kwargs={'user': 'testuser', 'pk': 1}
+        )
+        self.delete_address_url = reverse(
+            'delete_address',
+            kwargs={'user': 'testuser', 'pk': 1}
         )
 
     def test_user_profile_view(self):
@@ -358,5 +362,17 @@ class TestViews(TestCase):
                 'is_primary': True
             },
         )
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_address_get_view(self):
+        """Test delete address post view."""
+        self.client.force_login(self.user)
+        self.assertEqual(Address.objects.filter(user=self.user).count(), 1)
+        response = self.client.get(self.delete_address_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Address.objects.filter(user=self.user).count(), 0)
+        self.client.logout()
+        response = self.client.get(self.delete_address_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
