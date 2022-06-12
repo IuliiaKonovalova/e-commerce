@@ -3,8 +3,6 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 from profiles.models import Role, Profile, Address
-import cloudinary
-import cloudinary.uploader
 from django.contrib.auth.hashers import make_password
 
 
@@ -172,9 +170,6 @@ class TestViews(TestCase):
         )
         self.client.force_login(self.user33)
         pwd2 = make_password('12345')
-        print('User password', self.user33.password)
-        print(pwd)
-        print(pwd2)
         response = self.client.post(
             self.edit_user_profile_url,
             data={
@@ -213,7 +208,10 @@ class TestViews(TestCase):
             email='user3gmail.com'
         )
         self.client.force_login(self.user33)
-        self.assertEqual(User.objects.filter(username='testuser33').count(), 1)
+        self.assertEqual(
+            User.objects.filter(username='testuser33').count(),
+            1
+        )
         response = self.client.post(
             self.delete_user_url,
             data={
@@ -223,7 +221,10 @@ class TestViews(TestCase):
         )
         self.assertRedirects(response, '/')
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(User.objects.filter(username='testuser33').count(), 0)
+        self.assertEqual(
+            User.objects.filter(username='testuser33').count(),
+            0
+        )
         response = self.client.post(
             self.delete_user_url,
             data={
@@ -272,8 +273,6 @@ class TestViews(TestCase):
                 'is_primary': True
             },
         )
-        # print address
-        print(Address.objects.filter(user=self.user))
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Address.objects.filter(user=self.user).count(), 2)
         self.assertEqual(response.url, self.addresses_url)
