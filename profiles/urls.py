@@ -9,7 +9,8 @@ from .views import (
     AddressesView,
     AddAddressView,
     EditAddressView,
-    DeleteAddressView
+    DeleteAddressView,
+    ChangePrimaryAddressView,
 )
 
 urlpatterns = [
@@ -57,5 +58,10 @@ urlpatterns = [
         '<str:user>/addresses/<int:pk>/delete/',
         DeleteAddressView.as_view(),
         name='delete_address'
+    ),
+    path(
+        'my_addresses/set_primary',
+        ChangePrimaryAddressView.as_view(),
+        name='set_primary_address'
     ),
 ]
