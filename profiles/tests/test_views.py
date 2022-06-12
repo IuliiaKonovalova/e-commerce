@@ -70,6 +70,9 @@ class TestViews(TestCase):
             'delete_address',
             kwargs={'user': 'testuser', 'pk': 1}
         )
+        self.change_primary_ajax_url = reverse(
+            'set_primary_address',
+        )
 
     def test_user_profile_view(self):
         """Test user profile view."""
@@ -375,3 +378,51 @@ class TestViews(TestCase):
         response = self.client.get(self.delete_address_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_change_primary_ajax_view(self):
+        """Test change primary ajax view."""
+        self.client.force_login(self.user)
+        user1 = self.user
+        address1 = self.address1
+        self.assertEqual(Address.objects.filter(user=user1).count(), 1)
+        self.assertEqual(address1.is_primary, False)
+        response = self.client.post(
+            self.change_primary_ajax_url,
+            {'address_id': address1.id},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.json()['success'], True)
+        primary = Address.objects.get(id=address1.id).is_primary
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(primary, True)
+        # Check that if address is primary, it will change to false
+        address2 = Address.objects.create(
+            user=self.user,
+            country='USA',
+            county_region='California',
+            city='San Francisco',
+            address_line='123 Main St',
+            zip_code='9999',
+            phone_number='1234567890',
+            is_primary=True,
+            created_at='2020-01-01',
+            updated_at='2020-01-01'
+        )
+        self.assertEqual(Address.objects.filter(user=user1).count(), 2)
+        self.assertEqual(address2.is_primary, True)
+        response = self.client.post(
+            self.change_primary_ajax_url,
+            {'address_id': address2.id},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.json()['success'], True)
+        primary = Address.objects.get(id=address2.id).is_primary
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(primary, False)
+        # Check if the request is not ajax
+        response = self.client.post(
+            self.change_primary_ajax_url,
+            {'address_id': address2.id}
+        )
+        self.assertEqual(response.json()['success'], False)
+        self.client.logout()
