@@ -128,3 +128,80 @@ class Brand(models.Model):
     def __str__(self):
         """String representation of the model"""
         return self.name
+
+
+class Product(models.Model):
+    """Product model"""
+    name = models.CharField(
+        max_length=150,
+        null=False,
+        unique=True,
+        blank=False,
+        verbose_name='Product name',
+        help_text='format: required, max_length=100'
+    )
+    slug = models.SlugField(
+        max_length=150,
+        null=False,
+        unique=True,
+        blank=False,
+        verbose_name='Product Slug',
+        help_text='format: required, max_length=150'
+    )
+    description = models.TextField(
+        max_length=500,
+        null=False,
+        blank=False,
+        verbose_name='Product description',
+        help_text='format: required, max_length=500'
+    )
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.PROTECT,
+        related_name='products',
+        verbose_name='Category',
+        help_text='format: required, max_length=100'
+    )
+    tags = models.ManyToManyField(
+        Tag,
+        related_name='products',
+        verbose_name='Tags',
+        help_text='format: required, max_length=100'
+    )
+    brand = models.ForeignKey(
+        Brand,
+        on_delete=models.PROTECT,
+        related_name='products',
+        verbose_name='Brand',
+        help_text='format: required, max_length=100'
+    )
+    is_active = models.BooleanField(
+        default=False,
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Created at'
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Updated at'
+    )
+    class Meta:
+        """Meta class for Product model"""
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
+        ordering = ['name']
+
+    def __str__(self):
+        """String representation of Product model"""
+        return self.name
+
+    @classmethod
+    def get_active_products(cls):
+        """Get active products"""
+        return cls.objects.filter(is_active=True).order_by('name')
+
+    @classmethod
+    def get_not_active_products(cls):
+        """Get not active products"""
+        return cls.objects.filter(is_active=False).order_by('name')
