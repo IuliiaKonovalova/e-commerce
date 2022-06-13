@@ -6,6 +6,7 @@ from inventory.models import (
     Brand,
     Product,
     ProductImage,
+    ProductType,
 )
 import cloudinary
 import cloudinary.uploader
@@ -73,6 +74,16 @@ class TestModels(TestCase):
             product=self.product2,
             alt_text='Adidas Shirt',
             is_active=False,
+        )
+        self.product_type1 = ProductType.objects.create(
+            name='women clothes',
+            slug='women-clothes',
+            description='women clothes'
+        )
+        self.product_type2 = ProductType.objects.create(
+            name='men clothes',
+            slug='men-clothes',
+            description='men clothes'
         )
 
     def test_category_name(self):
@@ -261,3 +272,12 @@ class TestModels(TestCase):
             ProductImage.get_not_active_product_images(),
             [self.product_image2]
         )
+
+    def test_product_type_name(self):
+        """Test the name field."""
+        self.assertEqual(self.product_type1.name, 'women clothes')
+        self.assertEqual(self.product_type1.slug, 'women-clothes')
+
+    def test_product_type_str(self):
+        """Test string method"""
+        self.assertEqual(str(self.product_type1), 'women clothes')
