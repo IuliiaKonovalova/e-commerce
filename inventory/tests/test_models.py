@@ -8,6 +8,7 @@ from inventory.models import (
     ProductImage,
     ProductType,
     ProductAttribute,
+    ProductAttributeValue,
 )
 import cloudinary
 import cloudinary.uploader
@@ -99,6 +100,14 @@ class TestModels(TestCase):
         )
         self.product_type2.product_type_attributes.add(
             self.product_attribute2
+        )
+        self.product_attr_value1 = ProductAttributeValue.objects.create(
+            product_attribute = self.product_attribute1,
+            attribute_value = 'red'
+        )
+        self.product_attr_value2 = ProductAttributeValue.objects.create(
+            product_attribute = self.product_attribute2,
+            attribute_value = 'xs'
         )
 
     def test_category_name(self):
@@ -308,3 +317,11 @@ class TestModels(TestCase):
     def test_product_type_str(self):
         """Test string method"""
         self.assertEqual(str(self.product_type1), 'women clothes')
+
+    def test_product_attribute_value_name(self):
+        """Test the name field"""
+        self.assertEqual(self.product_attr_value1.attribute_value, 'red')
+
+    def test_product_attribute_value_str(self):
+        """Test string method"""
+        self.assertEqual(str(self.product_attr_value1), 'red')
