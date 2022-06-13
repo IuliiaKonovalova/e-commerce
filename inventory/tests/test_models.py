@@ -5,6 +5,7 @@ from inventory.models import (
     Tag,
     Brand,
     Product,
+    ProductImage,
 )
 import cloudinary
 import cloudinary.uploader
@@ -63,6 +64,16 @@ class TestModels(TestCase):
             is_active=False,
         )
         self.product2.tags.add(self.tag2)
+        self.product_image1 = ProductImage.objects.create(
+            product=self.product1,
+            alt_text='Nike Skirt',
+            is_active=True,
+        )
+        self.product_image2 = ProductImage.objects.create(
+            product=self.product2,
+            alt_text='Adidas Shirt',
+            is_active=False,
+        )
 
     def test_category_name(self):
         """Test the name field."""
@@ -198,4 +209,55 @@ class TestModels(TestCase):
         self.assertQuerysetEqual(
             Product.get_not_active_products(),
             [self.product2]
+        )
+
+    def test_product_image_name(self):
+        """Test the name field."""
+        self.assertEqual(self.product_image1.alt_text, 'Nike Skirt')
+
+    def test_product_image_product(self):
+        """Test the product field."""
+        self.assertEqual(self.product_image1.product, self.product1)
+
+    def test_product_image_image(self):
+        """Test the image field."""
+        self.assertEqual(self.product_image1.image, None)
+
+    def test_product_image_is_active(self):
+        """Test product image is active."""
+        self.assertEqual(self.product_image1.is_active, True)
+        self.assertEqual(self.product_image2.is_active, False)
+
+    def test_product_image_str(self):
+        """Test product image string representation."""
+        self.assertEqual(str(self.product_image1), 'Nike Skirt')
+        self.assertEqual(str(self.product_image2), 'Adidas Shirt')
+
+    def test_product_image_url(self):
+        """Test product image url."""
+        image1 = ProductImage.objects.get(id=1)
+        self.assertEqual(
+            image1.image_url,
+            'static/images/default_product_image.png'
+        )
+        image1.image = cloudinary.uploader.upload_image(
+            'static/images/test_product_image.png'
+        )
+        image1.save()
+        self.assertTrue(
+          'res.cloudinary.com' in image1.image_url
+        )
+
+    def test_get_active_product_images(self):
+        """Test get_active_product_images method."""
+        self.assertQuerysetEqual(
+            ProductImage.get_active_product_images(),
+            [self.product_image1]
+        )
+
+    def test_get_not_active_product_images(self):
+        """Test get_not_active_product_images method."""
+        self.assertQuerysetEqual(
+            ProductImage.get_not_active_product_images(),
+            [self.product_image2]
         )
