@@ -298,3 +298,41 @@ class ProductImage(models.Model):
     def get_not_active_product_images(cls):
         """Get not active product images"""
         return cls.objects.filter(is_active=False)
+
+
+class ProductType(models.Model):
+    """Product type model"""
+    name = models.CharField(
+        max_length=100,
+        null=True,
+        unique=True,
+        blank=True,
+        verbose_name='Product type name',
+        help_text='format: required, max_length=100'
+    )
+    slug = models.SlugField(
+        max_length=150,
+        null=True,
+        unique=True,
+        blank=True,
+        verbose_name='Product type Slug',
+        help_text='format: required, max_length=150'
+    )
+    description = models.TextField(
+        max_length=500,
+        null=False,
+        blank=False,
+        verbose_name='Product type description',
+        help_text='format: required, max_length=500'
+    )
+
+    class Meta:
+        """Meta class for Product type model"""
+        verbose_name = 'Product type'
+        verbose_name_plural = 'Product types'
+        ordering = ['name']
+
+    def __str__(self):
+        """String representation of Product type model"""
+        return self.name
+
