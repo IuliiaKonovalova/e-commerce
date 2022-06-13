@@ -235,3 +235,66 @@ class Product(models.Model):
     def get_not_active_products(cls):
         """Get not active products"""
         return cls.objects.filter(is_active=False).order_by('name')
+
+
+class ProductImage(models.Model):
+    """Product image model"""
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        related_name='images',
+        verbose_name='Product',
+        help_text='format: required, max_length=100'
+    )
+    image = CloudinaryField(
+        'product_image',
+        folder='product_images',
+        null=True,
+        blank=True,
+    )
+
+    alt_text = models.CharField(
+        max_length=300,
+        null=True,
+        blank=True,
+        unique=False,
+        verbose_name='Alt text',
+        help_text='format: required, max_length=300'
+    )
+
+    is_active = models.BooleanField(
+        default=False,
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Created at'
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Updated at'
+    )
+    class Meta:
+        """Meta class for Product image model"""
+        verbose_name = 'Product image'
+        verbose_name_plural = 'Product images'
+        ordering = ['product']
+
+    def __str__(self):
+        """String representation of Product image model"""
+        return self.product.name
+
+    @property
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        return 'static/images/default_product_image.png'
+
+    @classmethod
+    def get_active_product_images(cls):
+        """Get active product images"""
+        return cls.objects.filter(is_active=True)
+
+    @classmethod
+    def get_not_active_product_images(cls):
+        """Get not active product images"""
+        return cls.objects.filter(is_active=False)
