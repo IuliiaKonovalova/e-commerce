@@ -42,6 +42,16 @@ class Category(models.Model):
         """String representation of Category model"""
         return self.name
 
+    @classmethod
+    def get_active_categories(cls):
+        """Get active categories"""
+        return cls.objects.filter(is_active=True)
+
+    @classmethod
+    def get_not_active_categories(cls):
+        """Get not active categories"""
+        return cls.objects.filter(is_active=False)
+
 
 class Tag(models.Model):
     """Tag model"""
@@ -81,6 +91,16 @@ class Tag(models.Model):
     def __str__(self):
         """String representation of Tag model"""
         return self.name
+
+    @classmethod
+    def get_active_tags(cls):
+        """Get active tags"""
+        return cls.objects.filter(is_active=True)
+
+    @classmethod
+    def get_not_active_tags(cls):
+        """Get not active tags"""
+        return cls.objects.filter(is_active=False)
 
 
 class Brand(models.Model):
@@ -128,6 +148,16 @@ class Brand(models.Model):
     def __str__(self):
         """String representation of the model"""
         return self.name
+
+    @classmethod
+    def get_active_brands(cls):
+        """Get active brands"""
+        return cls.objects.filter(is_active=True)
+
+    @classmethod
+    def get_not_active_brands(cls):
+        """Get not active brands"""
+        return cls.objects.filter(is_active=False)
 
 
 class Product(models.Model):
