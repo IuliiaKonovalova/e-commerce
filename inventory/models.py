@@ -363,3 +363,22 @@ class ProductType(models.Model):
         return self.name
 
 
+class ProductAttributeValue(models.Model):
+    product_attribute = models.ForeignKey(
+        ProductAttribute,
+        related_name="product_attribute",
+        on_delete=models.PROTECT,
+    )
+    attribute_value = models.CharField(
+        max_length=255,
+    )
+    class Meta:
+        """Meta class for Product attribute value model"""
+        verbose_name = 'Product attribute value'
+        verbose_name_plural = 'Product attribute values'
+        ordering = ['attribute_value']
+
+    def __str__(self):
+        """String representation of Product attribute value model"""
+        return self.attribute_value
+
