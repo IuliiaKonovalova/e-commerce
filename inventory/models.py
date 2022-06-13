@@ -8,7 +8,7 @@ class Category(models.Model):
     name = models.CharField(
         max_length=100,
         null=False,
-        unique=False,
+        unique=True,
         blank=False,
         verbose_name='Category name',
         help_text='format: required, max_length=100'
@@ -16,7 +16,7 @@ class Category(models.Model):
     slug = models.SlugField(
         max_length=150,
         null=False,
-        unique=False,
+        unique=True,
         blank=False,
         verbose_name='Category Slug',
         help_text='format: required, max_length=150'
@@ -33,6 +33,7 @@ class Category(models.Model):
         verbose_name='Updated at'
     )
     class Meta:
+        """Meta class for Category model"""
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
         ordering = ['name']
@@ -41,3 +42,40 @@ class Category(models.Model):
         return self.name
 
 
+class Tag(models.Model):
+    """Tag model"""
+    name = models.CharField(
+        max_length=100,
+        null=False,
+        unique=True,
+        blank=False,
+        verbose_name='Tag name',
+        help_text='format: required, max_length=100'
+    )
+    slug = models.SlugField(
+        max_length=150,
+        null=False,
+        unique=True,
+        blank=False,
+        verbose_name='Tag Slug',
+        help_text='format: required, max_length=150'
+    )
+    is_active = models.BooleanField(
+        default=False,
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Created at'
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Updated at'
+    )
+    class Meta:
+        """Meta class for Tag model"""
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tags'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
