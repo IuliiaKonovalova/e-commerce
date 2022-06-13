@@ -79,6 +79,20 @@ class TestModels(TestCase):
         self.assertEqual(str(self.category1), 'Clothing')
         self.assertEqual(str(self.category2), 'Food')
 
+    def test_get_active_categories(self):
+        """Test get_active_categories method."""
+        self.assertQuerysetEqual(
+            Category.get_active_categories(),
+            [self.category2]
+        )
+
+    def test_get_not_active_categories(self):
+        """Test get_not_active_categories method."""
+        self.assertQuerysetEqual(
+            Category.get_not_active_categories(),
+            [self.category1]
+        )
+
     def test_tag_name(self):
         """Test the name field."""
         self.assertEqual(self.tag1.name, 'skirt')
@@ -94,6 +108,20 @@ class TestModels(TestCase):
         self.assertEqual(str(self.tag1), 'skirt')
         self.assertEqual(str(self.tag2), 'shirt')
 
+    def test_get_active_tags(self):
+        """Test get_active_tags method."""
+        self.assertQuerysetEqual(
+            Tag.get_active_tags(),
+            [self.tag1]
+        )
+
+    def test_get_not_active_tags(self):
+        """Test get_not_active_tags method."""
+        self.assertQuerysetEqual(
+            Tag.get_not_active_tags(),
+            [self.tag2]
+        )
+
     def test_brand_name(self):
         """Test the name field."""
         self.assertEqual(self.brand1.name, 'Nike')
@@ -108,6 +136,20 @@ class TestModels(TestCase):
         """Test brand string representation."""
         self.assertEqual(str(self.brand1), 'Nike')
         self.assertEqual(str(self.brand2), 'Adidas')
+
+    def test_get_active_brands(self):
+        """Test get_active_brands method."""
+        self.assertQuerysetEqual(
+            Brand.get_active_brands(),
+            [self.brand1]
+        )
+
+    def test_get_not_active_brands(self):
+        """Test get_not_active_brands method."""
+        self.assertQuerysetEqual(
+            Brand.get_not_active_brands(),
+            [self.brand2]
+        )
 
     def test_product_name(self):
         """Test the name field."""
