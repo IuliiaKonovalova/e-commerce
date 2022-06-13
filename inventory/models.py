@@ -300,6 +300,27 @@ class ProductImage(models.Model):
         return cls.objects.filter(is_active=False)
 
 
+class ProductAttribute(models.Model):
+    """Product attribute model"""
+    name = models.CharField(
+        max_length=255,
+        unique=True,
+    )
+    description = models.TextField(
+        max_length=500,
+        blank=True,
+    )
+
+    class Meta:
+        """Meta class for Product attribute model"""
+        verbose_name = 'Product attribute'
+        verbose_name_plural = 'Product attributes'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class ProductType(models.Model):
     """Product type model"""
     name = models.CharField(
@@ -318,6 +339,7 @@ class ProductType(models.Model):
         verbose_name='Product type Slug',
         help_text='format: required, max_length=150'
     )
+
     description = models.TextField(
         max_length=500,
         null=False,
@@ -335,4 +357,5 @@ class ProductType(models.Model):
     def __str__(self):
         """String representation of Product type model"""
         return self.name
+
 
