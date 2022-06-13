@@ -339,7 +339,11 @@ class ProductType(models.Model):
         verbose_name='Product type Slug',
         help_text='format: required, max_length=150'
     )
-
+    product_type_attributes = models.ManyToManyField(
+        ProductAttribute,
+        related_name="product_type_attributes",
+        through="ProductTypeAttribute",
+    )
     description = models.TextField(
         max_length=500,
         null=False,
