@@ -292,6 +292,17 @@ class TestModels(TestCase):
             [self.product2]
         )
 
+    def test_get_tags_for_product(self):
+        """Test get_tags_for_product method."""
+        self.assertQuerysetEqual(
+            Product.get_tags(self.product1),
+            [self.tag1]
+        )
+        self.assertQuerysetEqual(
+            Product.get_tags(self.product2),
+            [self.tag2]
+        )
+
     def test_product_image_name(self):
         """Test the name field."""
         self.assertEqual(self.product_image1.alt_text, 'Nike Skirt')
