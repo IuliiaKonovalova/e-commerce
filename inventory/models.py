@@ -464,7 +464,7 @@ class ProductInventory(models.Model):
         """Meta class for Product inventory model"""
         verbose_name = 'Product inventory'
         verbose_name_plural = 'Product inventories'
-        ordering = ['product']
+        ordering = ['sku']
 
     def __str__(self):
         """String representation of Product inventory model"""
@@ -479,4 +479,3 @@ class ProductInventory(models.Model):
     def get_not_active_product_inventories(cls):
         """Get not active product inventories"""
         return cls.objects.filter(is_active=False)
-
