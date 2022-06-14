@@ -240,6 +240,10 @@ class Product(models.Model):
         """String representation of Product model"""
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name, allow_unicode=True)
+        super().save(*args, **kwargs)
+
     @classmethod
     def get_active_products(cls):
         """Get active products"""
@@ -379,6 +383,10 @@ class ProductType(models.Model):
     def __str__(self):
         """String representation of Product type model"""
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name, allow_unicode=True)
+        super().save(*args, **kwargs)
 
     def get_product_type_attributes(self):
         """Get all product type attributes"""
