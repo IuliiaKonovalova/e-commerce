@@ -98,6 +98,10 @@ class Tag(models.Model):
         """String representation of Tag model"""
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name, allow_unicode=True)
+        super().save(*args, **kwargs)
+
     @classmethod
     def get_active_tags(cls):
         """Get active tags"""
