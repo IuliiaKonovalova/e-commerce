@@ -18,7 +18,7 @@ The missing coverage is due to the fact that I was not able to test the edit pro
 
 ![Calling save() for Address Model](documentation/testing/tests_issues1.png)
 
-*Solution*:
+*Solution:*
 
 rather than calling ```self.assertEqual(self.address2.is_primary, True)```, I created a separate variable for the ```address2``` and called it:
 
@@ -28,6 +28,46 @@ rather than calling ```self.assertEqual(self.address2.is_primary, True)```, I cr
 ```
 
 ![Calling save() for Address Model. Solution](documentation/testing/tests_issues2.png)
+
+2. I couldn't add particular attributes for testing and couldn't receive the data in my print statement
+
+![Testing many-to-many type](documentation/testing/tests_issues4.png)
+
+*Solution:*
+
+Considering the fact that Direct assignment of many-to-many types is not allowed, I retrieved the variables from `ProductAttributeValue` table and added them by assigned set() and putting all variables in square brackets. Additionally, when I was calling `attribute_values` field's values, I used `.all()
+
+
+```python
+    def setUp(self):
+        self.product_inventory1 = ProductInventory.objects.create(
+            sku='11111',
+            upc='11111',
+            product=self.product1,
+            product_type=self.product_type1,
+            retail_price=10.00,
+            store_price=11.00,
+            sale_price=9.00,
+            weight=float(1.0),
+            is_active=True,
+        )
+        product_attr_value1 = ProductAttributeValue.objects.get(id=1)
+        product_attr_value2 = ProductAttributeValue.objects.get(id=2)
+        self.product_inventory1.attribute_values.set(
+            [product_attr_value1, product_attr_value2],
+        )
+
+    def test_product_inventory_attribute_values_field(self):
+        """Test the attribute values field"""
+        print(self.product_inventory1.sku)
+        print(self.product_inventory1.upc)
+        print(self.product_inventory1.product)
+        print(self.product_inventory1.product_type)
+        print(self.product_inventory1.attribute_values.all())
+```
+
+
+
 
 **Unsolved issues:**
 
