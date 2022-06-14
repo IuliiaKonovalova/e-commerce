@@ -412,3 +412,100 @@ class TestModels(TestCase):
         """Test the name field."""
         self.assertEqual(str(self.stock1), '11111 - 10')
         self.assertEqual(str(self.stock2), '22222 - Out of stock')
+
+    def test_reset_product_inventory_is_active(self):
+        """Test reset_product_inventory_is_active method."""
+        self.assertEqual(self.product_inventory1.is_active, True)
+        self.assertEqual(self.product_inventory2.is_active, False)
+        self.stock1.units = 0
+        self.stock1.save()
+        self.assertEqual(self.product_inventory1.is_active, False)
+        self.assertEqual(self.product_inventory2.is_active, False)
+
+    def test_get_high_sales_fewer_products(self):
+        """Test get_high_sales method."""
+        self.stock1.units = 1
+        self.stock1.units_sold = 2
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_high_sales_fewer_products(),
+            [self.stock1]
+        )
+
+    def test_get_units_inconsistent(self):
+        """Test get_units_inconsistent method."""
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_units_inconsistent(),
+            [self.stock2]
+        )
+
+    def test_get_low_stock_50(self):
+        """Test get_low_stock_50 method."""
+        self.stock1.units = 60
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_low_stock_50(),
+            [self.stock2]
+        )
+        self.stock1.units = 50
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_low_stock_50(),
+            [self.stock1, self.stock2]
+        )
+
+    def test_get_low_stock_20(self):
+        """Test get_low_stock_20 method."""
+        self.stock1.units = 60
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_low_stock_20(),
+            [self.stock2]
+        )
+        self.stock1.units = 20
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_low_stock_20(),
+            [self.stock1, self.stock2]
+        )
+
+    def test_get_low_stock_10(self):
+        """Test get_low_stock_10 method."""
+        self.stock1.units = 60
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_low_stock_10(),
+            [self.stock2]
+        )
+        self.stock1.units = 10
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_low_stock_10(),
+            [self.stock1, self.stock2]
+        )
+
+    def test_get_out_of_stock(self):
+        """Test get_out_of_stock method."""
+        self.stock1.units = 60
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_out_of_stock(),
+            [self.stock2]
+        )
+        self.stock1.units = 0
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_out_of_stock(),
+            [self.stock1, self.stock2]
+        )
+
+    def test_get_low_sales(self):
+        """Test get_low_sales method."""
+        self.stock1.units = 500
+        self.stock1.units_sold = 2
+        self.stock1.save()
+        self.assertQuerysetEqual(
+            self.stock1.get_low_sales(),
+            [self.stock1]
+        )
