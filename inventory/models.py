@@ -1,6 +1,7 @@
 """Models for the inventory app."""
 from django.db import models
 from cloudinary.models import CloudinaryField
+from django.db.models import F
 
 
 class Category(models.Model):
@@ -479,3 +480,49 @@ class ProductInventory(models.Model):
     def get_not_active_product_inventories(cls):
         """Get not active product inventories"""
         return cls.objects.filter(is_active=False)
+
+
+class Stock(models.Model):
+    product_inventory = models.OneToOneField(
+        ProductInventory,
+        related_name="stock",
+        on_delete=models.PROTECT,
+    )
+    last_checked = models.DateTimeField(
+        null=True,
+        blank=True,
+    )
+    units_variable = models.IntegerField(
+        default=0,
+        null=False,
+        blank=False,
+        verbose_name='Units variable',
+    )
+    units = models.IntegerField(
+        default=0,
+        null=False,
+        blank=False,
+        verbose_name='Units current',
+    )
+    units_sold = models.IntegerField(
+        default=0,
+        null=False,
+        blank=False,
+        verbose_name='Units sold',
+    )
+
+    class Meta:
+        """Meta class for Stock model"""
+        verbose_name = 'Stock Current'
+        ordering = ['product_inventory']
+
+    def __str__(self):
+        """String representation of Stock model"""
+        if self.units > 0:
+            return (
+                self.product_inventory.sku + ' - ' + str(self.units)
+            )
+        else:
+            return (
+                self.product_inventory.sku + ' - ' + 'Out of stock'
+            )
