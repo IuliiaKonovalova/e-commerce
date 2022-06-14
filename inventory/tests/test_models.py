@@ -534,3 +534,31 @@ class TestModels(TestCase):
                 attributevalues=attributevalues,
                 productinventory=productinventory
             )
+
+    def test_product_type_attribute_unique_together(self):
+        """Test the unique together constraint."""
+        product_attribute3 = ProductAttribute.objects.create(
+            name='toys size',
+            description='toys size'
+        )
+        product_type3 = ProductType.objects.create(
+            name='toys',
+            slug='toys',
+            description='toys'
+        )
+        product_attribute=ProductAttribute.objects.get(
+            id=product_attribute3.id
+        )
+        product_type=ProductType.objects.get(
+            id=product_type3.id
+        )
+        original = ProductTypeAttribute.objects.create(
+            product_attribute=product_attribute,
+            product_type=product_type
+        )
+        self.assertNotEquals(original, None)
+        with self.assertRaises(Exception):
+            original_clone = ProductTypeAttribute.objects.create(
+                product_attribute=product_attribute,
+                product_type=product_type
+            )
