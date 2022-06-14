@@ -382,3 +382,101 @@ class ProductAttributeValue(models.Model):
         """String representation of Product attribute value model"""
         return self.attribute_value
 
+
+class ProductInventory(models.Model):
+    """Product inventory model"""
+    sku = models.CharField(
+        max_length=50,
+        null=False,
+        unique=True,
+        blank=False,
+        verbose_name='Stock Keeping Unit',
+        help_text='format: required, max_length=50'
+    )
+    upc = models.CharField(
+        max_length=12,
+        null=False,
+        unique=True,
+        blank=False,
+        verbose_name='Universal Product Code',
+        help_text='format: required, max_length=12'
+    )
+    product = models.ForeignKey(
+        Product,
+        on_delete=models.PROTECT,
+        related_name='inventory',
+        verbose_name='Product',
+    )
+    product_type = models.ForeignKey(
+        ProductType,
+        on_delete=models.PROTECT,
+        related_name='inventory',
+        verbose_name='Product type',
+    )
+    attribute_values = models.ManyToManyField(
+        ProductAttributeValue,
+        related_name="product_attribute_values",
+        through="ProductAttributeValues",
+    )
+    retail_price = models.DecimalField(
+        max_digits=9,
+        decimal_places=2,
+        null=False,
+        blank=False,
+        verbose_name='Retail price',
+        help_text='format: required, the price must be between 0 and 9999999.99.',
+    )
+    store_price = models.DecimalField(
+        max_digits=9,
+        decimal_places=2,
+        null=False,
+        blank=False,
+        verbose_name='Store price',
+        help_text='format: required, the price must be between 0 and 9999999.99.',
+    )
+    sale_price = models.DecimalField(
+        max_digits=9,
+        decimal_places=2,
+        null=False,
+        blank=False,
+        verbose_name='Sale price',
+        help_text='format: required, the price must be between 0 and 9999999.99.',
+    )
+    weight = models.FloatField(
+        null=False,
+        blank=False,
+        unique=False,
+        verbose_name='Product weight',
+    )
+    is_active = models.BooleanField(
+        default=False,
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Created at'
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name='Updated at'
+    )
+
+    class Meta:
+        """Meta class for Product inventory model"""
+        verbose_name = 'Product inventory'
+        verbose_name_plural = 'Product inventories'
+        ordering = ['product']
+
+    def __str__(self):
+        """String representation of Product inventory model"""
+        return self.upc + ' - ' + self.sku
+
+    @classmethod
+    def get_active_product_inventories(cls):
+        """Get active product inventories"""
+        return cls.objects.filter(is_active=True)
+
+    @classmethod
+    def get_not_active_product_inventories(cls):
+        """Get not active product inventories"""
+        return cls.objects.filter(is_active=False)
+
