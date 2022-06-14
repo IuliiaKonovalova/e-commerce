@@ -4,6 +4,34 @@
 
 ### Django unit testing
 
+At the very beginning of the project, I decided to use Django's built-in unit testing framework. Thus, all tests are created simultaneously with the code.
+
+I am running the following testing commands in my terminal to test the code:
+
+```
+python manage.py test <name of the app>
+```
+
+To create the coverage report, I run the following command:
+
+```
+coverage run --source=<name of the app> manage.py test
+```
+
+```
+coverage report
+```
+
+To see the html version of the report and find out whether some pieces of code are missing, I run the following command:
+
+```
+coverage html
+```
+
+```
+python3 -m http.server
+```
+
 **Profiles app:**
 
 ![Django unit testing. Profiles. Coverage](documentation/testing/coverage/coverage_profiles.png)
