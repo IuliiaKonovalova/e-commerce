@@ -45,17 +45,17 @@ class TestModels(TestCase):
         )
         self.brand1 = Brand.objects.create(
             name='Nike',
-            slug='Nike',
+            slug='nike',
             is_active=True,
         )
         self.brand2 = Brand.objects.create(
             name='Adidas',
-            slug='Adidas',
+            slug='adidas',
             is_active=False,
         )
         self.product1 = Product.objects.create(
             name='Nike Skirt',
-            slug='Nike-Skirt',
+            slug='nike-skirt',
             description='Nike Skirt',
             category=self.category1,
             brand=self.brand1,
@@ -217,7 +217,7 @@ class TestModels(TestCase):
     def test_brand_name(self):
         """Test the name field."""
         self.assertEqual(self.brand1.name, 'Nike')
-        self.assertEqual(self.brand1.slug, 'Nike')
+        self.assertEqual(self.brand1.slug, 'nike')
 
     def test_brand_is_active(self):
         """Test brand is active."""
@@ -246,7 +246,7 @@ class TestModels(TestCase):
     def test_product_name(self):
         """Test the name field."""
         self.assertEqual(self.product1.name, 'Nike Skirt')
-        self.assertEqual(self.product1.slug, 'Nike-Skirt')
+        self.assertEqual(self.product1.slug, 'nike-skirt')
 
     def test_product_description(self):
         """Test the description field."""
