@@ -1,5 +1,6 @@
 """Models for the inventory app."""
 from django.db import models
+from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 from django.db.models import F
 
@@ -42,6 +43,10 @@ class Category(models.Model):
     def __str__(self):
         """String representation of Category model"""
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name, allow_unicode=True)
+        super().save(*args, **kwargs)
 
     @classmethod
     def get_active_categories(cls):

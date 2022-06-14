@@ -25,12 +25,12 @@ class TestModels(TestCase):
         """Set up the test."""
         self.category1 = Category.objects.create(
             name='Clothing',
-            slug='Clothing',
+            slug='clothing',
             is_active=False,
         )
         self.category2 = Category.objects.create(
             name='Food',
-            slug='Food',
+            slug='food',
             is_active=True,
         )
         self.tag1 = Tag.objects.create(
@@ -159,7 +159,7 @@ class TestModels(TestCase):
     def test_category_name(self):
         """Test the name field."""
         self.assertEqual(self.category1.name, 'Clothing')
-        self.assertEqual(self.category1.slug, 'Clothing')
+        self.assertEqual(self.category1.slug, 'clothing')
 
     def test_category_is_active(self):
         """Test category is active."""
