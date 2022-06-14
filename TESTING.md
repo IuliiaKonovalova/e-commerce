@@ -172,7 +172,7 @@ And after saving the form, call the `update_session_auth_hash` function:
     update_session_auth_hash(request, password_form.user)
     return JsonResponse({'success': True})
 ```
-3. I was struggling to get countries, county/regions, cities using various libraries. At the very begginging I was using the `django-cities-light` library but it was taking too much available memory. Thus, I decided to use the [geonames](https://www.geonames.org/). The first issue that I encountered was that the link to the geonames website was not working. It was simply solved be enabling my account to use the geonames website. The following issue was regarding the selection regions and cities.
+3. I was struggling to get countries, county/regions, cities using various libraries. When planning the project I was aimed to use the `django-cities-light` library but this library is very heavy, and therefore, I wouldn't be able to deploy it to Heroku for free. Thus, I decided to use the [geonames](https://www.geonames.org/). The first issue that I encountered was that the link to the geonames website was not working. It was simply solved be enabling my account to use the geonames website. The following issue was regarding the selection regions and cities.
 
 *Solution:*
 
