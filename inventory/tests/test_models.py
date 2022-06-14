@@ -9,6 +9,7 @@ from inventory.models import (
     ProductType,
     ProductAttribute,
     ProductAttributeValue,
+    ProductInventory,
 )
 import cloudinary
 import cloudinary.uploader
@@ -108,6 +109,36 @@ class TestModels(TestCase):
         self.product_attr_value2 = ProductAttributeValue.objects.create(
             product_attribute = self.product_attribute2,
             attribute_value = 'xs'
+        )
+        self.product_inventory1 = ProductInventory.objects.create(
+            sku='11111',
+            upc='11111',
+            product=self.product1,
+            product_type=self.product_type1,
+            retail_price=10.00,
+            store_price=11.00,
+            sale_price=9.00,
+            weight=float(1.0),
+            is_active=True,
+        )
+        product_attr_value1 = ProductAttributeValue.objects.get(id=1)
+        product_attr_value2 = ProductAttributeValue.objects.get(id=2)
+        self.product_inventory1.attribute_values.set(
+            [product_attr_value1, product_attr_value2],
+        )
+        self.product_inventory2 = ProductInventory.objects.create(
+            sku='22222',
+            upc='22222',
+            product=self.product2,
+            product_type=self.product_type1,
+            retail_price=10.00,
+            store_price=11.00,
+            sale_price=9.00,
+            weight=float(1.0),
+            is_active=False,
+        )
+        self.product_inventory2.attribute_values.set(
+            [product_attr_value1],
         )
 
     def test_category_name(self):
@@ -325,3 +356,41 @@ class TestModels(TestCase):
     def test_product_attribute_value_str(self):
         """Test string method"""
         self.assertEqual(str(self.product_attr_value1), 'red')
+
+    def test_product_inventory_attribute_values_field(self):
+        """Test the attribute values field"""
+        self.assertEqual(self.product_inventory1.sku, '11111')
+        self.assertEqual(self.product_inventory1.upc, '11111')
+        self.assertEqual(
+            str(self.product_inventory1.product),
+            'Nike Skirt'
+        )
+        self.assertEqual(
+            str(self.product_inventory1.product_type),
+            'women clothes'
+        )
+        self.assertQuerysetEqual(
+            self.product_inventory1.attribute_values.all(),
+            [self.product_attr_value1, self.product_attr_value2]
+        )
+
+    def test_product_inventory_attribute_values_str(self):
+        """Test string method"""
+        self.assertEqual(
+            str(self.product_inventory1),
+            '11111 - 11111'
+        )
+
+    def test_get_active_product_inventory(self):
+        """Test get_active_product_images method."""
+        self.assertQuerysetEqual(
+            ProductInventory.get_active_product_inventories(),
+            [self.product_inventory1]
+        )
+
+    def test_get_not_active_product_inventory(self):
+        """Test get_not_active_product_inventory method."""
+        self.assertQuerysetEqual(
+            ProductInventory.get_not_active_product_inventories(),
+            [self.product_inventory2]
+        )
