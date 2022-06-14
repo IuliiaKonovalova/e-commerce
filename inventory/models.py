@@ -367,6 +367,9 @@ class ProductType(models.Model):
         """String representation of Product type model"""
         return self.name
 
+    def get_product_type_attributes(self):
+        """Get all product type attributes"""
+        return self.product_type_attributes.all()
 
 class ProductAttributeValue(models.Model):
     product_attribute = models.ForeignKey(
