@@ -526,3 +526,49 @@ class Stock(models.Model):
             return (
                 self.product_inventory.sku + ' - ' + 'Out of stock'
             )
+
+    def save(self, *args, **kwargs):
+        """reset product inventory is active in ProductInventory model"""
+        super().save(*args, **kwargs)
+        if self.units < 0 or self.units == 0:
+            self.product_inventory.is_active = False
+            self.product_inventory.save()
+
+    @classmethod
+    def get_high_sales_fewer_products(cls):
+        """get stocks where units < units_sold"""
+        return cls.objects.filter(units__lt=F('units_sold'))
+
+    @classmethod
+    def get_units_inconsistent(cls):
+        """compare unit variable with the some of unit+units_sold"""
+        return cls.objects.filter(
+            units_variable__gt=F('units') + F('units_sold')
+        )
+
+    @classmethod
+    def get_low_stock_50(cls):
+        """get stocks where units < 50"""
+        return cls.objects.filter(units__lte=50)
+
+    @classmethod
+    def get_low_stock_20(cls):
+        """get stocks where units < 20"""
+        return cls.objects.filter(units__lte=20)
+
+    @classmethod
+    def get_low_stock_10(cls):
+        """get stocks where units < 10"""
+        return cls.objects.filter(units__lte=10)
+
+    @classmethod
+    def get_out_of_stock(cls):
+        """get stocks where units = 0"""
+        return cls.objects.filter(units=0)
+
+    @classmethod
+    def get_low_sales(cls):
+        """get stocks where sales should be increased"""
+        low_sale =  cls.objects.filter(units_sold__gt=0)
+        return low_sale.filter(units__gte=F('units_sold') * 5)
+
