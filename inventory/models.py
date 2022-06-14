@@ -488,6 +488,10 @@ class ProductInventory(models.Model):
         """Get not active product inventories"""
         return cls.objects.filter(is_active=False)
 
+    def get_attribute_values(self):
+        """Get all attribute values for a product inventory"""
+        return self.attribute_values.all()
+
 
 class Stock(models.Model):
     product_inventory = models.OneToOneField(
