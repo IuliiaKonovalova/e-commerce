@@ -10,6 +10,7 @@ from inventory.models import (
     ProductAttribute,
     ProductAttributeValue,
     ProductInventory,
+    Stock,
 )
 import cloudinary
 import cloudinary.uploader
@@ -139,6 +140,18 @@ class TestModels(TestCase):
         )
         self.product_inventory2.attribute_values.set(
             [product_attr_value1],
+        )
+        self.stock1 = Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units = 10,
+            units_variable = 10,
+            units_sold = 0,
+        )
+        self.stock2 = Stock.objects.create(
+            product_inventory=self.product_inventory2,
+            units = 0,
+            units_variable = 10,
+            units_sold = 0,
         )
 
     def test_category_name(self):
@@ -394,3 +407,8 @@ class TestModels(TestCase):
             ProductInventory.get_not_active_product_inventories(),
             [self.product_inventory2]
         )
+
+    def test_stock_status_str(self):
+        """Test the name field."""
+        self.assertEqual(str(self.stock1), '11111 - 10')
+        self.assertEqual(str(self.stock2), '22222 - Out of stock')
