@@ -572,3 +572,18 @@ class Stock(models.Model):
         low_sale =  cls.objects.filter(units_sold__gt=0)
         return low_sale.filter(units__gte=F('units_sold') * 5)
 
+
+class ProductAttributeValues(models.Model):
+    attributevalues = models.ForeignKey(
+        ProductAttributeValue,
+        related_name="attributevaluess",
+        on_delete=models.PROTECT,
+    )
+    productinventory = models.ForeignKey(
+        ProductInventory,
+        related_name="productattributevaluess",
+        on_delete=models.PROTECT,
+    )
+
+    class Meta:
+        unique_together = (("attributevalues", "productinventory"),)
