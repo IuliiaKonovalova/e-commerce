@@ -375,6 +375,13 @@ class TestModels(TestCase):
         """Test string method"""
         self.assertEqual(str(self.product_type1), 'women clothes')
 
+    def test_get_product_type_attributes(self):
+        """Test get product type attributes method"""
+        self.assertQuerysetEqual(
+            ProductType.get_product_type_attributes(self.product_type1),
+            [self.product_attribute1]
+        )
+
     def test_product_attribute_value_name(self):
         """Test the name field"""
         self.assertEqual(self.product_attr_value1.attribute_value, 'red')
