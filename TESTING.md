@@ -66,6 +66,43 @@ Considering the fact that Direct assignment of many-to-many types is not allowed
         print(self.product_inventory1.attribute_values.all())
 ```
 
+3. I couldn't test unique constrain in ProductAttributeValues model as I was getting the error:
+
+![Testing unique constrain](documentation/testing/tests_issues5.png)
+
+*Solution:*
+
+create a new object  ```product_attr_value3``` and a new variable: attributevlues by calling the ```ProductAttributeValue.objects.get()``` method with id of product_attr_value3. It is needed to prevent duplicate values from set_up method.
+Then, I retrieved the ```productinventory``` by calling the ```ProductInventory.objects.get()``` method with id of self.product_inventory2 (self.product_inventory2 was created in the set_up method). After all, I created a new object for ProductAttrivuteVlaues model and assigned received values to it.
+
+```python
+    product_attr_value3 = ProductAttributeValue.objects.create(
+        product_attribute=self.product_attribute1,
+        attribute_value='yellow',
+    )
+    attributevalues=ProductAttributeValue.objects.get(
+        id=product_attr_value3.id
+    )
+    productinventory=ProductInventory.objects.get(
+        id=self.product_inventory2.id
+    )
+    original = ProductAttributeValues.objects.create(
+        attributevalues=attributevalues,
+        productinventory=productinventory
+    )
+```
+To check whether the unique constrain is working, I called the following methods:
+
+```python
+    self.assertNotEquals(original, None)
+    with self.assertRaises(Exception):
+        original_clone = ProductAttributeValues.objects.create(
+            attributevalues=attributevalues,
+            productinventory=productinventory
+        )
+```
+
+
 
 
 
