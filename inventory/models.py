@@ -237,6 +237,10 @@ class Product(models.Model):
         """Get not active products"""
         return cls.objects.filter(is_active=False).order_by('name')
 
+    def get_tags(self):
+        """Get all tags of product"""
+        return self.tags.all()
+
 
 class ProductImage(models.Model):
     """Product image model"""
