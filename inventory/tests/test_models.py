@@ -428,6 +428,13 @@ class TestModels(TestCase):
             [self.product_inventory2]
         )
 
+    def test_get_attribute_values(self):
+        """Test get_attribute_values method"""
+        self.assertQuerysetEqual(
+            ProductInventory.get_attribute_values(self.product_inventory1),
+            [self.product_attr_value1, self.product_attr_value2]
+        )
+
     def test_stock_status_str(self):
         """Test the name field."""
         self.assertEqual(str(self.stock1), '11111 - 10')
