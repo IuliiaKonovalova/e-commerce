@@ -11,6 +11,8 @@ from inventory.models import (
     ProductAttributeValue,
     ProductInventory,
     Stock,
+    ProductAttributeValues,
+    ProductTypeAttribute,
 )
 import cloudinary
 import cloudinary.uploader
@@ -143,15 +145,15 @@ class TestModels(TestCase):
         )
         self.stock1 = Stock.objects.create(
             product_inventory=self.product_inventory1,
-            units = 10,
-            units_variable = 10,
-            units_sold = 0,
+            units=10,
+            units_variable=10,
+            units_sold=0,
         )
         self.stock2 = Stock.objects.create(
             product_inventory=self.product_inventory2,
-            units = 0,
-            units_variable = 10,
-            units_sold = 0,
+            units=0,
+            units_variable=10,
+            units_sold=0,
         )
 
     def test_category_name(self):
@@ -509,3 +511,26 @@ class TestModels(TestCase):
             self.stock1.get_low_sales(),
             [self.stock1]
         )
+
+    def test_product_attribute_values_unique_together(self):
+        """Test the unique together constraint."""
+        product_attr_value3 = ProductAttributeValue.objects.create(
+            product_attribute=self.product_attribute1,
+            attribute_value='yellow',
+        )
+        attributevalues=ProductAttributeValue.objects.get(
+            id=product_attr_value3.id
+        )
+        productinventory=ProductInventory.objects.get(
+            id=self.product_inventory2.id
+        )
+        original = ProductAttributeValues.objects.create(
+            attributevalues=attributevalues,
+            productinventory=productinventory
+        )
+        self.assertNotEquals(original, None)
+        with self.assertRaises(Exception):
+            original_clone = ProductAttributeValues.objects.create(
+                attributevalues=attributevalues,
+                productinventory=productinventory
+            )
