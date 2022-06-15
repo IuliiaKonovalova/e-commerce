@@ -315,6 +315,22 @@ class TestModels(TestCase):
         """Test the image field."""
         self.assertEqual(self.product_image1.image, None)
 
+    def test_product_image_default_image(self):
+        """Test the default_image field."""
+        self.product_image1.default_image = True
+        self.product_image1.save()
+        self.assertEqual(self.product1.images.count(), 1)
+        self.assertEqual(self.product_image1.default_image, True)
+        self.product_image3 = ProductImage.objects.create(
+            product=self.product1,
+            alt_text='Nike Skirt',
+            image=None,
+            default_image=True
+        )
+        self.assertEqual(self.product_image3.default_image, True)
+        self.assertEqual(self.product_image2.default_image, False)
+        self.assertEqual(self.product1.images.count(), 2)
+
     def test_product_image_is_active(self):
         """Test product image is active."""
         self.assertEqual(self.product_image1.is_active, True)
