@@ -66,3 +66,36 @@ class TagForm(forms.ModelForm):
                 attrs={'class': 'form-check-input'}
             )
         }
+
+
+class BrandForm(forms.ModelForm):
+    """Form for the Brand model."""
+    class Meta:
+        model = Brand
+        fields = ['name', 'slug', 'description', 'is_active']
+        widgets = {
+            'name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=50',
+                    'placeholder': 'Brand Name',
+                }
+            ),
+            'slug': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=50',
+                    'placeholder': 'Brand Slug Name',
+                }
+            ),
+            'description': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=500',
+                    'placeholder': 'Brand Description',
+                }
+            ),
+            'is_active': forms.CheckboxInput(
+                attrs={'class': 'form-check-input'}
+            )
+        }
