@@ -259,6 +259,7 @@ class Product(models.Model):
         return self.tags.all()
 
 
+
 class ProductImage(models.Model):
     """Product image model"""
     product = models.ForeignKey(
@@ -274,7 +275,6 @@ class ProductImage(models.Model):
         null=True,
         blank=True,
     )
-
     alt_text = models.CharField(
         max_length=300,
         null=True,
@@ -283,7 +283,9 @@ class ProductImage(models.Model):
         verbose_name='Alt text',
         help_text='format: required, max_length=300'
     )
-
+    default_image = models.BooleanField(
+        default=False,
+    )
     is_active = models.BooleanField(
         default=False,
     )
@@ -304,6 +306,14 @@ class ProductImage(models.Model):
     def __str__(self):
         """String representation of Product image model"""
         return self.product.name
+
+    def save(self, *args, **kwargs):
+        """Check if there is a default image"""
+        super().save(*args, **kwargs)
+        if self.default_image:
+            for image in self.product.images.all().exclude(id=self.id):
+                image.default_image = False
+                image.save()
 
     @property
     def image_url(self):
