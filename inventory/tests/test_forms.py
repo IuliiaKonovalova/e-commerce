@@ -22,6 +22,7 @@ from inventory.forms import (
     ProductTypeForm,
     ProductAttributeValueForm,
     ProductInventoryForm,
+    StockForm,
 )
 
 
@@ -148,18 +149,6 @@ class TestForms(TestCase):
         )
         self.product_inventory2.attribute_values.set(
             [product_attr_value1],
-        )
-        self.stock1 = Stock.objects.create(
-            product_inventory=self.product_inventory1,
-            units=10,
-            units_variable=10,
-            units_sold=0,
-        )
-        self.stock2 = Stock.objects.create(
-            product_inventory=self.product_inventory2,
-            units=0,
-            units_variable=10,
-            units_sold=0,
         )
     def test_category_form_has_fields(self):
         """Test the category form has the correct fields."""
@@ -470,5 +459,44 @@ class TestForms(TestCase):
             }
         )
         self.assertFalse(form.is_valid())
-        
 
+    def test_stock_form_has_fields(self):
+        """Test the stock form has the correct fields."""
+        form = StockForm()
+        expected = [
+            'product_inventory',
+            'last_checked',
+            'units_variable',
+            'units',
+            'units_sold',
+        ]
+        actual = list(form.fields)
+        self.assertSequenceEqual(expected, actual)
+
+    def test_stock_form_is_valid(self):
+        """Test the stock form is valid."""
+        form = StockForm(
+            data={
+                'product_inventory': self.product_inventory1.id,
+                'last_checked': '2020-01-01',
+                'units_variable': 50,
+                'units': 40,
+                'units_sold': 10,
+            }
+        )
+        print(form)
+        print(form.errors)
+        self.assertTrue(form.is_valid())
+
+    def test_stock_form_is_invalid(self):
+        """Test the stock form is invalid."""
+        form = StockForm(
+            data={
+                'product_inventory': '',
+                'last_checked': '',
+                'units_variable': '',
+                'units': '',
+                'units_sold': '',
+            }
+        )
+        self.assertFalse(form.is_valid())
