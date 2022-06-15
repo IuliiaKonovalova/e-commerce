@@ -71,3 +71,36 @@ class TestForms(TestCase):
             }
         )
         self.assertFalse(form.is_valid())
+
+    def test_brand_form_has_fields(self):
+        """Test the brand form has the correct fields."""
+        form = BrandForm()
+        expected = ['name', 'slug', 'description', 'is_active']
+        actual = list(form.fields)
+        self.assertSequenceEqual(expected, actual)
+
+    def test_brand_form_is_valid(self):
+        """Test the brand form is valid."""
+        form = BrandForm(
+            data={
+                'name': 'Test Brand',
+                'slug': 'test-brand',
+                'description': 'Test Brand Description',
+                'is_active': True
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_brand_form_is_invalid(self):
+        """Test the brand form is invalid."""
+        form = BrandForm(
+            data={
+                'name': 'Test Brand',
+                'slug': '',
+                'description': 'Test Brand Description',
+                'is_active': True
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    
