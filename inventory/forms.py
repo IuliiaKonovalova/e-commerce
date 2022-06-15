@@ -216,3 +216,43 @@ class ProductAttributeForm(forms.ModelForm):
         }
 
 
+class ProductTypeForm(forms.ModelForm):
+    """Form for the ProductType model."""
+    class Meta:
+        model = ProductType
+        fields = [
+            'name',
+            'slug',
+            'product_type_attributes',
+            'description',
+        ]
+        widgets = {
+            'name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=50',
+                    'placeholder': 'Product Type Name',
+                }
+            ),
+            'slug': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=50',
+                    'placeholder': 'Product Type Slug Name',
+                }
+            ),
+            'product_type_attributes': forms.SelectMultiple(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'select attributes',
+                    'placeholder': 'Product Type Attributes',
+                }
+            ),
+            'description': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=500',
+                    'placeholder': 'Product Type Description',
+                }
+            ),
+        }
