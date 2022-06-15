@@ -450,26 +450,14 @@ class ProductInventory(models.Model):
     retail_price = models.DecimalField(
         max_digits=9,
         decimal_places=2,
-        null=False,
-        blank=False,
-        verbose_name='Retail price',
-        help_text='format: required, the price must be between 0 and 9999999.99.',
     )
     store_price = models.DecimalField(
         max_digits=9,
         decimal_places=2,
-        null=False,
-        blank=False,
-        verbose_name='Store price',
-        help_text='format: required, the price must be between 0 and 9999999.99.',
     )
     sale_price = models.DecimalField(
         max_digits=9,
         decimal_places=2,
-        null=False,
-        blank=False,
-        verbose_name='Sale price',
-        help_text='format: required, the price must be between 0 and 9999999.99.',
     )
     weight = models.FloatField(
         null=False,
@@ -609,12 +597,12 @@ class Stock(models.Model):
 class ProductAttributeValues(models.Model):
     attributevalues = models.ForeignKey(
         ProductAttributeValue,
-        related_name="attributevaluess",
+        related_name="attributevalues",
         on_delete=models.PROTECT,
     )
     productinventory = models.ForeignKey(
         ProductInventory,
-        related_name="productattributevaluess",
+        related_name="productattributevalues",
         on_delete=models.PROTECT,
     )
 
