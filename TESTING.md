@@ -237,3 +237,26 @@ and url for AJAX request:
 ```javascript
     url: 'https://secure.geonames.org/searchJSON?q=' + stateNameFirstWord + '&username=<my_account_name>&style=FULL&fclName=city, village,...&maxRows=1000',
 ```
+
+4. I was trying to get cover image for the product using related_name and if statements in the template. However, I was not able to get a single image, which is whether default and active, or not default but the first in the list of active images (```{% if forloop.first %}```).
+
+*Solution:*
+
+I added a method to the Product model that allows me to get the cover image.
+
+```python
+    def get_main_image(self):
+        """Get main cover image of product"""
+        images = ProductImage.objects.filter(product=self)
+        if images.exists():
+            active_images = images.filter(is_active=True)
+            if active_images.exists():
+                default_image = active_images.filter(default_image=True)
+                if default_image.exists():
+                    return default_image.first().image_url
+                else:
+                    return active_images.first().image_url
+            return 'static/images/default_product_image.png' 
+        else:
+            return 'static/images/default_product_image.png' 
+```
