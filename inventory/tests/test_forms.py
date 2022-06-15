@@ -41,3 +41,33 @@ class TestForms(TestCase):
             }
         )
         self.assertFalse(form.is_valid())
+
+
+    def test_tag_form_has_fields(self):
+        """Test the tag form has the correct fields."""
+        form = TagForm()
+        expected = ['name', 'slug', 'is_active']
+        actual = list(form.fields)
+        self.assertSequenceEqual(expected, actual)
+
+    def test_tag_form_is_valid(self):
+        """Test the tag form is valid."""
+        form = TagForm(
+            data={
+                'name': 'Test Tag',
+                'slug': 'test-tag',
+                'is_active': True
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_tag_form_is_invalid(self):
+        """Test the tag form is invalid."""
+        form = TagForm(
+            data={
+                'name': 'Test Tag',
+                'slug': '',
+                'is_active': True
+            }
+        )
+        self.assertFalse(form.is_valid())
