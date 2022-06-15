@@ -545,7 +545,8 @@ class Stock(models.Model):
 
     class Meta:
         """Meta class for Stock model"""
-        verbose_name = 'Stock Current'
+        verbose_name = 'Stock'
+        verbose_name_plural = 'Stocks'
         ordering = ['product_inventory']
 
     def __str__(self):
