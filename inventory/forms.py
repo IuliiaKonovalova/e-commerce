@@ -256,3 +256,100 @@ class ProductTypeForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class ProductAttributeValueForm(forms.ModelForm):
+    """Form for the ProductAttributeValue model."""
+    class Meta:
+        model = ProductAttributeValue
+        fields = ['product_attribute', 'attribute_value']
+        widgets = {
+            'product_attribute': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'select an attribute',
+                    'placeholder': 'Product Attribute',
+                }
+            ),
+            'attribute_value': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=50',
+                    'placeholder': 'Product Attribute Value',
+                }
+            ),
+        }
+
+
+class ProductInventoryForm(forms.ModelForm):
+    """Form for the ProductInventory model."""
+    class Meta:
+        model = ProductInventory
+        fields = [
+            'sku',
+            'upc',
+            'product',
+            'product_type',
+            'attribute_values',
+            'retail_price',
+            'store_price',
+            'sale_price',
+            'weight',
+            'is_active',
+        ]
+        retail_price = forms.DecimalField()
+        store_price = forms.DecimalField()
+        sale_price = forms.DecimalField()
+        widgets = {
+            'sku': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=50',
+                    'placeholder': 'Product SKU',
+                }
+            ),
+            'upc': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=12',
+                    'placeholder': 'Product UPC',
+                }
+            ),
+            'product': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'select a product',
+                    'placeholder': 'Product',
+                }
+            ),
+            'product_type': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'select a product type',
+                    'placeholder': 'Product Type',
+                }
+            ),
+            'attribute_values': forms.SelectMultiple(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'select attribute values',
+                    'placeholder': 'Attribute Values',
+                }
+            ),
+            
+            'weight': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'Product Weight in grams',
+                    'placeholder': 'Product Weight',
+                    'step': '0.1',
+                }
+            ),
+            'is_active': forms.CheckboxInput(
+                attrs={'class': 'form-check-input'}
+            )
+        }
+
+
+
+
