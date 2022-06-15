@@ -21,7 +21,7 @@ from inventory.forms import (
     ProductForm,
     ProductImageForm,
     ProductAttributeForm,
-    # ProductTypeForm,
+    ProductTypeForm,
 )
 
 
@@ -350,6 +350,42 @@ class TestForms(TestCase):
             data={
                 'name': '',
                 'description': '',
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    def test_product_type_form_has_fields(self):
+        """Test the product type form has the correct fields."""
+        form = ProductTypeForm()
+        expected = [
+            'name',
+            'slug',
+            'product_type_attributes',
+            'description',
+        ]
+        actual = list(form.fields)
+        self.assertSequenceEqual(expected, actual)
+
+    def test_product_type_form_is_valid(self):
+        """Test the product type form is valid."""
+        form = ProductTypeForm(
+            data={
+                'name': 'Test Product Type',
+                'slug': 'test-product-type',
+                'product_type_attributes': [self.product_attribute1.id],
+                'description': 'Test Product Type Description',
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_product_type_form_is_invalid(self):
+        """Test the product type form is invalid."""
+        form = ProductTypeForm(
+            data={
+                'name': 'Test Product Type',
+                'slug': '',
+                'product_type_attributes': self.product_attribute1.id,
+                'description': 'Test Product Type Description',
             }
         )
         self.assertFalse(form.is_valid())
