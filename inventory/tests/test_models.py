@@ -303,6 +303,47 @@ class TestModels(TestCase):
             [self.tag2]
         )
 
+    def test_product_get_main_image(self):
+        """Test get_main_image method."""
+        self.product_image1.default_image = True
+        self.product_image1.save()
+        self.assertEqual(self.product1.images.count(), 1)
+        self.assertEqual(self.product_image1.default_image, True)
+        product1 = Product.objects.get(id=self.product1.id)
+        self.assertEqual(
+            product1.get_main_image(),
+            self.product_image1.image_url
+        )
+        self.product_image3 = ProductImage.objects.create(
+            product=self.product1,
+            alt_text='Nike Skirt',
+            image=None,
+            default_image=True
+        )
+        self.assertEqual(self.product_image3.default_image, True)
+        self.assertEqual(self.product_image2.default_image, False)
+        self.assertEqual(self.product1.images.count(), 2)
+        self.assertEqual(
+            product1.get_main_image(),
+            self.product_image3.image_url
+        )
+        self.product_image1.default_image = False
+        self.product_image1.is_active = False
+        self.product_image1.save()
+        self.product_image3.default_image = False
+        self.product_image3.is_active = False
+        self.product_image3.save()
+        self.assertEqual(
+            product1.get_main_image(),
+            'static/images/default_product_image.png' 
+        )
+        self.product_image1.delete()
+        self.product_image3.delete()
+        self.assertEqual(
+            product1.get_main_image(),
+            'static/images/default_product_image.png' 
+        )
+
     def test_product_image_name(self):
         """Test the name field."""
         self.assertEqual(self.product_image1.alt_text, 'Nike Skirt')
