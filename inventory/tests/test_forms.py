@@ -327,3 +327,31 @@ class TestForms(TestCase):
         )
         self.assertFalse(form.is_valid())
 
+    def test_product_attribute_form_has_fields(self):
+        """Test the product attribute form has the correct fields."""
+        form = ProductAttributeForm()
+        expected = ['name', 'description',]
+        actual = list(form.fields)
+        self.assertSequenceEqual(expected, actual)
+
+    def test_product_attribute_form_is_valid(self):
+        """Test the product attribute form is valid."""
+        form = ProductAttributeForm(
+            data={
+                'name': 'Test Attribute',
+                'description': 'Test Attribute Description',
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_product_attribute_form_is_invalid(self):
+        """Test the product attribute form is invalid."""
+        form = ProductAttributeForm(
+            data={
+                'name': '',
+                'description': '',
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    
