@@ -192,3 +192,27 @@ class ProductImageForm(forms.ModelForm):
             )
         }
 
+
+class ProductAttributeForm(forms.ModelForm):
+    """Form for the ProductAttribute model."""
+    class Meta:
+        model = ProductAttribute
+        fields = ['name', 'description',]
+        widgets = {
+            'name': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=50',
+                    'placeholder': 'Product Attribute Name',
+                }
+            ),
+            'description': forms.Textarea(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'max_length=500',
+                    'placeholder': 'Product Attribute Description',
+                }
+            ),
+        }
+
+
