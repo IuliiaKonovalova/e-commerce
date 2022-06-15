@@ -296,3 +296,34 @@ class TestForms(TestCase):
         )
         self.assertFalse(form.is_valid())
 
+    def test_product_image_form_has_fields(self):
+        """Test the product image form has the correct fields."""
+        form = ProductImageForm()
+        expected = ['product', 'image', 'alt_text', 'is_active']
+        actual = list(form.fields)
+        self.assertSequenceEqual(expected, actual)
+
+    def test_product_image_form_is_valid(self):
+        """Test the product image form is valid."""
+        form = ProductImageForm(
+            data={
+                'product': self.product1.id,
+                'image': '',
+                'alt_text': 'Test Alt Text',
+                'is_active': True
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_product_image_form_is_invalid(self):
+        """Test the product image form is invalid."""
+        form = ProductImageForm(
+            data={
+                'product': '',
+                'image': self.product_image1.id,
+                'alt_text': '',
+                'is_active': True
+            }
+        )
+        self.assertFalse(form.is_valid())
+
