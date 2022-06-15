@@ -162,3 +162,33 @@ class ProductForm(forms.ModelForm):
             )
         }
 
+
+class ProductImageForm(forms.ModelForm):
+    """Form for the ProductImage model."""
+    class Meta:
+        model = ProductImage
+        fields = ['product', 'image', 'alt_text', 'is_active']
+        widgets = {
+            'product': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'select a product',
+                    'placeholder': 'Product Image Product',
+                }
+            ),
+            'image': forms.ClearableFileInput(
+                attrs={'multiple': False, 'accept': 'image/*'}
+            ),
+            'alt_text': forms.TextInput(
+                attrs={
+                  'rows': 3,
+                  'class': 'form-control',
+                  'title': 'max_length=50',
+                  'placeholder': 'Product Image Alt Text',
+                }
+            ),
+            'is_active': forms.CheckboxInput(
+                attrs={'class': 'form-check-input'}
+            )
+        }
+
