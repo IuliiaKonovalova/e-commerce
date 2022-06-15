@@ -129,6 +129,21 @@ To check whether the unique constrain is working, I called the following methods
             productinventory=productinventory
         )
 ```
+4. While testing ```ProductInventoryForm```, I was getting the following error:
+
+![Testing ProductInventoryForm](documentation/testing/tests_issues6.png)
+
+*Solution:*
+
+As I figured out the error was coming from the form's fields: ```retail_price```, ```store_price```, ```sale_price```, which were added to widget's attributes.
+DecimalField should be added to the widget's attributes. Thus, I deleted them and added them separately:
+
+```python
+    retail_price = forms.DecimalField()
+    store_price = forms.DecimalField()
+    sale_price = forms.DecimalField()
+```
+Additionally, while writing test cases to check whether ```ProductInventoryForm``` is valid, I was using float() for retail_price, store_price, sale_price, weight.
 
 
 
