@@ -1,5 +1,19 @@
 """Tests for the forms of the inventory app."""
 from django.test import TestCase
+from inventory.models import (
+    Category,
+    Tag,
+    Brand,
+    Product,
+    ProductImage,
+    ProductType,
+    ProductAttribute,
+    ProductAttributeValue,
+    ProductInventory,
+    Stock,
+    ProductAttributeValues,
+    ProductTypeAttribute,
+)
 from inventory.forms import (
     CategoryForm,
     TagForm,
@@ -13,6 +27,140 @@ from inventory.forms import (
 
 class TestForms(TestCase):
     """Tests for the forms of the inventory app."""
+    def setUp(self):
+        """Set up the test."""
+        self.category1 = Category.objects.create(
+            name='Clothing',
+            slug='clothing',
+            is_active=False,
+        )
+        self.category2 = Category.objects.create(
+            name='Food',
+            slug='food',
+            is_active=True,
+        )
+        self.tag1 = Tag.objects.create(
+            name='skirt',
+            slug='skirt',
+            is_active=True,
+        )
+        self.tag2 = Tag.objects.create(
+            name='shirt',
+            slug='shirt',
+            is_active=False,
+        )
+        self.brand1 = Brand.objects.create(
+            name='Nike',
+            slug='nike',
+            is_active=True,
+        )
+        self.brand2 = Brand.objects.create(
+            name='Adidas',
+            slug='adidas',
+            is_active=False,
+        )
+        self.product1 = Product.objects.create(
+            name='Nike Skirt',
+            slug='nike-skirt',
+            description='Nike Skirt',
+            category=self.category1,
+            brand=self.brand1,
+            is_active=True,
+        )
+        self.product1.tags.add(self.tag1)
+        self.product2 = Product.objects.create(
+            name='Adidas Shirt',
+            slug='Adidas-Shirt',
+            description='Adidas Shirt',
+            category=self.category2,
+            brand=self.brand2,
+            is_active=False,
+        )
+        self.product2.tags.add(self.tag2)
+        self.product_image1 = ProductImage.objects.create(
+            product=self.product1,
+            alt_text='Nike Skirt',
+            is_active=True,
+        )
+        self.product_image2 = ProductImage.objects.create(
+            product=self.product2,
+            alt_text='Adidas Shirt',
+            is_active=False,
+        )
+        self.product_attribute1 = ProductAttribute.objects.create(
+            name='color',
+            description='color'
+        )
+        self.product_attribute2 = ProductAttribute.objects.create(
+            name='women clothing size',
+            description='women clothing size'
+        )
+        self.product_type1 = ProductType.objects.create(
+            name='women clothes',
+            slug='women-clothes',
+            description='women clothes'
+        )
+        self.product_type1.product_type_attributes.add(
+            self.product_attribute1
+        )
+        self.product_type2 = ProductType.objects.create(
+            name='men clothes',
+            slug='men-clothes',
+            description='men clothes'
+        )
+        self.product_type2.product_type_attributes.add(
+            self.product_attribute2
+        )
+        self.product_attr_value1 = ProductAttributeValue.objects.create(
+            product_attribute = self.product_attribute1,
+            attribute_value = 'red'
+        )
+        self.product_attr_value2 = ProductAttributeValue.objects.create(
+            product_attribute = self.product_attribute2,
+            attribute_value = 'xs'
+        )
+        self.product_inventory1 = ProductInventory.objects.create(
+            sku='11111',
+            upc='11111',
+            product=self.product1,
+            product_type=self.product_type1,
+            retail_price=10.00,
+            store_price=11.00,
+            sale_price=9.00,
+            weight=float(1.0),
+            is_active=True,
+        )
+        product_attr_value1 = ProductAttributeValue.objects.get(id=1)
+        product_attr_value2 = ProductAttributeValue.objects.get(id=2)
+        self.product_inventory1.attribute_values.set(
+            [product_attr_value1, product_attr_value2],
+        )
+        self.product_inventory2 = ProductInventory.objects.create(
+            sku='22222',
+            upc='22222',
+            product=self.product2,
+            product_type=self.product_type1,
+            retail_price=10.00,
+            store_price=11.00,
+            sale_price=9.00,
+            weight=float(1.0),
+            is_active=False,
+        )
+        self.product_inventory2.attribute_values.set(
+            [product_attr_value1],
+        )
+        self.stock1 = Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units=10,
+            units_variable=10,
+            units_sold=0,
+        )
+        self.stock2 = Stock.objects.create(
+            product_inventory=self.product_inventory2,
+            units=0,
+            units_variable=10,
+            units_sold=0,
+        )
     def test_category_form_has_fields(self):
         """Test the category form has the correct fields."""
         form = CategoryForm()
@@ -103,4 +251,48 @@ class TestForms(TestCase):
         )
         self.assertFalse(form.is_valid())
 
-    
+    def test_product_form_has_fields(self):
+        """Test the product form has the correct fields."""
+        form = ProductForm()
+        expected = [
+            'name',
+            'slug',
+            'description',
+            'category',
+            'tags',
+            'brand',
+            'is_active'
+        ]
+        actual = list(form.fields)
+        self.assertSequenceEqual(expected, actual)
+
+    def test_product_form_is_valid(self):
+        """Test the product form is valid."""
+        form = ProductForm(
+            data={
+                'name': 'Test Product',
+                'slug': 'test-product',
+                'description': 'Test Product Description',
+                'category': self.category1.id,
+                'tags': [self.tag1.id],
+                'brand': self.brand1.id,
+                'is_active': True
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_product_form_is_invalid(self):
+        """Test the product form is invalid."""
+        form = ProductForm(
+            data={
+                'name': 'Test Product',
+                'slug': '',
+                'description': 'Test Product Description',
+                'category': self.category1,
+                'tags': self.tag1,
+                'brand': self.brand1,
+                'is_active': True
+            }
+        )
+        self.assertFalse(form.is_valid())
+
