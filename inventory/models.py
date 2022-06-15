@@ -258,6 +258,20 @@ class Product(models.Model):
         """Get all tags of product"""
         return self.tags.all()
 
+    def get_main_image(self):
+        """Get main cover image of product"""
+        images = ProductImage.objects.filter(product=self)
+        if images.exists():
+            active_images = images.filter(is_active=True)
+            if active_images.exists():
+                default_image = active_images.filter(default_image=True)
+                if default_image.exists():
+                    return default_image.first().image_url
+                else:
+                    return active_images.first().image_url
+            return 'static/images/default_product_image.png' 
+        else:
+            return 'static/images/default_product_image.png' 
 
 
 class ProductImage(models.Model):
