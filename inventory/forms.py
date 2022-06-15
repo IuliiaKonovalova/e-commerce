@@ -351,5 +351,51 @@ class ProductInventoryForm(forms.ModelForm):
         }
 
 
-
-
+class StockForm(forms.ModelForm):
+    """Form for the Stock model."""
+    class Meta:
+        model = Stock
+        fields = [
+            'product_inventory',
+            'last_checked',
+            'units_variable',
+            'units',
+            'units_sold',
+        ]
+        widgets = {
+            'product_inventory': forms.Select(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'select a product inventory',
+                    'placeholder': 'Product Inventory',
+                }
+            ),
+            'last_checked': forms.DateTimeInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'last checked',
+                    'placeholder': 'Last Checked',
+                }
+            ),
+            'units_variable': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'units variable',
+                    'placeholder': 'Units Variable',
+                }
+            ),
+            'units': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'units',
+                    'placeholder': 'Units',
+                }
+            ),
+            'units_sold': forms.NumberInput(
+                attrs={
+                    'class': 'form-control',
+                    'title': 'units sold',
+                    'placeholder': 'Units Sold',
+                }
+            ),
+        }
