@@ -11,8 +11,6 @@ from inventory.models import (
     ProductAttributeValue,
     ProductInventory,
     Stock,
-    ProductAttributeValues,
-    ProductTypeAttribute,
 )
 from inventory.forms import (
     CategoryForm,
@@ -22,6 +20,8 @@ from inventory.forms import (
     ProductImageForm,
     ProductAttributeForm,
     ProductTypeForm,
+    ProductAttributeValueForm,
+    ProductInventoryForm,
 )
 
 
@@ -390,4 +390,85 @@ class TestForms(TestCase):
         )
         self.assertFalse(form.is_valid())
 
-    
+    def test_product_attribute_value_form_has_fields(self):
+        """Test the product attribute value form has the correct fields."""
+        form = ProductAttributeValueForm()
+        expected = ['product_attribute', 'attribute_value']
+        actual = list(form.fields)
+        self.assertSequenceEqual(expected, actual)
+
+    def test_product_attribute_value_form_is_valid(self):
+        """Test the product attribute value form is valid."""
+        form = ProductAttributeValueForm(
+            data={
+                'product_attribute': self.product_attribute1.id,
+                'attribute_value': 'blue',
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_product_attribute_value_form_is_invalid(self):
+        """Test the product attribute value form is invalid."""
+        form = ProductAttributeValueForm(
+            data={
+                'product_attribute': '',
+                'attribute_value': 'green',
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    def test_product_inventory_form_has_fields(self):
+        """Test the product inventory form has the correct fields."""
+        form = ProductInventoryForm()
+        expected = [
+            'sku',
+            'upc',
+            'product',
+            'product_type',
+            'attribute_values',
+            'retail_price',
+            'store_price',
+            'sale_price',
+            'weight',
+            'is_active',
+        ]
+        actual = list(form.fields)
+        self.assertSequenceEqual(expected, actual)
+
+    def test_product_inventory_form_is_valid(self):
+        """Test the product inventory form is valid."""
+        form = ProductInventoryForm(
+            data={
+                'sku': '1111111',
+                'upc': '1111111',
+                'product': self.product1.id,
+                'product_type': self.product_type1.id,
+                'attribute_values': [self.product_attr_value1.id],
+                'retail_price': float('10.00'),
+                'store_price': float('10.00'),
+                'sale_price': float('10.00'),
+                'weight': float('10.00'),
+                'is_active': True,
+            }
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_product_inventory_form_is_invalid(self):
+        """Test the product inventory form is invalid."""
+        form = ProductInventoryForm(
+            data={
+                'sku': '',
+                'upc': '',
+                'product': '',
+                'product_type': '',
+                'attribute_values': '',
+                'retail_price': '',
+                'store_price': '',
+                'sale_price': '',
+                'weight': '',
+                'is_active': True,
+            }
+        )
+        self.assertFalse(form.is_valid())
+        
+
