@@ -344,6 +344,13 @@ class TestModels(TestCase):
             'static/images/default_product_image.png' 
         )
 
+    def test_product_get_out_of_stock(self):
+        """Test get_out_of_stock method."""
+        self.assertEqual(self.product1.get_out_of_stock(), False)
+        self.product_inventory1.is_active = False
+        self.product_inventory1.save()
+        self.assertEqual(self.product1.get_out_of_stock(), True)
+
     def test_product_image_name(self):
         """Test the name field."""
         self.assertEqual(self.product_image1.alt_text, 'Nike Skirt')
