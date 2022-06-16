@@ -215,9 +215,11 @@ class Address(models.Model):
     )
 
     def __str__(self):
+        """Return the address line."""
         return f'{self.user.username} - {self.zip_code} - {self.is_primary}'
 
     def save(self, *args, **kwargs):
+        """Check if there is a primary address."""
         super().save(*args, **kwargs)
         if self.is_primary:
             for address in self.user.addresses.all().exclude(id=self.id):
