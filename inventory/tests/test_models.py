@@ -402,6 +402,37 @@ class TestModels(TestCase):
             False
         )
 
+    def test_product_get_lowest_price(self):
+        """Test get_lowest_price method."""
+        self.assertEqual(self.product1.get_lowest_price(), 9.00)
+        self.product_inventory3 = ProductInventory.objects.create(
+            sku='11112',
+            upc='11112',
+            product=self.product1,
+            product_type=self.product_type1,
+            retail_price=10.00,
+            store_price=11.00,
+            sale_price=8.00,
+            weight=float(1.0),
+            is_active=True,
+        )
+        product_attr_value1 = ProductAttributeValue.objects.get(id=1)
+        product_attr_value2 = ProductAttributeValue.objects.get(id=2)
+        self.product_inventory3.attribute_values.set(
+            [product_attr_value1, product_attr_value2],
+        )
+        self.assertEqual(self.product1.get_lowest_price(), 8.00)
+        self.product_inventory1.is_active = False
+        self.product_inventory1.save()
+        self.product_inventory3.is_active = False
+        self.product_inventory3.save()
+        self.assertEqual(self.product1.get_lowest_price(), None)
+
+
+    def test_product_image_name(self):
+        """Test the name field."""
+        self.assertEqual(self.product_image1.alt_text, 'Nike Skirt')
+
     def test_product_image_product(self):
         """Test the product field."""
         self.assertEqual(self.product_image1.product, self.product1)
