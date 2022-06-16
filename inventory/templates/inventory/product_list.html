@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="products__all">
+    {% for product in products %}
+      {% if product.is_active %}
+        <div class="product__card">
+          <div class="product__card--image">
+            {% if product.images.all %}
+              <img src="{{ product.get_main_image }}" alt="Cover image for {{ product.name }}">
+            {% else %}
+              <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+          {% endif %}
+          </div>
+          <div class="product__card--name">
+            {{ product.name }}
+          </div>
+          <div class="product__card--content">
+            {{ product.description }}
+            {{ product.category }}
+            {{ product.brand }}
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
