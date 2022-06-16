@@ -14,6 +14,7 @@
   --clr-accent--700: #633b48;
   --clr-accent--900: #4a2532;
   --clr-text--100: #ffffff;
+  --clr-text--200: #e7e7e7;
   --clr-text--300: #898989;
   --clr-text--500: #363636;
   --clr-text--900: #191919;
@@ -38,7 +39,7 @@ html {
   scroll-behavior: smooth;
   font-size: var(--fs);
   font-family: var(--ff-primary);
-  /* background-color: var(--clr-primary--900); */
+  background-color: var(--clr-text--200);
   color: var(--clr-text--100);
 }
 
@@ -123,6 +124,7 @@ img {
   transition: all 0.3s ease-in-out;
   color: var(--clr-primary--500);
   padding: 1em;
+  background-color: var(--clr-text--100);
 }
 
 .address__card--primary {
@@ -192,6 +194,8 @@ img {
   display: grid;
   grid-template-rows: 2fr 0.5fr 0.5fr;
   gap: 0.5rem;
+  position: relative;
+  background-color: var(--clr-text--100);
 }
 
 .product__card--image {
@@ -204,4 +208,37 @@ img {
   text-align: center;
   font-size: 1.5rem;
   font-weight: 900;
+}
+
+.product__card--discount {
+  position: absolute;
+  top: -0.7rem;
+  right: -0.7rem;
+  height: 5rem;
+  width: 5rem;
+}
+
+.product__card--content {
+  position: relative;
+}
+
+.product__card--prices {
+  position: absolute;
+  bottom: 0.7rem;
+  right: 0.7rem;
+}
+
+.product__card--price {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--clr-text--500);
+}
+
+.product__card--price.price__sale {
+  color: var(--clr-accent--900);
+}
+
+.product__card--price.price__regular {
+  color: var(--clr-text--300);
+  text-decoration: line-through;
 }
