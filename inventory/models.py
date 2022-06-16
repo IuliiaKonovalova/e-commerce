@@ -269,9 +269,21 @@ class Product(models.Model):
                     return default_image.first().image_url
                 else:
                     return active_images.first().image_url
-            return 'static/images/default_product_image.png' 
+            return 'static/images/default_product_image.png'
         else:
-            return 'static/images/default_product_image.png' 
+            return 'static/images/default_product_image.png'
+
+    def get_out_of_stock(self):
+        """Get out of stock products"""
+        active_sales_prices = ProductInventory.objects.filter(
+            product=self
+        ).filter(is_active=True)
+        if active_sales_prices.exists():
+            return False
+        else:
+            return True
+
+
 
 
 class ProductImage(models.Model):
