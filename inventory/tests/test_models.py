@@ -383,9 +383,24 @@ class TestModels(TestCase):
         self.product_inventory3.save()
         self.assertEqual(self.product1.get_same_sale_price(), False)
 
-    def test_product_image_name(self):
-        """Test the name field."""
-        self.assertEqual(self.product_image1.alt_text, 'Nike Skirt')
+    def test_product_get_sale_price_is_lower_than_store_price(self):
+        """Test get_sale_price_is_lower_than_store_price method."""
+        self.assertEqual(
+            self.product1.get_sale_price_is_lower_than_store_price(),
+            True
+        )
+        self.product_inventory1.sale_price = 11.00
+        self.product_inventory1.save()
+        self.assertEqual(
+            self.product1.get_sale_price_is_lower_than_store_price(),
+            False
+        )
+        self.product_inventory1.is_active = False
+        self.product_inventory1.save()
+        self.assertEqual(
+            self.product1.get_sale_price_is_lower_than_store_price(),
+            False
+        )
 
     def test_product_image_product(self):
         """Test the product field."""
