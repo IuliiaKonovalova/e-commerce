@@ -354,6 +354,18 @@ class Product(models.Model):
         else:
             return None
 
+    def get_highest_store_price(self):
+        """Get highest price of product"""
+        active_sales_prices = ProductInventory.objects.filter(
+            product=self
+        ).filter(is_active=True)
+        if active_sales_prices.exists():
+            highest_price = active_sales_prices.order_by(
+                '-store_price'
+            ).first()
+            return highest_price.store_price
+        else:
+            return None
 
 
 class ProductImage(models.Model):
