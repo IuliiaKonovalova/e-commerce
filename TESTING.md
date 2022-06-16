@@ -260,3 +260,30 @@ I added a method to the Product model that allows me to get the cover image.
         else:
             return 'static/images/default_product_image.png' 
 ```
+
+5. I realized that my .gitiignore file was not ignoring the db.sqlite3 file, however, it was stating the .gitiignore file 
+```python
+    *.sqlite3
+    db.sqlite3
+```
+
+*Solution:*
+
+At the very beginning, I used the following command:
+
+```
+git update-index --assume-unchanged db.sqlite3
+```
+
+But the output was: ```fatal: Unable to mark file db.sqlite3```
+
+So, I user the following command for reset:
+
+```
+git reset HEAD
+```
+After that I run assume-unchanged again:
+
+```
+git update-index --assume-unchanged db.sqlite3
+```
