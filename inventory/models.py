@@ -328,7 +328,6 @@ class Product(models.Model):
         ).filter(is_active=True)
         if active_sales_prices.exists():
             lowest_price = active_sales_prices.order_by('sale_price').first()
-            print(lowest_price)
             return lowest_price.sale_price
         else:
             return None
@@ -343,6 +342,18 @@ class Product(models.Model):
             return highest_price.sale_price
         else:
             return None
+
+    def get_lowest_store_price(self):
+        """Get lowest price of product"""
+        active_sales_prices = ProductInventory.objects.filter(
+            product=self
+        ).filter(is_active=True)
+        if active_sales_prices.exists():
+            lowest_price = active_sales_prices.order_by('store_price').first()
+            return lowest_price.store_price
+        else:
+            return None
+
 
 
 class ProductImage(models.Model):
