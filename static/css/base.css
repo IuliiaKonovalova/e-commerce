@@ -1,28 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap');
 
 :root {
-  --clr-bg--100: #1100ff;
-  --clr-bg--300: #050048;
-  --clr-bg--500: #06032e;
-  --clr-bg--700: #3d2f6d91;
-  --clr-bg--800: #28253291;
-  --clr-bg--900: #151422;
-  --clr-accent--300: #c3faff;
-  --clr-accent--500: #95f2fa;
-  --clr-accent--700: #22e0f0;
-  --clr-accent--800: #45baff;
-  --clr-accent--900: #7119f9;
+  --clr-primary--100: #eaddff;
+  --clr-primary--200: #d0bcff;
+  --clr-primary--300: #4f378b;
+  --clr-primary--400: #381e73;
+  --clr-primary--500: #06032e;
+  --clr-primary--700: #3d2f6d91;
+  --clr-primary--800: #28253291;
+  --clr-primary--900: #151422;
+  --clr-accent--100: #ffd8e4;
+  --clr-accent--200: #efb8c8;
+  --clr-accent--700: #633b48;
+  --clr-accent--900: #4a2532;
   --clr-text--100: #ffffff;
   --clr-text--300: #898989;
   --clr-text--500: #363636;
   --clr-text--900: #191919;
-  --clr-btn--700: #2d698c;
-  --clr-btn--800: #666666;
-  --clr-btn--900: #42286a;
   --fs: calc(60% + 0.8vmin);
   --ff-primary: 'Lato', sans-serif;
   --br: 0.5em;
   --br-buttons: 0.2em;
+  --box-shadow-buttons: 0 1px 2px rgba(0, 0, 0, 0.317);
 }
 
 
@@ -39,7 +38,7 @@ html {
   scroll-behavior: smooth;
   font-size: var(--fs);
   font-family: var(--ff-primary);
-  background-color: var(--clr-bg--900);
+  /* background-color: var(--clr-primary--900); */
   color: var(--clr-text--100);
 }
 
@@ -126,19 +125,18 @@ img {
   width: 100%;
   height: 100%;
   border-radius: var(--br);
-  background-color: var(--clr-bg--800);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
-  color: white;
+  color: var(--clr-primary--500);
   padding: 1em;
 }
 
 .address__card--primary {
-  background-color: var(--clr-bg--700) !important;
+  background-color: var(--clr-primary--200) !important;
 }
 
 .addresses__all div a {
-  color: white;
+  color: var(--clr-primary--500);
 }
 
 .address__card--edit,
@@ -150,6 +148,8 @@ img {
   font-size: 1.3rem;
   padding: 0.2em 0.5em;
   border-radius: var(--br-buttons);
+  box-shadow: var(--box-shadow-buttons);
+
 }
 
 .address__card--edit i,
@@ -164,14 +164,18 @@ img {
 }
 
 .address__card--edit {
-  background-color: var(--clr-btn--700);
-  margin-bottom: 0.2em;
+  background-color: var(--clr-primary--200);
+  margin: 0.4em auto;
 }
 
 .address__card--disable {
-  background-color: var(--clr-btn--800);
+  background-color: var(--clr-accent--100);
+}
+
+.address__card--primary .address__card--edit {
+  background-color: var(--clr-primary--100);
 }
 
 .address__card--enable {
-  background-color: var(--clr-btn--900);
+  background-color: var(--clr-accent--200);
 }
