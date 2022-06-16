@@ -283,7 +283,24 @@ class Product(models.Model):
         else:
             return True
 
-
+    def get_same_sale_price(self):
+        """Get same sale price products"""
+        active_sales_prices = ProductInventory.objects.filter(
+            product=self
+        ).filter(is_active=True)
+        if active_sales_prices.exists():
+            if active_sales_prices.count() == 1:
+                return True
+            else:
+                sale_prices = []
+                for sale_price in active_sales_prices:
+                    sale_prices.append(float(sale_price.sale_price))                
+                if len(set(sale_prices)) == 1:
+                    return True
+                else:
+                    return False
+        else:
+            return False
 
 
 class ProductImage(models.Model):
