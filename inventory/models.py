@@ -302,6 +302,25 @@ class Product(models.Model):
         else:
             return False
 
+    def get_sale_price_is_lower_than_store_price(self):
+        """Get sale price is lower than store price products"""
+        active_sales_prices = ProductInventory.objects.filter(
+            product=self
+        ).filter(is_active=True)
+        if active_sales_prices.exists():
+            sale_store_prices_set = set()
+            for sale_price in active_sales_prices:
+                if float(sale_price.sale_price) < float(
+                    sale_price.store_price
+                ):
+                    sale_store_prices_set.add(True)
+            if True in sale_store_prices_set:
+                return True
+            else:
+                return False
+        else:
+            return False
+
 
 class ProductImage(models.Model):
     """Product image model"""
