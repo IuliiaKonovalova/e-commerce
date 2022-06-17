@@ -113,12 +113,12 @@ class TestForms(TestCase):
             self.product_attribute2
         )
         self.product_attr_value1 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute1,
-            attribute_value = 'red'
+            product_attribute=self.product_attribute1,
+            attribute_value='red'
         )
         self.product_attr_value2 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute2,
-            attribute_value = 'xs'
+            product_attribute=self.product_attribute2,
+            attribute_value='xs'
         )
         self.product_inventory1 = ProductInventory.objects.create(
             sku='11111',
@@ -150,6 +150,7 @@ class TestForms(TestCase):
         self.product_inventory2.attribute_values.set(
             [product_attr_value1],
         )
+
     def test_category_form_has_fields(self):
         """Test the category form has the correct fields."""
         form = CategoryForm()
@@ -178,7 +179,6 @@ class TestForms(TestCase):
             }
         )
         self.assertFalse(form.is_valid())
-
 
     def test_tag_form_has_fields(self):
         """Test the tag form has the correct fields."""
@@ -319,7 +319,7 @@ class TestForms(TestCase):
     def test_product_attribute_form_has_fields(self):
         """Test the product attribute form has the correct fields."""
         form = ProductAttributeForm()
-        expected = ['name', 'description',]
+        expected = ['name', 'description']
         actual = list(form.fields)
         self.assertSequenceEqual(expected, actual)
 
@@ -484,8 +484,6 @@ class TestForms(TestCase):
                 'units_sold': 10,
             }
         )
-        print(form)
-        print(form.errors)
         self.assertTrue(form.is_valid())
 
     def test_stock_form_is_invalid(self):
