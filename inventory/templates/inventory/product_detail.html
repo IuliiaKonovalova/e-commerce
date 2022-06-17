@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <div class="product__title">
+    {{ product.name }}
+
+    <div class="product__card--prices">
+      {% if product.get_out_of_stock %}
+        <div class="product__card--price price__sale">
+          <p>Out of stock</p>
+        </div>
+      {% elif product.get_same_sale_price %}
+        {% if product.get_sale_price_is_lower_than_store_price %}
+          <div class="product__card--price price__regular">
+            {{ product.get_lowest_store_price }}
+          </div>
+          <div class="product__card--price price__sale">
+            {{ product.get_lowest_price }}
+          </div>
+        {% else %}
+          <div class="product__card--price">
+            {{ product.get_lowest_price }}
+          </div>
+        {% endif %}
+      {% else %}
+        {% if product.get_sale_price_is_lower_than_store_price %}
+          <div class="product__card--price price__regular">
+            {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+          </div>
+          <div class="product__card--price price__sale">
+            {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+          </div>
+        {% else %}
+          <div class="product__card--price">
+            {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+    <div class="product__images">
+      {% if product.images.all %}
+        {% for image in product.images.all %}
+          <img src="{{ image.image.url }}" alt="{{ image.image.alt_text }}">
+        {% endfor %}
+      {% else %}
+        <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+      {% endif %}
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}
