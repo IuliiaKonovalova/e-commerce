@@ -34,6 +34,7 @@ class Category(models.Model):
         auto_now=True,
         verbose_name='Updated at'
     )
+
     class Meta:
         """Meta class for Category model"""
         verbose_name = 'Category'
@@ -88,6 +89,7 @@ class Tag(models.Model):
         auto_now=True,
         verbose_name='Updated at'
     )
+
     class Meta:
         """Meta class for Tag model"""
         verbose_name = 'Tag'
@@ -149,6 +151,7 @@ class Brand(models.Model):
         auto_now=True,
         verbose_name='Updated at'
     )
+
     class Meta:
         """Meta class for Brand model"""
         verbose_name = 'Brand'
@@ -230,6 +233,7 @@ class Product(models.Model):
         auto_now=True,
         verbose_name='Updated at'
     )
+
     class Meta:
         """Meta class for Product model"""
         verbose_name = 'Product'
@@ -294,7 +298,7 @@ class Product(models.Model):
             else:
                 sale_prices = []
                 for sale_price in active_sales_prices:
-                    sale_prices.append(float(sale_price.sale_price))                
+                    sale_prices.append(float(sale_price.sale_price))
                 if len(set(sale_prices)) == 1:
                     return True
                 else:
@@ -405,6 +409,7 @@ class ProductImage(models.Model):
         auto_now=True,
         verbose_name='Updated at'
     )
+
     class Meta:
         """Meta class for Product image model"""
         verbose_name = 'Product image'
@@ -510,6 +515,7 @@ class ProductType(models.Model):
         """Get all product type attributes"""
         return self.product_type_attributes.all()
 
+
 class ProductAttributeValue(models.Model):
     product_attribute = models.ForeignKey(
         ProductAttribute,
@@ -519,6 +525,7 @@ class ProductAttributeValue(models.Model):
     attribute_value = models.CharField(
         max_length=255,
     )
+
     class Meta:
         """Meta class for Product attribute value model"""
         verbose_name = 'Product attribute value'
@@ -708,7 +715,7 @@ class Stock(models.Model):
     @classmethod
     def get_low_sales(cls):
         """get stocks where sales should be increased"""
-        low_sale =  cls.objects.filter(units_sold__gt=0)
+        low_sale = cls.objects.filter(units_sold__gt=0)
         return low_sale.filter(units__gte=F('units_sold') * 5)
 
 
