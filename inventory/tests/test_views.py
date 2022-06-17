@@ -155,3 +155,10 @@ class TestUrls(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['products'].count(), 2)
         self.assertTemplateUsed(response, 'inventory/products_list.html')
+
+    def test_product_detail_url(self):
+        """Test product detail url."""
+        response = self.client.get(self.product_detail_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['product'].id, 1)
+        self.assertTemplateUsed(response, 'inventory/product_detail.html')
