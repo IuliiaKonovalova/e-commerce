@@ -2,124 +2,129 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    {% block meta %}
-      {% comment %} Required meta tags {% endcomment %}
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="" />
-      <meta name="keywords" content="" />
-      <meta name="author" content="Iuliia Konovalova" />
-      {% comment %} Favicon {% endcomment %}
-    {% endblock%}
+<head>
+  {% block meta %}
+  {% comment %} Required meta tags {% endcomment %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="Iuliia Konovalova" />
+  {% comment %} Favicon {% endcomment %}
+  {% endblock%}
 
-    {% block extra_meta %}
-    {% endblock%}
+  {% block extra_meta %}
+  {% endblock%}
 
-    {% block corecss %}
-      {% comment %} Link to css {% endcomment %}
-      <!-- jquery ui css -->
-      <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-      <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    {% endblock%}
+  {% block corecss %}
+  {% comment %} Link to css {% endcomment %}
+  <!-- jquery ui css -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% endblock%}
 
-    {% block extra_css %}
-    {% endblock%}
+  {% block extra_css %}
+  {% endblock%}
 
 
 
-    {% block jslibraries %}
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://kit.fontawesome.com/8e4b08b302.js" crossorigin="anonymous"></script>
-    {% endblock %}
-    {% block corejs %}
-      {% comment %} Link to fontawesome {% endcomment %}
-    {% endblock%}
+  {% block jslibraries %}
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://kit.fontawesome.com/8e4b08b302.js" crossorigin="anonymous"></script>
+  {% endblock %}
+  {% block corejs %}
+  {% comment %} Link to fontawesome {% endcomment %}
+  {% endblock%}
 
-    {% block extra_js %}
-    {% endblock%}
+  {% block extra_js %}
+  {% endblock%}
 
-    <title>E-commerce {% block extra_title %}{% endblock %}</title>
-  </head>
+  <title>E-commerce {% block extra_title %}{% endblock %}</title>
+</head>
 
-  <body>
-    <header class="header">
-      {% comment %} Navbar {% endcomment %}
-      <nav class="navbar">
+<body>
+  <header class="header">
+    {% comment %} Navbar {% endcomment %}
+    <nav class="navbar">
       {% comment %} Logo container {% endcomment %}
-        <div class="logo__container">
-          
-        </div>
-        {% comment %} Navbar content {% endcomment %}
-        <ul class="navbar__items">
-          {% if not request.user.is_authenticated %}
-            <li class="navbar__item">
-              <a href="{% url 'account_signup' %}" class="">SignUp</a>
-              <a href="{% url 'account_login' %}" class="">Login</a>
-            </li>
-          {% endif %}
-          {% comment %} Links for school members {% endcomment %}
-          {% if request.user.is_authenticated %}
-            <li class="navbar__item">
-              <a href="{% url 'my_profile' user=request.user %}" aria-label="Go to Profile page"
-                class="account__option">
-                Profile
-              </a>
-            </li>
-            <li class="navbar__item">
-              <a href="{% url 'products_list' %}" aria-label="Go to Products page"
-                class="account__option">
-                Products
-              </a>
-            </li>
-            <li class="navbar__item">
-              <a href="{% url 'account_logout' %}" aria-label="Logout" class="">
-                Logout
-              </a>
-            </li>
-          {% comment %} Links acccessable to every member {% endcomment %}
-          {% else %}
-            <li class="navbar__item ">
-              
-            </li>
-          {% endif %}
-        </ul>
-      </nav>
-    </header>
-    {% comment %} Main content container {% endcomment %}
-    <main class="main">
-      <div class="content__container">
-      {% comment %} Messages {% endcomment %}
-        {% if messages %}
-          <div class="message-container" id="messages-notes">
-            {% for message in messages %}
-            <div class="message-container__message">
-              <p class="message-container__message--text">{{ message }}</p>
-            </div>
-            {% endfor %}
-          </div>
-        {% endif %}
+      <div class="logo__container">
 
-        {% block page_header %}
-        {% endblock %}
-
-        {% block content %}
-        {% endblock %}
       </div>
-    </main>
-    {% comment %} Footer {% endcomment %}
-    <footer class="footer">
-      
-    </footer>
-    {% block postloadjs %}
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-      <script src="{% static 'js/base.js' %}" type="module"></script>
+      {% comment %} Navbar content {% endcomment %}
+      <ul class="navbar__items">
+        {% if not request.user.is_authenticated %}
+        <li class="navbar__item">
+          <a href="{% url 'account_signup' %}" class="">SignUp</a>
+          <a href="{% url 'account_login' %}" class="">Login</a>
+        </li>
+        {% endif %}
+        {% comment %} Links for school members {% endcomment %}
+        {% if request.user.is_authenticated %}
+        <li class="navbar__item">
+          <a href="{% url 'my_profile' user=request.user %}" aria-label="Go to Profile page" class="account__option">
+            Profile
+          </a>
+        </li>
+        <li class="navbar__item">
+          <a href="{% url 'products_list' %}" aria-label="Go to Products page" class="account__option">
+            Products
+          </a>
+        </li>
+        <li class="navbar__item">
+          <a href="{% url 'account_logout' %}" aria-label="Logout" class="">
+            Logout
+          </a>
+        </li>
+        {% comment %} Links acccessable to every member {% endcomment %}
+        {% else %}
+        <li class="navbar__item ">
 
-    {% endblock %}
-  </body>
+        </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+  {% comment %} Main content container {% endcomment %}
+  <main class="main">
+    <div class="content__container">
+      {% comment %} Messages {% endcomment %}
+      {% if messages %}
+      <div class="message-container" id="messages-notes">
+        {% for message in messages %}
+        <div class="message-container__message">
+          <p class="message-container__message--text">{{ message }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      {% block page_header %}
+      {% endblock %}
+
+      {% block content %}
+      {% endblock %}
+    </div>
+  </main>
+  {% comment %} Footer {% endcomment %}
+  <footer class="footer">
+
+  </footer>
+  {% block postloadjs %}
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <script src="{% static 'js/base.js' %}" type="module"></script>
+
+  {% endblock %}
+</body>
+
 </html>
