@@ -11,6 +11,8 @@ from .models import (
     ProductAttributeValue,
     ProductInventory,
     Stock,
+    ProductAttributeValues,
+    ProductTypeAttribute,
 )
 from django.contrib.auth.decorators import login_required
 
@@ -35,8 +37,38 @@ class ProductDetailView(View):
             product=product,
             is_active=True
         )
+        products_inventory = ProductInventory.objects.filter(
+            product=product
+        )
+        attributes_set = set()
+        values_set = set()
+        attribute_values_dict = {}
+        for product_inventory in products_inventory:
+            attributes = product_inventory.product_type.product_type_attributes.all()
+            for attribute in attributes:
+                attributes_set.add(attribute)
+                attribute_values_set = set()
+                attribute_value = ProductAttributeValue.objects.filter(
+                    product_attribute=attribute,
+                )
+                attribute_values_set.add(attribute_value)
+                attribute_values_dict[attribute] = attribute_value
+            values = product_inventory.productattributevalues.all()
+            for value in values:
+                values_set.add(value.attributevalues)
+
+
+
+
         context = {
             'product': product,
             'active_images': active_images,
+            'products_inventory': products_inventory,
+            'attributes_set': attributes_set,
+            'values_set': values_set,
+            'attribute_values_dict': attribute_values_dict,
+
         }
         return render(request, 'inventory/product_detail.html', context)
+
+
