@@ -105,9 +105,9 @@
   <div class="product__options">
     {% for k,v in attribute_values_dict.items %}
       <div class="product__options">
-        <p>{{ k }}</p>
+        <p data-attribute="{{ k }}">{{ k }}</p>
         <div class="product__options--input">
-          <select name="product__options--select">
+          <select name="product__options--select" class="product__options--select">
             {% for item in v %}
               {% if item in values_set %}
                 {% if item in values_set_active %}
@@ -115,7 +115,7 @@
                     {{ item }}
                   </option>
                 {% else %}
-                  <option value="{{ item }}" class="product__option" disabled>
+                  <option value="{{ item }}" class="product__option--disable" disabled>
                     {{ item }}
                   </option>
                 {% endif %}
@@ -157,7 +157,20 @@
 
 <script>
   $(document).ready(function() {
+    $('.product__options--select').on('change', function() {
+        let value = $(this).find(':selected').val();
+        $.ajax({
+          url: "{% url 'product_attribute_value_update' %}",
+          type: "POST",
+          data: {
+            value: value,
+            product_id: {{ product.id }},
+            attribute: $(this).parent().prev().data('attribute')
+          },
+        });
+        
+      });
+    });
 
-  });
 </script>
 {% endblock %}
