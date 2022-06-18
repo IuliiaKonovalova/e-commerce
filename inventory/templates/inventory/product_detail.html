@@ -122,18 +122,18 @@
         </select>
       </div>
     </div>
-    <div class="product__options--colour">
-      <p>Colour</p>
-      <div class="product__options--colour-input">
-        <select name="colour">
-{% comment %} 
-          {% for colour in product.colours %}
-            <option value="{{ colour }}">{{ colour }}</option>
-          {% endfor %}
-          {% endcomment %}
-        </select>
+    {% for k,v in attribute_values_dict.items %}
+      <div class="product__options--colour">
+        <p>{{ k }}</p>
+        <div class="product__options--colour-input">
+          <select name="colour">
+            {% for item in v %}
+              <option value="{{ item }}">{{ item }}</option>
+            {% endfor %}
+          </select>
+        </div>
       </div>
-    </div>
+    {% endfor %}
 
 {% for k,v in attribute_values_dict.items %}
 {{ k }}
