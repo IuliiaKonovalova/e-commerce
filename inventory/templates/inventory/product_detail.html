@@ -98,6 +98,88 @@
     {% endif %}
   </div>
 
+  <div class="product__description">
+    <p>{{ product.description }}</p>
+  </div>
+
+  <div class="product__options">
+    <div class="product__options--quantity">
+      <p>Quantity</p>
+      <div class="product__options--quantity-input">
+        <input type="number" name="quantity" value="1" min="1" max="{{ product.get_stock_quantity }}">
+      </div>
+    </div>
+    <div class="product__options--size">
+      <p>Size</p>
+      <div class="product__options--size-input">
+        <select name="size">
+{% comment %} 
+          {% for size in product.sizes %}
+            <option value="{{ size }}">{{ size }}</option>
+          {% endfor %}
+          {% endcomment %}
+
+        </select>
+      </div>
+    </div>
+    <div class="product__options--colour">
+      <p>Colour</p>
+      <div class="product__options--colour-input">
+        <select name="colour">
+{% comment %} 
+          {% for colour in product.colours %}
+            <option value="{{ colour }}">{{ colour }}</option>
+          {% endfor %}
+          {% endcomment %}
+        </select>
+      </div>
+    </div>
+
+{% for k,v in attribute_values_dict.items %}
+{{ k }}
+{% for item in v %}
+{{ item }}
+{% endfor %}
+{% endfor %}
+<div class="products__all">
+{% for product_inventory_each in products_inventory %}
+<div class="product__card">
+{{ product_inventory_each.sku }}
+{{ product_inventory_each.upc }}
+{{ product_inventory_each.product }}
+{{ product_inventory_each.product_type }}
+
+{% for attribute in product_inventory_each.product_type.product_type_attributes.all %}
+{{ attribute }}
+{% endfor %}
+{% comment %} {{ product_inventory_each.attribute_values }} {% endcomment %}
+{% comment %} {{ product_inventory_each.productattributevalues.all }} {% endcomment %}
+{% for option in product_inventory_each.productattributevalues.all %}
+{% comment %} {{ option }} {% endcomment %}
+{{ option.attributevalues }}
+{% endfor %}
+{{ product_inventory_each.retail_price }}
+{{ product_inventory_each.store_price }}
+{{ product_inventory_each.sale_price }}
+{{ product_inventory_each.weight }}
+{{ product_inventory_each.is_active }}
+</div>
+
+{% endfor %}
+{% for attribute in attributes_set %}
+{{ attribute }}
+{% endfor %}
+{% for value in values_set %}
+{{ value }}
+{% endfor %}
 
 
+
+</div>
+
+<script>
+  $(document).ready(function() {
+
+  });
+</script>
 {% endblock %}
