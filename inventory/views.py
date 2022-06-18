@@ -44,8 +44,8 @@ class ProductDetailView(View):
         values_set = set()
         attribute_values_dict = {}
         for product_inventory in products_inventory:
-            attributes = product_inventory.product_type.product_type_attributes.all()
-            for attribute in attributes:
+            attr = product_inventory.product_type.product_type_attributes.all()
+            for attribute in attr:
                 attributes_set.add(attribute)
                 attribute_values_set = set()
                 attribute_value = ProductAttributeValue.objects.filter(
@@ -60,13 +60,11 @@ class ProductDetailView(View):
             product=product,
             is_active=True
         )
-        attributes_set_active = set()
         values_set_active = set()
         for product_inventory_active in products_inventory_active:
             values = product_inventory_active.productattributevalues.all()
             for value in values:
                 values_set_active.add(value.attributevalues)
-
 
         context = {
             'product': product,
@@ -78,5 +76,41 @@ class ProductDetailView(View):
             'values_set_active': values_set_active,
         }
         return render(request, 'inventory/product_detail.html', context)
+
+
+class ProductAttributeAJAXView(View):
+    """View for the product attribute AJAX."""
+    def post(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        # product_id = kwargs['pk']
+        # # get products_inventory
+        # products_inventory_active = ProductInventory.objects.filter(
+        #     product=product_id,
+        #     is_active=True
+        # )
+        # attributes_set_active = set()
+        # values_set_active = set()
+        # attribute_values_dict_active = {}
+        # for product_inventory_active in products_inventory_active:
+        #     attributes_active = product_inventory_active.\
+        #         product_type.product_type_attributes.all()
+        #     for attribute in attributes_active:
+        #         attributes_set_active.add(attribute)
+        #         # attribute_values_set_active = set()
+        #         attribute_value_active = ProductAttributeValue.objects.filter(
+        #             product_attribute=attribute,
+        #         )
+        #         # attribute_values_set_active.add(attribute_value)
+        #         attribute_values_dict_active[
+        #             attribute
+        #         ] = attribute_value_active
+        #     values = product_inventory_active.productattributevalues.all()
+        #     for value in values:
+        #         values_set_active.add(value.attributevalues)
+        # print(attribute_values_dict_active)
+        if request.is_ajax():
+            value = request.GET.get('value')
+            product_id = request.GET.get('product_id')
+            attribute = request.GET.get('attribute')
 
 
