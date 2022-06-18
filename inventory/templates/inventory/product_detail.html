@@ -103,12 +103,6 @@
   </div>
 
   <div class="product__options">
-    <div class="product__options--quantity">
-      <p>Quantity</p>
-      <div class="product__options--quantity-input">
-        <input type="number" name="quantity" value="1" min="1" max="{{ product.get_stock_quantity }}">
-      </div>
-    </div>
     {% for k,v in attribute_values_dict.items %}
       <div class="product__options">
         <p>{{ k }}</p>
@@ -116,26 +110,27 @@
           <select name="product__options--select">
             {% for item in v %}
               {% if item in values_set %}
-                <option value="{{ item }}" class="product__option">
-                  {{ item }}
-                </option>
+                {% if item in values_set_active %}
+                  <option value="{{ item }}" class="product__option">
+                    {{ item }}
+                  </option>
+                {% else %}
+                  <option value="{{ item }}" class="product__option" disabled>
+                    {{ item }}
+                  </option>
+                {% endif %}
               {% endif %}
             {% endfor %}
           </select>
         </div>
       </div>
     {% endfor %}
-
-{% for value in values_set %}
-{{ value }}
-{% endfor %}
-
-{% for k,v in attribute_values_dict.items %}
-{{ k }}
-{% for item in v %}
-{{ item }}
-{% endfor %}
-{% endfor %}
+    <div class="product__options--quantity">
+      <p>Quantity</p>
+      <div class="product__options--quantity-input">
+        <input type="number" name="quantity" value="1" min="1" max="{{ product.get_stock_quantity }}">
+      </div>
+    </div>
 <div class="products__all">
 {% for product_inventory_each in products_inventory %}
 <div class="product__card">
@@ -147,10 +142,8 @@
 {% for attribute in product_inventory_each.product_type.product_type_attributes.all %}
 {{ attribute }}
 {% endfor %}
-{% comment %} {{ product_inventory_each.attribute_values }} {% endcomment %}
-{% comment %} {{ product_inventory_each.productattributevalues.all }} {% endcomment %}
+
 {% for option in product_inventory_each.productattributevalues.all %}
-{% comment %} {{ option }} {% endcomment %}
 {{ option.attributevalues }}
 {% endfor %}
 {{ product_inventory_each.retail_price }}
@@ -159,17 +152,7 @@
 {{ product_inventory_each.weight }}
 {{ product_inventory_each.is_active }}
 </div>
-
 {% endfor %}
-{% for attribute in attributes_set %}
-{{ attribute }}
-{% endfor %}
-{% for value in values_set %}
-{{ value }}
-{% endfor %}
-
-
-
 </div>
 
 <script>
