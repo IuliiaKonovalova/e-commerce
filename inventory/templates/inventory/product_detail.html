@@ -109,31 +109,26 @@
         <input type="number" name="quantity" value="1" min="1" max="{{ product.get_stock_quantity }}">
       </div>
     </div>
-    <div class="product__options--size">
-      <p>Size</p>
-      <div class="product__options--size-input">
-        <select name="size">
-{% comment %} 
-          {% for size in product.sizes %}
-            <option value="{{ size }}">{{ size }}</option>
-          {% endfor %}
-          {% endcomment %}
-
-        </select>
-      </div>
-    </div>
     {% for k,v in attribute_values_dict.items %}
-      <div class="product__options--colour">
+      <div class="product__options">
         <p>{{ k }}</p>
-        <div class="product__options--colour-input">
-          <select name="colour">
+        <div class="product__options--input">
+          <select name="product__options--select">
             {% for item in v %}
-              <option value="{{ item }}">{{ item }}</option>
+              {% if item in values_set %}
+                <option value="{{ item }}" class="product__option">
+                  {{ item }}
+                </option>
+              {% endif %}
             {% endfor %}
           </select>
         </div>
       </div>
     {% endfor %}
+
+{% for value in values_set %}
+{{ value }}
+{% endfor %}
 
 {% for k,v in attribute_values_dict.items %}
 {{ k }}
