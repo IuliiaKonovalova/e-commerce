@@ -56,8 +56,16 @@ class ProductDetailView(View):
             values = product_inventory.productattributevalues.all()
             for value in values:
                 values_set.add(value.attributevalues)
-
-
+        products_inventory_active = ProductInventory.objects.filter(
+            product=product,
+            is_active=True
+        )
+        attributes_set_active = set()
+        values_set_active = set()
+        for product_inventory_active in products_inventory_active:
+            values = product_inventory_active.productattributevalues.all()
+            for value in values:
+                values_set_active.add(value.attributevalues)
 
 
         context = {
@@ -67,7 +75,7 @@ class ProductDetailView(View):
             'attributes_set': attributes_set,
             'values_set': values_set,
             'attribute_values_dict': attribute_values_dict,
-
+            'values_set_active': values_set_active,
         }
         return render(request, 'inventory/product_detail.html', context)
 
