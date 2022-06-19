@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-
+<div data-id="{{ product.id }}" id="product">
   <div class="product__title">
     {{ product.name }}
 
@@ -104,10 +104,31 @@
 
   <div class="product__options">
     {% for k,v in attribute_values_dict.items %}
-      <div class="product__options">
-        <p data-attribute="{{ k }}">{{ k }}</p>
+      <p data-attribute="{{ k }}">{{ k }}</p>
+      <div class="product__options--input">
+        <div class="btn-group product__options--select" role="group" aria-label="Basic example">
+          {% for item in v %}
+            {% if item in values_set %}
+              {% if item in values_set_active %}
+                <button type="button" class="btn btn-secondary product__option" value="{{ item }}" data-attributevalue="{{ k }}">
+                  {{ item }}
+                </button>
+              {% else %}
+                <button disabled type="button" class="btn btn-secondary product__option" value="{{ item }}" data-attributevalue="{{ k }}">
+                  {{ item }}
+                </button>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div> 
+    {% endfor %}
+  </div>
+    {% comment %} <div class="product__options">
+      {% for k,v in attribute_values_dict.items %}
         <div class="product__options--input">
-          <select name="product__options--select" class="product__options--select">
+        <p data-attribute="{{ k }}">{{ k }}</p>
+          <select name="product__options--select" class="product__options--select" data-attributevalue="{{ k }}">
             {% for item in v %}
               {% if item in values_set %}
                 {% if item in values_set_active %}
@@ -124,7 +145,7 @@
           </select>
         </div>
       </div>
-    {% endfor %}
+    {% endfor %} {% endcomment %}
     <div class="product__options--quantity">
       <p>Quantity</p>
       <div class="product__options--quantity-input">
@@ -154,23 +175,32 @@
 </div>
 {% endfor %}
 </div>
-
+</div>
 <script>
   $(document).ready(function() {
-    $('.product__options--select').on('change', function() {
-        let value = $(this).find(':selected').val();
-        $.ajax({
-          url: "{% url 'product_attribute_value_update' %}",
-          type: "POST",
-          data: {
-            value: value,
-            product_id: {{ product.id }},
-            attribute: $(this).parent().prev().data('attribute')
-          },
-        });
-        
-      });
-    });
+    let product_id = $('#product').data('id');
+    console.log(product_id);
+    
+
+    $('.product__option').click(function(e) {
+      let attribute_value = $(this).val();
+      let attribute_name = $(this).data('attributevalue');
+      console.log(attribute_value);
+      console.log(attribute_name);
+      // if the button is already has css selector :active then remove it
+      if($(this).is(':active')) {
+        console.log('active');
+      } else {
+        console.log('not active');
+      }
+      
+
+      
+      
+     
+    
+    })
+  });
 
 </script>
 {% endblock %}
