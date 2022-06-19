@@ -61,45 +61,48 @@ class ProductDetailView(View):
             product=product,
             is_active=True
         )
-
         values_set_active = set()
         values_list = []
         for product_inventory_active in products_inventory_active:
-
-            attr = product_inventory_active.product_type.product_type_attributes.all()
-            attribute_testing_set = set()
-            for attribute in attr:
-                attribute_testing_set.add(attribute.name)
-            attribute_testing_set = sorted(attribute_testing_set)
-            values = product_inventory_active.productattributevalues.all()
-            product_inventory_active_values = {}
-            for value in values:
-
-                values_set_active.add(value.attributevalues)
-                selected_value = ProductAttributeValue.objects.get(
-                    attribute_value = value.attributevalues
-                )
-                attribute_testing_set_list = list(attribute_testing_set)
-                for attribute in attribute_testing_set_list:
-                    if str(attribute) == str(selected_value.product_attribute):
-                        product_inventory_active_values[attribute] = selected_value.attribute_value
-                        # product_inventory_active_values.append(
-                        #     "{}: {}".format(attribute, selected_value.attribute_value)
-                        # )
-            product_inventory_active_stock_units = Stock.objects.get(
+            product_inventory_active_stock = Stock.objects.filter(
                 product_inventory=product_inventory_active
-            ).units
-            # product_inventory_active_values.append(
-            #     "Quantity: {}".format(
-            #         product_inventory_active_stock_units
-            #     )
-            # )
-            product_inventory_active_values['Quantity'] = product_inventory_active_stock_units
-            # product_inventory_active_values transform to dict
-            # product_inventory_active_values = dict(
-            #     product_inventory_active_values
-            # )
-            values_list.append(product_inventory_active_values)
+            )
+            print(product_inventory_active_stock)
+            if product_inventory_active_stock:
+                attr = product_inventory_active.product_type.product_type_attributes.all()
+                attribute_testing_set = set()
+                for attribute in attr:
+                    attribute_testing_set.add(attribute.name)
+                attribute_testing_set = sorted(attribute_testing_set)
+                values = product_inventory_active.productattributevalues.all()
+                product_inventory_active_values = {}
+                for value in values:
+
+                    values_set_active.add(value.attributevalues)
+                    selected_value = ProductAttributeValue.objects.get(
+                        attribute_value = value.attributevalues
+                    )
+                    attribute_testing_set_list = list(attribute_testing_set)
+                    for attribute in attribute_testing_set_list:
+                        if str(attribute) == str(selected_value.product_attribute):
+                            product_inventory_active_values[attribute] = selected_value.attribute_value
+                            # product_inventory_active_values.append(
+                            #     "{}: {}".format(attribute, selected_value.attribute_value)
+                            # )
+                product_inventory_active_stock_units = Stock.objects.get(
+                    product_inventory=product_inventory_active
+                ).units
+                # product_inventory_active_values.append(
+                #     "Quantity: {}".format(
+                #         product_inventory_active_stock_units
+                #     )
+                # )
+                product_inventory_active_values['Quantity'] = product_inventory_active_stock_units
+                # product_inventory_active_values transform to dict
+                # product_inventory_active_values = dict(
+                #     product_inventory_active_values
+                # )
+                values_list.append(product_inventory_active_values)
         print('values_list', values_list)
         context = {
             'product': product,
