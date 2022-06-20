@@ -145,33 +145,69 @@
   </div> {% endcomment %}
   {% comment %} group nput {% endcomment %}
   {% comment %} add reset button {% endcomment %}
+  <div class="product__variants">
     <button class="btn btn-secondary" id="reset-button" type="button" data-attributevalue="reset">
       Reset
     </button>
-  <div class="product__options">
-    {% for k,v in attribute_values_dict.items %}
-      <p data-attribute="{{ k }}" class="product__options--title">{{ k }}</p>
-      <div class="product__options--input">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" data-group-name="{{ k }}">
-          {% for item in v %}
-            {% if item in values_set %}
-              {% if item in values_set_active %}
-                <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
-                <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
+    <div class="product__options">
+      {% for k,v in attribute_values_dict.items %}
+        <p data-attribute="{{ k }}" class="product__options--title">{{ k }}</p>
+        <div class="product__options--input">
+          <div class="btn-group" role="group" aria-label="Basic radio toggle button group" data-group-name="{{ k }}">
+            {% for item in v %}
+              {% if item in values_set %}
+                {% if item in values_set_active %}
+                  <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
+                  <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
+                {% else %}
+                  <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
+                  <label class="btn btn-outline-primary  disabled"  style="background-color: {{ item }}" for="{{ item }}">{{ item }}</label>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        </div> 
+      {% endfor %}
+    </div>
+    <div>
+      <p> price</p>
+        <div class="product__price" id="item-price">
+          <div class="">
+            {% if product.get_out_of_stock %}
+              <div class="product__card--price price__sale">
+                <p>Out of stock</p>
+              </div>
+            {% elif product.get_same_sale_price %}
+              {% if product.get_sale_price_is_lower_than_store_price %}
+                <div class="product__card--price price__regular">
+                  {{ product.get_lowest_store_price }}
+                </div>
+                <div class="product__card--price price__sale">
+                  {{ product.get_lowest_price }}
+                </div>
               {% else %}
-                <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
-                <label class="btn btn-outline-primary  disabled"  style="background-color: {{ item }}" for="{{ item }}">{{ item }}</label>
+                <div class="product__card--price">
+                  {{ product.get_lowest_price }}
+                </div>
+              {% endif %}
+            {% else %}
+              {% if product.get_sale_price_is_lower_than_store_price %}
+                <div class="product__card--price price__regular">
+                  {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                </div>
+                <div class="product__card--price price__sale">
+                  {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                </div>
+              {% else %}
+                <div class="product__card--price">
+                  {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                </div>
               {% endif %}
             {% endif %}
-          {% endfor %}
+          </div>
         </div>
-      </div> 
-    {% endfor %}
-  </div>
-  <div>
-  <p> price</p>
-    <div class="product__price" id="item-price">$100</div>
-  </div>
+      </div>
+    </div>
     <div class="product__options--quantity">
       <p>Quantity</p>
       {% comment %} add buttons to add or remove quantity {% endcomment %}
@@ -187,29 +223,8 @@
         </button>
       </div>
     </div>
-<div class="products__all">
-{% for product_inventory_each in products_inventory %}
-<div class="product__card">
-{{ product_inventory_each.sku }}
-{{ product_inventory_each.upc }}
-{{ product_inventory_each.product }}
-{{ product_inventory_each.product_type }}
+  </div>
 
-{% for attribute in product_inventory_each.product_type.product_type_attributes.all %}
-{{ attribute }}
-{% endfor %}
-
-{% for option in product_inventory_each.productattributevalues.all %}
-{{ option.attributevalues }}
-{% endfor %}
-{{ product_inventory_each.retail_price }}
-{{ product_inventory_each.store_price }}
-{{ product_inventory_each.sale_price }}
-{{ product_inventory_each.weight }}
-{{ product_inventory_each.is_active }}
-</div>
-{% endfor %}
-</div>
 </div>
 <script>
   $(document).ready(function() {
@@ -253,21 +268,18 @@
         let value = $(this).val();
         console.log('show value: ' + value);
         console.log(value);
+        // disable if value is not in valuesSetActive
         if (!valuesSetActive.includes(value)) {
-          // if not in valuesSetActive, add class disabled to label of this input
-          // target label goes after input
           console.log('not in valuesSetActive');
-          //get its label by name and for
           let label = $('label[for="' + value + '"]');
           $(label).addClass('disable');
           label.css('opacity', '0.5');
           console.log(label);
-          // get its label value
           let label_value = label.text();
           console.log(label_value);
           $(label).addClass('disabled');
-          // add bootstrap disabled class
           $(label).addClass('btn-outline-primary');
+          $(this).attr('disabled', true);
         }
       });
     });
@@ -333,7 +345,7 @@
         if (!$(e.target).closest('.product__options--input').length) {
           $('label.disabled').removeClass('disabled');
           $('input.btn-check').prop('checked', false);       
-          $(document).off('click');
+          {% comment %} $(document).off('click'); {% endcomment %}
         }
       })
     });
@@ -356,7 +368,12 @@
           quantity = stockOption["Quantity"];
         }
       }
-      $('.product__price').text(price);
+      if (price !== 0) {
+        $('.product__price').text(price);
+        $('.product__price').addClass('price__sale');
+        $('.product__price').addClass('product__card--price');
+        
+      }
       $('input[name="quantity"]').attr('max', quantity);
     };
   })
