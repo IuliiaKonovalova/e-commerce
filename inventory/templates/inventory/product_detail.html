@@ -110,13 +110,34 @@
           {% for item in v %}
             {% if item in values_set %}
               {% if item in values_set_active %}
-                <button type="button" class="btn btn-secondary product__option" value="{{ item }}" data-attributevalue="{{ k }}">
+                <button type="button" class="btn btn-secondary product__option active" value="{{ item }}" data-attributevalue="{{ k }}">
                   {{ item }}
                 </button>
               {% else %}
                 <button disabled type="button" class="btn btn-secondary product__option" value="{{ item }}" data-attributevalue="{{ k }}">
                   {{ item }}
                 </button>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div> 
+    {% endfor %}
+  </div>
+  {% comment %} group nput {% endcomment %}
+  <div class="product__options">
+    {% for k,v in attribute_values_dict.items %}
+      <p data-attribute="{{ k }}">{{ k }}</p>
+      <div class="product__options--input">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+          {% for item in v %}
+            {% if item in values_set %}
+              {% if item in values_set_active %}
+                <input type="radio" class="btn-check" name="{{ item }}" id="{{ item }}" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
+              {% else %}
+                <input type="radio" class="btn-check" name="{{ item }}" id="{{ item }}" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
               {% endif %}
             {% endif %}
           {% endfor %}
@@ -180,11 +201,14 @@
   $(document).ready(function() {
     let product_id = $('#product').data('id');
     console.log(product_id);
+    let values_list = JSON.stringify({{ values_list|safe }});
+    console.log(values_list);
     
 
     $('.product__option').click(function(e) {
       let attribute_value = $(this).val();
       let attribute_name = $(this).data('attributevalue');
+      console.log(values_list);
       console.log(attribute_value);
       console.log(attribute_name);
       // if the button is already has css selector :active then remove it
@@ -197,7 +221,6 @@
 
       
       
-     
     
     })
   });
