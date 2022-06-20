@@ -168,28 +168,10 @@
       </div> 
     {% endfor %}
   </div>
-    {% comment %} <div class="product__options">
-      {% for k,v in attribute_values_dict.items %}
-        <div class="product__options--input">
-        <p data-attribute="{{ k }}">{{ k }}</p>
-          <select name="product__options--select" class="product__options--select" data-attributevalue="{{ k }}">
-            {% for item in v %}
-              {% if item in values_set %}
-                {% if item in values_set_active %}
-                  <option value="{{ item }}" class="product__option">
-                    {{ item }}
-                  </option>
-                {% else %}
-                  <option value="{{ item }}" class="product__option--disable" disabled>
-                    {{ item }}
-                  </option>
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-      </div>
-    {% endfor %} {% endcomment %}
+  <div>
+  <p> price</p>
+    <div class="product__price" id="item-price">$100</div>
+  </div>
     <div class="product__options--quantity">
       <p>Quantity</p>
       {% comment %} add buttons to add or remove quantity {% endcomment %}
@@ -254,8 +236,8 @@
       thisLabel.css('background-color', value);
       thisLabel.text('');
       if ($(thisLabel).hasClass('disabled') == true) {
-        thisLabel.css('opacity', '0.1');
-        thisLabel.append('<i class="fas fa-minus-circle"></i>');
+        thisLabel.css('opacity', '0.5');
+        //thisLabel.append('<i class="fas fa-minus-circle"></i>');
       } else {
         let label = $('label[for="' + value + '"]');
       }
@@ -277,6 +259,8 @@
           console.log('not in valuesSetActive');
           //get its label by name and for
           let label = $('label[for="' + value + '"]');
+          $(label).addClass('disable');
+          label.css('opacity', '0.5');
           console.log(label);
           // get its label value
           let label_value = label.text();
@@ -310,13 +294,6 @@
               console.log(attribute_name);
               availableAttrsFromOtherGroups.push(stockOption[key]);
             }
-            if (key == "Color") {
-              console.log('KEY Color' + key);
-              console.log(key);
-              console.log(stockOption[key]);
-              console.log(attribute_name);
-              availableAttrsFromOtherGroups.push(stockOption[key]);
-            }
           }
         }
       }
@@ -342,6 +319,14 @@
           }
         }
       }
+      let chosenAttributes = {};
+      for (let group of $('.product__options--input .btn-group')) {
+        let groupName = $(group).data('group-name');
+        let groupValue = $(group).children(':checked').val();
+        chosenAttributes[groupName] = groupValue;
+      }
+      console.log(chosenAttributes);
+      findPriceAndQuantity(values_list_array, chosenAttributes);
       // on click outside of the groups, we need to enable all the buttons that are disabled
       $(document).on('click', function(e){
         // if click outside of the group, enable all the buttons
@@ -352,6 +337,28 @@
         }
       })
     });
+
+    const findPriceAndQuantity = (values_list, chosen_attributes) => {
+      //[{"size-shoes":"36","Color":"red","Quantity":10,"Price":"102.00"},{"size-shoes":"35","Color":"yellow","Quantity":10,"Price":"101.00"},{"Color":"yellow","size-shoes":"38","Quantity":10,"Price":"102.00"}]
+      let price = 0;
+      let quantity = 0;
+      for (let stockOption of values_list) {
+        let is_match = true;
+        for (let key in stockOption) {
+          if (key != "Quantity" && key != "Price") {
+            if (stockOption[key] != chosen_attributes[key]) {
+              is_match = false;
+            }
+          }
+        }
+        if (is_match) {
+          price = stockOption["Price"];
+          quantity = stockOption["Quantity"];
+        }
+      }
+      $('.product__price').text(price);
+      $('input[name="quantity"]').attr('max', quantity);
+    };
   })
 
 
