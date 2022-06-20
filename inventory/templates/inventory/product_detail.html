@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+  <form id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
   {% comment %} <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true"> {% endcomment %}
     {% if active_images and active_images|length > 1 %}
       {% comment %} <div class="carousel-indicators"> {% endcomment %}
@@ -145,10 +145,10 @@
   </div> {% endcomment %}
   {% comment %} group nput {% endcomment %}
   {% comment %} add reset button {% endcomment %}
-  <div class="product__variants">
     <button class="btn btn-secondary" id="reset-button" type="button" data-attributevalue="reset">
       Reset
     </button>
+  <form class="product__variants form">
     <div class="product__options">
       {% for k,v in attribute_values_dict.items %}
         <p data-attribute="{{ k }}" class="product__options--title">{{ k }}</p>
@@ -207,8 +207,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="product__options--quantity">
+    </form>
+    <div class="product__options--quantity product__options--input">
       <p>Quantity</p>
       {% comment %} add buttons to add or remove quantity {% endcomment %}
       <div class="product__options--buttons">
@@ -223,7 +223,7 @@
         </button>
       </div>
     </div>
-  </div>
+  </form>
 
 </div>
 <script>
@@ -281,6 +281,42 @@
           $(label).addClass('btn-outline-primary');
           $(this).attr('disabled', true);
         }
+        $('#item-price').html(`
+        
+          <div class="">
+            {% if product.get_out_of_stock %}
+              <div class="product__card--price price__sale">
+                <p>Out of stock</p>
+              </div>
+            {% elif product.get_same_sale_price %}
+              {% if product.get_sale_price_is_lower_than_store_price %}
+                <div class="product__card--price price__regular">
+                  {{ product.get_lowest_store_price }}
+                </div>
+                <div class="product__card--price price__sale">
+                  {{ product.get_lowest_price }}
+                </div>
+              {% else %}
+                <div class="product__card--price">
+                  {{ product.get_lowest_price }}
+                </div>
+              {% endif %}
+            {% else %}
+              {% if product.get_sale_price_is_lower_than_store_price %}
+                <div class="product__card--price price__regular">
+                  {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                </div>
+                <div class="product__card--price price__sale">
+                  {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                </div>
+              {% else %}
+                <div class="product__card--price">
+                  {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+        `);
       });
     });
 
@@ -343,9 +379,48 @@
       $(document).on('click', function(e){
         // if click outside of the group, enable all the buttons
         if (!$(e.target).closest('.product__options--input').length) {
+          // if click is outside of the form
+          //if (!$(e.target).closest('form').length) {
           $('label.disabled').removeClass('disabled');
-          $('input.btn-check').prop('checked', false);       
-          {% comment %} $(document).off('click'); {% endcomment %}
+          $('input.btn-check').prop('checked', false);
+          $('#item-price').html(`
+        
+            <div class="">
+              {% if product.get_out_of_stock %}
+                <div class="product__card--price price__sale">
+                  <p>Out of stock</p>
+                </div>
+              {% elif product.get_same_sale_price %}
+                {% if product.get_sale_price_is_lower_than_store_price %}
+                  <div class="product__card--price price__regular">
+                    {{ product.get_lowest_store_price }}
+                  </div>
+                  <div class="product__card--price price__sale">
+                    {{ product.get_lowest_price }}
+                  </div>
+                {% else %}
+                  <div class="product__card--price">
+                    {{ product.get_lowest_price }}
+                  </div>
+                {% endif %}
+              {% else %}
+                {% if product.get_sale_price_is_lower_than_store_price %}
+                  <div class="product__card--price price__regular">
+                    {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                  </div>
+                  <div class="product__card--price price__sale">
+                    {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                  </div>
+                {% else %}
+                  <div class="product__card--price">
+                    {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                  </div>
+                {% endif %}
+              {% endif %}
+            </div>
+          `);
+          $(document).off('click');
+          //}
         }
       })
     });
