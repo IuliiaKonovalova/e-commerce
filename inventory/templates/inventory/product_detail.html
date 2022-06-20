@@ -51,22 +51,29 @@
   </div>
 
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
+  {% comment %} <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true"> {% endcomment %}
     {% if active_images and active_images|length > 1 %}
-      <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      </ol>
+      {% comment %} <div class="carousel-indicators"> {% endcomment %}
+      {% for image in active_images %}
+      {% comment %} get first image {% endcomment %}
+        {% comment %} {% if active_images|first == image %} {% endcomment %}
+        {% comment %} <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> {% endcomment %}
+        {% comment %} {% else %} {% endcomment %}
+        {% comment %} <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button> {% endcomment %}
+        {% comment %} {% endif %} {% endcomment %}
+      {% endfor %}
+      {% comment %} </div> {% endcomment %}
     {% endif %}
     <div class="carousel-inner">
       {% if active_images and active_images|length > 1 %}
         {% for image in active_images %}
           {% if image.default_image %}
             <div class="carousel-item active">
-              <img class="d-block" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
+              <img class="block align-middle" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
             </div>
           {% elif image.is_active %}
-            <div class="carousel-item">
-              <img class="d-block" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
+            <div class="carousel-item align-middle">
+              <img class="block  align-middle" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
             </div>
           {% endif %}
         {% endfor %}
@@ -83,7 +90,7 @@
       {% endif %}
     </div>
     {% if active_images and active_images|length > 1 %}
-      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      {% comment %} <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true">
           <i class="fas fa-chevron-left"></i>
         </span>
@@ -94,14 +101,26 @@
           <i class="fas fa-chevron-right"></i>
         </span>
         <span class="sr-only">Next</span>
-      </a>
+      </a> {% endcomment %}
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true">
+            <i class="fas fa-chevron-left"></i>
+          </span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true">
+            <i class="fas fa-chevron-right"></i>
+          </span>
+          <span class="visually-hidden">Next</span>
+        </button>
     {% endif %}
   </div>
 
   <div class="product__description">
     <p>{{ product.description }}</p>
   </div>
-
+{% comment %} 
   <div class="product__options">
     {% for k,v in attribute_values_dict.items %}
       <p data-attribute="{{ k }}">{{ k }}</p>
@@ -123,21 +142,21 @@
         </div>
       </div> 
     {% endfor %}
-  </div>
+  </div> {% endcomment %}
   {% comment %} group nput {% endcomment %}
   <div class="product__options">
     {% for k,v in attribute_values_dict.items %}
       <p data-attribute="{{ k }}">{{ k }}</p>
       <div class="product__options--input">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" data-group-name="{{ k }}">
           {% for item in v %}
             {% if item in values_set %}
               {% if item in values_set_active %}
-                <input type="radio" class="btn-check" name="{{ item }}" id="{{ item }}" autocomplete="off" checked>
+                <input type="radio" class="btn-check" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
                 <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
               {% else %}
-                <input type="radio" class="btn-check" name="{{ item }}" id="{{ item }}" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
+                <input type="radio" class="btn-check" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
+                <label class="btn btn-outline-primary disabled" for="{{ item }}">{{ item }}</label>
               {% endif %}
             {% endif %}
           {% endfor %}
@@ -203,27 +222,10 @@
     console.log(product_id);
     let values_list = JSON.stringify({{ values_list|safe }});
     console.log(values_list);
+    // convert to array
+    let values_list_array = JSON.parse(values_list);
+    console.log(values_list_array);
     
-
-    $('.product__option').click(function(e) {
-      let attribute_value = $(this).val();
-      let attribute_name = $(this).data('attributevalue');
-      console.log(values_list);
-      console.log(attribute_value);
-      console.log(attribute_name);
-      // if the button is already has css selector :active then remove it
-      if($(this).is(':active')) {
-        console.log('active');
-      } else {
-        console.log('not active');
-      }
-      
-
-      
-      
-    
-    })
-  });
 
 </script>
 {% endblock %}
