@@ -150,17 +150,17 @@
     </button>
   <div class="product__options">
     {% for k,v in attribute_values_dict.items %}
-      <p data-attribute="{{ k }}">{{ k }}</p>
+      <p data-attribute="{{ k }}" class="product__options--title">{{ k }}</p>
       <div class="product__options--input">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group" data-group-name="{{ k }}">
           {% for item in v %}
             {% if item in values_set %}
               {% if item in values_set_active %}
                 <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
-                <label class="btn btn-outline-primary " for="{{ item }}">{{ item }}</label>
+                <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
               {% else %}
                 <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
-                <label class="btn btn-outline-primary  disabled" for="{{ item }}">{{ item }}</label>
+                <label class="btn btn-outline-primary  disabled"  style="background-color: {{ item }}" for="{{ item }}">{{ item }}</label>
               {% endif %}
             {% endif %}
           {% endfor %}
@@ -192,9 +192,13 @@
     {% endfor %} {% endcomment %}
     <div class="product__options--quantity">
       <p>Quantity</p>
+      {% comment %} add buttons to add or remove quantity {% endcomment %}
+
+
       <div class="product__options--quantity-input">
         <input type="number" name="quantity" value="1" min="1" max="{{ product.get_stock_quantity }}">
       </div>
+
     </div>
 <div class="products__all">
 {% for product_inventory_each in products_inventory %}
@@ -231,6 +235,26 @@
     console.log(values_list_array);
     let valuesSetActive = {{ values_set_active_list|safe }};
     console.log(valuesSetActive);
+    // get all inputs with the name 'Color'
+    let inputs = $(' input[name="Color"]');
+    console.log('Print all colors' + inputs);
+    // loop through all inputs
+    inputs.each(function() {
+      // get the value of the input
+      let value = $(this).val();
+      let thisLabel = $('label[for="' + value + '"]');
+      // check if the value is in the values_list_array
+      //get label with disabled class
+      console.log(this);
+      thisLabel.css('background-color', value);
+      thisLabel.text('');
+      if ($(thisLabel).hasClass('disabled') == true) {
+        thisLabel.css('opacity', '0.1');
+        thisLabel.append('<i class="fas fa-minus-circle"></i>');
+      } else {
+        let label = $('label[for="' + value + '"]');
+      }
+    });
     // we have #reset-button
     $('#reset-button').click(function(event) {
       // prevent default
@@ -266,6 +290,7 @@
     // if size-shoes is checked, we need to update the color group to check what colors are available for that size
     $('.product__options').on('change', 'input', function() {
       let attribute_value = $(this).val();
+      console.log('attribute_value: ' + attribute_value);
       let attribute_name = $(this).get(0).name;
       console.log(attribute_value);
       console.log(attribute_name);
@@ -274,6 +299,17 @@
         if (stockOption[attribute_name] == attribute_value && stockOption["Quantity"] > 0) {
           for(let key in stockOption) {
             if (key != "Quantity" && key != attribute_name) {
+              console.log('KEY' + key);
+              console.log(key);
+              console.log(stockOption[key]);
+              console.log(attribute_name);
+              availableAttrsFromOtherGroups.push(stockOption[key]);
+            }
+            if (key == "Color") {
+              console.log('KEY Color' + key);
+              console.log(key);
+              console.log(stockOption[key]);
+              console.log(attribute_name);
               availableAttrsFromOtherGroups.push(stockOption[key]);
             }
           }
