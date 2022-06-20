@@ -162,3 +162,107 @@ class TestUrls(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['product'].id, 1)
         self.assertTemplateUsed(response, 'inventory/product_detail.html')
+        product_inventory_active = ProductInventory.objects.get(
+            product=self.product1,
+            is_active=True
+        )
+        attr = product_inventory_active.product_type.\
+            product_type_attributes.all() 
+        self.assertEqual(attr.count(), 1)
+        attribute_testing_set = set()
+        for attribute in attr:
+            attribute_testing_set.add(attribute.name)
+        self.assertEqual(attribute_testing_set, {'color'})
+        self.assertEqual(
+            product_inventory_active.attribute_values.count(), 2
+        )
+        product_inventory_active_stock = Stock.objects.filter(
+            product_inventory=product_inventory_active 
+        )
+        self.assertEqual(product_inventory_active_stock.count(), 0)
+
+    def test_check_if_product_has_stock(self):
+        """Test if product has stock."""
+        product_inventory_active = ProductInventory.objects.get(
+            product=self.product1,
+            is_active=True
+        )
+        product_inventory_active_stock = Stock.objects.filter(
+            product_inventory=product_inventory_active
+        )
+        self.assertEqual(product_inventory_active_stock.count(), 0)
+        # create stock
+        stock = Stock.objects.create(
+            product_inventory=product_inventory_active,
+            units_variable=10,
+            units=10,
+            units_sold=0,
+        )
+        product_inventory_active_stock = Stock.objects.filter(
+            product_inventory=product_inventory_active
+        )
+        self.assertEqual(product_inventory_active_stock.count(), 1)
+        product_inventory_active_stock_list = list(
+            product_inventory_active_stock
+        )
+        self.assertEqual(product_inventory_active_stock_list, [stock])
+        attr = product_inventory_active.product_type.\
+            product_type_attributes.all()
+        self.assertEqual(attr.count(), 1)
+        attribute_testing_set = set()
+        for attribute in attr:
+            attribute_testing_set.add(attribute.name)
+        self.assertEqual(attribute_testing_set, {'color'})
+        self.assertEqual(
+            product_inventory_active.attribute_values.count(), 2
+        )
+        product_inventory_active_stock = Stock.objects.filter(
+            product_inventory=product_inventory_active
+        )
+        self.assertEqual(product_inventory_active_stock.count(), 1)
+        product_inventory_active_stock_list = list(
+            product_inventory_active_stock
+        )
+        self.assertEqual(product_inventory_active_stock_list, [stock])
+        self.assertEqual(
+            product_inventory_active_stock_list[0].units_variable, 10
+        )
+        self.assertEqual(
+            product_inventory_active_stock_list[0].units, 10
+        )
+        self.assertEqual(
+            product_inventory_active_stock_list[0].units_sold, 0
+        )
+        self.assertEqual(
+            product_inventory_active_stock_list[0].product_inventory,
+            product_inventory_active
+        )
+        self.assertEqual(
+            product_inventory_active_stock_list[0].product_inventory.
+            product, self.product1
+        )
+        self.assertEqual(
+            product_inventory_active_stock_list[0].product_inventory.
+            product_type, self.product_type1
+        )
+        self.assertEqual(
+            product_inventory_active_stock_list[0].product_inventory.
+            product_type.product_type_attributes.count(), 1
+        )
+        self.assertEqual(
+            product_inventory_active_stock_list[0].product_inventory.\
+                    product_type.product_type_attributes.all()[0],
+            self.product_attribute1
+        )
+        attribute_testing_set.add(
+            product_inventory_active_stock_list[0].product_inventory.\
+                product_type.product_type_attributes.all()[0]
+        )
+        response = self.client.get(self.product_detail_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['values_list'],
+            [{
+                'color': 'red',
+                'Quantity': 10,
+            }]
+        )
