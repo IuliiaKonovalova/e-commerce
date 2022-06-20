@@ -64,6 +64,7 @@ class ProductDetailView(View):
             is_active=True
         )
         values_set_active = set()
+        values_set_active_list = set()
         values_list = []
         for product_inventory_active in products_inventory_active:
             # Get the attribute for the active product
@@ -84,6 +85,9 @@ class ProductDetailView(View):
                 for value in values:
                     # Get the attribute values for the active product
                     values_set_active.add(value.attributevalues)
+                    values_set_active_list.add(
+                        value.attributevalues.attribute_value
+                    )
                     selected_value = ProductAttributeValue.objects.get(
                         attribute_value = value.attributevalues
                     )
@@ -104,6 +108,7 @@ class ProductDetailView(View):
                     'Quantity'
                 ] = product_inventory_active_stock_units
                 values_list.append(product_inventory_active_values)
+        values_set_active_list = list(values_set_active_list)
         context = {
             'product': product,
             'active_images': active_images,
@@ -112,6 +117,7 @@ class ProductDetailView(View):
             'values_set': values_set,
             'attribute_values_dict': attribute_values_dict,
             'values_set_active': values_set_active,
+            'values_set_active_list': values_set_active_list,
             'values_list': values_list,
         }
         return render(request, 'inventory/product_detail.html', context)
