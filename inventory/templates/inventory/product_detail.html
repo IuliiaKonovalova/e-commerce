@@ -232,7 +232,33 @@
     let valuesSetActive = {{ values_set_active_list|safe }};
     console.log(valuesSetActive);
     // we have #reset-button
-    
+    $('#reset-button').click(function(event) {
+      // prevent default
+      event.preventDefault();
+      // reset all values
+      $('.option').removeClass('active');
+      // check if product value is valuesSetActive
+      $('.option').each(function() {
+        let value = $(this).val();
+        console.log('show value: ' + value);
+        console.log(value);
+        if (!valuesSetActive.includes(value)) {
+          // if not in valuesSetActive, add class disabled to label of this input
+          // target label goes after input
+          console.log('not in valuesSetActive');
+          //get its label by name and for
+          let label = $('label[for="' + value + '"]');
+          console.log(label);
+          // get its label value
+          let label_value = label.text();
+          console.log(label_value);
+          $(label).addClass('disabled');
+          // add bootstrap disabled class
+          $(label).addClass('btn-outline-primary');
+        }
+      });
+    });
+
     // we have button radio groups for each attribute
     // when an attribute is checked, we need to update all the other attribute groups
     // [{"size-shoes":"36","Color":"red","Quantity":10},{"size-shoes":"35","Color":"yellow","Quantity":10},{"Color":"yellow","size-shoes":"38","Quantity":10}]
