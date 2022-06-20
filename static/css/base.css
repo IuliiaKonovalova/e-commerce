@@ -23,6 +23,7 @@
   --br: 0.5em;
   --br-buttons: 0.2em;
   --box-shadow-buttons: 0 1px 2px rgba(0, 0, 0, 0.317);
+  --box-shadow-disabled: rgba(50, 50, 93, 0.719) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 
@@ -337,6 +338,7 @@ img {
   color: var(--clr-primary--500);
   border-color: var(--clr-primary--500);
   background-color: var(--clr-primary--200);
+  box-shadow: var(--box-shadow-buttons);
 }
 
 .btn-outline-primary.disabled {
@@ -344,6 +346,15 @@ img {
   color: var(--clr-text--500);
   border-color: var(--clr-accent--200);
   opacity: 0.5 !important;
+  box-shadow: var(--box-shadow-disabled) !important;
+}
+
+.option[name="Color"]+label.disabled {
+  box-shadow: var(--box-shadow-disabled) !important;
+  display: flex;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+  align-items: center;
 }
 
 .option[name="Color"]+label {
@@ -359,4 +370,31 @@ img {
 
 .option+label:not(:last-child) {
   margin-right: 0.5rem;
+}
+
+.product__options--buttons {
+  display: flex;
+  /* justify-content: center; */
+  /* align-items: center; */
+  margin-top: 1rem;
+}
+
+input[type="number"] {
+  max-width: 5rem;
+  padding: 0.5rem;
+  margin: 0 0.5em;
+  border-radius: 0.4rem;
+  border: 1px solid var(--clr-accent--200);
+  background-color: var(--clr-text--100);
+  color: var(--clr-text--500);
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.btn-quantity {
+  width: 3rem;
+  padding: 0.25em 0.5em;
+  font-size: 1.5rem;
+  font-weight: 900;
 }
