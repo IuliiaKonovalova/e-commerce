@@ -193,12 +193,17 @@
     <div class="product__options--quantity">
       <p>Quantity</p>
       {% comment %} add buttons to add or remove quantity {% endcomment %}
-
-
-      <div class="product__options--quantity-input">
-        <input type="number" name="quantity" value="1" min="1" max="{{ product.get_stock_quantity }}">
+      <div class="product__options--buttons">
+        <button class="btn btn-secondary btn-quantity" id="minus-button" type="button" data-attributevalue="minus">
+          -
+        </button>
+        <div class="product__options--quantity-input">
+          <input type="number" name="quantity" value="1" min="1" max="{{ product.get_stock_quantity }}">
+        </div>
+        <button class="btn btn-secondary btn-quantity" id="plus-button" type="button" data-attributevalue="plus">
+          +
+        </button>
       </div>
-
     </div>
 <div class="products__all">
 {% for product_inventory_each in products_inventory %}
