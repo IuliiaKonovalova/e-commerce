@@ -287,3 +287,18 @@ After that I run assume-unchanged again:
 ```
 git update-index --assume-unchanged db.sqlite3
 ```
+
+6. I was trying to create signals to create Stock when a ProductInventory is created.
+However, I failed since I was using save method in the Stock model, which checks if there are any Product Inventory units available (if there 0 units, it will set ProductInventory.is_available to False). At first, I was trying to create a save method in the ProductInventory model to recreate signals, but I was not able to as it was calling "Unique constraint" error.
+
+*Solution:*
+
+I implemented checking functionality in views.py to prevent any errors:
+
+```python
+    product_inventory_active_stock = Stock.objects.filter(
+                product_inventory=product_inventory_active
+            )
+            if product_inventory_active_stock:
+                # do something
+```
