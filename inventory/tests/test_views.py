@@ -264,5 +264,7 @@ class TestUrls(TestCase):
             [{
                 'color': 'red',
                 'Quantity': 10,
+                'Price': '9.00',
+                'id': 1
             }]
         )
