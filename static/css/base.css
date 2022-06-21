@@ -334,11 +334,42 @@ img {
   text-transform: capitalize;
 }
 
+.btn {
+  font-weight: 900;
+}
+
+.btn-check:active+.btn,
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:active {
+  color: var(--clr-accent--100);
+  background-color: var(--clr-primary--400);
+  background-color: var(--clr-primary--300);
+  border-color: var(--clr-accent--100);
+}
+
+.btn:hover {
+  background-color: var(--clr-primary--300);
+  border-color: var(--clr-accent--100);
+}
+
+.btn[type="submit"] {
+  background-color: var(--clr-accent--700);
+  border-color: var(--clr-accent--900);
+  box-shadow: var(--box-shadow-buttons);
+}
+
+.btn[type="submit"]:hover {
+  background-color: var(--clr-accent--900);
+}
+
 .btn-outline-primary {
-  color: var(--clr-primary--500);
-  border: 2px solid var(--clr-primary--500);
+  color: var(--clr-primary--400);
+  border: 2px solid var(--clr-primary--300);
   background-color: var(--clr-primary--200);
   box-shadow: var(--box-shadow-buttons);
+  --bs-btn-focus-shadow-rgb: unset;
 }
 
 .btn-outline-primary.disabled,
@@ -400,3 +431,5 @@ input[type="number"] {
   font-size: 1.5rem;
   font-weight: 900;
 }
+
+/* Target btn-primary checked */
