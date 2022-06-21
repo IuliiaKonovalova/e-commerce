@@ -2,10 +2,11 @@
 {% load static %}
 
 {% block content %}
-<div data-id="{{ product.id }}" id="product">
-  <div class="product__title">
-    {{ product.name }}
-
+<div>
+  <div data-id="{{ product.id }}" id="product">
+    <div class="product__title">
+      {{ product.name }}
+    </div>
     <div class="product__card--prices">
       {% if product.get_out_of_stock %}
         <div class="product__card--price price__sale">
@@ -50,19 +51,10 @@
     </div>
   </div>
 
-  <form id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
-  {% comment %} <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true"> {% endcomment %}
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
     {% if active_images and active_images|length > 1 %}
-      {% comment %} <div class="carousel-indicators"> {% endcomment %}
       {% for image in active_images %}
-      {% comment %} get first image {% endcomment %}
-        {% comment %} {% if active_images|first == image %} {% endcomment %}
-        {% comment %} <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button> {% endcomment %}
-        {% comment %} {% else %} {% endcomment %}
-        {% comment %} <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button> {% endcomment %}
-        {% comment %} {% endif %} {% endcomment %}
       {% endfor %}
-      {% comment %} </div> {% endcomment %}
     {% endif %}
     <div class="carousel-inner">
       {% if active_images and active_images|length > 1 %}
@@ -90,64 +82,27 @@
       {% endif %}
     </div>
     {% if active_images and active_images|length > 1 %}
-      {% comment %} <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true">
           <i class="fas fa-chevron-left"></i>
         </span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true">
           <i class="fas fa-chevron-right"></i>
         </span>
-        <span class="sr-only">Next</span>
-      </a> {% endcomment %}
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true">
-            <i class="fas fa-chevron-left"></i>
-          </span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true">
-            <i class="fas fa-chevron-right"></i>
-          </span>
-          <span class="visually-hidden">Next</span>
-        </button>
+        <span class="visually-hidden">Next</span>
+      </button>
     {% endif %}
   </div>
 
   <div class="product__description">
     <p>{{ product.description }}</p>
   </div>
-{% comment %} 
-  <div class="product__options">
-    {% for k,v in attribute_values_dict.items %}
-      <p data-attribute="{{ k }}">{{ k }}</p>
-      <div class="product__options--input">
-        <div class="btn-group product__options--select" role="group" aria-label="Basic example">
-          {% for item in v %}
-            {% if item in values_set %}
-              {% if item in values_set_active %}
-                <button type="button" class="btn btn-secondary product__option active" value="{{ item }}" data-attributevalue="{{ k }}">
-                  {{ item }}
-                </button>
-              {% else %}
-                <button disabled type="button" class="btn btn-secondary product__option" value="{{ item }}" data-attributevalue="{{ k }}">
-                  {{ item }}
-                </button>
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div> 
-    {% endfor %}
-  </div> {% endcomment %}
-  {% comment %} group nput {% endcomment %}
-  {% comment %} add reset button {% endcomment %}
-    <button class="btn btn-secondary" id="reset-button" type="button" data-attributevalue="reset">
-      Reset
-    </button>
+  <button class="btn btn-secondary" id="reset-button" type="button" data-attributevalue="reset">
+    Reset
+  </button>
   <form class="product__variants form" action="#" method="POST" id="form">
     <div class="product__options">
       {% for k,v in attribute_values_dict.items %}
@@ -171,40 +126,39 @@
     </div>
     <div>
       <p> price</p>
-        <div class="product__price" id="item-price">
-          <div class="">
-            {% if product.get_out_of_stock %}
-              <div class="product__card--price price__sale">
-                <p>Out of stock</p>
+      <div class="product__price" id="item-price">
+        <div class="">
+          {% if product.get_out_of_stock %}
+            <div class="product__card--price price__sale">
+              <p>Out of stock</p>
+            </div>
+          {% elif product.get_same_sale_price %}
+            {% if product.get_sale_price_is_lower_than_store_price %}
+              <div class="product__card--price price__regular">
+                {{ product.get_lowest_store_price }}
               </div>
-            {% elif product.get_same_sale_price %}
-              {% if product.get_sale_price_is_lower_than_store_price %}
-                <div class="product__card--price price__regular">
-                  {{ product.get_lowest_store_price }}
-                </div>
-                <div class="product__card--price price__sale">
-                  {{ product.get_lowest_price }}
-                </div>
-              {% else %}
-                <div class="product__card--price">
-                  {{ product.get_lowest_price }}
-                </div>
-              {% endif %}
+              <div class="product__card--price price__sale">
+                {{ product.get_lowest_price }}
+              </div>
             {% else %}
-              {% if product.get_sale_price_is_lower_than_store_price %}
-                <div class="product__card--price price__regular">
-                  {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
-                </div>
-                <div class="product__card--price price__sale">
-                  {{ product.get_lowest_price }} - {{ product.get_highest_price }}
-                </div>
-              {% else %}
-                <div class="product__card--price">
-                  {{ product.get_lowest_price }} - {{ product.get_highest_price }}
-                </div>
-              {% endif %}
+              <div class="product__card--price">
+                {{ product.get_lowest_price }}
+              </div>
             {% endif %}
-          </div>
+          {% else %}
+            {% if product.get_sale_price_is_lower_than_store_price %}
+              <div class="product__card--price price__regular">
+                {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+              </div>
+              <div class="product__card--price price__sale">
+                {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+              </div>
+            {% else %}
+              <div class="product__card--price">
+                {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+              </div>
+            {% endif %}
+          {% endif %}
         </div>
       </div>
     </div>
@@ -499,7 +453,7 @@
           if (key != "Quantity" && key != "Price" && key != "id") {
             if (stockOption[key] != chosen_attributes[key]) {
               is_match = false;
-              ('#add-to-bag-button').addClass('disabled');
+              $('#add-to-bag-button').addClass('disabled');
             }
           }
           if (is_match) {
@@ -510,10 +464,10 @@
               let quantity = $('input[name="quantity"]').val();
               let product_id = $('input[name="product_id"]').val();
               // insert data into action="" attribute of the form
-              {% comment %} $('#form').attr("{% url 'bag_add' %}", {
+              $('#form').attr("huYYYYYYYYYYYYYYYYYYYYY", {
                 'product_id': product_id,
                 'quantity': quantity
-              }); {% endcomment %}
+              });
               $('input[name="quantity"]').attr('max', 1);
               // get the quantity of the item
               let quantityCheck = $('input[name="quantity"]').val();
