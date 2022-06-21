@@ -336,15 +336,16 @@ img {
 
 .btn-outline-primary {
   color: var(--clr-primary--500);
-  border-color: var(--clr-primary--500);
+  border: 2px solid var(--clr-primary--500);
   background-color: var(--clr-primary--200);
   box-shadow: var(--box-shadow-buttons);
 }
 
-.btn-outline-primary.disabled {
+.btn-outline-primary.disabled,
+.btn-outline-primary.disable {
   background-color: var(--clr-accent--100);
   color: var(--clr-text--500);
-  border-color: var(--clr-accent--200);
+  border: 2px solid var(--clr-accent--200);
   opacity: 0.5 !important;
   box-shadow: var(--box-shadow-disabled) !important;
 }
@@ -355,6 +356,7 @@ img {
   justify-content: center;
   color: rgb(0, 0, 0);
   align-items: center;
+  opacity: 0.5 !important;
 }
 
 .option[name="Color"]+label {

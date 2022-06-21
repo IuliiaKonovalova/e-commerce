@@ -208,26 +208,28 @@
         </div>
       </div>
     </form>
-    <div class="product__options--quantity product__options--input">
-      <p>Quantity</p>
-      {% comment %} add buttons to add or remove quantity {% endcomment %}
-      <div class="product__options--buttons">
-        <button class="btn btn-secondary btn-quantity" id="minus-button" type="button" data-attributevalue="minus">
-          -
-        </button>
-        <div class="product__options--quantity-input">
-          <input type="number" name="quantity" value="1" min="1" max="{{ product.get_stock_quantity }}">
+    {% if not product.get_out_of_stock %}
+      <div class="product__options--quantity product__options--input">
+        <p>Quantity</p>
+        <div class="product__options--buttons">
+          <button class="btn btn-secondary btn-quantity disable" id="minus-button" type="button" data-attributevalue="minus">
+            -
+          </button>
+          <div class="product__options--quantity-input">
+            <input type="number" name="quantity" value="1" min="1" max="15" id="quantity">
+          </div>
+          <button class="btn btn-secondary btn-quantity disable" id="plus-button" type="button" data-attributevalue="plus">
+            +
+          </button>
         </div>
-        <button class="btn btn-secondary btn-quantity" id="plus-button" type="button" data-attributevalue="plus">
-          +
-        </button>
       </div>
-    </div>
+    {% endif %}
   </form>
 
 </div>
 <script>
   $(document).ready(function() {
+    let itemQuantity = 1
     let product_id = $('#product').data('id');
     console.log(product_id);
     let values_list = JSON.stringify({{ values_list|safe }});
@@ -269,6 +271,9 @@
         console.log('show value: ' + value);
         console.log(value);
         // disable if value is not in valuesSetActive
+        $('input[name="quantity"]').val(1);
+        $('#minus-button').removeClass('disabled');
+        $('#plus-button').removeClass('disabled');
         if (!valuesSetActive.includes(value)) {
           console.log('not in valuesSetActive');
           let label = $('label[for="' + value + '"]');
@@ -450,7 +455,36 @@
         
       }
       $('input[name="quantity"]').attr('max', quantity);
+      itemQuantity = quantity;
+      $('#minus-button').removeClass('disabled');
+      $('#plus-button').removeClass('disabled');
     };
+      // Control the quantity of the item
+      $('#minus-button').on('click', function(e) {
+        e.preventDefault();
+        let quantityCheck = $('input[name="quantity"]').val();
+        if (quantityCheck > 1) {
+          $('input[name="quantity"]').val(parseInt(quantityCheck) - 1);
+          console.log('First input of the quantity ' + quantityCheck);
+          $('#minus-button').removeClass('disabled');
+          $('#plus-button').removeClass('disabled');
+        } else {
+          $('#minus-button').addClass('disabled');
+        }
+      });
+      // Control the plus button
+      $('#plus-button').on('click', function(e) {
+        e.preventDefault();
+        // check if input with name="quantity" max is not reached
+        let quantityCheck = $('input[name="quantity"]').val();
+        if (quantityCheck < itemQuantity) {
+          $('#plus-button').removeClass('disabled');
+          $('input[name="quantity"]').val(parseInt(quantityCheck) + 1);
+        } else {
+          $('#plus-button').addClass('disabled');
+        }
+      });
+
   })
 
 
