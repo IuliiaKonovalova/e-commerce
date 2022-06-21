@@ -325,6 +325,12 @@ img {
   background-image: none;
 }
 
+/* --- Form --- */
+.form__section {
+  background-color: var(--clr-accent--100);
+  padding: 2em;
+}
+
 /* Options */
 
 .product__options--title {
