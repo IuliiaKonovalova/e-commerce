@@ -347,6 +347,8 @@ img {
   background-color: var(--clr-primary--400);
   background-color: var(--clr-primary--300);
   border-color: var(--clr-accent--100);
+  border-color: var(--clr-primary--400);
+
 }
 
 .btn:hover {
@@ -390,6 +392,10 @@ img {
   opacity: 0.5 !important;
 }
 
+.option[name="Color"]:checked+.btn {
+  border: 5px solid orange;
+}
+
 .option[name="Color"]+label {
   height: 5rem;
   width: 5rem;
@@ -407,11 +413,10 @@ img {
 
 .product__options--buttons {
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
   margin-top: 1rem;
 }
 
+/* Quantity input + buttons */
 input[type="number"] {
   max-width: 5rem;
   padding: 0.5rem;
@@ -432,4 +437,18 @@ input[type="number"] {
   font-weight: 900;
 }
 
-/* Target btn-primary checked */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[name=quantity] {
+  pointer-events: none;
+}
