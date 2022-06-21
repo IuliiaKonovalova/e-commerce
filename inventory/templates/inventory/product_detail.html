@@ -224,6 +224,10 @@
         </div>
       </div>
     {% endif %}
+    {% comment %} Add to bag button {% endcomment %}
+    <button class="btn btn-primary disabled product__options--input" id="add-to-bag-button" type="submit" data-attributevalue="add-to-bag">
+      Add to bag
+    </button>
   </form>
 
 </div>
@@ -380,6 +384,7 @@
       }
       console.log(chosenAttributes);
       findPriceAndQuantity(values_list_array, chosenAttributes);
+      checkReadyToPurchase(values_list_array, chosenAttributes);
       // on click outside of the groups, we need to enable all the buttons that are disabled
       $(document).on('click', function(e){
         // if click outside of the group, enable all the buttons
@@ -484,7 +489,27 @@
           $('#plus-button').addClass('disabled');
         }
       });
-
+    
+    const checkReadyToPurchase = (values_list, chosen_attributes) => {
+      for (let stockOption of values_list) {
+        let is_match = true;
+        for (let key in stockOption) {
+          if (key != "Quantity" && key != "Price") {
+            if (stockOption[key] != chosen_attributes[key]) {
+              is_match = false;
+            }
+          }
+          if (is_match) {
+            // enable '#add-to-bag-button'
+            $('#add-to-bag-button').removeClass('disabled');
+          }
+        }
+      }
+    }
+    $('#add-to-bag-button').on('click', function() {
+      //Check if the user selected all product__options--inputs
+    
+    });
   })
 
 
