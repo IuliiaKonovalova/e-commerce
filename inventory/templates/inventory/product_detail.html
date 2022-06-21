@@ -148,7 +148,7 @@
     <button class="btn btn-secondary" id="reset-button" type="button" data-attributevalue="reset">
       Reset
     </button>
-  <form class="product__variants form">
+  <form class="product__variants form" action="#" method="POST" id="form">
     <div class="product__options">
       {% for k,v in attribute_values_dict.items %}
         <p data-attribute="{{ k }}" class="product__options--title">{{ k }}</p>
@@ -235,6 +235,7 @@
   $(document).ready(function() {
     let itemQuantity = 1
     let product_id = $('#product').data('id');
+    let options = $('.option')
     console.log(product_id);
     let values_list = JSON.stringify({{ values_list|safe }});
     console.log(values_list);
@@ -263,21 +264,21 @@
         let label = $('label[for="' + value + '"]');
       }
     });
-    // we have #reset-button
-    $('#reset-button').click(function(event) {
+    // Reset options:
+    const reset = function(e) {
       // prevent default
-      event.preventDefault();
+      e.preventDefault();
       // reset all values
-      $('.option').removeClass('active');
+      $('input[name="quantity"]').val(1);
+      $('#minus-button').removeClass('disabled');
+      $('#plus-button').removeClass('disabled');
+      $('.btn-check').removeClass('active');
       // check if product value is valuesSetActive
-      $('.option').each(function() {
+      $('.btn-check').each(function() {
         let value = $(this).val();
         console.log('show value: ' + value);
         console.log(value);
         // disable if value is not in valuesSetActive
-        $('input[name="quantity"]').val(1);
-        $('#minus-button').removeClass('disabled');
-        $('#plus-button').removeClass('disabled');
         if (!valuesSetActive.includes(value)) {
           console.log('not in valuesSetActive');
           let label = $('label[for="' + value + '"]');
@@ -327,8 +328,9 @@
           </div>
         `);
       });
-    });
-
+      console.log('reset');
+    }
+    $('#reset-button').click(reset);
     // we have button radio groups for each attribute
     // when an attribute is checked, we need to update all the other attribute groups
     // [{"size-shoes":"36","Color":"red","Quantity":10},{"size-shoes":"35","Color":"yellow","Quantity":10},{"Color":"yellow","size-shoes":"38","Quantity":10}]
@@ -442,7 +444,7 @@
       for (let stockOption of values_list) {
         let is_match = true;
         for (let key in stockOption) {
-          if (key != "Quantity" && key != "Price") {
+          if (key != "Quantity" && key != "Price" && key != "id") {
             if (stockOption[key] != chosen_attributes[key]) {
               is_match = false;
             }
@@ -494,7 +496,7 @@
       for (let stockOption of values_list) {
         let is_match = true;
         for (let key in stockOption) {
-          if (key != "Quantity" && key != "Price") {
+          if (key != "Quantity" && key != "Price" && key != "id") {
             if (stockOption[key] != chosen_attributes[key]) {
               is_match = false;
             }
@@ -502,14 +504,34 @@
           if (is_match) {
             // enable '#add-to-bag-button'
             $('#add-to-bag-button').removeClass('disabled');
+            $('#add-to-bag-button').on('click', function(e) {
+              e.preventDefault();
+              //add to cart
+              let quantity = $('input[name="quantity"]').val();
+              let product_id = $('input[name="product_id"]').val();
+              // insert data into action="" attribute of the form
+              {% comment %} $('#form').attr("{% url 'bag_add' %}", {
+                'product_id': product_id,
+                'quantity': quantity
+              }); {% endcomment %}
+              $('input[name="quantity"]').attr('max', 1);
+              // get the quantity of the item
+              let quantityCheck = $('input[name="quantity"]').val();
+              console.log('Second input of the quantity ' + quantityCheck);
+              id = stockOption["id"];
+              console.log('IDDDDDDDDDDDD ' + id);
+              // uncheck all radio buttons
+              options.removeClass('active');
+              // check if product value is valuesSetActive
+              $('label.disabled').removeClass('disabled');
+              $('input.btn-check').prop('checked', false);
+              reset(e);
+              console.log('Reseted');
+            });
           }
         }
       }
     }
-    $('#add-to-bag-button').on('click', function() {
-      //Check if the user selected all product__options--inputs
-    
-    });
   })
 
 
