@@ -207,7 +207,7 @@
           </div>
         </div>
       </div>
-    </form>
+    </div>
     {% if not product.get_out_of_stock %}
       <div class="product__options--quantity product__options--input">
         <p>Quantity</p>
@@ -499,11 +499,11 @@
           if (key != "Quantity" && key != "Price" && key != "id") {
             if (stockOption[key] != chosen_attributes[key]) {
               is_match = false;
+              ('#add-to-bag-button').addClass('disabled');
             }
           }
           if (is_match) {
             // enable '#add-to-bag-button'
-            $('#add-to-bag-button').removeClass('disabled');
             $('#add-to-bag-button').on('click', function(e) {
               e.preventDefault();
               //add to cart
@@ -527,6 +527,8 @@
               $('input.btn-check').prop('checked', false);
               reset(e);
               console.log('Reseted');
+              // disable button after the click
+              $('#add-to-bag-button').addClass('disabled');
             });
           }
         }
