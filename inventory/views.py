@@ -107,6 +107,21 @@ class ProductDetailView(View):
                 product_inventory_active_values[
                     'Quantity'
                 ] = product_inventory_active_stock_units
+                #  get sale price for the active product
+                product_inventory_active_sale_price = product_inventory_active.\
+                    sale_price
+                # convert decimal to string
+                product_inventory_active_sale_price = str(
+                    product_inventory_active_sale_price
+                )
+                product_inventory_active_values[
+                    'Price'
+                ] = product_inventory_active_sale_price
+                # Get the id of the active product
+                product_inventory_active_id = product_inventory_active.id
+                product_inventory_active_values[
+                    'id'
+                ] = product_inventory_active_id
                 values_list.append(product_inventory_active_values)
         values_set_active_list = list(values_set_active_list)
         context = {
