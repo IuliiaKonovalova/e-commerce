@@ -631,7 +631,9 @@ class Stock(models.Model):
     product_inventory = models.OneToOneField(
         ProductInventory,
         related_name="stock",
-        on_delete=models.PROTECT,
+        on_delete=models.SET_NULL,
+        unique=False,
+        null=True,
     )
     last_checked = models.DateTimeField(
         null=True,
