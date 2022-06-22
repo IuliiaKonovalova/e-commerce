@@ -59,9 +59,9 @@
   <button class="btn btn-secondary" id="reset-button" type="button" data-attributevalue="reset">
     Reset
   </button>
-  <form class="product__variants form" action="#" method="POST" id="form">
-    <div class="product__options">
-      {% for k,v in attribute_values_dict.items %}
+  <form class="product__variants form" action="#"  id="form">
+    {% for k,v in attribute_values_dict.items %}
+      <div class="product__options form__section">
         <p data-attribute="{{ k }}" class="product__options--title">{{ k }}</p>
         <div class="product__options--input">
           <div class="btn-group" role="group" aria-label="Basic radio toggle button group" data-group-name="{{ k }}">
@@ -77,11 +77,11 @@
               {% endif %}
             {% endfor %}
           </div>
-        </div> 
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
-    <div>
-      <p> price</p>
+    <div class="form__section">
+      <div class="product__options--title"> price</div>
       <div class="product__price" id="item-price">
         <div class="">
           {% if product.get_out_of_stock %}
@@ -119,25 +119,29 @@
       </div>
     </div>
     {% if not product.get_out_of_stock %}
-      <div class="product__options--quantity product__options--input">
-        <p>Quantity</p>
-        <div class="product__options--buttons">
-          <button class="btn btn-secondary btn-quantity disable" id="minus-button" type="button" data-attributevalue="minus">
-            -
-          </button>
-          <div class="product__options--quantity-input">
-            <input type="number" name="quantity" value="1" min="1" max="15" id="quantity">
+      <div class="form__section">
+        <div class="product__options--quantity product__options--input">
+          <div class="product__options--title">Quantity</div>
+          <div class="product__options--buttons">
+            <button class="btn btn-secondary btn-quantity disable" id="minus-button" type="button" data-attributevalue="minus">
+              -
+            </button>
+            <div class="product__options--quantity-input">
+              <input type="number" name="quantity" value="1" min="1" max="15" id="quantity">
+            </div>
+            <button class="btn btn-secondary btn-quantity disable" id="plus-button" type="button" data-attributevalue="plus">
+              +
+            </button>
           </div>
-          <button class="btn btn-secondary btn-quantity disable" id="plus-button" type="button" data-attributevalue="plus">
-            +
-          </button>
         </div>
       </div>
     {% endif %}
     {% comment %} Add to bag button {% endcomment %}
-    <button class="btn btn-primary disabled product__options--input" id="add-to-bag-button" type="submit" data-attributevalue="add-to-bag">
-      Add to bag
-    </button>
+    <div class="form__section">
+      <button class="btn btn-primary disabled product__options--input" id="add-to-bag-button" type="submit" data-attributevalue="add-to-bag">
+        Add to bag
+      </button>
+    </div>
   </form>
 
 </div>
@@ -401,10 +405,12 @@
           $('#plus-button').addClass('disabled');
         }
       });
-    
+    let is_match
+    let quantityFinal = 0;
+    let product_inventory_id = 0
     const checkReadyToPurchase = (values_list, chosen_attributes) => {
       for (let stockOption of values_list) {
-        let is_match = true;
+        is_match = true;
         for (let key in stockOption) {
           if (key != "Quantity" && key != "Price" && key != "id") {
             if (stockOption[key] != chosen_attributes[key]) {
@@ -414,37 +420,71 @@
           if (is_match) {
             // enable '#add-to-bag-button'
             $('#add-to-bag-button').removeClass('disabled');
-            
-            $('#add-to-bag-button').on('click', function(e) {
-              e.preventDefault();
-              //add to cart
-              let quantity = $('input[name="quantity"]').val();
-              let product_id = $('input[name="product_id"]').val();
-              // insert data into action="" attribute of the form
-              $('#form').attr("huYYYYYYYYYYYYYYYYYYYYY", {
-                'product_id': product_id,
-                'quantity': quantity
-              });
-              $('input[name="quantity"]').attr('max', 1);
-              // get the quantity of the item
-              let quantityCheck = $('input[name="quantity"]').val();
-              console.log('Second input of the quantity ' + quantityCheck);
-              id = stockOption["id"];
-              console.log('IDDDDDDDDDDDD ' + id);
-              // uncheck all radio buttons
-              options.removeClass('active');
-              // check if product value is valuesSetActive
-              $('label.disabled').removeClass('disabled');
-              $('input.btn-check').prop('checked', false);
-              reset(e);
-              console.log('Reseted');
-              // disable button after the click
-              $('#add-to-bag-button').addClass('disabled');
-            });
+            let quantityCheck = $('input[name="quantity"]').val();
+            console.log('Second input of the quantity ' + quantityCheck);
+            id = stockOption["id"];
+            console.log('IDDDDDDDDDDDD ' + id);
+            //check type of id
+            console.log(typeof id);
+            console.log('quantityFinal ' + quantityFinal);
+            quantityFinal = $('input[name="quantity"]').val();
+            //convert to int
+            quantityFinal = parseInt(quantityFinal);
+            // check typeof quantityFinal
+            console.log('typeof quantityFinal ' + typeof quantityFinal);
+            console.log('quantityFinal ' + quantityFinal);
+            product_inventory_id = id;
+            console.log('product_inventory_id ' + product_inventory_id);
+            console.log(is_match);
           }
         }
       }
     }
+    $('#add-to-bag-button').on('click', function(e) {
+      e.preventDefault();
+      console.log('quantityFinal ' + quantityFinal);
+      quantityFinal = $('input[name="quantity"]').val();
+      //convert to int
+      quantityFinal = parseInt(quantityFinal);
+      // check typeof quantityFinal
+      console.log('typeof quantityFinal ' + typeof quantityFinal);
+      //add to cart
+      //quantityFinal = $('input[name="quantity"]').val();
+      //product_inventory_id = $('input[name="product_id"]').val();
+      // insert data into action="" attribute of the form
+      //$('input[name="quantity"]').attr('max', 1);
+      // get the quantity of the item
+      // AJAX request to add item to cart
+      // uncheck all radio buttons
+      {% comment %} options.removeClass('active'); {% endcomment %}
+      // check if product value is valuesSetActive
+      $('label.disabled').removeClass('disabled');
+      $('input.btn-check').prop('checked', false);
+      reset(e);
+      console.log('Reseted');
+      console.log(is_match)
+      // AJAX request to add item to the bag
+      $.ajax({
+        url: "{% url 'add_to_bag' %}",
+        type: "POST",
+        data: {
+          'product_inventory_id': product_inventory_id,
+          'quantity': quantityFinal,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function(data) {
+          console.log(data);
+          // redirect to cart
+          console.log('yeahuuuuuuuu');
+        // disable button after the click
+          $('#add-to-bag-button').addClass('disabled');
+        },
+        error: function(data) {
+          console.log(data);
+          console.log('nooooo');
+        }
+      })
+    });
   })
 
 
