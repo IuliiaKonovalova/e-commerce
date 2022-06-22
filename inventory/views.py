@@ -1,5 +1,5 @@
 from django.views import View
-from django.shortcuts import render, get_object_or_404 
+from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse, HttpResponseRedirect
 from .models import (
     Category,
@@ -136,13 +136,3 @@ class ProductDetailView(View):
             'values_list': values_list,
         }
         return render(request, 'inventory/product_detail.html', context)
-
-
-class ProductAttributeAJAXView(View):
-    """View for the product attribute AJAX."""
-    def post(self, request, *args, **kwargs):
-        """Handle GET requests."""
-        if request.is_ajax():
-            value = request.POST.get('value')
-            product_id = request.POST.get('product_id')
-            attribute = request.POST.get('attribute')
