@@ -5,6 +5,7 @@ from bag.views import (
     BagDisplayView,
     AddToBagAJAXView,
     RemoveUnitFromBagAJAXView,
+    AddUnitToBagAJAXView,
 )
 
 
@@ -27,3 +28,11 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class, RemoveUnitFromBagAJAXView
         )
+
+    def test_add_unit_to_bag_url(self):
+        """Test add unit to bag url."""
+        url = reverse('add_unit_to_bag')
+        self.assertEquals(
+            resolve(url).func.view_class, AddUnitToBagAJAXView
+        )
+
