@@ -19,27 +19,25 @@ class AddToBagAJAXView(View):
             print('AJAX request')
             product_inventory_id = request.POST.get('product_inventory_id')
             quantity = request.POST.get('quantity')
-            print(product_inventory_id, quantity)
             product_inventory = get_object_or_404(
                 ProductInventory, id=product_inventory_id
             )
             bag = request.session.get('bag', {})
-            print(bag, 'bag')
-            # clean the session bag
-            # if bag:
-            #     bag.clear()
+            message_alert = ''
             if product_inventory_id in bag:
                 bag[product_inventory_id] += int(quantity)
-                messages.success(
-                    request,
-                    f'{product_inventory.product.name} UPDATED.'
-                )
+                message_alert = f'{product_inventory.product.name} UPDATED.'
             else:
                 bag[product_inventory_id] = int(quantity)
-                messages.success(
-                    request,
-                    f'{product_inventory.product.name} added to bag.'
+                message_alert = (
+                    f'{product_inventory.product.name} ADDED TO BAG.'
                 )
             request.session['bag'] = bag
-            return JsonResponse({'success': True})
+            return JsonResponse(
+                {
+                    'success': True,
+                    'message_alert': message_alert,
+                }
+            )
         return JsonResponse({'success': False})
+
