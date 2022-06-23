@@ -520,3 +520,25 @@ input[name=quantity] {
 .bag__item--value:not(:last-child) {
   margin-right: 0.5rem;
 }
+
+.bag__item--remove,
+.bag__item--quantity--minus,
+.bag__item--quantity--plus {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: var(--box-shadow-buttons);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bag__item--remove:hover {
+  background-color: var(--clr-accent--200);
+}
+
+.bag__item--quantity--main {
+  padding: 0.5em;
+  min-width: 3rem;
+}
