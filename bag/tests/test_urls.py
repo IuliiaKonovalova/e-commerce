@@ -4,6 +4,7 @@ from django.urls import reverse, resolve
 from bag.views import (
     BagDisplayView,
     AddToBagAJAXView,
+    RemoveUnitFromBagAJAXView,
 )
 
 
@@ -19,3 +20,10 @@ class TestUrls(SimpleTestCase):
         """Test add to bag url."""
         url = reverse('add_to_bag')
         self.assertEquals(resolve(url).func.view_class, AddToBagAJAXView)
+
+    def test_remove_unit_from_bag_url(self):
+        """Test remove unit from bag url."""
+        url = reverse('remove_unit_from_bag')
+        self.assertEquals(
+            resolve(url).func.view_class, RemoveUnitFromBagAJAXView
+        )
