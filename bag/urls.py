@@ -5,6 +5,7 @@ from .views import (
     AddToBagAJAXView,
     RemoveUnitFromBagAJAXView,
     AddUnitToBagAJAXView,
+    RemoveAllItemUnitsFromBagAJAXView,
 )
 
 
@@ -25,5 +26,9 @@ urlpatterns = [
         AddUnitToBagAJAXView.as_view(),
         name='add_unit_to_bag'
     ),
-
+    path(
+        'remove_all_item_units_from_bag/',
+        RemoveAllItemUnitsFromBagAJAXView.as_view(),
+        name='remove_all_item_units_from_bag'
+    ),
 ]
