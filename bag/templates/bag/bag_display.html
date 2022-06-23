@@ -73,5 +73,77 @@
   <div>No items in bag</div>
   {% endif %}
 </div>
+<script>
 
+  $(document).ready(function () {
+    $('.bag__item--quantity--minus').each(function () {
+      {% comment %} <div class="message-container" id="messages-notes">
+        <div class="message-container__message">
+          <p class="message-container__message--text">{{ message }}</p>
+        </div>
+      </div> {% endcomment %}
+      $(this).click(function (e) {
+        let quantity = $(this).next().text();
+        console.log(quantity)
+        console.log(typeof(quantity))
+          e.preventDefault();
+          let productInventoryId = $(this).data('id');
+          $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
+          $.ajax({
+            url: "{% url 'remove_unit_from_bag' %}",
+            type: 'POST',
+            data: {
+              'product_inventory_id': productInventoryId,
+              'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+              $('.bag__items').html(data.bag_items);
+              // add div to the page above the bag class with the message
+              if (data.message_alert) {
+                $('#messages-notes').remove();
+                $('.bag').before('<div class="message-container" id="messages-notes">' +
+                  '<div class="message-container__message">' +
+                  '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+                  '</div>' +
+                  '</div>');
+              }
+              // remove the message block after 3 seconds
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
+
+              $('.message-container__message--text').text(data.message_alert);
+              // check if data.quantity is 0:
+              if (data.quantity == 0) {
+                $('.bag__item[data-attr="' + productInventoryId + '"]').hide();
+              } else {
+                quantity = data.quantity;
+              $(this).parent().next().text(data.total);
+              // get element with data-attr = productInventoryId
+              // change the quantity
+              $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--quantity--main').text(data.quantity);
+              // change the total for the item
+              $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--total').text(data.product_item_total);
+              }
+              $('.fa-spinner').remove();
+            },
+            error: function (data) {
+              $('#messages-notes').remove();
+              $('.bag').before('<div class="message-container" id="messages-notes">' +
+                '<div class="message-container__message">' +
+                '<p class="message-container__message--text">Something went wrong</p>' +
+                '</div>' +
+                '</div>');
+              // remove the message block after 3 seconds
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
+            }
+
+          })
+        })
+      });
+    });
+
+</script>
 {% endblock %}
