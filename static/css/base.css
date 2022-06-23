@@ -487,7 +487,7 @@ input[name=quantity] {
   width: 100%;
   background-color: var(--clr-primary--100);
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
   gap: 1rem;
   padding: 0.5em;
   border: 1px solid black;

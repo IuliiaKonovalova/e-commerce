@@ -16,6 +16,7 @@
         <div class="bag__items--title">Price</div>
     <div class="bag__items--title">Quantity</div>
     <div class="bag__items--title">Total</div>
+    <div class="bag__items--title">Remove</div>
   </div>
   {% for item in bag_items %}
   {% comment %} One item {% endcomment %}
@@ -59,6 +60,9 @@
       </div>
     </div>
     <div class="bag__item--total">{{ item.product_item_total }}</div>
+    <div class="bag__item--remove">
+      <i class="fas fa-trash-alt" data-id="{{ item.product_inventory.pk }}"></i>
+    </div>
   </div>
   {% endfor %}
   </div>
