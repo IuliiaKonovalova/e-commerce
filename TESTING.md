@@ -302,3 +302,30 @@ I implemented checking functionality in views.py to prevent any errors:
             if product_inventory_active_stock:
                 # do something
 ```
+
+7. During the development of the bag functionality, I have noticed that js code was sending not the correct id data.
+
+*Solution:*
+
+I created product_inventory_id variable outside of the functions and reassigned it to the id of the ProductInventory object, which was checked in on change event.
+
+```javascript
+  let product_inventory_id = 0
+    $('.product__options').on('change', 'input', function() {
+      let attribute_value = $(this).val();
+      let attribute_name = $(this).get(0).name;
+      let availableAttrsFromOtherGroups = [];
+      for (let stockOption of values_list_array) {
+        if (stockOption[attribute_name] == attribute_value && stockOption["Quantity"] > 0) {
+          for(let key in stockOption) {
+            if (key != "Quantity" && key != attribute_name) {
+              if (key == "id") {
+                product_inventory_id = stockOption[key];
+              }
+              availableAttrsFromOtherGroups.push(stockOption[key]);
+            }
+          }
+        }
+      }
+    });
+```
