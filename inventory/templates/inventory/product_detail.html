@@ -147,6 +147,7 @@
 </div>
 <script>
   $(document).ready(function() {
+    let product_inventory_id = 0
     let itemQuantity = 1
     let product_id = $('#product').data('id');
     let options = $('.option')
@@ -261,6 +262,10 @@
         if (stockOption[attribute_name] == attribute_value && stockOption["Quantity"] > 0) {
           for(let key in stockOption) {
             if (key != "Quantity" && key != attribute_name) {
+              if (key == "id") {
+                product_inventory_id = stockOption[key];
+                console.log('product_inventory_id!!!!!!!!!!!!!!! ' + product_inventory_id);
+              }
               console.log('KEY' + key);
               console.log(key);
               console.log(stockOption[key]);
@@ -407,7 +412,7 @@
       });
     let is_match
     let quantityFinal = 0;
-    let product_inventory_id = 0
+
     const checkReadyToPurchase = (values_list, chosen_attributes) => {
       for (let stockOption of values_list) {
         is_match = true;
@@ -424,6 +429,8 @@
             console.log('Second input of the quantity ' + quantityCheck);
             id = stockOption["id"];
             console.log('IDDDDDDDDDDDD ' + id);
+            //product_inventory_id = id;
+            console.log('product_inventory_id ' + product_inventory_id);
             //check type of id
             console.log(typeof id);
             console.log('quantityFinal ' + quantityFinal);
@@ -433,7 +440,6 @@
             // check typeof quantityFinal
             console.log('typeof quantityFinal ' + typeof quantityFinal);
             console.log('quantityFinal ' + quantityFinal);
-            product_inventory_id = id;
             console.log('product_inventory_id ' + product_inventory_id);
             console.log(is_match);
           }
@@ -444,18 +450,12 @@
       e.preventDefault();
       console.log('quantityFinal ' + quantityFinal);
       quantityFinal = $('input[name="quantity"]').val();
+      //product_inventory_id
       //convert to int
-      quantityFinal = parseInt(quantityFinal);
+      console.log('product_inventory_id!!!!!!!!!!!!!!! ' + product_inventory_id);
+      //console.log('product_inventory_id ' + product_inventory_id);
       // check typeof quantityFinal
       console.log('typeof quantityFinal ' + typeof quantityFinal);
-      //add to cart
-      //quantityFinal = $('input[name="quantity"]').val();
-      //product_inventory_id = $('input[name="product_id"]').val();
-      // insert data into action="" attribute of the form
-      //$('input[name="quantity"]').attr('max', 1);
-      // get the quantity of the item
-      // AJAX request to add item to cart
-      // uncheck all radio buttons
       {% comment %} options.removeClass('active'); {% endcomment %}
       // check if product value is valuesSetActive
       $('label.disabled').removeClass('disabled');
