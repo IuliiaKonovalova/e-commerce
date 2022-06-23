@@ -135,6 +135,7 @@ class TestBagViews(TestCase):
             password='testpassword'
         )
         self.add_to_bag_url = reverse('add_to_bag')
+        self.remove_item_url = reverse('remove_unit_from_bag')
 
 
     def test_bag_display_view(self):
@@ -213,6 +214,47 @@ class TestBagViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['success'], False)
 
+    def test_remove_item_ajax_view(self):
+        """Test initialize bag clean session."""
+        self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 2},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(self.client.session['bag'], {'1': 2})
+        response = self.client.post(
+            self.remove_item_url,
+            {'product_inventory_id': 1},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(self.client.session['bag'], {'1': 1})
 
+    def test_remove_item_ajax_view_last_item(self):
+        """Test initialize bag clean session."""
+        self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 1},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(self.client.session['bag'], {'1': 1})
+        response = self.client.post(
+            self.remove_item_url,
+            {'product_inventory_id': 1},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(self.client.session['bag'], {})
+
+    def test_remove_item_ajax_view_failed(self):
+        """Test initialize bag clean session."""
+        response = self.client.post(
+            self.remove_item_url,
+            {'product_inventory_id': 1},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
 
 
