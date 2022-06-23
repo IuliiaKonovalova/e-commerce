@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     BagDisplayView,
     AddToBagAJAXView,
+    RemoveUnitFromBagAJAXView,
 )
 
 
@@ -13,4 +14,10 @@ urlpatterns = [
         AddToBagAJAXView.as_view(),
         name='add_to_bag'
     ),
+    path(
+        'remove_unit_from_bag/',
+        RemoveUnitFromBagAJAXView.as_view(),
+        name='remove_unit_from_bag'
+    ),
+
 ]
