@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div>
+<div class="product__main">
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
     {% if active_images and active_images|length > 1 %}
       {% for image in active_images %}
@@ -253,23 +253,15 @@
     // if size-shoes is checked, we need to update the color group to check what colors are available for that size
     $('.product__options').on('change', 'input', function() {
       let attribute_value = $(this).val();
-      console.log('attribute_value: ' + attribute_value);
       let attribute_name = $(this).get(0).name;
-      console.log(attribute_value);
-      console.log(attribute_name);
-        let availableAttrsFromOtherGroups = [];
+      let availableAttrsFromOtherGroups = [];
       for (let stockOption of values_list_array) {
         if (stockOption[attribute_name] == attribute_value && stockOption["Quantity"] > 0) {
           for(let key in stockOption) {
             if (key != "Quantity" && key != attribute_name) {
               if (key == "id") {
                 product_inventory_id = stockOption[key];
-                console.log('product_inventory_id!!!!!!!!!!!!!!! ' + product_inventory_id);
               }
-              console.log('KEY' + key);
-              console.log(key);
-              console.log(stockOption[key]);
-              console.log(attribute_name);
               availableAttrsFromOtherGroups.push(stockOption[key]);
             }
           }
@@ -456,8 +448,6 @@
       //console.log('product_inventory_id ' + product_inventory_id);
       // check typeof quantityFinal
       console.log('typeof quantityFinal ' + typeof quantityFinal);
-      {% comment %} options.removeClass('active'); {% endcomment %}
-      // check if product value is valuesSetActive
       $('label.disabled').removeClass('disabled');
       $('input.btn-check').prop('checked', false);
       reset(e);
@@ -478,6 +468,16 @@
           console.log('yeahuuuuuuuu');
         // disable button after the click
           $('#add-to-bag-button').addClass('disabled');
+          if (data.message_alert) {
+            $('.product__main').before('<div class="message-container" id="messages-notes">' +
+              '<div class="message-container__message">' +
+              '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+              '</div>' +
+              '</div>');
+          }
+          setTimeout(() => {
+            $('#messages-notes').remove();
+          }, 3000);
         },
         error: function(data) {
           console.log(data);
