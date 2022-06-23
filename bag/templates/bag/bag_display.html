@@ -4,5 +4,74 @@
 
 
 {% block content %}
+<div class="bag">
+<div>Hello! This is a bag!</div>
+  {% if bag_items %}
+  <div class="bag__items">
+  <div class="bag__items--titles">
+    <div class="bag__items--title">sku</div>
+    <div class="bag__items--title">Image</div>
+    <div class="bag__items--title">Product</div>
+    <div class="bag__items--title">Chosen Options</div>
+        <div class="bag__items--title">Price</div>
+    <div class="bag__items--title">Quantity</div>
+    <div class="bag__items--title">Total</div>
+  </div>
+  {% for item in bag_items %}
+  {% comment %} One item {% endcomment %}
+  <div class="bag__item" data-attr="{{ item.product_inventory.pk }}">
+    <div>{{ item.product_inventory.sku }}</div>
+    <div class="bag__item--image">
+      {% if item.product_inventory.product.images.all %}
+      <img src="{{ item.product_inventory.product.get_main_image }}"
+        alt="Cover image for {{ item.product_inventory.product.name }}">
+      {% else %}
+      <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+      {% endif %}
+    </div>
+    <a href="{% url 'product_detail' pk=item.product_inventory.product.id %}"
+      aria-label="Go to {{ item.product_inventory.product.name }}">
+      {{ item.product_inventory.product.name }}
+    </a>
+    <div class="bag__item--values">
+    {% if item.product_inventory.get_attribute_values.all == 1 %}
+    {% comment %} get the first item item.product_inventory.get_attribute_values.all() {% endcomment %}
+      {% for value in item.product_inventory.get_attribute_values %}
+      {% comment %} <div>Options chosen</div> {% endcomment %}
+      <div>{{ value.attribute_value }}</div>
+      {% endfor %}
+    {% else %}
+      {% for value in item.product_inventory.get_attribute_values %}
+        <div class="bag__item--value">{{ value.attribute_value }}</div>
+      {% endfor %}
+    {% endif %}
+    </div>
+    <div>${{ item.product_inventory.sale_price }}</div>
+    <div class="bag__item--quantity">
+      <div class="bag__item--quantity--minus" data-id="{{ item.product_inventory.pk }}">
+        <i class="fas fa-minus-circle"></i>
+        
+        {% comment %} <i class="fas fa-plus-circle"></i> {% endcomment %}
+      </div>
+      <div class="bag__item--quantity--main">{{ item.quantity }}</div>
+      <div class="bag__item--quantity--plus" data-id="{{ item.product_inventory.pk }}">
+        <i class="fas fa-plus-circle"></i>
+      </div>
+    </div>
+    <div class="bag__item--total">{{ item.product_item_total }}</div>
+  </div>
+  {% endfor %}
+  </div>
+  <div>
+    Total sum: {{ total }}
+  </div>
+  <div>
+    Total items: {{ product_count }}
+  </div>
+
+  {% else %}
+  <div>No items in bag</div>
+  {% endif %}
+</div>
 
 {% endblock %}
