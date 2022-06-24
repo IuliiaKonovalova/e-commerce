@@ -21,7 +21,10 @@
   {% comment %} Link to css {% endcomment %}
   <!-- jquery ui css -->
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
   {% endblock%}
 
@@ -31,8 +34,6 @@
 
 
   {% block jslibraries %}
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://kit.fontawesome.com/8e4b08b302.js" crossorigin="anonymous"></script>
   {% endblock %}
   {% block corejs %}
@@ -119,6 +120,8 @@
   {% block postloadjs %}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
     integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
     crossorigin="anonymous"></script>
@@ -127,6 +130,8 @@
     crossorigin="anonymous"></script>
   <script src="{% static 'js/base.js' %}" type="module"></script>
 
+  {% endblock %}
+  {% block postloadjs_extra %}
   {% endblock %}
 </body>
 
