@@ -7,7 +7,7 @@
 <div class="bag">
 <div>Hello! This is a bag!</div>
   {% if bag_items %}
-  <div class="bag__items--clean">
+  <div class="btn bag__items--clean">
     clear the bag
   </div>
   <div class="bag__items">
@@ -16,7 +16,7 @@
     <div class="bag__items--title">Image</div>
     <div class="bag__items--title">Product</div>
     <div class="bag__items--title">Options</div>
-        <div class="bag__items--title">Price</div>
+    <div class="bag__items--title">Price</div>
     <div class="bag__items--title">Quantity</div>
     <div class="bag__items--title">Total</div>
     <div class="bag__items--title">
@@ -25,7 +25,7 @@
   </div>
   {% for item in bag_items %}
   {% comment %} One item {% endcomment %}
-  <div class="bag__item" data-attr="{{ item.product_inventory.pk }}">
+  <div class="bag__item" data-attr="{{ item.product_inventory.pk }}" data-stock="{{ item.units }}">
     <div>{{ item.product_inventory.sku }}</div>
     <div class="bag__item--image">
       {% if item.product_inventory.product.images.all %}
@@ -54,15 +54,15 @@
     </div>
     <div>${{ item.product_inventory.sale_price }}</div>
     <div class="bag__item--quantity">
-      <div class="bag__item--quantity--minus" data-id="{{ item.product_inventory.pk }}">
+      <button class="btn btn-outline-primary bag__item--quantity--minus" data-id="{{ item.product_inventory.pk }}">
         {% comment %} <i class="fas fa-minus-circle"></i> {% endcomment %}
         <i class="fas fa-minus"></i>
-      </div>
+      </button>
       <div class="bag__item--quantity--main">{{ item.quantity }}</div>
-      <div class="bag__item--quantity--plus" data-id="{{ item.product_inventory.pk }}">
+      <button class="btn btn-outline-primary bag__item--quantity--plus" data-id="{{ item.product_inventory.pk }}">
         {% comment %} <i class="fas fa-plus-circle"></i> {% endcomment %}
         <i class="fas fa-plus"></i>
-      </div>
+      </button>
     </div>
     <div class="bag__item--total">{{ item.product_item_total }}</div>
     <div class="bag__item--remove" data-id="{{ item.product_inventory.pk }}">
@@ -77,6 +77,7 @@
   <div>
     Total items: {{ product_count }}
   </div>
+  <a href="#" class="btn bag__checkout">Checkout</a>
 
   {% else %}
   <div>No items in bag</div>
@@ -85,6 +86,28 @@
 <script>
 
   $(document).ready(function () {
+    // check if there quantity is not more that units in stock
+    const stockChecker =function() {
+      //get data-stock from bag__item
+      var stock = $(this).data('stock');
+      console.log(stock);
+      console.log(typeof(stock));
+      //get value of each bag__item--quantity--main
+      var quantityChosen = $(this).find('.bag__item--quantity--main').text();
+      // check if the text is changed
+      quantityChosen = parseInt(quantityChosen);
+      if (quantityChosen >= stock) {
+        //$(this).find('.bag__item--quantity--main').text(stock);
+        console.log('quantityChosen > stock');
+        // disable plus button
+        $(this).find('.bag__item--quantity--plus').addClass('disabled');
+      } else if (quantityChosen < stock) {
+        $(this).find('.bag__item--quantity--plus').removeClass('disabled');
+      }
+    }; 
+    $('.bag__item').each(stockChecker)
+
+    //$('.bag__item[data-stock="' + productInventoryId + '"]')
     // minus quantity
     $('.bag__item--quantity--minus').each(function () {
       $(this).click(function (e) {
@@ -128,6 +151,15 @@
               $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--quantity--main').text(data.quantity);
               // change the total for the item
               $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--total').text(data.product_item_total);
+              //get data-stock from bag__item
+              var stock = $('.bag__item[data-attr="' + productInventoryId + '"]').data('stock');
+              console.log(stock);
+              //check if data.quantity is more than stock
+              if (data.quantity >= stock) {
+                $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--quantity--plus').addClass('disabled');
+              } else if (data.quantity < stock) {
+                $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--quantity--plus').removeClass('disabled');
+              }
             }
             $('.fa-spinner').remove();
           },
@@ -189,6 +221,15 @@
             $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--quantity--main').text(data.quantity);
             // change the total for the item
             $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--total').text(data.product_item_total);
+            //get data-stock from bag__item
+            var stock = $('.bag__item[data-attr="' + productInventoryId + '"]').data('stock');
+            console.log(stock);
+            //check if data.quantity is more than stock
+            if (data.quantity >= stock) {
+              $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--quantity--plus').addClass('disabled');
+            } else if (data.quantity < stock) {
+              $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--quantity--plus').removeClass('disabled');
+            }
             $('.fa-spinner').remove();
           },
           error: function (data) {
