@@ -8,9 +8,6 @@
 <div>Hello! This is a bag!</div>
   {% if bag_items %}
   <div id="bag-table">
-  <div class="btn bag__items--clean">
-    clear the bag
-  </div>
   <div class="bag__items">
     <div class="bag__items--titles">
       <div class="bag__items--title">sku</div>
@@ -38,7 +35,8 @@
     </div>
     <a href="{% url 'product_detail' pk=item.product_inventory.product.id %}"
       aria-label="Go to {{ item.product_inventory.product.name }}">
-      {{ item.product_inventory.product.name }}
+      {{ item.product_inventory.product.name|truncatechars:25 }}
+      <i class="fa fa-external-link" aria-hidden="true"></i>
     </a>
     <div class="bag__item--values">
     {% if item.product_inventory.get_attribute_values.all == 1 %}
@@ -73,15 +71,31 @@
   {% endfor %}
   </div>
   <div class="bag__summary" >
-  <div>
-    Total sum:
-    <div class="bag__items--costs">{{ total }}</div>
+    <div>
+      Total sum:
+      <div class="bag__items--costs">{{ total }}</div>
+    </div>
+    <div>
+      Total items: 
+      <div class="bag__items--count">{{ product_count }}</div>
+    </div>
+    <a href="#" class="btn bag__checkout">Checkout</a>
   </div>
-  <div>
-    Total items: 
-    <div class="bag__items--count">{{ product_count }}</div>
-  </div>
-  <a href="#" class="btn bag__checkout">Checkout</a>
+  <div class="bag__clean">
+    <div class="btn bag__items--clean" id="bag-clean">
+      clear the bag
+    </div>
+    <div class="bag__clean--dropdown hidden" id="bag__clean--dropdown">
+      <p class="bag__clean--text">Do you want to empty your bag?</p>
+      <div class="bag__clean--buttons">
+        <button href="#" class="bag__items--clean btn bag__clean--yes" id="clean-confirm">
+          Yes
+        </button>
+        <button href="#" class="bag__items--clean btn bag__clean--no" id="clean-cancel">
+          No
+        </button>
+      </div>
+    </div>
   </div>
 </div>
   {% else %}
@@ -90,6 +104,8 @@
   </div>
   {% endif %}
 </div>
+{% endblock %}
+{% block postloadjs_extra %}
 <script>
 
   $(document).ready(function () {
@@ -313,8 +329,21 @@
         })
       });
     });
+    $('#bag-clean').on('click', (e) => {
+      e.preventDefault();
+      // add hidden class to the clean bag dropdown
+      $('#bag__clean--dropdown').toggleClass('hidden');
+      $('html, body').animate({
+        scrollTop: $(document).height()
+      }, 'slow');
+    });
+    // cancel clean bag
+    $('#clean-cancel').on('click', (e) => {
+      e.preventDefault();
+      $('.bag__clean--dropdown').addClass('hidden');
+    });
     // remove all items from bag
-    $('.bag__items--clean').click(function (e) {
+    $('#clean-confirm').on('click', (e) => {
       e.preventDefault();
       $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
       $.ajax({
@@ -363,9 +392,6 @@
         }
       })
     });
-
-
-
 
   });
 
