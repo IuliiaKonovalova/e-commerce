@@ -1,7 +1,6 @@
 """Test Bag views."""
 from django.test import TestCase, Client
 from django.urls import reverse
-from django.contrib.sessions.middleware import SessionMiddleware
 from inventory.models import (
     Category,
     Tag,
@@ -13,8 +12,6 @@ from inventory.models import (
     ProductAttributeValue,
     ProductInventory,
     Stock,
-    ProductAttributeValues,
-    ProductTypeAttribute,
 )
 
 
@@ -129,6 +126,13 @@ class TestBagViews(TestCase):
         self.product_inventory1.attribute_values.set(
             [product_attr_value1, product_attr_value2],
         )
+        # create stock
+        self.stock = Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units_variable=10,
+            units=10,
+            units_sold=0,
+        )
         self.client = Client()
         self.user = self.client.login(
             username='testuser',
@@ -140,7 +144,6 @@ class TestBagViews(TestCase):
         self.remove_all_item_units_url = reverse(
             'remove_all_item_units_from_bag'
         )
-
 
     def test_bag_display_view(self):
         """Test bag display view."""
@@ -208,6 +211,41 @@ class TestBagViews(TestCase):
         # check if product_inventory_id 1 is in bag
         self.assertEqual(self.client.session['bag'], {'1': 2})
         self.assertEqual(response.json()['success'], True)
+
+    def test_add_to_bag_if_quantity_is_more_than_stock_units(self):
+        """Test initialize bag clean session."""
+        response = self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 15},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.client.session['bag'], {'1': 10})
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'Not enough units in stock. Only 10 added.'
+        )
+
+    def test_if_quantity_is_more_than_stock_units_item_was_in_bag(self):
+        """Test initialize bag clean session."""
+        self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 7},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(self.client.session['bag'], {'1': 7})
+        response = self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 9},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(self.client.session['bag'], {'1': 10})
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'Not enough units in stock. Only 3 added.'
+        )
         
     def test_add_to_bag_ajax_view_failed(self):
         """Test initialize bag clean session."""
@@ -338,3 +376,30 @@ class TestBagViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['success'], False)
+
+    def test_if_product_is_in_bag_with_quantity(self):
+        """Test if product is in bag with quantity."""
+        # test if product is in bag with quantity
+        response = self.client.get(reverse('bag_display'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'bag/bag_display.html')
+        self.assertContains(response, '1')
+        # add product to the bag
+        response = self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 10},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        # check that bag session has 1 item
+        self.assertEqual(len(self.client.session['bag']), 1)
+        self.assertTrue(self.client.session['bag'], True)
+        print('test contexts.py')
+        print(self.client.session['bag'])
+        self.assertTrue(isinstance(self.client.session['bag'], dict))
+        # loop through the bag and check the quantity and product_inventory_id
+        for item in self.client.session['bag']:
+            print(item)
+            print(self.client.session['bag'][item])
+            self.assertEqual(item, '1')
+            self.assertEqual(self.client.session['bag'][item], 10)
