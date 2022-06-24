@@ -624,3 +624,16 @@ input[name=quantity] {
   padding: 0.5em;
   min-width: 3rem;
 }
+
+/* Checkout Button */
+.btn.bag__checkout {
+
+  background-color: var(--clr-accent--700);
+  color: var(--clr-text--100);
+  box-shadow: var(--box-shadow-buttons);
+}
+
+.btn.bag__checkout:hover {
+  background-color: var(--clr-accent--900);
+  color: var(--clr-text--100);
+}
