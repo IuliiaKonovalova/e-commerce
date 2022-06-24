@@ -1,3 +1,4 @@
+"""Context for the shopping bag."""
 from django.shortcuts import get_object_or_404
 from inventory.models import ProductInventory
 
@@ -17,8 +18,6 @@ def bag_contents(request):
                   ProductInventory, id=item_id
               )
               units = product_inventory.stock.units
-              print(units, 'units')
-              print(product_count, 'product_count')
               product_item_total = product_inventory.sale_price * item_data
               total += product_inventory.sale_price * item_data
               bag_items.append({
@@ -27,13 +26,6 @@ def bag_contents(request):
                   'quantity': item_data,
                   'units': units,
               })
-    print(bag_items, 'bag_items')
-    print(total, 'total')
-    print(product_count, 'product_count')
-    print(product_item_total, 'product_item_total')
-
-
-
     context = {
         'bag_items': bag_items,
         'total': total,
