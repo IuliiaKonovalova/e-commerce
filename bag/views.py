@@ -118,7 +118,15 @@ class RemoveUnitFromBagAJAXView(View):
             product_item_total = sale_price * quantity
 
 
-            
+            contents = bag_contents(request)
+            print('contents', contents)
+            total = contents['total']
+            print('total', total)
+
+            request.session['bag'] = bag
+            contents = bag_contents(request)
+            total = contents['total']
+            product_count = contents['product_count']
             request.session['bag'] = bag
             return JsonResponse(
                 {
@@ -126,6 +134,8 @@ class RemoveUnitFromBagAJAXView(View):
                     'quantity': quantity,
                     'product_item_total': product_item_total,
                     'message_alert': message_alert,
+                    'total': total,
+                    'product_count': product_count,
                 }
             )
         return JsonResponse({'success': False})
@@ -164,12 +174,17 @@ class AddUnitToBagAJAXView(View):
             print(product_item_total, 'this is a product_item_total')
             # save the bag to the session
             request.session['bag'] = bag
+            contents = bag_contents(request)
+            total = contents['total']
+            product_count = contents['product_count']
             return JsonResponse(
                 {
                     'success': True,
                     'quantity': quantity,
                     'product_item_total': product_item_total,
                     'message_alert': message_alert,
+                    'total': total,
+                    'product_count': product_count,
                 }
             )
         return JsonResponse({'success': False})
@@ -193,10 +208,15 @@ class RemoveAllItemUnitsFromBagAJAXView(View):
             request.session['bag'] = bag
             bag = request.session.get('bag', {})
             request.session['bag'] = bag
+            contents = bag_contents(request)
+            total = contents['total']
+            product_count = contents['product_count']
             return JsonResponse(
                 {
                     'success': True,
                     'message_alert': message_alert,
+                    'total': total,
+                    'product_count': product_count,
                 }
             )
         return JsonResponse({'success': False})
