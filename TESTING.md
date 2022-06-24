@@ -41,38 +41,7 @@ The missing coverage is due to the fact that I was not able to test the edit pro
 
 **Bag app:**
 
-The missing coverage is regarding contexts.py file. I wasn't able to test the context of the bag view. I was trying to test the context of the bag view, but unsuccessful.
 
-```python
-def test_if_product_is_in_bag_with_quantity(self):
-    """Test if product is in bag with quantity."""
-    # test if product is in bag with quantity
-    response = self.client.get(reverse('bag_display'))
-    self.assertEqual(response.status_code, 200)
-    self.assertTemplateUsed(response, 'bag/bag_display.html')
-    self.assertContains(response, '1')
-    # add product to the bag
-    response = self.client.post(
-        self.add_to_bag_url,
-        {'product_inventory_id': 1, 'quantity': 10},
-        HTTP_X_REQUESTED_WITH='XMLHttpRequest'
-    )
-    self.assertEqual(response.status_code, 200)
-    # check that bag session has 1 item
-    self.assertEqual(len(self.client.session['bag']), 1)
-    self.assertTrue(self.client.session['bag'], True)
-    print('test contexts.py')
-    print(self.client.session['bag'])
-    self.assertTrue(isinstance(self.client.session['bag'], dict))
-    # loop through the bag and check the quantity and product_inventory_id
-    for item in self.client.session['bag']:
-        print(item)
-        print(self.client.session['bag'][item])
-        self.assertEqual(item, '1')
-        self.assertEqual(self.client.session['bag'][item], 10)
-```
-
-![Django unit testing. Bag. Missing Coverage](documentation/testing/coverage/coverage_bag_views_missing.png)
 
 ### Django unit testing Issues
 
@@ -181,7 +150,49 @@ DecimalField should be added to the widget's attributes. Thus, I deleted them an
 ```
 Additionally, while writing test cases to check whether ```ProductInventoryForm``` is valid, I was using float() for retail_price, store_price, sale_price, weight.
 
+5. I couldn't test contexts.py file. I wasn't able to test the context of the bag view. I was trying to test the context of the bag view, but unsuccessful.
 
+```python
+def test_if_product_is_in_bag_with_quantity(self):
+    """Test if product is in bag with quantity."""
+    # test if product is in bag with quantity
+    response = self.client.get(reverse('bag_display'))
+    self.assertEqual(response.status_code, 200)
+    self.assertTemplateUsed(response, 'bag/bag_display.html')
+    self.assertContains(response, '1')
+    # add product to the bag
+    response = self.client.post(
+        self.add_to_bag_url,
+        {'product_inventory_id': 1, 'quantity': 10},
+        HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+    )
+    self.assertEqual(response.status_code, 200)
+    # check that bag session has 1 item
+    self.assertEqual(len(self.client.session['bag']), 1)
+    self.assertTrue(self.client.session['bag'], True)
+    print('test contexts.py')
+    print(self.client.session['bag'])
+    self.assertTrue(isinstance(self.client.session['bag'], dict))
+    # loop through the bag and check the quantity and product_inventory_id
+    for item in self.client.session['bag']:
+        print(item)
+        print(self.client.session['bag'][item])
+        self.assertEqual(item, '1')
+        self.assertEqual(self.client.session['bag'][item], 10)
+```
+
+![Django unit testing. Bag. Missing Coverage](documentation/testing/coverage/coverage_bag_views_missing.png)
+
+*Solution:*
+
+I imported ```bag_contents``` into views.py file. and used to get the total spending and total quantity of the bag. This allowed me to include contexts.py file into the testing.
+
+  
+  ```python
+    contents = bag_contents(request)
+    total = contents['total']
+    product_count = contents['product_count']
+```
 
 
 
