@@ -2,8 +2,9 @@
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
-from django.contrib import messages
 from inventory.models import ProductInventory
+from .contexts import bag_contents
+
 
 
 class BagDisplayView(View):
@@ -16,7 +17,7 @@ class AddToBagAJAXView(View):
     """View for the add to bag AJAX."""
     def post(self, request, *args, **kwargs):
         if request.is_ajax():
-            print('AJAX request')
+            print('AJAXAJAX AJAXrAJAXequest')
             product_inventory_id = request.POST.get('product_inventory_id')
             quantity = request.POST.get('quantity')
             product_inventory = get_object_or_404(
@@ -24,14 +25,57 @@ class AddToBagAJAXView(View):
             )
             bag = request.session.get('bag', {})
             message_alert = ''
+            units = product_inventory.stock.units
+            print(units)
+            print( type(units))
+
+            # check if unit < quantity
+            # if units < int(quantity):
+            #     quantity = units
+            #     message_alert = (
+            #         f'Not enough units in stock.Only {units} added'
+            #     )
+            #     print(message_alert)
+            #     bag[product_inventory_id] += units
             if product_inventory_id in bag:
-                bag[product_inventory_id] += int(quantity)
-                message_alert = f'{product_inventory.product.name} UPDATED.'
+                request.session['bag'] = bag
+                bag = request.session.get('bag', {})
+                quantity_in_bag = bag.get(product_inventory_id, 0)
+                print('quantity_in_bag', quantity_in_bag)
+                print(type(quantity_in_bag))
+                appropriate_quantity = int(quantity) + quantity_in_bag
+                print('appropriate_quantity', appropriate_quantity)
+                print(type(appropriate_quantity))
+
+                if appropriate_quantity > units:
+                    print('quantity + quantity_in_bag > units')
+                    quantity = units
+                    print('quantity', quantity)
+                    bag[product_inventory_id] = int(quantity)
+                    quantity_to_add = int(quantity) - quantity_in_bag
+                    message_alert = (
+                        'Not enough units in stock.'
+                        f' Only {quantity_to_add} added.'
+                    )
+
+                else:
+                    print('quantity + quantity_in_bag < units')
+                    bag[product_inventory_id] += int(quantity)
+                    message_alert = (
+                        f'{product_inventory.product.name} UPDATED.'
+                    )
             else:
-                bag[product_inventory_id] = int(quantity)
-                message_alert = (
-                    f'{product_inventory.product.name} ADDED TO BAG.'
-                )
+                if units < int(quantity):
+                    quantity = units
+                    message_alert = (
+                        f'Not enough units in stock. Only {units} added.'
+                    )
+                    bag[product_inventory_id] = int(quantity)
+                else:
+                    bag[product_inventory_id] = int(quantity)
+                    message_alert = (
+                        f'{product_inventory.product.name} ADDED TO BAG.'
+                    )
             request.session['bag'] = bag
             return JsonResponse(
                 {
@@ -72,6 +116,9 @@ class RemoveUnitFromBagAJAXView(View):
             sale_price = product_inventory.sale_price
             # get product_item_total from
             product_item_total = sale_price * quantity
+
+
+            
             request.session['bag'] = bag
             return JsonResponse(
                 {
@@ -122,6 +169,33 @@ class AddUnitToBagAJAXView(View):
                     'success': True,
                     'quantity': quantity,
                     'product_item_total': product_item_total,
+                    'message_alert': message_alert,
+                }
+            )
+        return JsonResponse({'success': False})
+
+
+class RemoveAllItemUnitsFromBagAJAXView(View):
+    """View for the remove all item units from bag AJAX."""
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            product_inventory_id = request.POST.get('product_inventory_id')
+            product_inventory = get_object_or_404(
+                ProductInventory, id=product_inventory_id
+            )
+            bag = request.session.get('bag', {})
+            message_alert = ''
+            if product_inventory_id in bag:
+                bag.pop(product_inventory_id)
+                message_alert = (
+                    f'{product_inventory.product.name} REMOVED.'
+                )
+            request.session['bag'] = bag
+            bag = request.session.get('bag', {})
+            request.session['bag'] = bag
+            return JsonResponse(
+                {
+                    'success': True,
                     'message_alert': message_alert,
                 }
             )
