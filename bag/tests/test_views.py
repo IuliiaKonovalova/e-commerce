@@ -144,6 +144,9 @@ class TestBagViews(TestCase):
         self.remove_all_item_units_url = reverse(
             'remove_all_item_units_from_bag'
         )
+        self.remove_all_bag_items_url = reverse(
+            'remove_all_bag'
+        )
 
     def test_bag_display_view(self):
         """Test bag display view."""
@@ -403,3 +406,30 @@ class TestBagViews(TestCase):
             print(self.client.session['bag'][item])
             self.assertEqual(item, '1')
             self.assertEqual(self.client.session['bag'][item], 10)
+
+    def test_remove_all_from_bag_view(self):
+        """Test initialize bag clean session."""
+        self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 7},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        response = self.client.post(
+            self.remove_all_bag_items_url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(self.client.session['bag'], {})
+        self.assertEqual(
+            response.json()['message_alert'],
+            'Bag is now empty.'
+        )
+
+    def test_remove_all_from_bag_view_failed(self):
+        """Test initialize bag clean session."""
+        response = self.client.post(
+            self.remove_all_bag_items_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
