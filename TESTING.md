@@ -41,6 +41,8 @@ The missing coverage is due to the fact that I was not able to test the edit pro
 
 **Bag app:**
 
+![Django unit testing. Bag. Coverage](documentation/testing/coverage/coverage_bag.png)
+
 
 
 ### Django unit testing Issues
