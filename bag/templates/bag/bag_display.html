@@ -4,25 +4,26 @@
 
 
 {% block content %}
-<div class="bag">
+<div class="bag" id="bag">
 <div>Hello! This is a bag!</div>
   {% if bag_items %}
+  <div id="bag-table">
   <div class="btn bag__items--clean">
     clear the bag
   </div>
   <div class="bag__items">
-  <div class="bag__items--titles">
-    <div class="bag__items--title">sku</div>
-    <div class="bag__items--title">Image</div>
-    <div class="bag__items--title">Product</div>
-    <div class="bag__items--title">Options</div>
-    <div class="bag__items--title">Price</div>
-    <div class="bag__items--title">Quantity</div>
-    <div class="bag__items--title">Total</div>
-    <div class="bag__items--title">
-      <i class="fa fa-trash-o" aria-hidden="true"></i>
+    <div class="bag__items--titles">
+      <div class="bag__items--title">sku</div>
+      <div class="bag__items--title">Image</div>
+      <div class="bag__items--title">Product</div>
+      <div class="bag__items--title">Options</div>
+      <div class="bag__items--title">Price</div>
+      <div class="bag__items--title">Quantity</div>
+      <div class="bag__items--title">Total</div>
+      <div class="bag__items--title">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+      </div>
     </div>
-  </div>
   {% for item in bag_items %}
   {% comment %} One item {% endcomment %}
   <div class="bag__item" data-attr="{{ item.product_inventory.pk }}" data-stock="{{ item.units }}">
@@ -71,6 +72,7 @@
   </div>
   {% endfor %}
   </div>
+  <div class="bag__summary" >
   <div>
     Total sum:
     <div class="bag__items--costs">{{ total }}</div>
@@ -80,9 +82,12 @@
     <div class="bag__items--count">{{ product_count }}</div>
   </div>
   <a href="#" class="btn bag__checkout">Checkout</a>
-
+  </div>
+</div>
   {% else %}
-  <div>No items in bag</div>
+  <div class="bag__items--empty">
+    <p class="bag__items--empty--text">Your bag is empty</p>
+  </div>
   {% endif %}
 </div>
 <script>
@@ -308,6 +313,57 @@
         })
       });
     });
+    // remove all items from bag
+    $('.bag__items--clean').click(function (e) {
+      e.preventDefault();
+      $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
+      $.ajax({
+        url: "{% url 'remove_all_bag' %}",
+        type: 'POST',
+        data: {
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+          console.log('OH YEAHHHHHHHHHHHHHHH');
+          //$('.bag__items').html(data.bag_items);
+          // add div to the page above the bag class with the message
+          if (data.message_alert) {
+            $('#messages-notes').remove();
+            $('.bag').before('<div class="message-container" id="messages-notes">' +
+              '<div class="message-container__message">' +
+              '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+              '</div>' +
+              '</div>');
+            // remove the message block after 3 seconds
+            setTimeout(() => {
+              $('#messages-notes').remove();
+            }, 3000);
+          }
+          $('#bag-table').hide();
+          $('#bag').append('<div class="bag__items--empty">' +
+            '<p class="bag__items--empty--text">Your bag is empty</p>' +
+            '</div>');
+          // update the total cost
+          $('.bag__items--costs').text(data.total);
+          // update the total quantity
+          $('.bag__items--count').text(data.product_count);
+        },
+        error: function (data) {
+          console.log('OH NOOOOOOOOOOOOOOOOOO');
+          $('#messages-notes').remove();
+          $('.bag').before('<div class="message-container" id="messages-notes">' +
+            '<div class="message-container__message">' +
+            '<p class="message-container__message--text">Something went wrong</p>' +
+            '</div>' +
+            '</div>');
+          // remove the message block after 3 seconds
+          setTimeout(() => {
+            $('#messages-notes').remove();
+          }, 3000);
+        }
+      })
+    });
+
 
 
 
