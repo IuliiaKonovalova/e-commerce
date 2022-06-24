@@ -79,7 +79,7 @@ img {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 #id_first_name,
@@ -252,20 +252,11 @@ img {
 }
 
 /* Product Page */
-.product {
+.product__main {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   background-color: #06032e;
-}
-
-.product__title {
-  position: relative;
-  background-color: #c2bdff;
-  padding: 2em;
-  font-size: 2.5rem;
-  font-weight: 900;
-}
-
-.product__title .product__card--prices {
-  position: unset;
 }
 
 .product__images {
@@ -325,16 +316,55 @@ img {
   background-image: none;
 }
 
+.product__main--info {
+  padding: 2em;
+  background-color: #bab6ec;
+}
+
+.product {
+  background-color: #06032e;
+}
+
+.product__title {
+  position: relative;
+  background-color: #c2bdff;
+  padding: 1em;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.product__title .product__card--prices {
+  position: unset;
+}
+
 /* --- Form --- */
 .form__section {
   background-color: var(--clr-accent--100);
-  padding: 2em;
+  padding: 0.5em 1em;
+}
+
+.form__section--quantity {
+  position: relative;
+}
+
+.quantity__warning {
+  position: absolute;
+  color: red;
+  top: 0.7rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity__warning i {
+  margin-right: 0.3em;
 }
 
 /* Options */
 
 .product__options--title {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: 900;
   color: var(--clr-primary--500);
   text-transform: capitalize;
@@ -523,6 +553,15 @@ input[name=quantity] {
 }
 
 /* Clean all bag button */
+.bag__clean {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
 .btn.bag__items--clean {
   background-color: var(--clr-primary--200);
   color: var(--clr-text--500);
@@ -533,6 +572,27 @@ input[name=quantity] {
   color: var(--clr-text--900);
   box-shadow: unset;
 }
+
+.bag__clean--dropdown {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.bag__clean--text {
+  margin: 2vh auto;
+}
+
+.bag__clean--buttons {
+  display: flex;
+  width: 100%;
+  max-width: 10rem;
+  justify-content: space-around;
+  align-items: center;
+}
+
 
 /* Minus, Plus, Remove buttons */
 .bag__item--remove,
