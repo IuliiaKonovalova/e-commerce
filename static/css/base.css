@@ -522,6 +522,18 @@ input[name=quantity] {
   margin-right: 0.5rem;
 }
 
+/* Clean all bag button */
+.btn.bag__items--clean {
+  background-color: var(--clr-primary--200);
+  color: var(--clr-text--500);
+  box-shadow: var(--box-shadow-buttons);
+}
+
+.btn.bag__items--clean:hover {
+  color: var(--clr-text--900);
+  box-shadow: unset;
+}
+
 /* Minus, Plus, Remove buttons */
 .bag__item--remove,
 .bag__item--quantity--minus,
