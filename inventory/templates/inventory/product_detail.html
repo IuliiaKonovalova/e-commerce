@@ -487,9 +487,9 @@
         },
         success: function(data) {
           console.log(data);
-          // redirect to cart
-          console.log('yeahuuuuuuuu');
-        // disable button after the click
+          // update shopping bag in navbar
+          $('#shopping-bag-count').text(data.product_count);
+          // disable button after the click
           $('#add-to-bag-button').addClass('disabled');
           if (data.message_alert) {
             $('.product__main').before('<div class="message-container" id="messages-notes">' +
@@ -503,8 +503,16 @@
           }, 3000);
         },
         error: function(data) {
-          console.log(data);
-          console.log('nooooo');
+          $('#messages-notes').remove();
+          $('.bag').before('<div class="message-container" id="messages-notes">' +
+            '<div class="message-container__message">' +
+            '<p class="message-container__message--text">Something went wrong</p>' +
+            '</div>' +
+            '</div>');
+          // remove the message block after 3 seconds
+          setTimeout(() => {
+            $('#messages-notes').remove();
+          }, 3000);
         }
       })
     });
