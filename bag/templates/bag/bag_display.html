@@ -130,7 +130,6 @@
     }; 
     $('.bag__item').each(stockChecker)
 
-    //$('.bag__item[data-stock="' + productInventoryId + '"]')
     // minus quantity
     $('.bag__item--quantity--minus').each(function () {
       $(this).click(function (e) {
@@ -148,7 +147,8 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'
           },
           success: function (data) {
-            //$('.bag__items').html(data.bag_items);
+            // update shopping bag in navbar
+            $('#shopping-bag-count').text(data.product_count);
             // add div to the page above the bag class with the message
             if (data.message_alert) {
               $('#messages-notes').remove();
@@ -225,7 +225,8 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'
           },
           success: function (data) {
-            //$('.bag__items').html(data.bag_items);
+            // update shopping bag in navbar
+            $('#shopping-bag-count').text(data.product_count);
             // add div to the page above the bag class with the message
             if (data.message_alert) {
               $('#messages-notes').remove();
@@ -278,6 +279,7 @@
         })
       });
     });
+
     // remove item from bag
     $('.bag__item--remove').each(function () {
       $(this).click(function (e) {
@@ -292,7 +294,8 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'
           },
           success: function (data) {
-            //$('.bag__items').html(data.bag_items);
+            // update shopping bag in navbar
+            $('#shopping-bag-count').text(data.product_count);
             // add div to the page above the bag class with the message
             if (data.message_alert) {
               $('#messages-notes').remove();
@@ -329,6 +332,7 @@
         })
       });
     });
+
     $('#bag-clean').on('click', (e) => {
       e.preventDefault();
       // add hidden class to the clean bag dropdown
@@ -342,6 +346,7 @@
       e.preventDefault();
       $('.bag__clean--dropdown').addClass('hidden');
     });
+
     // remove all items from bag
     $('#clean-confirm').on('click', (e) => {
       e.preventDefault();
@@ -353,8 +358,8 @@
           'csrfmiddlewaretoken': '{{ csrf_token }}'
         },
         success: function (data) {
-          console.log('OH YEAHHHHHHHHHHHHHHH');
-          //$('.bag__items').html(data.bag_items);
+          // update shopping bag in navbar
+          $('#shopping-bag-count').text(data.product_count);
           // add div to the page above the bag class with the message
           if (data.message_alert) {
             $('#messages-notes').remove();
