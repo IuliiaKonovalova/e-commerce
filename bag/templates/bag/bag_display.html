@@ -72,10 +72,12 @@
   {% endfor %}
   </div>
   <div>
-    Total sum: {{ total }}
+    Total sum:
+    <div class="bag__items--costs">{{ total }}</div>
   </div>
   <div>
-    Total items: {{ product_count }}
+    Total items: 
+    <div class="bag__items--count">{{ product_count }}</div>
   </div>
   <a href="#" class="btn bag__checkout">Checkout</a>
 
@@ -141,6 +143,10 @@
             }, 3000);
             console.log(data.quantity)
             console.log(typeof(data.quantity))
+            // update the total cost
+            $('.bag__items--costs').text(data.total);
+            // update the total quantity
+            $('.bag__items--count').text(data.product_count);
             // check if data.quantity is 0:
             if (data.quantity == 0) {
               $('.bag__item[data-attr="' + productInventoryId + '"]').hide();
@@ -215,12 +221,16 @@
             console.log(data.quantity)
             console.log(typeof(data.quantity))
 
-            $(this).parent().next().text(data.total);
+            //$(this).parent().next().text(data.total);
             // get element with data-attr = productInventoryId
             // change the quantity
             $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--quantity--main').text(data.quantity);
             // change the total for the item
             $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--total').text(data.product_item_total);
+            // update the total cost
+            $('.bag__items--costs').text(data.total);
+            // update the total quantity
+            $('.bag__items--count').text(data.product_count);
             //get data-stock from bag__item
             var stock = $('.bag__item[data-attr="' + productInventoryId + '"]').data('stock');
             console.log(stock);
@@ -275,8 +285,10 @@
             setTimeout(() => {
               $('#messages-notes').remove();
             }, 3000);
-            console.log(data.quantity)
-            console.log(typeof(data.quantity))
+            // update the total cost
+            $('.bag__items--costs').text(data.total);
+            // update the total quantity
+            $('.bag__items--count').text(data.product_count);
             // check if data.quantity is 0:
             $('.bag__item[data-attr="' + productInventoryId + '"]').hide();
             $('.fa-spinner').remove();
