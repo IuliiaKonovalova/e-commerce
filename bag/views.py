@@ -56,10 +56,16 @@ class AddToBagAJAXView(View):
                         f'{product_inventory.product.name} ADDED TO BAG.'
                     )
             request.session['bag'] = bag
+            contents = bag_contents(request)
+            total = contents['total']
+            product_count = contents['product_count']
+            request.session['bag'] = bag
             return JsonResponse(
                 {
                     'success': True,
                     'message_alert': message_alert,
+                    'total': total,
+                    'product_count': product_count,
                 }
             )
         return JsonResponse({'success': False})
