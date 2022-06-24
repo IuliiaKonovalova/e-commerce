@@ -17,23 +17,20 @@ def bag_contents(request):
                   ProductInventory, id=item_id
               )
               units = product_inventory.stock.units
-              print(units)
-              print(product_count)
-              if units < product_count:
-                  product_count = units
+              print(units, 'units')
+              print(product_count, 'product_count')
               product_item_total = product_inventory.sale_price * item_data
               total += product_inventory.sale_price * item_data
-              
               bag_items.append({
                   'product_inventory': product_inventory,
                   'product_item_total': product_item_total,
                   'quantity': item_data,
                   'units': units,
               })
-    print(bag_items)
-    print(total)
-    print(product_count)
-    print(product_item_total)
+    print(bag_items, 'bag_items')
+    print(total, 'total')
+    print(product_count, 'product_count')
+    print(product_item_total, 'product_item_total')
 
 
 
