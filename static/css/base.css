@@ -378,6 +378,7 @@ img {
   background-color: var(--clr-primary--200);
   box-shadow: var(--box-shadow-buttons);
   --bs-btn-focus-shadow-rgb: unset;
+  --bs-btn-hover-bg: var(--clr-primary--200);
 }
 
 .btn-outline-primary.disabled,
@@ -521,6 +522,7 @@ input[name=quantity] {
   margin-right: 0.5rem;
 }
 
+/* Minus, Plus, Remove buttons */
 .bag__item--remove,
 .bag__item--quantity--minus,
 .bag__item--quantity--plus {
@@ -532,10 +534,18 @@ input[name=quantity] {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: none !important;
+  --bs-btn-active-color: var(--clr-text--900) !important;
+  --bs-btn-hover-color: var(--clr-text--900) !important;
+  --bs-btn-hover-bg: var(--clr-accent--100) !important;
+  background-color: var(--clr-accent--100) !important;
 }
 
-.bag__item--remove:hover {
-  background-color: var(--clr-accent--200);
+.bag__item--remove:hover,
+.bag__item--quantity--minus:hover,
+.bag__item--quantity--plus:hover {
+  background-color: var(--clr-accent--200) !important;
+  color: var(--clr-text--900) !important;
 }
 
 .bag__item--quantity--main {
