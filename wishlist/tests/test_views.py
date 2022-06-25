@@ -124,3 +124,104 @@ class WishlistTestCase(TestCase):
         response = self.client.get(self.wishlist_display_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_add_remove_product_wishlist_ajax_view(self):
+        """Test add remove product wishlist ajax view."""
+        self.client.force_login(self.user)
+        # add product to wishlist
+        response = self.client.post(
+            self.add_remove_product_wishlist_ajax_url,
+            {
+                'product_id': self.product1.id,
+                'action': 'add',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'Nike Skirt added to wishlist.',
+        )
+        # remove product from wishlist
+        response = self.client.post(
+            self.add_remove_product_wishlist_ajax_url,
+            {
+                'product_id': self.product1.id,
+                'action': 'remove',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'Nike Skirt removed from wishlist.',
+        )
+
+    def test_add_remove_product_wishlist_ajax_view_failed(self):
+        """Test add remove product wishlist ajax view failed."""
+        self.client.force_login(self.user)
+        # add product to wishlist
+        response = self.client.post(
+            self.add_remove_product_wishlist_ajax_url,
+            {
+                'product_id': self.product1.id,
+                'action': 'add',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'Not a valid request.',
+        )
+        # remove product from wishlist
+        response = self.client.post(
+            self.add_remove_product_wishlist_ajax_url,
+            {
+                'product_id': self.product1.id,
+                'action': 'remove',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'Not a valid request.',
+        )
+
+    def test_add_remove_product_wishlist_ajax_view_user_logout(self):
+        """Test add remove product wishlist ajax view user logout."""
+        # add product to wishlist
+        response = self.client.post(
+            self.add_remove_product_wishlist_ajax_url,
+            {
+                'product_id': self.product1.id,
+                'action': 'add',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'You must be logged in to add to wishlist.',
+        )
+        self.client.logout()
+        # remove product from wishlist
+        response = self.client.post(
+            self.add_remove_product_wishlist_ajax_url,
+            {
+                'product_id': self.product1.id,
+                'action': 'remove',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'You must be logged in to add to wishlist.',
+        )
+
