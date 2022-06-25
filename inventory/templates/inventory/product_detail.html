@@ -530,7 +530,54 @@
       })
     });
 
-
+    // add-to/remove-from wishlist
+    $('#wishlist-control').on('click', function(e) {
+      e.preventDefault();
+      // AJAX request to add item to the wishlist
+      $.ajax({
+        url: "{% url 'add_remove_product_wishlist_ajax' %}",
+        type: "POST",
+        data: {
+          'product_id': product_id,
+          'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function(data) {
+          if (data.product_in_wishlist) {
+            //replace the with <i class="fas fa-heart"></i>
+            $('#wishlist-control').html('<i class="fas fa-heart"></i>');
+          } else {
+            //replace the with <i class="far fa-heart"></i>
+            $('#wishlist-control').html('<i class="far fa-heart"></i>');
+          }
+          // update wishlist in navbar
+          {% comment %} $(this).append('<i class="fas fa-heart"></i>'); {% endcomment %}
+          // disable button after the click
+          $('#add-to-wishlist-button').addClass('disabled');
+          if (data.message_alert) {
+            $('.product__main').before('<div class="message-container" id="messages-notes">' +
+              '<div class="message-container__message">' +
+              '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+              '</div>' +
+              '</div>');
+          }
+          setTimeout(() => {
+            $('#messages-notes').remove();
+          }, 3000);
+        },
+        error: function(data) {
+          $('#messages-notes').remove();
+          $('.bag').before('<div class="message-container" id="messages-notes">' +
+            '<div class="message-container__message">' +
+            '<p class="message-container__message--text">Something went wrong</p>' +
+            '</div>' +
+            '</div>');
+          // remove the message block after 3 seconds
+          setTimeout(() => {
+            $('#messages-notes').remove();
+          }, 3000);
+        }
+      })
+    });
   })
 
 
