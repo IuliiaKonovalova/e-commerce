@@ -10,4 +10,5 @@ urlpatterns = [
     path('profiles/', include('profiles.urls')),
     path('inventory/', include('inventory.urls')),
     path('bag/', include('bag.urls')),
+    path('wishlist/', include('wishlist.urls')),
 ]
