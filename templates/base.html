@@ -73,6 +73,11 @@
             Logout
           </a>
         </li>
+        <li class="navbar__item">
+          <a href="{% url 'wishlist_display' %}" aria-label="Go to Wishlist page" class="account__option">
+            Wishlist
+          </a>
+        </li>
         {% comment %} Links acccessable to every member {% endcomment %}
         {% else %}
         <li class="navbar__item ">
@@ -87,6 +92,7 @@
         <li class="navbar__item">
           <a href="{% url 'bag_display' %}" aria-label="Go to Bag page" class="account__option">
             Bag
+            <i class="fas fa-shopping-bag"></i><span id="shopping-bag-count">{{ product_count }}</span>
           </a>
         </li>
       </ul>
