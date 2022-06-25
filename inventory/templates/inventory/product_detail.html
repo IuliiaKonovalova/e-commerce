@@ -3,50 +3,63 @@
 
 {% block content %}
 <div class="product__main">
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
-    {% if active_images and active_images|length > 1 %}
-      {% for image in active_images %}
-      {% endfor %}
-    {% endif %}
-    <div class="carousel-inner">
+  <div>
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
       {% if active_images and active_images|length > 1 %}
         {% for image in active_images %}
-          {% if image.default_image %}
+        {% endfor %}
+      {% endif %}
+      <div class="carousel-inner">
+        {% if active_images and active_images|length > 1 %}
+          {% for image in active_images %}
+            {% if image.default_image %}
+              <div class="carousel-item active">
+                <img class="block align-middle" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
+              </div>
+            {% elif image.is_active %}
+              <div class="carousel-item align-middle">
+                <img class="block  align-middle" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% elif active_images and active_images|length == 1 %}
+          {% for image in active_images %}
             <div class="carousel-item active">
-              <img class="block align-middle" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
+              <img class="d-block" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
             </div>
-          {% elif image.is_active %}
-            <div class="carousel-item align-middle">
-              <img class="block  align-middle" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
-            </div>
-          {% endif %}
-        {% endfor %}
-      {% elif active_images and active_images|length == 1 %}
-        {% for image in active_images %}
+          {% endfor %}
+        {% else %}
           <div class="carousel-item active">
-            <img class="d-block" src="{{ image.image.url }}" alt="{{ image.alt_text }}">
+            <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
           </div>
-        {% endfor %}
-      {% else %}
-        <div class="carousel-item active">
-          <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
-        </div>
+        {% endif %}
+      </div>
+      {% if active_images and active_images|length > 1 %}
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true">
+            <i class="fas fa-chevron-left"></i>
+          </span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true">
+            <i class="fas fa-chevron-right"></i>
+          </span>
+          <span class="visually-hidden">Next</span>
+        </button>
       {% endif %}
     </div>
-    {% if active_images and active_images|length > 1 %}
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true">
-          <i class="fas fa-chevron-left"></i>
-        </span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true">
-          <i class="fas fa-chevron-right"></i>
-        </span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    {% endif %}
+    <button class="like btn" id="wishlist-control">
+      {% if request.user.is_authenticated %}
+        {% if product.id in request.user.wishlist.products %}
+          <i class="fas fa-heart"></i>
+        {% else %}
+          <i class="far fa-heart"></i>
+        {% endif %}
+      {% else %}
+        <i class="far fa-heart"></i>
+      {% endif %}
+    </button>
   </div>
   <div class="product__main--info">
     <div data-id="{{ product.id }}" id="product">
@@ -516,6 +529,8 @@
         }
       })
     });
+
+
   })
 
 
