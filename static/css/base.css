@@ -316,6 +316,21 @@ img {
   background-image: none;
 }
 
+.like {
+  font-weight: 900;
+  font-size: 3rem;
+  width: 4rem !important;
+  height: 4rem !important;
+  position: relative;
+  color: var(--clr-accent--900) !important;
+}
+
+.like i {
+  position: absolute;
+  top: 0.63rem;
+  left: 0.5rem;
+}
+
 .product__main--info {
   padding: 2em;
   background-color: #bab6ec;
@@ -594,10 +609,11 @@ input[name=quantity] {
 }
 
 
-/* Minus, Plus, Remove buttons */
+/* Minus, Plus, Remove, Like buttons */
 .bag__item--remove,
 .bag__item--quantity--minus,
-.bag__item--quantity--plus {
+.bag__item--quantity--plus,
+.like {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
@@ -615,7 +631,8 @@ input[name=quantity] {
 
 .bag__item--remove:hover,
 .bag__item--quantity--minus:hover,
-.bag__item--quantity--plus:hover {
+.bag__item--quantity--plus:hover,
+.like:hover {
   background-color: var(--clr-accent--200) !important;
   color: var(--clr-text--900) !important;
 }
