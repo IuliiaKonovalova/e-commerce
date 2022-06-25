@@ -2,6 +2,7 @@
 from django.urls import path
 from .views import (
     WishlistDisplayView,
+    AddRemoveProductWishlistAJAXView,
 )
 
 
@@ -10,5 +11,10 @@ urlpatterns = [
         'wishlist_display/',
         WishlistDisplayView.as_view(),
         name='wishlist_display'
+    ),
+    path(
+        'add_remove_product_wishlist_ajax/',
+        AddRemoveProductWishlistAJAXView.as_view(),
+        name='add_remove_product_wishlist_ajax'
     ),
 ]
