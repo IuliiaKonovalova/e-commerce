@@ -101,3 +101,69 @@
     {% endif %}
   </div>
 {% endblock %}
+
+{% block postloadjs_extra %}
+  <script>
+    $(document).ready(function () {
+
+
+      // clean the wishlist main button
+      $('#wishlist-clean').on('click', (e) => {
+        e.preventDefault();
+        // add hidden class to the clean wishlist dropdown
+        $('#wishlist__clean--dropdown').toggleClass('hidden');
+        $('html, body').animate({
+          scrollTop: $(document).height()
+        }, 'slow');
+      });
+      // cancel clean wishlist
+      $('#clean-cancel').on('click', (e) => {
+        e.preventDefault();
+        $('.wishlist__clean--dropdown').addClass('hidden');
+      });
+
+      // confirm clean wishlist
+      $('#clean-confirm').on('click', (e) => {
+        e.preventDefault();
+        $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
+        $.ajax({
+          url: "{% url 'empty_wishlist_ajax' %}",
+          type: 'POST',
+          data: {
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function (data) {
+            $('#wishlist-table').remove();
+            if (data.message_alert) {
+              $('#messages-notes').remove();
+              $('#wishlist').before('<div class="message-container" id="messages-notes">' +
+                '<div class="message-container__message">' +
+                '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+                '</div>' +
+                '</div>');
+              // remove the message block after 3 seconds
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
+            }
+            $('#wishlist').append('<div class="wishlist__empty">' +
+              '<p>You have no items in your wishlist.</p>' +
+              '</div>');
+          },
+          error: function (data) {
+            $('#messages-notes').remove();
+            $('#wishlist').before('<div class="message-container" id="messages-notes">' +
+              '<div class="message-container__message">' +
+              '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+              '</div>' +
+              '</div>');
+            // remove the message block after 3 seconds
+            setTimeout(() => {
+              $('#messages-notes').remove();
+            }, 3000);
+          }
+        });
+      });
+    });
+  </script>
+{% endblock %}
