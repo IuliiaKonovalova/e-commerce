@@ -4,6 +4,7 @@ from django.urls import reverse, resolve
 from wishlist.views import (
     WishlistDisplayView,
     AddRemoveProductWishlistAJAXView,
+    EmptyWishlistAJAXView,
 )
 
 
@@ -22,3 +23,10 @@ class TestUrls(SimpleTestCase):
             resolve(url).func.view_class, AddRemoveProductWishlistAJAXView
         )
 
+    def test_empty_wishlist_ajax_url(self):
+        """Test empty wishlist AJAX url."""
+        url = reverse('empty_wishlist_ajax')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            EmptyWishlistAJAXView
+        )
