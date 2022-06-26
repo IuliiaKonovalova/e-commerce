@@ -75,3 +75,32 @@ class AddRemoveProductWishlistAJAXView(View):
                 }
             )
 
+
+class EmptyWishlistAJAXView(View):
+    """View for the empty wishlist AJAX."""
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.is_ajax():
+                wishlist = Wishlist.objects.get(user=request.user)
+                wishlist.remove_all_from_wishlist()
+                return JsonResponse(
+                    {
+                        'success': True,
+                        'message_alert': 'Wishlist is now empty.',
+                    }
+                )
+            else:
+                return JsonResponse(
+                    {
+                        'success': False,
+                        'message_alert': 'Something went wrong.',
+                    }
+                )
+        else:
+            message_alert = 'You must be logged in to empty wishlist.'
+            return JsonResponse(
+                {
+                    'success': False,
+                    'message_alert': message_alert,
+                }
+            )
