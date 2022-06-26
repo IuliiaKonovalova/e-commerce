@@ -5,6 +5,7 @@
   <div class="products__all">
     {% for product in products %}
       {% if product.is_active %}
+      <div class="wishlist__item" data-attr="{{ product.id }}">
         <a class="product__card" href="{% url 'product_detail' pk=product.pk %}" aria-label="Go to {{ product.name }}">
           {% if product.get_sale_price_is_lower_than_store_price %}
             <div class="product__card--discount">
@@ -30,34 +31,109 @@
               {% elif product.get_same_sale_price %}
                 {% if product.get_sale_price_is_lower_than_store_price %}
                   <div class="product__card--price price__regular">
-                    {{ product.get_lowest_store_price }}
+                    $ {{ product.get_lowest_store_price }}
                   </div>
                   <div class="product__card--price price__sale">
-                    {{ product.get_lowest_price }}
+                    $ {{ product.get_lowest_price }}
                   </div>
                 {% else %}
                   <div class="product__card--price">
-                    {{ product.get_lowest_price }}
+                    $ {{ product.get_lowest_price }}
                   </div>
                 {% endif %}
               {% else %}
                 {% if product.get_sale_price_is_lower_than_store_price %}
                   <div class="product__card--price price__regular">
-                    {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                    $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
                   </div>
                   <div class="product__card--price price__sale">
-                    {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
                   </div>
                 {% else %}
                   <div class="product__card--price">
-                    {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
                   </div>
                 {% endif %}
               {% endif %}
             </div>
           </div>
         </a>
+        <button class="like btn wishlist__control" data-id="{{ product.id }}">
+          {% if request.user.is_authenticated %}
+            {% if product in request.user.wishlist.get_products %}
+              <i class="fas fa-heart"></i>
+            {% else %}
+              <i class="far fa-heart"></i>
+            {% endif %}
+          {% else %}
+            <i class="far fa-heart"></i>
+          {% endif %}
+        </button>
+      </div>
       {% endif %}
     {% endfor %}
   </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+  <script>
+    $(document).ready(function () {
+      // add-to/remove-from wishlist
+      //loop through .wishlist__control
+      $('.wishlist__control').each(function () {
+        $(this).on('click', function(e) {
+          let product_id = $(this).data('id');
+          console.log(product_id);
+        // stop propagation to prevent default behavior
+          e.stopPropagation();
+          console.log('clicked');
+          e.preventDefault();
+          $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
+          // AJAX request to add item to the wishlist
+          $.ajax({
+            url: "{% url 'add_remove_product_wishlist_ajax' %}",
+            type: "POST",
+            data: {
+              'product_id': product_id,
+              'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+              $('.fa-spinner').remove();
+              if (data.product_in_wishlist) {
+                //replace the with <i class="fas fa-heart"></i>
+                $('.wishlist__control[data-id=' + product_id + ']').html('<i class="fas fa-heart"></i>');
+              } else {
+                //replace the with <i class="far fa-heart"></i>
+                $('.wishlist__control[data-id=' + product_id + ']').html('<i class="far fa-heart"></i>');
+              }
+              if (data.message_alert) {
+                $('.products__all').before('<div class="message-container" id="messages-notes">' +
+                  '<div class="message-container__message">' +
+                  '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+                  '</div>' +
+                  '</div>');
+              }
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
+            },
+            error: function(data) {
+              $('.fa-spinner').remove();
+              $('#messages-notes').remove();
+              $('.products__all').before('<div class="message-container" id="messages-notes">' +
+                '<div class="message-container__message">' +
+                '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+                '</div>' +
+                '</div>');
+              // remove the message block after 3 seconds
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
+            }
+          })
+        });
+      });
+    });
+  </script>
+
 {% endblock %}
