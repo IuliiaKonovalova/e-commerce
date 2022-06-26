@@ -196,3 +196,21 @@ class WishlistTestCase(TestCase):
         self.assertEqual(
             Wishlist.objects.get(user=self.user).products.count(), 0
         )
+
+    def test_wishlist_get_products(self):
+        """Test wishlist get products."""
+        # add products to wishlist
+        self.assertTrue(
+            Wishlist.objects.get(user=self.user).add_to_wishlist(
+                self.product1
+            )
+        )
+        self.assertTrue(
+            Wishlist.objects.get(user=self.user).add_to_wishlist(
+                self.product2
+            )
+        )
+        self.assertQuerysetEqual(
+            Wishlist.objects.get(user=self.user).get_products().all(),
+            [self.product2, self.product1]
+        )
