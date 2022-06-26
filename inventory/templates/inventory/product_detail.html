@@ -86,7 +86,7 @@
                     <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
                   {% else %}
                     <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
-                    <label class="btn btn-outline-primary  disabled"  style="background-color: {{ item }}" for="{{ item }}">{{ item }}</label>
+                    <label class="btn btn-outline-primary disabled" style="background-color: {{ item }}" for="{{ item }}">{{ item }}</label>
                   {% endif %}
                 {% endif %}
               {% endfor %}
@@ -167,6 +167,7 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function() {
+      let availableAll = true;
       let product_inventory_id = 0
       let itemQuantity = 1
       let product_id = $('#product').data('id');
@@ -195,6 +196,20 @@
         if ($(thisLabel).hasClass('disabled') == true) {
           thisLabel.css('opacity', '0.5');
           //thisLabel.append('<i class="fas fa-minus-circle"></i>');
+          console.log('has class disabled');
+          availableAll = false;
+          if (availableAll == false) {
+          $('.product__main').before('<div class="message-container" id="messages-notes">' +
+            '<div class="message-container__message">' +
+              '<p>Would you like to be notified when particular product\'s options are back in stock?</p>' +
+                '<div class="message-container__buttons">' +
+                  '<button class="btn btn-primary" id="yes-button">Yes</button>' +
+                  '<button class="btn btn-primary" id="no-button">No</button>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>');
+          }
         } else {
           let label = $('label[for="' + value + '"]');
         }
@@ -267,12 +282,29 @@
         console.log('reset');
       }
       $('#reset-button').click(reset);
+
+      
       // we have button radio groups for each attribute
       // when an attribute is checked, we need to update all the other attribute groups
       // [{"size-shoes":"36","Color":"red","Quantity":10},{"size-shoes":"35","Color":"yellow","Quantity":10},{"Color":"yellow","size-shoes":"38","Quantity":10}]
       // if color is checked, we need to update the size-shoes group to check what sizes are available for that color
       // if size-shoes is checked, we need to update the color group to check what colors are available for that size
       $('.product__options').on('change', 'input', function() {
+        console.log('has class disabled');
+        availableAll = false;
+        console.log(availableAll + ' availableAll should be FALSE');
+        if (availableAll == false) {
+        $('.product__main').before('<div class="message-container" id="messages-notes">' +
+          '<div class="message-container__message">' +
+            '<p>Would you like to be notified when particular product\'s options are back in stock?</p>' +
+              '<div class="message-container__buttons">' +
+                '<button class="btn btn-primary" id="yes-button">Yes</button>' +
+                '<button class="btn btn-primary" id="no-button">No</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>');
+        }
         let attribute_value = $(this).val();
         let attribute_name = $(this).get(0).name;
         let availableAttrsFromOtherGroups = [];
@@ -581,6 +613,15 @@
           }
         })
       });
+
+
+
+
+
+      // listen if availableAll = false is
+      // if availableAll = false is, then show the message
+      
+
     })
 
 
