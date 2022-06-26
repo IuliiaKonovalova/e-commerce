@@ -51,3 +51,7 @@ class Wishlist(models.Model):
         """Remove all products from the wishlist."""
         self.products.clear()
         return True
+
+    def get_products(self):
+        """Return the products in the wishlist."""
+        return self.products.all()
