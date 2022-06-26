@@ -105,7 +105,58 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function () {
-
+      // add-to/remove-from wishlist
+      //loop through .wishlist__control
+      $('.wishlist__control').each(function () {
+        $(this).on('click', function(e) {
+          let product_id = $(this).data('id');
+          console.log(product_id);
+        // stop propagation to prevent default behavior
+          e.stopPropagation();
+          console.log('clicked');
+          e.preventDefault();
+          $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
+          // AJAX request to add item to the wishlist
+          $.ajax({
+            url: "{% url 'add_remove_product_wishlist_ajax' %}",
+            type: "POST",
+            data: {
+              'product_id': product_id,
+              'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+              if (data.product_in_wishlist ==false) {
+                // get the item from the wishlist by data-attr
+                $('.wishlist__item[data-attr="' + product_id + '"]').remove();
+              }
+              $('.fa-spinner').remove();
+              if (data.message_alert) {
+                $('#wishlist').before('<div class="message-container" id="messages-notes">' +
+                  '<div class="message-container__message">' +
+                  '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+                  '</div>' +
+                  '</div>');
+              }
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
+            },
+            error: function(data) {
+              $('.fa-spinner').remove();
+              $('#messages-notes').remove();
+              $('#wishlist').before('<div class="message-container" id="messages-notes">' +
+                '<div class="message-container__message">' +
+                '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+                '</div>' +
+                '</div>');
+              // remove the message block after 3 seconds
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
+            }
+          })
+        });
+      });
 
       // clean the wishlist main button
       $('#wishlist-clean').on('click', (e) => {
