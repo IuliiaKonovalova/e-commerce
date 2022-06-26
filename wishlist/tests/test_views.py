@@ -225,3 +225,97 @@ class WishlistTestCase(TestCase):
             'You must be logged in to add to wishlist.',
         )
 
+    def test_empty_wishlist_ajax_view(self):
+        """Test empty wishlist ajax view."""
+        self.client.force_login(self.user)
+        # add product to wishlist
+        self.client.post(
+            self.add_remove_product_wishlist_ajax_url,
+            {
+                'product_id': self.product1.id,
+                'action': 'add',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        response = self.client.post(
+            self.empty_wishlist_url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'Wishlist is now empty.',
+        )
+        # check the wishlist is empty
+        response = self.client.get(self.wishlist_display_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'wishlist/wishlist_display.html',
+        )
+        self.assertEqual(response.context['products'].count(), 0)
+        self.client.logout()
+        response = self.client.get(self.wishlist_display_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_empty_wishlist_ajax_view_failed(self):
+        """Test empty wishlist ajax view failed."""
+        self.client.force_login(self.user)
+        # add product to wishlist
+        self.client.post(
+            self.add_remove_product_wishlist_ajax_url,
+            {
+                'product_id': self.product1.id,
+                'action': 'add',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        response = self.client.post(
+            self.empty_wishlist_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'Something went wrong.',
+        )
+        # check the wishlist is not empty
+        response = self.client.get(self.wishlist_display_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'wishlist/wishlist_display.html',
+        )
+        self.assertEqual(response.context['products'].count(), 1)
+        self.client.logout()
+        response = self.client.get(self.wishlist_display_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_empty_wishlist_ajax_view_user_logout(self):
+        """Test empty wishlist ajax view user logout."""
+        # add product to wishlist
+        self.client.post(
+            self.add_remove_product_wishlist_ajax_url,
+            {
+                'product_id': self.product1.id,
+                'action': 'add',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        response = self.client.post(
+            self.empty_wishlist_url,
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        self.assertEqual(
+            response.json()['message_alert'],
+            'You must be logged in to empty wishlist.',
+        )
+        self.client.logout()
+        response = self.client.get(self.wishlist_display_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
