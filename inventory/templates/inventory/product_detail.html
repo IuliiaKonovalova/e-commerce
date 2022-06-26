@@ -165,170 +165,70 @@
 </div>
 {% endblock %}
 {% block postloadjs_extra %}
-<script>
-  $(document).ready(function() {
-    let product_inventory_id = 0
-    let itemQuantity = 1
-    let product_id = $('#product').data('id');
-    let options = $('.option')
-    console.log(product_id);
-    let values_list = JSON.stringify({{ values_list|safe }});
-    console.log(values_list);
-    // convert to array
-    let values_list_array = JSON.parse(values_list);
-    console.log(values_list_array);
-    let valuesSetActive = {{ values_set_active_list|safe }};
-    console.log(valuesSetActive);
-    // get all inputs with the name 'Color'
-    let inputs = $(' input[name="Color"]');
-    console.log('Print all colors' + inputs);
-    // loop through all inputs
-    inputs.each(function() {
-      // get the value of the input
-      let value = $(this).val();
-      let thisLabel = $('label[for="' + value + '"]');
-      // check if the value is in the values_list_array
-      //get label with disabled class
-      console.log(this);
-      thisLabel.css('background-color', value);
-      thisLabel.text('');
-      if ($(thisLabel).hasClass('disabled') == true) {
-        thisLabel.css('opacity', '0.5');
-        //thisLabel.append('<i class="fas fa-minus-circle"></i>');
-      } else {
-        let label = $('label[for="' + value + '"]');
-      }
-    });
-    // Reset options:
-    const reset = function(e) {
-      // prevent default
-      e.preventDefault();
-      // reset all values
-      $('input[name="quantity"]').val(1);
-      $('#minus-button').removeClass('disabled');
-      $('#plus-button').removeClass('disabled');
-      $('.btn-check').removeClass('active');
-      $('#quantity-warning').addClass('hidden');
-      // check if product value is valuesSetActive
-      $('.btn-check').each(function() {
+  <script>
+    $(document).ready(function() {
+      let product_inventory_id = 0
+      let itemQuantity = 1
+      let product_id = $('#product').data('id');
+      let options = $('.option')
+      console.log(product_id);
+      let values_list = JSON.stringify({{ values_list|safe }});
+      console.log(values_list);
+      // convert to array
+      let values_list_array = JSON.parse(values_list);
+      console.log(values_list_array);
+      let valuesSetActive = {{ values_set_active_list|safe }};
+      console.log(valuesSetActive);
+      // get all inputs with the name 'Color'
+      let inputs = $(' input[name="Color"]');
+      console.log('Print all colors' + inputs);
+      // loop through all inputs
+      inputs.each(function() {
+        // get the value of the input
         let value = $(this).val();
-        console.log('show value: ' + value);
-        console.log(value);
-        // disable if value is not in valuesSetActive
-        if (!valuesSetActive.includes(value)) {
-          console.log('not in valuesSetActive');
+        let thisLabel = $('label[for="' + value + '"]');
+        // check if the value is in the values_list_array
+        //get label with disabled class
+        console.log(this);
+        thisLabel.css('background-color', value);
+        thisLabel.text('');
+        if ($(thisLabel).hasClass('disabled') == true) {
+          thisLabel.css('opacity', '0.5');
+          //thisLabel.append('<i class="fas fa-minus-circle"></i>');
+        } else {
           let label = $('label[for="' + value + '"]');
-          $(label).addClass('disable');
-          label.css('opacity', '0.5');
-          console.log(label);
-          let label_value = label.text();
-          console.log(label_value);
-          $(label).addClass('disabled');
-          $(label).addClass('btn-outline-primary');
-          $(this).attr('disabled', true);
         }
-        $('#item-price').html(`
-        
-          <div class="">
-            {% if product.get_out_of_stock %}
-              <div class="product__card--price price__sale">
-                <p>Out of stock</p>
-              </div>
-            {% elif product.get_same_sale_price %}
-              {% if product.get_sale_price_is_lower_than_store_price %}
-                <div class="product__card--price price__regular">
-                  {{ product.get_lowest_store_price }}
-                </div>
-                <div class="product__card--price price__sale">
-                  {{ product.get_lowest_price }}
-                </div>
-              {% else %}
-                <div class="product__card--price">
-                  {{ product.get_lowest_price }}
-                </div>
-              {% endif %}
-            {% else %}
-              {% if product.get_sale_price_is_lower_than_store_price %}
-                <div class="product__card--price price__regular">
-                  {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
-                </div>
-                <div class="product__card--price price__sale">
-                  {{ product.get_lowest_price }} - {{ product.get_highest_price }}
-                </div>
-              {% else %}
-                <div class="product__card--price">
-                  {{ product.get_lowest_price }} - {{ product.get_highest_price }}
-                </div>
-              {% endif %}
-            {% endif %}
-          </div>
-        `);
       });
-      console.log('reset');
-    }
-    $('#reset-button').click(reset);
-    // we have button radio groups for each attribute
-    // when an attribute is checked, we need to update all the other attribute groups
-    // [{"size-shoes":"36","Color":"red","Quantity":10},{"size-shoes":"35","Color":"yellow","Quantity":10},{"Color":"yellow","size-shoes":"38","Quantity":10}]
-    // if color is checked, we need to update the size-shoes group to check what sizes are available for that color
-    // if size-shoes is checked, we need to update the color group to check what colors are available for that size
-    $('.product__options').on('change', 'input', function() {
-      let attribute_value = $(this).val();
-      let attribute_name = $(this).get(0).name;
-      let availableAttrsFromOtherGroups = [];
-      for (let stockOption of values_list_array) {
-        if (stockOption[attribute_name] == attribute_value && stockOption["Quantity"] > 0) {
-          for(let key in stockOption) {
-            if (key != "Quantity" && key != attribute_name) {
-              if (key == "id") {
-                product_inventory_id = stockOption[key];
-              }
-              availableAttrsFromOtherGroups.push(stockOption[key]);
-            }
+      // Reset options:
+      const reset = function(e) {
+        // prevent default
+        e.preventDefault();
+        // reset all values
+        $('input[name="quantity"]').val(1);
+        $('#minus-button').removeClass('disabled');
+        $('#plus-button').removeClass('disabled');
+        $('.btn-check').removeClass('active');
+        $('#quantity-warning').addClass('hidden');
+        // check if product value is valuesSetActive
+        $('.btn-check').each(function() {
+          let value = $(this).val();
+          console.log('show value: ' + value);
+          console.log(value);
+          // disable if value is not in valuesSetActive
+          if (!valuesSetActive.includes(value)) {
+            console.log('not in valuesSetActive');
+            let label = $('label[for="' + value + '"]');
+            $(label).addClass('disable');
+            label.css('opacity', '0.5');
+            console.log(label);
+            let label_value = label.text();
+            console.log(label_value);
+            $(label).addClass('disabled');
+            $(label).addClass('btn-outline-primary');
+            $(this).attr('disabled', true);
           }
-        }
-      }
-      console.log(availableAttrsFromOtherGroups);
-      // now go through other groups and disable/enable buttons
-      for (let group of $('.product__options--input .btn-group')) {
-        let groupName = $(group).data('group-name');
-        if (groupName != attribute_name) {
-          for (let button of $(group).children('input')) {
-            let buttonValue = $(button).val();
-            let buttonValueString = buttonValue.toString();
-            if (availableAttrsFromOtherGroups.includes(buttonValueString)) {
-              // find the buttons label and enable it
-              let buttonId = $(button).attr('id');
-              let buttonLabel = $('label[for="' + buttonId + '"]');
-              $(buttonLabel).removeClass('disabled');
-            } else {
-              // find the buttons label and disable it
-              let buttonId = $(button).attr('id');
-              let buttonLabel = $('label[for="' + buttonId + '"]');
-              $(buttonLabel).addClass('disabled');
-            }
-          }
-        }
-      }
-      let chosenAttributes = {};
-      for (let group of $('.product__options--input .btn-group')) {
-        let groupName = $(group).data('group-name');
-        let groupValue = $(group).children(':checked').val();
-        chosenAttributes[groupName] = groupValue;
-      }
-      console.log(chosenAttributes);
-      findPriceAndQuantity(values_list_array, chosenAttributes);
-      checkReadyToPurchase(values_list_array, chosenAttributes);
-      // on click outside of the groups, we need to enable all the buttons that are disabled
-      $(document).on('click', function(e){
-        // if click outside of the group, enable all the buttons
-        if (!$(e.target).closest('.product__options--input').length) {
-          // if click is outside of the form
-          //if (!$(e.target).closest('form').length) {
-          $('label.disabled').removeClass('disabled');
-          $('input.btn-check').prop('checked', false);
           $('#item-price').html(`
-        
+          
             <div class="">
               {% if product.get_out_of_stock %}
                 <div class="product__card--price price__sale">
@@ -363,222 +263,326 @@
               {% endif %}
             </div>
           `);
-          $(document).off('click');
-          //}
-        }
-      })
-    });
-
-    const findPriceAndQuantity = (values_list, chosen_attributes) => {
-      //[{"size-shoes":"36","Color":"red","Quantity":10,"Price":"102.00"},{"size-shoes":"35","Color":"yellow","Quantity":10,"Price":"101.00"},{"Color":"yellow","size-shoes":"38","Quantity":10,"Price":"102.00"}]
-      let price = 0;
-      let quantity = 0;
-      for (let stockOption of values_list) {
-        let is_match = true;
-        for (let key in stockOption) {
-          if (key != "Quantity" && key != "Price" && key != "id") {
-            if (stockOption[key] != chosen_attributes[key]) {
-              is_match = false;
+        });
+        console.log('reset');
+      }
+      $('#reset-button').click(reset);
+      // we have button radio groups for each attribute
+      // when an attribute is checked, we need to update all the other attribute groups
+      // [{"size-shoes":"36","Color":"red","Quantity":10},{"size-shoes":"35","Color":"yellow","Quantity":10},{"Color":"yellow","size-shoes":"38","Quantity":10}]
+      // if color is checked, we need to update the size-shoes group to check what sizes are available for that color
+      // if size-shoes is checked, we need to update the color group to check what colors are available for that size
+      $('.product__options').on('change', 'input', function() {
+        let attribute_value = $(this).val();
+        let attribute_name = $(this).get(0).name;
+        let availableAttrsFromOtherGroups = [];
+        for (let stockOption of values_list_array) {
+          if (stockOption[attribute_name] == attribute_value && stockOption["Quantity"] > 0) {
+            for(let key in stockOption) {
+              if (key != "Quantity" && key != attribute_name) {
+                if (key == "id") {
+                  product_inventory_id = stockOption[key];
+                }
+                availableAttrsFromOtherGroups.push(stockOption[key]);
+              }
             }
           }
         }
-        if (is_match) {
-          price = stockOption["Price"];
-          quantity = stockOption["Quantity"];
-          console.log('CHECK AGAIN')
-          console.log(price);
-          console.log(quantity);
+        console.log(availableAttrsFromOtherGroups);
+        // now go through other groups and disable/enable buttons
+        for (let group of $('.product__options--input .btn-group')) {
+          let groupName = $(group).data('group-name');
+          if (groupName != attribute_name) {
+            for (let button of $(group).children('input')) {
+              let buttonValue = $(button).val();
+              let buttonValueString = buttonValue.toString();
+              if (availableAttrsFromOtherGroups.includes(buttonValueString)) {
+                // find the buttons label and enable it
+                let buttonId = $(button).attr('id');
+                let buttonLabel = $('label[for="' + buttonId + '"]');
+                $(buttonLabel).removeClass('disabled');
+              } else {
+                // find the buttons label and disable it
+                let buttonId = $(button).attr('id');
+                let buttonLabel = $('label[for="' + buttonId + '"]');
+                $(buttonLabel).addClass('disabled');
+              }
+            }
+          }
         }
-      }
-      if (price !== 0) {
-        $('.product__price').text(price);
-        $('.product__price').addClass('price__sale');
-        $('.product__price').addClass('product__card--price');
-        
-      }
-      $('input[name="quantity"]').attr('max', quantity);
-      itemQuantity = quantity;
-      $('#minus-button').removeClass('disabled');
-      $('#plus-button').removeClass('disabled');
-    };
-      // Control the quantity of the item
-      $('#minus-button').on('click', function(e) {
-        e.preventDefault();
-        let quantityCheck = $('input[name="quantity"]').val();
-        if (quantityCheck > 1) {
-          $('input[name="quantity"]').val(parseInt(quantityCheck) - 1);
-          console.log('First input of the quantity ' + quantityCheck);
-          $('#minus-button').removeClass('disabled');
-          $('#plus-button').removeClass('disabled');
-        } else {
-          $('#minus-button').addClass('disabled');
+        let chosenAttributes = {};
+        for (let group of $('.product__options--input .btn-group')) {
+          let groupName = $(group).data('group-name');
+          let groupValue = $(group).children(':checked').val();
+          chosenAttributes[groupName] = groupValue;
         }
+        console.log(chosenAttributes);
+        findPriceAndQuantity(values_list_array, chosenAttributes);
+        checkReadyToPurchase(values_list_array, chosenAttributes);
+        // on click outside of the groups, we need to enable all the buttons that are disabled
+        $(document).on('click', function(e){
+          // if click outside of the group, enable all the buttons
+          if (!$(e.target).closest('.product__options--input').length) {
+            // if click is outside of the form
+            //if (!$(e.target).closest('form').length) {
+            $('label.disabled').removeClass('disabled');
+            $('input.btn-check').prop('checked', false);
+            $('#item-price').html(`
+          
+              <div class="">
+                {% if product.get_out_of_stock %}
+                  <div class="product__card--price price__sale">
+                    <p>Out of stock</p>
+                  </div>
+                {% elif product.get_same_sale_price %}
+                  {% if product.get_sale_price_is_lower_than_store_price %}
+                    <div class="product__card--price price__regular">
+                      {{ product.get_lowest_store_price }}
+                    </div>
+                    <div class="product__card--price price__sale">
+                      {{ product.get_lowest_price }}
+                    </div>
+                  {% else %}
+                    <div class="product__card--price">
+                      {{ product.get_lowest_price }}
+                    </div>
+                  {% endif %}
+                {% else %}
+                  {% if product.get_sale_price_is_lower_than_store_price %}
+                    <div class="product__card--price price__regular">
+                      {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                    </div>
+                    <div class="product__card--price price__sale">
+                      {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    </div>
+                  {% else %}
+                    <div class="product__card--price">
+                      {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            `);
+            $('#quantity-warning').addClass('hidden');
+            $(document).off('click');
+            //}
+          }
+        })
       });
-      // Control the plus button
-      $('#plus-button').on('click', function(e) {
-        e.preventDefault();
-        // check if input with name="quantity" max is not reached
-        let quantityCheck = $('input[name="quantity"]').val();
-        if (quantityCheck < itemQuantity) {
-          $('#plus-button').removeClass('disabled');
-          $('input[name="quantity"]').val(parseInt(quantityCheck) + 1);
-        } else {
-          $('#plus-button').addClass('disabled');
-          // STOCK WARNING MESSAGE
-          $('#quantity-warning').removeClass('hidden');
-          $('#quantity-warning-message').text('Only ' + itemQuantity + ' items available');
-        }
-      });
-    let is_match
-    let quantityFinal = 0;
 
-    const checkReadyToPurchase = (values_list, chosen_attributes) => {
-      for (let stockOption of values_list) {
-        is_match = true;
-        for (let key in stockOption) {
-          if (key != "Quantity" && key != "Price" && key != "id") {
-            if (stockOption[key] != chosen_attributes[key]) {
-              is_match = false;
+      const findPriceAndQuantity = (values_list, chosen_attributes) => {
+        //[{"size-shoes":"36","Color":"red","Quantity":10,"Price":"102.00"},{"size-shoes":"35","Color":"yellow","Quantity":10,"Price":"101.00"},{"Color":"yellow","size-shoes":"38","Quantity":10,"Price":"102.00"}]
+        let price = 0;
+        let quantity = 0;
+        for (let stockOption of values_list) {
+          let is_match = true;
+          for (let key in stockOption) {
+            if (key != "Quantity" && key != "Price" && key != "id") {
+              if (stockOption[key] != chosen_attributes[key]) {
+                is_match = false;
+              }
             }
           }
           if (is_match) {
-            // enable '#add-to-bag-button'
-            $('#add-to-bag-button').removeClass('disabled');
-            let quantityCheck = $('input[name="quantity"]').val();
-            console.log('Second input of the quantity ' + quantityCheck);
-            id = stockOption["id"];
-            console.log('IDDDDDDDDDDDD ' + id);
-            //product_inventory_id = id;
-            console.log('product_inventory_id ' + product_inventory_id);
-            //check type of id
-            console.log(typeof id);
-            console.log('quantityFinal ' + quantityFinal);
-            quantityFinal = $('input[name="quantity"]').val();
-            //convert to int
-            quantityFinal = parseInt(quantityFinal);
-            // check typeof quantityFinal
-            console.log('typeof quantityFinal ' + typeof quantityFinal);
-            console.log('quantityFinal ' + quantityFinal);
-            console.log('product_inventory_id ' + product_inventory_id);
-            console.log(is_match);
+            price = stockOption["Price"];
+            quantity = stockOption["Quantity"];
+            console.log('CHECK AGAIN')
+            console.log(price);
+            console.log(quantity);
+          }
+        }
+        if (price !== 0) {
+          $('.product__price').text(price);
+          $('.product__price').addClass('price__sale');
+          $('.product__price').addClass('product__card--price');
+          
+        }
+        $('input[name="quantity"]').attr('max', quantity);
+        itemQuantity = quantity;
+        $('#minus-button').removeClass('disabled');
+        $('#plus-button').removeClass('disabled');
+      };
+        // Control the quantity of the item
+        $('#minus-button').on('click', function(e) {
+          e.preventDefault();
+          let quantityCheck = $('input[name="quantity"]').val();
+          if (quantityCheck > 1) {
+            $('input[name="quantity"]').val(parseInt(quantityCheck) - 1);
+            console.log('First input of the quantity ' + quantityCheck);
+            $('#minus-button').removeClass('disabled');
+            $('#plus-button').removeClass('disabled');
+          } else {
+            $('#minus-button').addClass('disabled');
+          }
+        });
+        // Control the plus button
+        $('#plus-button').on('click', function(e) {
+          e.preventDefault();
+          // check if input with name="quantity" max is not reached
+          let quantityCheck = $('input[name="quantity"]').val();
+          if (quantityCheck < itemQuantity) {
+            $('#plus-button').removeClass('disabled');
+            $('input[name="quantity"]').val(parseInt(quantityCheck) + 1);
+          } else {
+            $('#plus-button').addClass('disabled');
             // STOCK WARNING MESSAGE
-            //get max value in the input with the name quantity
-            let quantityMax = $('input[name="quantity"]').attr('max');
-            if ((quantityMax <= 10) && (quantityMax != 0)) {
-              $('#quantity-warning').removeClass('hidden');
-              $('#quantity-warning-message').text('Only ' + quantityMax + ' items available');
-            } else {
-              $('#quantity-warning').addClass('hidden');
+            $('#quantity-warning').removeClass('hidden');
+            $('#quantity-warning-message').text('Only ' + itemQuantity + ' items available');
+          }
+        });
+      let is_match
+      let quantityFinal = 0;
+
+      const checkReadyToPurchase = (values_list, chosen_attributes) => {
+        for (let stockOption of values_list) {
+          is_match = true;
+          for (let key in stockOption) {
+            if (key != "Quantity" && key != "Price" && key != "id") {
+              if (stockOption[key] != chosen_attributes[key]) {
+                is_match = false;
+              }
+            }
+            if (is_match) {
+              // enable '#add-to-bag-button'
+              $('#add-to-bag-button').removeClass('disabled');
+              let quantityCheck = $('input[name="quantity"]').val();
+              console.log('Second input of the quantity ' + quantityCheck);
+              id = stockOption["id"];
+              console.log('IDDDDDDDDDDDD ' + id);
+              //product_inventory_id = id;
+              console.log('product_inventory_id ' + product_inventory_id);
+              //check type of id
+              console.log(typeof id);
+              console.log('quantityFinal ' + quantityFinal);
+              quantityFinal = $('input[name="quantity"]').val();
+              //convert to int
+              quantityFinal = parseInt(quantityFinal);
+              // check typeof quantityFinal
+              console.log('typeof quantityFinal ' + typeof quantityFinal);
+              console.log('quantityFinal ' + quantityFinal);
+              console.log('product_inventory_id ' + product_inventory_id);
+              console.log(is_match);
+              // STOCK WARNING MESSAGE
+              //get max value in the input with the name quantity
+              let quantityMax = $('input[name="quantity"]').attr('max');
+              if ((quantityMax <= 10) && (quantityMax != 0)) {
+                $('#quantity-warning').removeClass('hidden');
+                $('#quantity-warning-message').text('Only ' + quantityMax + ' items available');
+              } else {
+                $('#quantity-warning').addClass('hidden');
+              }
             }
           }
         }
       }
-    }
-    $('#add-to-bag-button').on('click', function(e) {
-      e.preventDefault();
-      console.log('quantityFinal ' + quantityFinal);
-      quantityFinal = $('input[name="quantity"]').val();
-      $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
-      //product_inventory_id
-      //convert to int
-      console.log('product_inventory_id!!!!!!!!!!!!!!! ' + product_inventory_id);
-      //console.log('product_inventory_id ' + product_inventory_id);
-      // check typeof quantityFinal
-      console.log('typeof quantityFinal ' + typeof quantityFinal);
-      $('label.disabled').removeClass('disabled');
-      $('input.btn-check').prop('checked', false);
-      reset(e);
-      console.log('Reseted');
-      console.log(is_match)
-      // AJAX request to add item to the bag
-      $.ajax({
-        url: "{% url 'add_to_bag' %}",
-        type: "POST",
-        data: {
-          'product_inventory_id': product_inventory_id,
-          'quantity': quantityFinal,
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        success: function(data) {
-          console.log(data);
-          // update shopping bag in navbar
-          $('#shopping-bag-count').text(data.product_count);
-          // disable button after the click
-          $('#add-to-bag-button').addClass('disabled');
-          if (data.message_alert) {
-            $('.product__main').before('<div class="message-container" id="messages-notes">' +
+      $('#add-to-bag-button').on('click', function(e) {
+        e.preventDefault();
+        console.log('quantityFinal ' + quantityFinal);
+        quantityFinal = $('input[name="quantity"]').val();
+        $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
+        //product_inventory_id
+        //convert to int
+        console.log('product_inventory_id!!!!!!!!!!!!!!! ' + product_inventory_id);
+        //console.log('product_inventory_id ' + product_inventory_id);
+        // check typeof quantityFinal
+        console.log('typeof quantityFinal ' + typeof quantityFinal);
+        $('label.disabled').removeClass('disabled');
+        $('input.btn-check').prop('checked', false);
+        reset(e);
+        console.log('Reseted');
+        console.log(is_match)
+        // AJAX request to add item to the bag
+        $.ajax({
+          url: "{% url 'add_to_bag' %}",
+          type: "POST",
+          data: {
+            'product_inventory_id': product_inventory_id,
+            'quantity': quantityFinal,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function(data) {
+            $('.fa-spinner').remove();
+            console.log(data);
+            // update shopping bag in navbar
+            $('#shopping-bag-count').text(data.product_count);
+            // disable button after the click
+            $('#add-to-bag-button').addClass('disabled');
+            if (data.message_alert) {
+              $('.product__main').before('<div class="message-container" id="messages-notes">' +
+                '<div class="message-container__message">' +
+                '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+                '</div>' +
+                '</div>');
+            }
+            setTimeout(() => {
+              $('#messages-notes').remove();
+            }, 3000);
+          },
+          error: function(data) {
+            $('.fa-spinner').remove();
+            $('#messages-notes').remove();
+            $('.bag').before('<div class="message-container" id="messages-notes">' +
+              '<div class="message-container__message">' +
+              '<p class="message-container__message--text">Something went wrong</p>' +
+              '</div>' +
+              '</div>');
+            // remove the message block after 3 seconds
+            setTimeout(() => {
+              $('#messages-notes').remove();
+            }, 3000);
+          }
+        })
+      });
+
+      // add-to/remove-from wishlist
+      $('#wishlist-control').on('click', function(e) {
+        e.preventDefault();
+        $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
+        // AJAX request to add item to the wishlist
+        $.ajax({
+          url: "{% url 'add_remove_product_wishlist_ajax' %}",
+          type: "POST",
+          data: {
+            'product_id': product_id,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function(data) {
+            $('.fa-spinner').remove();
+            if (data.product_in_wishlist) {
+              //replace the with <i class="fas fa-heart"></i>
+              $('#wishlist-control').html('<i class="fas fa-heart"></i>');
+            } else {
+              //replace the with <i class="far fa-heart"></i>
+              $('#wishlist-control').html('<i class="far fa-heart"></i>');
+            }
+            if (data.message_alert) {
+              $('.product__main').before('<div class="message-container" id="messages-notes">' +
+                '<div class="message-container__message">' +
+                '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+                '</div>' +
+                '</div>');
+            }
+            setTimeout(() => {
+              $('#messages-notes').remove();
+            }, 3000);
+          },
+          error: function(data) {
+            $('.fa-spinner').remove();
+            $('#messages-notes').remove();
+            $('.bag').before('<div class="message-container" id="messages-notes">' +
               '<div class="message-container__message">' +
               '<p class="message-container__message--text">' + data.message_alert + '</p>' +
               '</div>' +
               '</div>');
+            // remove the message block after 3 seconds
+            setTimeout(() => {
+              $('#messages-notes').remove();
+            }, 3000);
           }
-          setTimeout(() => {
-            $('#messages-notes').remove();
-          }, 3000);
-        },
-        error: function(data) {
-          $('#messages-notes').remove();
-          $('.bag').before('<div class="message-container" id="messages-notes">' +
-            '<div class="message-container__message">' +
-            '<p class="message-container__message--text">Something went wrong</p>' +
-            '</div>' +
-            '</div>');
-          // remove the message block after 3 seconds
-          setTimeout(() => {
-            $('#messages-notes').remove();
-          }, 3000);
-        }
-      })
-    });
-
-    // add-to/remove-from wishlist
-    $('#wishlist-control').on('click', function(e) {
-      e.preventDefault();
-      // AJAX request to add item to the wishlist
-      $.ajax({
-        url: "{% url 'add_remove_product_wishlist_ajax' %}",
-        type: "POST",
-        data: {
-          'product_id': product_id,
-          'csrfmiddlewaretoken': '{{ csrf_token }}'
-        },
-        success: function(data) {
-          $('.fa-spinner').remove();
-          if (data.product_in_wishlist) {
-            //replace the with <i class="fas fa-heart"></i>
-            $('#wishlist-control').html('<i class="fas fa-heart"></i>');
-          } else {
-            //replace the with <i class="far fa-heart"></i>
-            $('#wishlist-control').html('<i class="far fa-heart"></i>');
-          }
-          if (data.message_alert) {
-            $('.product__main').before('<div class="message-container" id="messages-notes">' +
-              '<div class="message-container__message">' +
-              '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-              '</div>' +
-              '</div>');
-          }
-          setTimeout(() => {
-            $('#messages-notes').remove();
-          }, 3000);
-        },
-        error: function(data) {
-          $('.fa-spinner').remove();
-          $('#messages-notes').remove();
-          $('.bag').before('<div class="message-container" id="messages-notes">' +
-            '<div class="message-container__message">' +
-            '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-            '</div>' +
-            '</div>');
-          // remove the message block after 3 seconds
-          setTimeout(() => {
-            $('#messages-notes').remove();
-          }, 3000);
-        }
-      })
-    });
-  })
+        })
+      });
+    })
 
 
-</script>
+  </script>
 {% endblock %}
