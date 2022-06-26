@@ -236,14 +236,15 @@ img {
 .product__card--prices,
 .wishlist__item--prices {
   position: absolute;
-  bottom: 0.7rem;
-  right: 0.7rem;
+  bottom: -0.2rem;
+  right: 0.2rem;
   text-align: right;
+  line-height: 1.6rem;
 }
 
 .product__card--price,
 .wishlist__item--price {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 900;
   color: var(--clr-text--500);
 }
@@ -257,6 +258,7 @@ img {
 .wishlist__item--price.price__regular {
   color: var(--clr-text--300);
   text-decoration: line-through;
+  font-size: 1.1rem;
 }
 
 /* Product Page */
@@ -674,6 +676,14 @@ input[name=quantity] {
   width: 100%;
 }
 
+.wishlist__table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .wishlist__items {
   width: 100%;
   display: grid;
@@ -682,6 +692,12 @@ input[name=quantity] {
 }
 
 .wishlist__item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.wishlist__item--card {
   width: 100%;
   height: 100%;
   border-radius: var(--br);
@@ -716,4 +732,11 @@ input[name=quantity] {
 
 .wishlist__item--price {
   font-size: 1.2rem;
+}
+
+.wishlist__item .like {
+  position: absolute;
+  bottom: 0.3rem;
+  left: 0.3rem;
+  z-index: 999;
 }
