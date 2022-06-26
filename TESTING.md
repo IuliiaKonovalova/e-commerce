@@ -43,6 +43,10 @@ The missing coverage is due to the fact that I was not able to test the edit pro
 
 ![Django unit testing. Bag. Coverage](documentation/testing/coverage/coverage_bag.png)
 
+**Wishlist app:**
+
+![Django unit testing. Wishlist. Coverage](documentation/testing/coverage/coverage_wishlist.png)
+
 
 
 ### Django unit testing Issues
@@ -378,3 +382,18 @@ I created product_inventory_id variable outside of the functions and reassigned 
       }
     });
 ```
+
+
+
+
+
+
+
+
+#### Errors:
+
+The errors were made in the following commits:
+
+1. 3cb0b4f275e0650749c9f5cee59072d3889e4a97
+
+Aff wishlist app and url path - > Add instead of Aff
