@@ -83,3 +83,33 @@ class Promotion(models.Model):
         """Return the name of the promotion."""
         return self.name
 
+    def save(self, *args, **kwargs):
+        """Save the promotion."""
+        self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    def get_promotion_code(self):
+        """Return the promotion code."""
+        return self.promotion_code
+
+    def is_active_now(self):
+        """Return whether the promotion is active now."""
+        start_date = self.start_date.replace(tzinfo=None)
+        end_date = self.end_date.replace(tzinfo=None)
+        return (
+            self.active and start_date < datetime.now() < end_date
+        )
+
+    def is_active_soon(self):
+        """Return whether the promotion is active soon."""
+        start_date = self.start_date.replace(tzinfo=None)
+        end_date = self.end_date.replace(tzinfo=None)
+        return (
+            self.active and start_date < datetime.now() + timedelta(
+                days=7
+            ) < end_date
+        )
+
+    def get_products_in_promotion(self):
+        """Return the products in the promotion."""
+        return self.products_inventory_in_promotion.all()
