@@ -1,3 +1,4 @@
+"""Admin for the profile app."""
 from django.contrib import admin
 from .models import Role, Profile, Address
 
