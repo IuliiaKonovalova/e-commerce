@@ -36,3 +36,14 @@ class EmailNewsNotification(models.Model):
         """Return the name of the email news notification."""
         return self.email_name + ' ' + str(self.created_at)
 
+    def save(self):
+        super().save()
+        users = Profile.objects.filter(subscription=True)
+        recipients = [user.user.email for user in users]
+        send_mail(
+            self.email_name,
+            self.content,
+            'yuliyakonovalova5@gmail.com',
+            recipients,
+            fail_silently=False
+        )
