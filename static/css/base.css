@@ -574,7 +574,8 @@ input[name=quantity] {
 }
 
 /* ----- Bag ----- */
-.bag {
+.bag,
+.promotions {
   background-color: var(--clr-accent--100);
   padding: 2vh 2vw;
   display: flex;
@@ -584,7 +585,8 @@ input[name=quantity] {
   width: 100%;
 }
 
-.bag__items {
+.bag__items,
+.promotions__table {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -595,7 +597,9 @@ input[name=quantity] {
 }
 
 .bag__item,
-.bag__items--titles {
+.bag__items--titles,
+.promotion,
+.promotions__table--titles {
   width: 100%;
   background-color: var(--clr-primary--100);
   display: grid;
@@ -605,14 +609,19 @@ input[name=quantity] {
   border: 1px solid black;
 }
 
-.bag__items--titles {
+.bag__items--titles,
+.promotions__table--titles {
   font-weight: 900;
   padding: 1em 0.5em;
 }
 
 .bag__item div,
 .bag__item a,
-.bag__items--titles div {
+.bag__items--titles div,
+.promotion h2,
+.promotion p,
+.promotion div,
+.promotions__table--titles div {
   justify-self: center;
   align-self: center;
   text-align: center;
@@ -796,6 +805,79 @@ input[name=quantity] {
   left: 0.3rem;
   z-index: 999;
 }
+
+
+
+
+/* --------- Staff pages ---------- */
+/* --------- Promotions ---------- */
+.promotions {}
+
+.promotion__header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.promotions__title {
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 2em;
+}
+
+.promotions__add {
+  width: 100%;
+  display: flex;
+}
+
+.promotions__add--btn {
+  position: absolute;
+  top: 1em;
+  right: 0.5rem;
+  background-color: var(--clr-accent--700);
+  border-color: var(--clr-accent--700);
+  color: var(--clr-text--100);
+  box-shadow: var(--box-shadow-buttons);
+}
+
+.promotions__add--btn:hover {
+  background-color: var(--clr-accent--900);
+  color: var(--clr-text--100);
+}
+
+.promotions__table {}
+
+.promotion,
+.promotions__table--titles {
+  grid-template-columns: 0.2fr 0.5fr 0.2fr 1fr;
+  border: 1px solid var(--clr-accent--200);
+}
+
+.promotion__product {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* --------- message-container ---------- */
 .message-container {
