@@ -47,7 +47,9 @@ html {
 body,
 h1,
 h2,
-p {
+p,
+header,
+nav {
   margin: 0;
   padding: 0;
   font-size: var(--fs);
@@ -69,7 +71,12 @@ ul li {
 a {
   text-decoration: none;
   cursor: pointer;
-  /* color: var(--clr-accent--300); */
+  color: var(--clr-text--100);
+}
+
+a:hover {
+  color: var(--clr-text--300);
+  color: var(--clr-accent--100);
 }
 
 img {
@@ -82,6 +89,42 @@ img {
   display: none !important;
 }
 
+/* ------------ header ----------- */
+.header {
+  background-color: var(--clr-primary--900);
+  color: var(--clr-text--100);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 120rem;
+  margin: 0 auto;
+}
+
+.navbar__items,
+.subnavbar__items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+.subnavbar__items {
+  background-color: var(--clr-primary--300);
+
+}
 
 /* ------------ content__container ----------- */
 .content__container {
