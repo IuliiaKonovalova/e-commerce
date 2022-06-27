@@ -161,3 +161,70 @@ class PromotionTestCase(TestCase):
             'Promotion 1'
         )
 
+    def test_get_promotion_code(self):
+        """Test the get_promotion_code method."""
+        self.assertEqual(
+            self.promotion.get_promotion_code(),
+            'PROMO1'
+        )
+
+    def test_is_active_now(self):
+        """Test the is_active_now method."""
+        self.assertTrue(
+            self.promotion.is_active_now()
+        )
+        self.promotion.active = False
+        self.promotion.save()
+        self.assertFalse(
+            self.promotion.is_active_now()
+        )
+
+    def test_is_active_soon(self):
+        """Test the is_active_soon method."""
+        self.assertTrue(
+            self.promotion.is_active_soon()
+        )
+        self.promotion.active = False
+        self.promotion.save()
+        self.assertFalse(
+            self.promotion.is_active_soon()
+        )
+        promotion2 = Promotion.objects.create(
+            name='Promotion 2',
+            slug='promotion-2',
+            description='Promotion 2 description',
+            promotion_code='PROMO2',
+            promotion_reduction=10,
+            start_date=datetime.now() + timezone.timedelta(days=1),
+            end_date=datetime.now() + timezone.timedelta(days=365 * 5),
+            active=True,
+        )
+        promotion2.products_inventory_in_promotion.add(
+            self.product_inventory1
+        )
+        self.assertTrue(
+            promotion2.is_active_soon()
+        )
+        promotion3 = Promotion.objects.create(
+            name='Promotion 3',
+            slug='promotion-3',
+            description='Promotion 3 description',
+            promotion_code='PROMO3',
+            promotion_reduction=10,
+            start_date=datetime.now() + timezone.timedelta(days=10),
+            end_date=datetime.now() + timezone.timedelta(days=365 * 5),
+            active=True,
+        )
+        promotion3.products_inventory_in_promotion.add(
+            self.product_inventory1
+        )
+        self.assertFalse(
+            promotion3.is_active_soon()
+        )
+
+    def test_get_products_in_promotion(self):
+        """Test the get_products_in_promotion method."""
+        self.assertEqual(
+            self.promotion.get_products_in_promotion()[0],
+            self.product_inventory1
+        )
