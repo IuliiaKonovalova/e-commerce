@@ -1,6 +1,7 @@
 """Tests for the Promotion model."""
 from django.test import TestCase
 from datetime import datetime
+from django.utils import timezone
 from datetime import timedelta
 from promotions.models import Promotion
 from inventory.models import (

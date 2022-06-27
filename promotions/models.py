@@ -1,6 +1,6 @@
 """Models for the promotions app."""
 from django.db import models
-# from django.utils import timezone
+from django.utils import timezone
 from datetime import datetime
 from datetime import timedelta
 from decimal import Decimal
