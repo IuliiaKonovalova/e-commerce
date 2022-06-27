@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'bag',
     'wishlist',
     'promotions',
+    'email_notifications',
 ]
 
 MIDDLEWARE = [

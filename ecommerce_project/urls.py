@@ -12,4 +12,5 @@ urlpatterns = [
     path('bag/', include('bag.urls')),
     path('wishlist/', include('wishlist.urls')),
     path('promotions/', include('promotions.urls')),
+    path('email_notifications/', include('email_notifications.urls')),
 ]
