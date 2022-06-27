@@ -2,30 +2,52 @@
 {% load static %}
 
 {% block content %}
-<div class="promotions">
-  <!-- Add button add promotion -->
-  <div class="promotions__add">
-    <a href="#" class="btn btn-primary">
-      <i class="fa fa-plus-circle"></i>
-      Add Promotion
-    </a>
+  <div class="promotions">
+    <section class="promotion__header">
+      <h1 class="promotions__title" >Promotions</h1>
+      <!-- Add button add promotion -->
+      <div class="promotions__add">
+        <a href="#" class="btn btn-primary promotions__add--btn" aria-label="Add promotion">
+          <i class="fa fa-plus-circle"></i>
+          Add Promotion
+        </a>
+      </div>
+    </section>
+    {% if promotions %}
+      <div class="promotions__table">
+        <div class="promotions__table--titles">
+          <div class="promotions__table--title">Name</div>
+          <div class="promotions__table--title">Time</div>
+          <div class="promotions__table--title">Active</div>
+          <div class="promotions__table--title">Products</div>
+        </div>
+        {% for promotion in promotions %}
+          <section class="promotion">
+            <h2>{{ promotion.name }}</h2>
+            <p>{{ promotion.start_date|date:"d/m/Y" }} - {{ promotion.end_date|date:"d/m/Y" }}</p>
+            <p>{{ promotion.active }}</p>
+            <div class="promotion__products">
+              {% for product_inventory in promotion.products_inventory_in_promotion.all %}
+                <div class="promotion__product">
+                  <h3>{{ product_inventory.product.name }}</h3>
+                  <strong>{{ product_inventory.sku }}</strong>
+                  {% if product_inventory.attribute_values %}
+                    {% for value in product_inventory.get_attribute_values %}
+                      <p>{{ value.attribute_value }}</p>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          </section>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="">
+        <strong>No promotions found.</strong>
+      </div>
+    {% endif %}
   </div>
-  {% if promotions %}
-  {% for promotion in promotions %}
-  <div class="promotion">
-    <div class="promotion-info">
-      <h3>{{ promotion.name }}</h3>
-      <p>{{ promotion.description }}</p>
-      <a href="{{ promotion.link }}">{{ promotion.link }}</a>
-    </div>
-  </div>
-  {% endfor %}
-  {% else %}
-  <div class="">
-    <strong>No promotions found.</strong>
-  </div>
-  {% endif %}
-</div>
 
 
 {% endblock %}
