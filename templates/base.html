@@ -97,6 +97,16 @@
         </li>
       </ul>
     </nav>
+      {% if request.user.is_authenticated and not request.user == 1 %}
+      <ul class="subnavbar__items">
+        <li class="navbar__item">
+          <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="account__option">
+            Promotions
+            <i class="fas fa-gift"></i>
+          </a>
+        </li>
+      </ul>
+      {% endif %}
   </header>
   {% comment %} Main content container {% endcomment %}
   <main class="main">
