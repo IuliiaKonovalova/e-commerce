@@ -335,13 +335,19 @@ class TestModels(TestCase):
         self.product_image3.save()
         self.assertEqual(
             product1.get_main_image(),
-            'static/images/default_product_image.png' 
+            (
+                'https://res.cloudinary.com/learning-coding/image/uploa' +
+                'd/v1656240479/default_product_image.png'
+            ) 
         )
         self.product_image1.delete()
         self.product_image3.delete()
         self.assertEqual(
             product1.get_main_image(),
-            'static/images/default_product_image.png' 
+            (
+                'https://res.cloudinary.com/learning-coding/image/uploa' +
+                'd/v1656240479/default_product_image.png'
+            ) 
         )
 
     def test_product_get_out_of_stock(self):

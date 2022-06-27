@@ -273,9 +273,15 @@ class Product(models.Model):
                     return default_image.first().image_url
                 else:
                     return active_images.first().image_url
-            return 'static/images/default_product_image.png'
+            return (
+                'https://res.cloudinary.com/learning-coding/image/uploa' +
+                'd/v1656240479/default_product_image.png'
+            ) 
         else:
-            return 'static/images/default_product_image.png'
+            return (
+                'https://res.cloudinary.com/learning-coding/image/uploa' +
+                'd/v1656240479/default_product_image.png'
+            ) 
 
     def get_out_of_stock(self):
         """Get out of stock products"""
