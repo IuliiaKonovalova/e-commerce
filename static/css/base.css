@@ -82,6 +82,19 @@ img {
   display: none !important;
 }
 
+
+/* ------------ content__container ----------- */
+.content__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+
 #id_first_name,
 #id_last_name,
 #id_country,
@@ -739,4 +752,31 @@ input[name=quantity] {
   bottom: 0.3rem;
   left: 0.3rem;
   z-index: 999;
+}
+
+/* --------- message-container ---------- */
+.message-container {
+  background-color: var(--clr-accent--200);
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999999;
+  padding: 1rem;
+  box-shadow: var(--box-shadow-buttons);
+}
+
+.message-container__buttons {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-top: 0.7em;
+  margin-bottom: 0.3em;
+}
+
+.message-container__buttons button {
+  box-shadow: var(--box-shadow-buttons);
+}
+
+.message-container__buttons button:first-child {
+  margin-right: 1em;
 }
