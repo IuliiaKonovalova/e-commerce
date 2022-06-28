@@ -257,6 +257,12 @@ class PromotionsListViewTest(TestCase):
         self.assertTemplateUsed(response, 'promotions/add_promotion.html')
         self.client.logout()
 
+    def test_add_promotion_view_post_request_logged_out(self):
+        """Test the post request for the add promotion view."""
+        response = self.client.post(self.add_promotion_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
     def test_add_promotion_view_post_request_not_staff(self):
         """Test the post request for the add promotion view."""
         # customers login
@@ -361,6 +367,28 @@ class PromotionsListViewTest(TestCase):
         )
         self.assertTemplateUsed(response, 'profiles/access_denied.html')
         self.client.logout()
+
+    def test_edit_promotion_view_template_used_admin(self):
+        # admin login
+        self.client.force_login(self.user3)
+        self.assertTrue(self.profile3.role.id == 3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(
+            reverse('edit_promotion', args=[self.promotion.id])
+        )
+        self.assertTemplateUsed(response, 'promotions/edit_promotion.html')
+        # check that the context has form
+        self.assertIn('form', response.context)
+        self.client.logout()
+
+    def test_edit_promotion_view_post_request_logged_out(self):
+        """Test the post request for the edit promotion view."""
+        response = self.client.post(
+            reverse('edit_promotion', args=[self.promotion.id])
+        )
+        self.assertTemplateUsed(response, 'account/login.html')
 
     def test_edit_promotion_view_post_request_not_staff(self):
         """Test the post request for the edit promotion view."""
