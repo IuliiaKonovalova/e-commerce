@@ -32,6 +32,10 @@ class PromotionsListViewTest(TestCase):
             name='Manager',
             description='Manager'
         )
+        self.role3 = Role.objects.create(
+            name='Admin',
+            description='Admin'
+        )
         self.user = User.objects.create_user(
             username='testuser',
             password='Password987',
@@ -42,16 +46,18 @@ class PromotionsListViewTest(TestCase):
             password='Password987',
             email='testuser2@gmail.com'
         )
+        self.user3 = User.objects.create_user(
+            username='testuser3',
+            password='Password987',
+            email='admin@gmail.com'
+        )
+        self.profile1 = Profile.objects.get(id=self.user.profile.id)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
         self.profile2.role = self.role2
         self.profile2.save()
-        print(self.profile2.role.id)
-        print(self.profile2.role)
-        print(self.profile2.user)
-        self.profile1 = Profile.objects.get(id=self.user.profile.id)
-        print(self.profile1.role.id)
-        print(self.profile1.role)
-        print(self.profile1.user)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
         # Create products
         # self.category1 = Category.objects.create(
         #     name='Clothing',
@@ -202,7 +208,7 @@ class PromotionsListViewTest(TestCase):
         """Test the template used for the promotions list view."""
         response = self.client.get(self.promotions_list_url)
         self.assertTemplateUsed(response, 'account/login.html')
-        # costumer login
+        # customers login
         self.client.force_login(self.user)
         response = self.client.get(self.promotions_list_url)
         self.assertTemplateUsed(response, 'profiles/access_denied.html')
@@ -227,7 +233,7 @@ class PromotionsListViewTest(TestCase):
         """Test the template used for the add promotion view."""
         response = self.client.get(self.add_promotion_url)
         self.assertTemplateUsed(response, 'account/login.html')
-        # costumer login
+        # customers login
         self.client.force_login(self.user)
         response = self.client.get(self.add_promotion_url)
         self.assertTemplateUsed(response, 'profiles/access_denied.html')
@@ -239,12 +245,21 @@ class PromotionsListViewTest(TestCase):
         self.profile2.role = self.role2
         self.profile2.save()
         response = self.client.get(self.add_promotion_url)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+        # admin login
+        self.client.force_login(self.user3)
+        self.assertTrue(self.profile3.role.id == 3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(self.add_promotion_url)
         self.assertTemplateUsed(response, 'promotions/add_promotion.html')
         self.client.logout()
 
     def test_add_promotion_view_post_request_not_staff(self):
         """Test the post request for the add promotion view."""
-        # costumer login
+        # customers login
         self.client.force_login(self.user)
         response = self.client.post(self.add_promotion_url)
         self.assertTemplateUsed(response, 'profiles/access_denied.html')
@@ -267,21 +282,41 @@ class PromotionsListViewTest(TestCase):
             'end_date': datetime.now() + timezone.timedelta(days=365 * 5),
             'active': True,
         })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_add_promotion_view_post_request_admin_form_valid(self):
+        # admin login
+        self.client.force_login(self.user3)
+        self.assertTrue(self.profile3.role.id == 3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.post(self.add_promotion_url, {
+            'name': 'Promotion 2',
+            'slug': 'promotion-2',
+            'description': 'Promotion 2 description',
+            'promotion_code': 'PROMO2',
+            'promotion_reduction': 10,
+            'start_date': datetime.now(),
+            'end_date': datetime.now() + timezone.timedelta(days=365 * 5),
+            'active': True,
+        })
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/promotions/promotions_list/')
         self.client.logout()
 
-    def test_add_promotion_view_post_request_staff_form_not_valid(self):
-        # manager login
-        self.client.force_login(self.user2)
-        self.assertFalse(self.profile2.role.id == 1)
-        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
-        self.profile2.role = self.role2
-        self.profile2.save()
+    def test_add_promotion_view_post_request_admin_form_not_valid(self):
+        # admin login
+        self.client.force_login(self.user3)
+        self.assertTrue(self.profile3.role.id == 3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
         response = self.client.post(self.add_promotion_url, {
             'slug': 'promotion-2',
             'description': 'Promotion 2 description',
-
         })
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'promotions/add_promotion.html')
@@ -306,7 +341,7 @@ class PromotionsListViewTest(TestCase):
         self.assertTemplateUsed(response, 'account/login.html')
 
     def test_edit_promotion_view_template_used_not_staff(self):
-        # costumer login
+        # customers login
         self.client.force_login(self.user)
         response = self.client.get(
             reverse('edit_promotion', args=[self.promotion.id])
@@ -324,12 +359,12 @@ class PromotionsListViewTest(TestCase):
         response = self.client.get(
             reverse('edit_promotion', args=[self.promotion.id])
         )
-        self.assertTemplateUsed(response, 'promotions/edit_promotion.html')
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
         self.client.logout()
 
     def test_edit_promotion_view_post_request_not_staff(self):
         """Test the post request for the edit promotion view."""
-        # costumer login
+        # customers login
         self.client.force_login(self.user)
         response = self.client.post(reverse(
             'edit_promotion',
@@ -359,17 +394,42 @@ class PromotionsListViewTest(TestCase):
                 'active': True,
             }
         )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_promotion_view_post_request_admin_form_valid(self):
+        # admin login
+        self.client.force_login(self.user3)
+        self.assertTrue(self.profile3.role.id == 3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.post(
+            reverse('edit_promotion',
+            args=[self.promotion.id]),
+            {
+                'name': 'Promotion 2',
+                'slug': 'promotion-2',
+                'description': 'Promotion 2 description',
+                'promotion_code': 'PROMO2',
+                'promotion_reduction': 10,
+                'start_date': datetime.now(),
+                'end_date': datetime.now() + timezone.timedelta(days=365 * 5),
+                'active': True,
+            }
+        )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/promotions/promotions_list/')
         self.client.logout()
 
-    def test_edit_promotion_view_post_request_staff_form_not_valid(self):
-        # manager login
-        self.client.force_login(self.user2)
-        self.assertFalse(self.profile2.role.id == 1)
-        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
-        self.profile2.role = self.role2
-        self.profile2.save()
+    def test_edit_promotion_view_post_request_admin_form_not_valid(self):
+        # admin login
+        self.client.force_login(self.user3)
+        self.assertTrue(self.profile3.role.id == 3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
         response = self.client.post(
             reverse('edit_promotion',
             args=[self.promotion.id]),
