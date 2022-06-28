@@ -1,6 +1,7 @@
 """Views for the promotions app."""
 from django.views import View
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
 from .models import Promotion
 from inventory.models import ProductInventory
 from .forms import PromotionForm
@@ -10,7 +11,7 @@ class PromotionsListView(View):
     """View for the promotions list page."""
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            # Check if user is a costumer
+            # Check if user is a admin
             if request.user.profile.role.id == 1:
                 return render(
                     request,
@@ -37,18 +38,18 @@ class AddPromotionView(View):
     """View for the add promotion page."""
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            # Check if user is a costumer
-            if request.user.profile.role.id == 1:
-                return render(
-                    request,
-                    'profiles/access_denied.html',
-                )
-            else:
+            # Check if user is a admin
+            if request.user.profile.role.id == 3:
                 form = PromotionForm(request.POST)
                 return render(
                     request,
                     'promotions/add_promotion.html',
                     {'form': form}
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
                 )
         else:
             return render(
@@ -58,13 +59,8 @@ class AddPromotionView(View):
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            # Check if user is a costumer
-            if request.user.profile.role.id == 1:
-                return render(
-                    request,
-                    'profiles/access_denied.html',
-                )
-            else:
+            # Check if user is a admin
+            if request.user.profile.role.id == 3:
                 form = PromotionForm(request.POST)
                 if form.is_valid():
                     promotion = form.save(commit=False)
@@ -76,7 +72,6 @@ class AddPromotionView(View):
                         products_inventory_in_promotion
                     )
                     promotion.save()
-                      
                     return redirect('promotions_list')
                 else:
                     return render(
@@ -84,25 +79,36 @@ class AddPromotionView(View):
                         'promotions/add_promotion.html',
                         {'form': form}
                     )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
 
 
 class EditPromotionView(View):
     """View for the edit promotion page."""
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            # Check if user is a costumer
-            if request.user.profile.role.id == 1:
-                return render(
-                    request,
-                    'profiles/access_denied.html',
-                )
-            else:
+            # Check if user is a admin
+            if request.user.profile.role.id == 3:
                 promotion = Promotion.objects.get(id=kwargs['pk'])
                 form = PromotionForm(instance=promotion)
                 return render(
                     request,
                     'promotions/edit_promotion.html',
                     {'form': form, 'promotion': promotion}
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
                 )
         else:
             return render(
@@ -112,13 +118,8 @@ class EditPromotionView(View):
 
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            # Check if user is a costumer
-            if request.user.profile.role.id == 1:
-                return render(
-                    request,
-                    'profiles/access_denied.html',
-                )
-            else:
+            # Check if user is a admin
+            if request.user.profile.role.id == 3:
                 promotion = Promotion.objects.get(id=kwargs['pk'])
                 form = PromotionForm(request.POST, instance=promotion)
                 if form.is_valid():
@@ -138,4 +139,16 @@ class EditPromotionView(View):
                         request,
                         'promotions/edit_promotion.html',
                         {'form': form, 'promotion': promotion}
+                    )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
                 )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
