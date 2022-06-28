@@ -18,6 +18,10 @@
   --clr-text--300: #898989;
   --clr-text--500: #363636;
   --clr-text--900: #191919;
+  --clr-btn-delete--500: #dc3545;
+  --clr-btn-delete--900: #ac212f;
+  --clr-btn-edit--500: #6a00ff;
+  --clr-btn-edit--900: #4a00b8;
   --fs: calc(60% + 0.8vmin);
   --ff-primary: 'Lato', sans-serif;
   --br: 0.5em;
@@ -852,29 +856,138 @@ input[name=quantity] {
 
 .promotion,
 .promotions__table--titles {
-  grid-template-columns: 0.2fr 0.5fr 0.2fr 1fr;
+  grid-template-columns: 0.3fr 0.3fr 0.3fr 0.1fr 0.2fr 0.5fr;
+
+}
+
+.promotion {
+  padding-top: 5vh;
+  grid-template-columns: 0.3fr 0.3fr 0.3fr 0.1fr 0.2fr 0.5fr;
+  grid-template-rows: 0.2fr 1fr;
+  cursor: pointer;
   border: 1px solid var(--clr-accent--200);
 }
 
-.promotion__product {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: start;
+.promotion__title {
+  grid-column: 1/2;
+  grid-row: 1/2;
 }
 
+.promotion__date--start {
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
 
+.promotion__date--end {
+  grid-column: 3/4;
+  grid-row: 1/2;
+}
 
+.promotion__status {
+  grid-column: 4/5;
+  grid-row: 1/2;
+}
 
+.fa-check-circle {
+  color: green;
+}
 
+.fa-times-circle {
+  color: var(--clr-btn-delete--500)
+}
 
+.promotion__code {
+  grid-column: 5/6;
+  grid-row: 1/2;
+}
 
+.promotion__description {
+  grid-column: 6/7;
+  grid-row: 1/2;
+}
 
+.promotion__products {
+  grid-column: 1/7;
+  grid-row: 2/3;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(25rem, 100%), 1fr));
+  gap: 1rem;
+  padding-top: 2em;
+  position: relative;
+}
 
+.promotion__btns {
+  position: absolute;
+  top: -0.7rem;
+  right: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  z-index: 999;
+}
 
+.promotion__edit--btn {
+  background-color: var(--clr-btn-edit--500);
+  border-color: var(--clr-btn-edit--900);
+  color: var(--clr-text--100);
+  box-shadow: var(--box-shadow-buttons);
+  margin-right: 0.5em;
+}
 
+.promotion__edit--btn:hover {
+  background-color: var(--clr-btn-edit--900);
+  color: var(--clr-text--100);
+}
 
+.promotion__delete--btn {
+  background-color: var(--clr-btn-delete--500);
+  border-color: var(--clr-btn-delete--900);
+  color: var(--clr-text--100);
+  box-shadow: var(--box-shadow-buttons);
+}
 
+.promotion__delete--btn:hover {
+  background-color: var(--clr-btn-delete--900);
+  color: var(--clr-text--100);
+}
+
+.promotion__product {
+  justify-self: center;
+  align-self: center;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--clr-primary--200);
+  padding: 0.5em 1em;
+  border-radius: var(--br);
+  color: var(--clr-text--900);
+}
+
+.promotion__product:hover {
+  color: var(--clr-text--900);
+  background-color: var(--clr-primary--300);
+}
+
+.promotion__product h3,
+.promotion__product div,
+.promotion__product strong {
+  margin-right: 0.5rem;
+  /* font-weight: 400 !important; */
+
+}
+
+/* Add promotion */
+.adding__promotion {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
 
 
@@ -904,4 +1017,27 @@ input[name=quantity] {
 
 .message-container__buttons button:first-child {
   margin-right: 1em;
+}
+
+
+/* --------- FORMSSSSSSSSSSSSSSSSS ---------- */
+.form-text.text-muted {
+  display: none;
+}
+
+.adding__promotion--form {
+  background-color: var(--clr-accent--100);
+  padding: 1rem;
+  border-radius: var(--br);
+  width: 100%;
+}
+
+.adding__promotion--form textarea {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+  max-height: 5rem;
+
 }
