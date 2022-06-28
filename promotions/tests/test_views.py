@@ -190,6 +190,7 @@ class PromotionsListViewTest(TestCase):
         # urls
         self.client = Client()
         self.promotions_list_url = reverse('promotions_list')
+        self.add_promotion_url = reverse('add_promotion')
 
 
     def test_promotions_list_view_status_code(self):
@@ -215,4 +216,73 @@ class PromotionsListViewTest(TestCase):
         response = self.client.get(self.promotions_list_url)
         self.assertEqual(response.context['promotions'].count(), 1)
         self.assertTemplateUsed(response, 'promotions/promotions_list.html')
+        self.client.logout()
+    
+    def test_add_promotion_view_status_code(self):
+        """Test the status code for the add promotion view."""
+        response = self.client.get(self.add_promotion_url)
+        self.assertEquals(response.status_code, 200)
+
+    def test_add_promotion_view_template_used(self):
+        """Test the template used for the add promotion view."""
+        response = self.client.get(self.add_promotion_url)
+        self.assertTemplateUsed(response, 'account/login.html')
+        # costumer login
+        self.client.force_login(self.user)
+        response = self.client.get(self.add_promotion_url)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+        # manager login
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.add_promotion_url)
+        self.assertTemplateUsed(response, 'promotions/add_promotion.html')
+        self.client.logout()
+
+    def test_add_promotion_view_post_request_not_staff(self):
+        """Test the post request for the add promotion view."""
+        # costumer login
+        self.client.force_login(self.user)
+        response = self.client.post(self.add_promotion_url)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_add_promotion_view_post_request_staff_form_valid(self):
+        # manager login
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(self.add_promotion_url, {
+            'name': 'Promotion 2',
+            'slug': 'promotion-2',
+            'description': 'Promotion 2 description',
+            'promotion_code': 'PROMO2',
+            'promotion_reduction': 10,
+            'start_date': datetime.now(),
+            'end_date': datetime.now() + timezone.timedelta(days=365 * 5),
+            'active': True,
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/promotions/promotions_list/')
+        self.client.logout()
+
+    def test_add_promotion_view_post_request_staff_form_not_valid(self):
+        # manager login
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(self.add_promotion_url, {
+            'slug': 'promotion-2',
+            'description': 'Promotion 2 description',
+
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'promotions/add_promotion.html')
         self.client.logout()
