@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     PromotionsListView,
     AddPromotionView,
+    EditPromotionView,
 )
 
 
@@ -16,5 +17,10 @@ urlpatterns = [
         'add_promotion/',
         AddPromotionView.as_view(),
         name='add_promotion'
+    ),
+    path(
+        'edit_promotion/<int:pk>/',
+        EditPromotionView.as_view(),
+        name='edit_promotion'
     ),
 ]
