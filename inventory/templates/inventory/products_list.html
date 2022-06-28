@@ -5,71 +5,71 @@
   <div class="products__all">
     {% for product in products %}
       {% if product.is_active %}
-      <div class="wishlist__item" data-attr="{{ product.id }}">
-        <a class="product__card" href="{% url 'product_detail' pk=product.pk %}" aria-label="Go to {{ product.name }}">
-          {% if product.get_sale_price_is_lower_than_store_price %}
-            <div class="product__card--discount">
-              <img src="{% static 'images/sale.png' %}" alt="sale Image">
-            </div>
-          {% endif %}
-          <div class="product__card--image">
-            {% if product.images.all %}
-              <img src="{{ product.get_main_image }}" alt="Cover image for {{ product.name }}">
-            {% else %}
-              <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+        <div class="wishlist__item" data-attr="{{ product.id }}">
+          <a class="product__card" href="{% url 'product_detail' pk=product.pk %}" aria-label="Go to {{ product.name }}">
+            {% if product.get_sale_price_is_lower_than_store_price %}
+              <div class="product__card--discount">
+                <img src="{% static 'images/sale.png' %}" alt="sale Image">
+              </div>
             {% endif %}
-          </div>
-          <div class="product__card--name">
-            {{ product.name }}
-          </div>
-          <div class="product__card--content">
-            <div class="product__card--prices">
-              {% if product.get_out_of_stock %}
-                <div class="product__card--price price__sale">
-                  <p>Out of stock</p>
-                </div>
-              {% elif product.get_same_sale_price %}
-                {% if product.get_sale_price_is_lower_than_store_price %}
-                  <div class="product__card--price price__regular">
-                    $ {{ product.get_lowest_store_price }}
-                  </div>
-                  <div class="product__card--price price__sale">
-                    $ {{ product.get_lowest_price }}
-                  </div>
-                {% else %}
-                  <div class="product__card--price">
-                    $ {{ product.get_lowest_price }}
-                  </div>
-                {% endif %}
+            <div class="product__card--image">
+              {% if product.images.all %}
+                <img src="{{ product.get_main_image }}" alt="Cover image for {{ product.name }}">
               {% else %}
-                {% if product.get_sale_price_is_lower_than_store_price %}
-                  <div class="product__card--price price__regular">
-                    $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
-                  </div>
-                  <div class="product__card--price price__sale">
-                    $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
-                  </div>
-                {% else %}
-                  <div class="product__card--price">
-                    $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
-                  </div>
-                {% endif %}
+                <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
               {% endif %}
             </div>
-          </div>
-        </a>
-        <button class="like btn wishlist__control" data-id="{{ product.id }}">
-          {% if request.user.is_authenticated %}
-            {% if product in request.user.wishlist.get_products %}
-              <i class="fas fa-heart"></i>
+            <div class="product__card--name">
+              {{ product.name }}
+            </div>
+            <div class="product__card--content">
+              <div class="product__card--prices">
+                {% if product.get_out_of_stock %}
+                  <div class="product__card--price price__sale">
+                    <p>Out of stock</p>
+                  </div>
+                {% elif product.get_same_sale_price %}
+                  {% if product.get_sale_price_is_lower_than_store_price %}
+                    <div class="product__card--price price__regular">
+                      $ {{ product.get_lowest_store_price }}
+                    </div>
+                    <div class="product__card--price price__sale">
+                      $ {{ product.get_lowest_price }}
+                    </div>
+                  {% else %}
+                    <div class="product__card--price">
+                      $ {{ product.get_lowest_price }}
+                    </div>
+                  {% endif %}
+                {% else %}
+                  {% if product.get_sale_price_is_lower_than_store_price %}
+                    <div class="product__card--price price__regular">
+                      $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                    </div>
+                    <div class="product__card--price price__sale">
+                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    </div>
+                  {% else %}
+                    <div class="product__card--price">
+                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
+          </a>
+          <button class="like btn wishlist__control" data-id="{{ product.id }}">
+            {% if request.user.is_authenticated %}
+              {% if product in request.user.wishlist.get_products %}
+                <i class="fas fa-heart"></i>
+              {% else %}
+                <i class="far fa-heart"></i>
+              {% endif %}
             {% else %}
               <i class="far fa-heart"></i>
             {% endif %}
-          {% else %}
-            <i class="far fa-heart"></i>
-          {% endif %}
-        </button>
-      </div>
+          </button>
+        </div>
       {% endif %}
     {% endfor %}
   </div>
