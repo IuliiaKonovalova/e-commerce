@@ -152,3 +152,25 @@ class EditPromotionView(View):
             )
 
 
+class DeletePromotionAJAXView(View):
+    """View for the delete promotion AJAX."""
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            # Check if user is a admin
+            if request.user.profile.role.id == 3:
+                if request.is_ajax() and request.user.profile.role.id == 3:
+                    promotion_id = request.POST.get('promotion_id')
+                    promotion = Promotion.objects.get(id=promotion_id)
+                    promotion.delete()
+                    return JsonResponse({'success': True})
+                return JsonResponse({'success': False})
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
