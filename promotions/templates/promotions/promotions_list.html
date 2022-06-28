@@ -8,7 +8,7 @@
       <h1 class="promotions__title" >Promotions</h1>
       <!-- Add button add promotion -->
       <div class="promotions__add">
-        <a href="#" class="btn btn-primary promotions__add--btn" aria-label="Add promotion">
+        <a href="{% url 'add_promotion' %}" class="btn btn-primary promotions__add--btn" aria-label="Add promotion">
           <i class="fa fa-plus-circle"></i>
           Add Promotion
         </a>
@@ -31,18 +31,18 @@
             <p class="promotion__code">{{ promotion.promotion_code }}</p>
             <p class="promotion__description">{{ promotion.description }}</p>
             <div class="promotion__products hidden">
-            {% if request.user.profile.role.id == 3 %}
-              <div class="promotion__btns">
-                <a href="#" class="btn promotion__edit--btn" aria-label="Edit promotion">
-                  <i class="fa fa-pencil"></i>
-                  Edit
-                </a>
-                <button type="button" class="btn promotion__delete--btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-delete="{{ promotion.id }}">
-                  <i class="fa fa-trash"></i>
-                  Delete
-                </button>
-              </div>
-            {% endif %}
+              {% if request.user.profile.role.id == 3 %}
+                <div class="promotion__btns">
+                  <a href="{% url 'edit_promotion' pk=promotion.id %}" class="btn promotion__edit--btn" aria-label="Edit promotion">
+                    <i class="fa fa-pencil"></i>
+                    Edit
+                  </a>
+                  <button type="button" class="btn promotion__delete--btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-delete="{{ promotion.id }}">
+                    <i class="fa fa-trash"></i>
+                    Delete
+                  </button>
+                </div>
+              {% endif %}
               {% for product_inventory in promotion.products_inventory_in_promotion.all %}
                 <a class="promotion__product" data-attr="{{ product_inventory.id }}" href="">
                   <strong>{{ product_inventory.sku }}</strong>
@@ -64,7 +64,7 @@
       </div>
     {% endif %}
   {% endif %}
-  <!-- Modal -->
+  {% comment %} Modal {% endcomment %}
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
