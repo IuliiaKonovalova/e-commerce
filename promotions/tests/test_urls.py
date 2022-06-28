@@ -6,6 +6,7 @@ from promotions.views import (
     PromotionsListView,
     AddPromotionView,
     EditPromotionView,
+    DeletePromotionAJAXView,
 )
 
 
@@ -25,3 +26,11 @@ class TestUrls(SimpleTestCase):
         """Test the edit promotion url."""
         url = reverse('edit_promotion', kwargs={'pk': 1})
         self.assertEquals(resolve(url).func.view_class, EditPromotionView)
+
+    def test_delete_promotion_url(self):
+        """Test the delete promotion url."""
+        url = reverse('delete_promotion')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            DeletePromotionAJAXView
+        )
