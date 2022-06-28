@@ -5,6 +5,7 @@ from django.urls import reverse,resolve
 from promotions.views import (
     PromotionsListView,
     AddPromotionView,
+    EditPromotionView,
 )
 
 
@@ -19,3 +20,8 @@ class TestUrls(SimpleTestCase):
         """Test the add promotion url."""
         url = reverse('add_promotion')
         self.assertEquals(resolve(url).func.view_class, AddPromotionView)
+
+    def test_edit_promotion_url(self):
+        """Test the edit promotion url."""
+        url = reverse('edit_promotion', kwargs={'pk': 1})
+        self.assertEquals(resolve(url).func.view_class, EditPromotionView)
