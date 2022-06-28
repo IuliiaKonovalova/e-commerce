@@ -1,18 +1,21 @@
 """Tests for promotions urls."""
-from django.test import TestCase
-from django.urls import reverse
+from django.test import SimpleTestCase
+from django.urls import reverse,resolve
 
 from promotions.views import (
     PromotionsListView,
+    AddPromotionView,
 )
 
 
-class PromotionsListViewTest(TestCase):
-    """Tests for the promotions list view."""
-    def test_promotions_list_view_status_code(self):
-        """Test the status code for the promotions list view."""
+class TestUrls(SimpleTestCase):
+    """Tests for the promotions urls."""
+    def test_promotions_list_url(self):
+        """Test the promotions list url."""
         url = reverse('promotions_list')
-        response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
+        self.assertEquals(resolve(url).func.view_class, PromotionsListView)
 
-
+    def test_add_promotion_url(self):
+        """Test the add promotion url."""
+        url = reverse('add_promotion')
+        self.assertEquals(resolve(url).func.view_class, AddPromotionView)
