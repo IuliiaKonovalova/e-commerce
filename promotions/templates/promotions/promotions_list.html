@@ -7,12 +7,14 @@
     <section class="promotion__header">
       <h1 class="promotions__title" >Promotions</h1>
       <!-- Add button add promotion -->
-      <div class="promotions__add">
-        <a href="{% url 'add_promotion' %}" class="btn btn-primary promotions__add--btn" aria-label="Add promotion">
-          <i class="fa fa-plus-circle"></i>
-          Add Promotion
-        </a>
-      </div>
+      {% if request.user.profile.role.id == 3 %}
+        <div class="promotions__add">
+          <a href="{% url 'add_promotion' %}" class="btn btn-primary promotions__add--btn" aria-label="Add promotion">
+            <i class="fa fa-plus-circle"></i>
+            Add Promotion
+          </a>
+        </div>
+      {% endif %}
     </section>
     {% if promotions %}
       <div class="promotions__table">
