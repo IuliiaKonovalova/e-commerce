@@ -20,7 +20,8 @@
       <div class="promotions__table">
         <div class="promotions__table--titles">
           <div class="promotions__table--title">Name</div>
-          <div class="promotions__table--title">Time</div>
+          <div class="promotions__table--title">Start</div>
+          <div class="promotions__table--title">End</div>
           <div class="promotions__table--title">Active</div>
           <div class="promotions__table--title">Code</div>
           <div class="promotions__table--title">Description</div>
@@ -28,8 +29,15 @@
         {% for promotion in promotions %}
           <section class="promotion" data-id="{{ promotion.id }}">
             <h2 class="promotion__title">{{ promotion.name }}</h2>
-            <p class="promotion__date">{{ promotion.start_date|date:"d/m/Y" }} - {{ promotion.end_date|date:"d/m/Y" }}</p>
-            <p class="promotion__status">{{ promotion.active }}</p>
+            <p class="promotion__date--start">{{ promotion.start_date|date:"d.m.Y" }}</p>
+            <p class="promotion__date--end">{{ promotion.end_date|date:"d.m.Y" }}</p>
+            <p class="promotion__status">
+              {% if promotion.active %}
+                <i class="fa fa-check-circle"></i>
+              {% else %}
+                <i class="fa fa-times-circle"></i>
+              {% endif %}
+            </p>
             <p class="promotion__code">{{ promotion.promotion_code }}</p>
             <p class="promotion__description">{{ promotion.description }}</p>
             <div class="promotion__products hidden">
