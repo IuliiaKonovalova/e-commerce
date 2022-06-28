@@ -88,33 +88,63 @@
 {% endblock %}
 
 {% block postloadjs_extra %}
-<script>
-  $(document).ready(function(){
-    $('.promotion').each(function(){
-      let promotion = $(this);
-      let promotionId = promotion.data('id');
-      // close modal reusable function
-      promotion.on('click', function(){
-        // find .promotion__products for this
-        console.log(this)
-        let products = promotion.find('.promotion__products');
-        if(products.hasClass('hidden')){
-          products.removeClass('hidden');
-          // find delete button by data-delete="{{ promotion.id }}"
-          let deleteBtn = promotion.find('[data-delete="' + promotionId + '"]');
-          // find .confirm__delete from #exampleModal
-          let confirmDelete = $('#exampleModal').find('.confirm__delete');
-          //add data-id attribute to confirmDelete
-          confirmDelete.data('id', promotionId);
-          // add data-id="{{ promotion.id }}" to .confirm__delete
-          confirmDelete.data('id', promotionId);
-          console.log(confirmDelete)
-        } else {
-          products.addClass('hidden');
-        }
-        //fincd .promotion__delete--btn
+  <script>
+    $(document).ready(function(){
+      $('.promotion').each(function(){
+        let promotion = $(this);
+        let promotionId = promotion.data('id');
+        // close modal reusable function
+        promotion.on('click', function(){
+          // find .promotion__products for this
+          console.log(this)
+          let products = promotion.find('.promotion__products');
+          if(products.hasClass('hidden')){
+            products.removeClass('hidden');
+            // find delete button by data-delete="{{ promotion.id }}"
+            let deleteBtn = promotion.find('[data-delete="' + promotionId + '"]');
+            // find .confirm__delete from #exampleModal
+            let confirmDelete = $('#exampleModal').find('.confirm__delete');
+            //add data-id attribute to confirmDelete
+            confirmDelete.data('id', promotionId);
+            // add data-id="{{ promotion.id }}" to .confirm__delete
+            confirmDelete.data('id', promotionId);
+            console.log(confirmDelete)
+          } else {
+            products.addClass('hidden');
+          }
+        });
+      });
+      // delete promotion
+      $('.confirm__delete').on('click', function(){
+        let promotionId = $(this).data('id');
+        $.ajax({
+          url: "{% url 'delete_promotion' %}",
+          type: 'POST',
+          data: {
+            'promotion_id': promotionId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function(data){
+            // close modal
+            $('#exampleModal').modal('hide');
+            // remove promotion from page
+            $('.promotion[data-id="' + promotionId + '"]').remove();
+
+          },
+          error: function(data){
+            $('#messages-notes').remove();
+            $('.bag').before('<div class="message-container" id="messages-notes">' +
+              '<div class="message-container__message">' +
+              '<p class="message-container__message--text">Something went wrong</p>' +
+              '</div>' +
+              '</div>');
+            // remove the message block after 3 seconds
+            setTimeout(() => {
+              $('#messages-notes').remove();
+            }, 3000);
+          }
+        });
       });
     });
-  });
-</script>
+  </script>
 {% endblock %}
