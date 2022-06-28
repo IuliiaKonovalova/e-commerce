@@ -197,6 +197,8 @@ class PromotionsListViewTest(TestCase):
         self.client = Client()
         self.promotions_list_url = reverse('promotions_list')
         self.add_promotion_url = reverse('add_promotion')
+        self.edit_promotion_url = reverse('edit_promotion', args=['1'])
+        self.delete_promotion_url = reverse('delete_promotion')
 
 
     def test_promotions_list_view_status_code(self):
@@ -468,4 +470,85 @@ class PromotionsListViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'promotions/edit_promotion.html')
+        self.client.logout()
+
+    def test_delete_promotion_ajax_view_post_request_logged_out(self):
+        """Test the get request for the delete promotion view."""
+        response = self.client.post(
+            self.delete_promotion_url,
+            {
+                'promotion_id': 1,
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_promotion_ajax_view_post_request_not_staff(self):
+        """Test the get request for the delete promotion view."""
+        # customers login
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.delete_promotion_url,
+            {
+                'promotion_id': 1,
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_promotion_ajax_view_post_request_staff(self):
+        """Test the get request for the delete promotion view."""
+        # manager login
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.delete_promotion_url,
+            {
+                'promotion_id': 1,
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_promotion_ajax_view_post_request_admin(self):
+        """Test the get request for the delete promotion view."""
+        # admin login
+        self.client.force_login(self.user3)
+        self.assertTrue(self.profile3.role.id == 3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.post(
+            self.delete_promotion_url,
+            {
+                'promotion_id': 1,
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.client.logout()
+
+    def test_delete_promotion_ajax_view_post_request_admin_failed(self):
+        """Test the get request for the delete promotion view."""
+        # admin login
+        self.client.force_login(self.user3)
+        self.assertTrue(self.profile3.role.id == 3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.post(
+            self.delete_promotion_url,
+            {
+                'promotion_id': 1,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
         self.client.logout()
