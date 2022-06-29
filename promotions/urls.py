@@ -4,6 +4,7 @@ from .views import (
     PromotionsListView,
     AddPromotionView,
     EditPromotionView,
+    DeletePromotionAJAXView,
 )
 
 
@@ -22,5 +23,10 @@ urlpatterns = [
         'edit_promotion/<int:pk>/',
         EditPromotionView.as_view(),
         name='edit_promotion'
+    ),
+    path(
+        'delete_promotion/',
+        DeletePromotionAJAXView.as_view(),
+        name='delete_promotion'
     ),
 ]
