@@ -1041,3 +1041,10 @@ input[name=quantity] {
   max-height: 5rem;
 
 }
+
+
+
+/* --------- Modal ----------- */
+.modal {
+  z-index: 99999999999;
+}
