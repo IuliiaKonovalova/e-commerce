@@ -107,4 +107,36 @@ class StockEmailNotification(models.Model):
         product_attribute_values = ', '.join(product_attribute_values)
         return product_attribute_values
 
+    def save(self, *args, **kwargs):
+        super().save()
+        users = Profile.objects.get(user=self.user)
+        recipient_list = [self.user.email]
+        # get product_attribute and attribute_value strings
+        product_attribute_values = []
+        print('THIS COMES FROM MODEL', self.requested_attributes_values.all())
+        # convert self.requested_attributes_values.all() to set
 
+
+        print('THIS COMES FROM MODEL', self.get_all_requested_attributes_values_objects)
+        # loop through query set returned from requested_attributes_values
+        for attribute_value in set(self.requested_attributes_values.all()):
+        # get product_attribute and attribute_value strings
+            product_attribute_values.append(attribute_value.attribute_value)
+        product_attribute_values = ', '.join(product_attribute_values)
+        content = 'Your request has been sent to the administrator.\n' \
+                  'Product: ' + self.requested_product.name + '\n' \
+                  'Attributes values: ' + product_attribute_values + '\n' \
+                  'Quantity: ' + str(self.requested_quantity) + '\n' \
+
+        if users.subscription:
+            send_mail(
+                'Stock email notification',
+                # 'Your request has been sent to the administrator.',
+                # 'You requested: ' + str(self.requested_product) + ' ' + str(self.requested_attributes_values) + ' ' + str(self.requested_quantity),
+                content,
+                'yuliyakonovalova5@gmail.com',
+
+                recipient_list,
+                fail_silently=False
+
+            )
