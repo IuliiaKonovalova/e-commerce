@@ -180,18 +180,18 @@
         </div>
         <div class="modal-body">
           {% for k,v in attribute_values_dict.items %}
-            <div class="product__options form__section">
+            <div class="options__request form__section">
               <p data-attribute="{{ k }}" class="product__options--title">{{ k }}</p>
-              <div class="product__options--input">
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group" data-group-name="{{ k }}">
+              <div class="product__options--request--input">
+                <div class="btn-group in_modal" role="group" aria-label="Basic radio toggle button group" data-group-name="{{ k }}">
                   {% for item in v %}
                     {% if item in values_set %}
                       {% if item in values_set_active %}
-                        <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
+                        <input type="radio" class="btn-check option in_modal" name="request-{{ k }}" id="request-{{ item }}" value="{{ item }}" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="request-{{ item }}">{{ item }}</label>
                       {% else %}
-                        <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" autocomplete="off">
-                        <label class="btn btn-outline-primary disabled" style="background-color: {{ item }}" for="{{ item }}">{{ item }}</label>
+                        <input type="radio" class="btn-check option in_modal" name="request-{{ k }}" id="request-{{ item }}" value="{{ item }}" autocomplete="off">
+                        <label class="btn btn-outline-primary disabled" style="background-color: {{ item }}" for="request-{{ item }}">{{ item }}</label>
                       {% endif %}
                     {% endif %}
                   {% endfor %}
@@ -218,7 +218,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary confirm__email--require" data-id="">Delete</button>
+          <button type="button" class="btn btn-primary confirm__email--require btn_ok_in_modal" data-id="">Send</button>
         </div>
       </div>
     </div>
@@ -243,11 +243,23 @@
       console.log(values_list_array);
       let valuesSetActive = {{ values_set_active_list|safe }};
       console.log(valuesSetActive);
+
+
+
+
+
+
+
+
+
+
+      // check if the product is out of stock
       if (product_inventory_id == 0) {
 
+
+
+
       }
-
-
 
       // Reset options:
       const reset = function(e) {
@@ -369,7 +381,7 @@
         // if color is checked, we need to update the size-shoes group to check what sizes are available for that color
         // if size-shoes is checked, we need to update the color group to check what colors are available for that size
         $('.product__options').on('change', 'input', function() {
-
+          console.log('change in input and no modal');
           let attribute_value = $(this).val();
           let attribute_name = $(this).get(0).name;
           let availableAttrsFromOtherGroups = [];
@@ -784,6 +796,30 @@
             }, 3000);
           }
         })
+      });
+
+      $('.btn_ok_in_modal').on('click', function(e) {
+          e.preventDefault();
+          let productRequestOptions = {
+            id: product_id,
+            options: {},
+            quantity: 0,
+            notes: ''
+          };
+          $('.btn-group.in_modal').each(function() {
+            let group_name = $(this).attr('data-group-name');
+            let group_value = $(this).find('input:checked').val();
+            console.log('group_name ' + group_name);
+            console.log('group_value ' + group_value);
+            productRequestOptions.options[group_name] = group_value;
+          });
+          let quantity = $('.modal-body input[name="required-quantity"]').val();
+          console.log('quantity ' + quantity);
+          productRequestOptions['quantity'] = quantity;
+          let notes = $('.modal-body textarea[name="note"]').val();
+          console.log('notes ' + notes);
+          productRequestOptions['notes'] = notes;
+          console.log(productRequestOptions);
       });
 
 
