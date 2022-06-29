@@ -1,6 +1,8 @@
 """Models for email_notifications app."""
 from django.db import models
 from django.core.mail import send_mail
+from django.contrib.auth.models import User
+from inventory.models import Product, ProductAttributeValue
 from profiles.models import Profile
 
 
@@ -47,3 +49,62 @@ class EmailNewsNotification(models.Model):
             recipients,
             fail_silently=False
         )
+
+
+class StockEmailNotification(models.Model):
+    """Model for stock email notifications."""
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Requested user',
+        help_text='Requested user.'
+    )
+    requested_product = models.ForeignKey(
+        Product,
+        on_delete=models.CASCADE,
+        verbose_name='Requested product',
+        help_text='Requested product.'
+    )
+    requested_attributes_values = models.ManyToManyField(
+        ProductAttributeValue,
+        verbose_name='Requested attributes values',
+        help_text='Requested attributes values.'
+    )
+    requested_quantity = models.PositiveIntegerField(
+        verbose_name='Requested quantity',
+        help_text='Requested quantity.'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Created at',
+    )
+    answer_sent = models.BooleanField(
+        default=False,
+        verbose_name='Answer send',
+        help_text='Answer send.'
+    )
+
+    class Meta:
+        """Meta class for stock email notifications."""
+        verbose_name = 'Stock email notification'
+        verbose_name_plural = 'Stock email notifications'
+        
+    def __str__(self):
+        """Return the name of the stock email notification."""
+        return self.user.username + ' ' + str(self.created_at)
+
+    def get_all_not_sent(self):
+        """Return all not send back to stock email notifications."""
+        return StockEmailNotification.objects.filter(answer_sent=False)
+
+    def get_all_requested_attributes_values_objects(self):
+        """Return all requested attributes values objects."""
+        all = self.requested_attributes_values.all()
+        # get product_attribute and attribute_value
+        product_attribute_values = []
+        for attribute_value in all:
+            product_attribute_values.append(attribute_value.attribute_value)
+        product_attribute_values = ', '.join(product_attribute_values)
+        return product_attribute_values
+
+
