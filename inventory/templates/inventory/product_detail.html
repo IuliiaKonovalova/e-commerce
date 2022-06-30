@@ -206,13 +206,7 @@
               <input type="number" name="required-quantity" value="1" min="1" max="150" id="">
             </div>
           </div>
-          {% comment %} Field for note textarea {% endcomment %}
-          <div class="form__section form__section--note">
-            <div class="product__options--title">Notes:</div>
-            <div class="product__options--note">
-              <textarea name="note" id=""  rows="10"></textarea>
-            </div>
-          </div>
+
 
 
         </div>
@@ -816,9 +810,9 @@
           let quantity = $('.modal-body input[name="required-quantity"]').val();
           console.log('quantity ' + quantity);
           productRequestOptions['quantity'] = quantity;
-          let notes = $('.modal-body textarea[name="note"]').val();
-          console.log('notes ' + notes);
-          productRequestOptions['notes'] = notes;
+          //let notes = $('.modal-body textarea[name="note"]').val();
+          //console.log('notes ' + notes);
+          //productRequestOptions['notes'] = notes;
           console.log('All dictionary' + productRequestOptions);
           console.log(productRequestOptions)
           let data = JSON.stringify(productRequestOptions);
