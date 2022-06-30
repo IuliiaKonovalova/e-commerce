@@ -819,7 +819,47 @@
           let notes = $('.modal-body textarea[name="note"]').val();
           console.log('notes ' + notes);
           productRequestOptions['notes'] = notes;
-          console.log(productRequestOptions);
+          console.log('All dictionary' + productRequestOptions);
+          console.log(productRequestOptions)
+          let data = JSON.stringify(productRequestOptions);
+          console.log('data ' + data);
+          //AJAX request to add item to the StockEmailNotification table
+          $.ajax({
+            url: "{% url 'add_to_stock_email_notification' %}",
+            type: "POST",
+            data: {
+              'data': data,
+              'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+              console.log(data);
+              console.log('success');
+              if (data.message_alert) {
+                $('.product__main').before('<div class="message-container" id="messages-notes">' +
+                  '<div class="message-container__message">' +
+                  '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+                  '</div>' +
+                  '</div>');
+              }
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
+            },
+            error: function(data) {
+              console.log('error');
+              $('#messages-notes').remove();
+              $('.bag').before('<div class="message-container" id="messages-notes">' +
+                '<div class="message-container__message">' +
+                '<p class="message-container__message--text">Something went wrong</p>' +
+                '</div>' +
+                '</div>');
+              // remove the message block after 3 seconds
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
+            }
+          })
+        
       });
 
 
