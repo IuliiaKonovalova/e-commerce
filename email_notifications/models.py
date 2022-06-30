@@ -36,9 +36,9 @@ class EmailNewsNotification(models.Model):
 
     def __str__(self):
         """Return the name of the email news notification."""
-        return self.email_name + ' ' + str(self.created_at)
+        return self.email_name
 
-    def save(self):
+    def save(self, *args, **kwargs):
         super().save()
         users = Profile.objects.filter(subscription=True)
         recipients = [user.user.email for user in users]
@@ -91,7 +91,7 @@ class StockEmailNotification(models.Model):
         
     def __str__(self):
         """Return the name of the stock email notification."""
-        return self.user.username + ' ' + str(self.created_at)
+        return self.user.username
 
     def get_all_not_sent(self):
         """Return all not send back to stock email notifications."""
@@ -104,7 +104,7 @@ class StockEmailNotification(models.Model):
         for i in all:
             attr = str(i.product_attribute.name)
             value = str(i.attribute_value)
-            attr_and_value = '\n' + attr + ': ' + value
+            attr_and_value = '\n ' + attr + ': ' + value
             attr_values_string += attr_and_value
         return attr_values_string
 
@@ -112,16 +112,13 @@ class StockEmailNotification(models.Model):
         super().save()
         users = Profile.objects.get(user=self.user)
         recipient_list = [self.user.email]
-        product_attribute_values = ', '.join(product_attribute_values)
         content = 'Your request has been sent to the administrator.\n' \
                   'Product: ' + self.requested_product.name + '\n' \
-                  'Quantity: ' + str(self.requested_quantity) + '\n' \
-
-        if users.subscription:
-            send_mail(
-                'Stock email notification',
-                content,
-                'yuliyakonovalova5@gmail.com',
-                recipient_list,
-                fail_silently=False
-            )
+                  'Quantity: ' + str(self.requested_quantity) + '\n'
+        send_mail(
+            'Stock email notification',
+            content,
+            'yuliyakonovalova5@gmail.com',
+            recipient_list,
+            fail_silently=False,
+        )
