@@ -229,6 +229,28 @@ class EmailNewsNotificationTest(TestCase):
             stock_email_notification
         )
 
+    def test_stock_email_notification_save(self):
+        """Test the stock email notification save method."""
+        stock_email_notification = StockEmailNotification.objects.create(
+            user=self.user,
+            requested_product=self.product1,
+            requested_quantity=1,
+            answer_sent=False
+        )
+        mail.send_mail(
+            subject='subject',
+            message='message',
+            from_email='from@example.com',
+            recipient_list=[(self.user.email)]
+        )
+        assert len(mail.outbox) == 2
+        assert mail.outbox[1].subject == 'subject'
+        assert mail.outbox[1].body == 'message'
+        assert mail.outbox[1].from_email == 'from@example.com'
+        assert mail.outbox[1].to == ['testuser@gmail.com']
+        self.profile1.subscription = False
+        self.profile1.save()
+
     def test_stock_email_notification_get_all_attributes_values(self):
         """Test get all attributes values from request"""
         stock_email_notification = StockEmailNotification.objects.create(
@@ -251,25 +273,3 @@ class EmailNewsNotificationTest(TestCase):
                 get_all_requested_attributes_values_objects(),
             '\n color: red'
         )
-
-    def test_stock_email_notification_save(self):
-        """Test the stock email notification save method."""
-        stock_email_notification = StockEmailNotification.objects.create(
-            user=self.user,
-            requested_product=self.product1,
-            requested_quantity=1,
-            answer_sent=False
-        )
-        mail.send_mail(
-            subject='subject',
-            message='message',
-            from_email='from@example.com',
-            recipient_list=[(self.user.email)]
-        )
-        assert len(mail.outbox) == 2
-        assert mail.outbox[1].subject == 'subject'
-        assert mail.outbox[1].body == 'message'
-        assert mail.outbox[1].from_email == 'from@example.com'
-        assert mail.outbox[1].to == ['testuser@gmail.com']
-        self.profile1.subscription = False
-        self.profile1.save()
