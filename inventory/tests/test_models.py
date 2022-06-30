@@ -145,12 +145,12 @@ class TestModels(TestCase):
             self.product_attribute2
         )
         self.product_attr_value1 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute1,
-            attribute_value = 'red'
+            product_attribute=self.product_attribute1,
+            attribute_value='red'
         )
         self.product_attr_value2 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute2,
-            attribute_value = 'xs'
+            product_attribute=self.product_attribute2,
+            attribute_value='xs'
         )
         self.product_inventory1 = ProductInventory.objects.create(
             sku='11111',
@@ -377,7 +377,7 @@ class TestModels(TestCase):
             (
                 'https://res.cloudinary.com/learning-coding/image/uploa' +
                 'd/v1656240479/default_product_image.png'
-            ) 
+            )
         )
         self.product_image1.delete()
         self.product_image3.delete()
@@ -386,7 +386,7 @@ class TestModels(TestCase):
             (
                 'https://res.cloudinary.com/learning-coding/image/uploa' +
                 'd/v1656240479/default_product_image.png'
-            ) 
+            )
         )
 
     def test_product_get_out_of_stock(self):
@@ -492,7 +492,7 @@ class TestModels(TestCase):
         self.product_inventory3.attribute_values.set(
             [product_attr_value1, product_attr_value2],
         )
-        self.assertEqual(self.product1.get_highest_price(),11.00)
+        self.assertEqual(self.product1.get_highest_price(), 11.00)
         self.product_inventory1.is_active = False
         self.product_inventory1.save()
         self.product_inventory3.is_active = False
@@ -544,7 +544,7 @@ class TestModels(TestCase):
         self.product_inventory3.attribute_values.set(
             [product_attr_value1, product_attr_value2],
         )
-        self.assertEqual(self.product1.get_highest_store_price(),13.00)
+        self.assertEqual(self.product1.get_highest_store_price(), 13.00)
         self.product_inventory1.is_active = False
         self.product_inventory1.save()
         self.product_inventory3.is_active = False
@@ -738,11 +738,11 @@ class TestModels(TestCase):
             answer_sent=False
         )
         stock_email_notification.save()
-        self.assertEqual(len(mail.outbox), 4)
+        self.assertEqual(len(mail.outbox), 3)
         stock_email_notification2.save()
-        self.assertEqual(len(mail.outbox), 5)
+        self.assertEqual(len(mail.outbox), 3)
         stock_email_notification3.save()
-        self.assertEqual(len(mail.outbox), 6)
+        self.assertEqual(len(mail.outbox), 4)
         self.assertEqual(
             stock_email_notification.
             get_all_requested_attributes_values_objects(), ''
@@ -758,7 +758,7 @@ class TestModels(TestCase):
         )
         self.stock1.units = 50
         self.stock1.save()
-        self.assertEqual(len(mail.outbox), 8)
+        self.assertEqual(len(mail.outbox), 5)
 
     def test_get_high_sales_fewer_products(self):
         """Test get_high_sales method."""
@@ -854,10 +854,10 @@ class TestModels(TestCase):
             product_attribute=self.product_attribute1,
             attribute_value='yellow',
         )
-        attributevalues=ProductAttributeValue.objects.get(
+        attributevalues = ProductAttributeValue.objects.get(
             id=product_attr_value3.id
         )
-        productinventory=ProductInventory.objects.get(
+        productinventory = ProductInventory.objects.get(
             id=self.product_inventory2.id
         )
         original = ProductAttributeValues.objects.create(
@@ -882,10 +882,10 @@ class TestModels(TestCase):
             slug='toys',
             description='toys'
         )
-        product_attribute=ProductAttribute.objects.get(
+        product_attribute = ProductAttribute.objects.get(
             id=product_attribute3.id
         )
-        product_type=ProductType.objects.get(
+        product_type = ProductType.objects.get(
             id=product_type3.id
         )
         original = ProductTypeAttribute.objects.create(
