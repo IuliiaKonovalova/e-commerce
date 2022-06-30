@@ -117,10 +117,11 @@ class StockEmailNotification(models.Model):
         content = 'Your request has been sent to the administrator.\n' \
                   'Product: ' + self.requested_product.name + '\n' \
                   'Quantity: ' + str(self.requested_quantity) + '\n'
-        send_mail(
-            'Stock email notification',
-            content,
-            'yuliyakonovalova5@gmail.com',
-            recipient_list,
-            fail_silently=False,
-        )
+        if self.answer_sent is False:
+            send_mail(
+                'Stock email notification',
+                content,
+                'yuliyakonovalova5@gmail.com',
+                recipient_list,
+                fail_silently=False,
+            )
