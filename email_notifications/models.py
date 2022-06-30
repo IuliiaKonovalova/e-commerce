@@ -63,12 +63,14 @@ class StockEmailNotification(models.Model):
         Product,
         on_delete=models.CASCADE,
         verbose_name='Requested product',
-        help_text='Requested product.'
+        help_text='Requested product.',
+        related_name='email_product'
     )
     requested_attributes_values = models.ManyToManyField(
         ProductAttributeValue,
         verbose_name='Requested attributes values',
-        help_text='Requested attributes values.'
+        help_text='Requested attributes values.',
+        related_name='email_attributes_values'
     )
     requested_quantity = models.PositiveIntegerField(
         verbose_name='Requested quantity',
