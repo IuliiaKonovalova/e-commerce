@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 from django.db.models import F
+from django.core.mail import send_mail
 
 
 class Category(models.Model):
@@ -687,6 +688,50 @@ class Stock(models.Model):
         if self.units < 0 or self.units == 0:
             self.product_inventory.is_active = False
             self.product_inventory.save()
+        # get self.product_inventory product
+        product = self.product_inventory.product
+        # get self.product_inventory attribute_values
+        attribute_values = self.product_inventory.attribute_values.all()
+        product_attribute_values_ids = [
+            product_attribute_value.id for
+            product_attribute_value in attribute_values
+        ]
+        product_attribute_values_ids.sort()
+        # get all stock emails for this product
+        all_emails = product.email_product.all()
+        # set users' emails list
+        users_to_send_email = []
+        for email in all_emails:
+            # check whether the answer wasn't sent yet
+            if email.answer_sent is False:
+                all_attr_values = email.requested_attributes_values.all()
+                email_attribute_values_ids = [
+                    product_attribute_value.id for
+                    product_attribute_value in all_attr_values
+                ]
+                email_attribute_values_ids.sort()
+                # check whether the attribute values are the same
+                if email_attribute_values_ids == product_attribute_values_ids:
+                    if email.requested_quantity <= self.units:
+                        # get users
+                        users_to_send_email.append(email.user.email)
+                        email.answer_sent = True
+                        email.save()
+        recipients = list(users_to_send_email)
+        # if there are any requests, send email to users
+        if len(recipients) > 0:
+            subject = 'Stock email notification'
+            message = (
+                'Product ' + self.product_inventory.product.name + \
+                ' is in stock. Please visit the website to order.'
+            )
+            send_mail(
+                subject,
+                message,
+                'yuliyakonovalova5@gmail.com',
+                recipients,
+                fail_silently=False
+            )
 
     @classmethod
     def get_high_sales_fewer_products(cls):
