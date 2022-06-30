@@ -2,8 +2,8 @@
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 from .models import Promotion
-from inventory.models import ProductInventory
 from .forms import PromotionForm
 
 
@@ -18,7 +18,9 @@ class PromotionsListView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                promotions = Promotion.objects.all()
+                p = Paginator(Promotion.objects.all(), 10)
+                page = request.GET.get('page')
+                promotions = p.get_page(page)
                 context = {
                     'promotions': promotions,
                 }
@@ -89,7 +91,6 @@ class AddPromotionView(View):
                 request,
                 'account/login.html',
             )
-
 
 
 class EditPromotionView(View):
