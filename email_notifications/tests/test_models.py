@@ -1,5 +1,6 @@
 """Tests for email_notifications app."""
 from django.test import TestCase
+from django.core import mail
 from django.contrib.auth.models import User
 from profiles.models import Role, Profile
 from email_notifications.models import (
@@ -198,5 +199,56 @@ class EmailNewsNotificationTest(TestCase):
         self.assertEqual(
             email_news_notification.content,
             'test_content'
+        )
+
+    def test_stock_email_notification_str(self):
+        """Test the stock email notification string representation."""
+        stock_email_notification = StockEmailNotification.objects.create(
+            user=self.user,
+            requested_product=self.product1,
+            requested_quantity=1,
+            answer_sent=False
+        )
+        stock_email_notification.save()
+        self.assertEqual(
+            str(stock_email_notification),
+            'testuser'
+        )
+
+    def test_stock_email_notification_get_all_not_sent(self):
+        """Test the stock email notification get all not sent method."""
+        stock_email_notification = StockEmailNotification.objects.create(
+            user=self.user,
+            requested_product=self.product1,
+            requested_quantity=1,
+            answer_sent=False
+        )
+        stock_email_notification.save()
+        self.assertEqual(
+            stock_email_notification.get_all_not_sent()[0],
+            stock_email_notification
+        )
+
+    def test_stock_email_notification_get_all_attributes_values(self):
+        """Test get all attributes values from request"""
+        stock_email_notification = StockEmailNotification.objects.create(
+            user=self.user,
+            requested_product=self.product1,
+            requested_quantity=1,
+            answer_sent=False
+        )
+        stock_email_notification.save()
+        self.assertEqual(
+            stock_email_notification.\
+                get_all_requested_attributes_values_objects(),
+            ''
+        )
+        stock_email_notification.requested_attributes_values.add(
+          self.product_attr_value1
+        )
+        self.assertEqual(
+            stock_email_notification.\
+                get_all_requested_attributes_values_objects(),
+            '\n color: red'
         )
 
