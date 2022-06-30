@@ -143,16 +143,16 @@ class EmailStockNotificationFormAJAXTest(TestCase):
             self.product_attribute2
         )
         self.product_attr_value1 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute1,
-            attribute_value = 'red'
+            product_attribute=self.product_attribute1,
+            attribute_value='red'
         )
         self.product_attr_value2 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute2,
-            attribute_value = 'xs'
+            product_attribute=self.product_attribute2,
+            attribute_value='xs'
         )
         self.product_attr_value11 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute1,
-            attribute_value = 'blue'
+            product_attribute=self.product_attribute1,
+            attribute_value='blue'
         )
         self.product_inventory1 = ProductInventory.objects.create(
             sku='11111',
@@ -224,14 +224,14 @@ class EmailStockNotificationFormAJAXTest(TestCase):
         """Test email stock notification form AJAX user logged in."""
         self.client.force_login(self.user)
         data = (
-            '{"id":2,"options": '+
-            '{"color":"red","women clothing size":"xs"}, '+
+            '{"id":2,"options": ' +
+            '{"color":"red","women clothing size":"xs"}, ' +
             '"quantity":"1"}'
         )
         response = self.client.post(
             self.stock_notification_url,
             data={
-              'data':data
+              'data': data
             },
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
@@ -242,32 +242,31 @@ class EmailStockNotificationFormAJAXTest(TestCase):
         """Test email stock notification form AJAX user logged in."""
         self.client.force_login(self.user)
         data = (
-            '{"id":2,"options": '+
-            '{"color":"red","women clothing size":"xs"}, '+
+            '{"id":2,"options": ' +
+            '{"color":"red","women clothing size":"xs"}, ' +
             '"quantity":"1"}'
         )
         response = self.client.post(
             self.stock_notification_url,
             data={
-              'data':data
+              'data': data
             },
         )
         self.assertEquals(response.status_code, 200)
         self.assertEqual(response.json()['success'], False)
 
-
     def test_email_stock_notification_form_ajax_user_got_target(self):
         """Test email stock notification response for getting sku"""
         self.client.force_login(self.user)
         data = (
-            '{"id":2,"options": '+
-            '{"color":"red","women clothing size":"xs"}, '+
+            '{"id":2,"options": ' +
+            '{"color":"red","women clothing size":"xs"}, ' +
             '"quantity":"1"}'
         )
         response = self.client.post(
             self.stock_notification_url,
             data={
-              'data':data
+              'data': data
             },
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
