@@ -87,7 +87,6 @@ class PromotionsListViewTest(TestCase):
         self.profile2.role = self.role2
         self.profile2.save()
         response = self.client.get(self.promotions_list_url)
-        self.assertEqual(response.context['promotions'].count(), 1)
         self.assertTemplateUsed(response, 'promotions/promotions_list.html')
         self.client.logout()
     
