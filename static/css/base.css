@@ -1048,3 +1048,71 @@ input[name=quantity] {
 .modal {
   z-index: 99999999999;
 }
+
+
+/* Pagination */
+
+.pagination {
+  max-width: 14rem;
+  width: 50vw;
+  /* width: 100%; */
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 1em 0;
+  position: relative;
+}
+
+.pagination__navigation,
+.pagination__location {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+}
+
+.pagination__location {
+  position: absolute;
+}
+
+.pagination__navigation {
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+}
+
+.pagination__location {
+  color: var(--clr-text--500)
+}
+
+.pagination__location span {
+  color: var(--clr-text--900);
+  margin: 0 0.25em;
+  font-weight: 900;
+}
+
+.pagination__navigation--btn {
+  background-color: var(--clr-primary--300);
+  padding: 0.1em 0.5em;
+  border-radius: var(--br);
+  color: var(--clr-text--100);
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pagination__navigation--btn:hover {
+  background-color: var(--clr-btn-edit--900);
+  color: var(--clr-accent--200);
+}
+
+.pagination__navigation--fake {
+  background-color: var(--clr-primary--200);
+  padding: 0.2em 1em;
+  border-radius: var(--br);
+  color: var(--clr-text--100);
+  font-size: 1.6rem;
+  font-weight: 900;
+}
