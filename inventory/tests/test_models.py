@@ -1,5 +1,8 @@
 """Tests for the models in the inventory app."""
 from django.test import TestCase
+from django.core import mail
+from django.contrib.auth.models import User
+from profiles.models import Role, Profile
 from inventory.models import (
     Category,
     Tag,
@@ -14,6 +17,7 @@ from inventory.models import (
     ProductAttributeValues,
     ProductTypeAttribute,
 )
+from email_notifications.models import StockEmailNotification
 import cloudinary
 import cloudinary.uploader
 
@@ -23,6 +27,41 @@ class TestModels(TestCase):
 
     def setUp(self):
         """Set up the test."""
+        # create users
+        self.role1 = Role.objects.create(
+            name='Customer',
+            description='Customer'
+        )
+        self.role2 = Role.objects.create(
+            name='Manager',
+            description='Manager'
+        )
+        self.role3 = Role.objects.create(
+            name='Admin',
+            description='Admin'
+        )
+        self.user = User.objects.create_user(
+            username='testuser',
+            password='Password987',
+            email='testuser@gmail.com'
+        )
+        self.user2 = User.objects.create_user(
+            username='testuser2',
+            password='Password987',
+            email='testuser2@gmail.com'
+        )
+        self.user3 = User.objects.create_user(
+            username='testuser3',
+            password='Password987',
+            email='admin@gmail.com'
+        )
+        self.profile1 = Profile.objects.get(id=self.user.profile.id)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
         self.category1 = Category.objects.create(
             name='Clothing',
             slug='clothing',
@@ -673,6 +712,53 @@ class TestModels(TestCase):
         self.stock1.save()
         self.assertEqual(self.product_inventory1.is_active, False)
         self.assertEqual(self.product_inventory2.is_active, False)
+
+    def test_email_sent_to_user(self):
+        """Test email sent to user."""
+        self.assertEqual(len(mail.outbox), 0)
+        self.stock1.units = 5
+        self.stock1.save()
+        self.assertEqual(len(mail.outbox), 0)
+        stock_email_notification = StockEmailNotification.objects.create(
+            user=self.user,
+            requested_product=self.product1,
+            requested_quantity=50,
+            answer_sent=False
+        )
+        stock_email_notification2 = StockEmailNotification.objects.create(
+            user=self.user2,
+            requested_product=self.product1,
+            requested_quantity=20,
+            answer_sent=True
+        )
+        stock_email_notification3 = StockEmailNotification.objects.create(
+            user=self.user3,
+            requested_product=self.product1,
+            requested_quantity=100,
+            answer_sent=False
+        )
+        stock_email_notification.save()
+        self.assertEqual(len(mail.outbox), 4)
+        stock_email_notification2.save()
+        self.assertEqual(len(mail.outbox), 5)
+        stock_email_notification3.save()
+        self.assertEqual(len(mail.outbox), 6)
+        self.assertEqual(
+            stock_email_notification.
+            get_all_requested_attributes_values_objects(), ''
+        )
+        stock_email_notification.requested_attributes_values.add(
+          self.product_attr_value1
+        )
+        stock_email_notification.requested_attributes_values.add(
+          self.product_attr_value2
+        )
+        stock_email_notification2.requested_attributes_values.add(
+          self.product_attr_value1
+        )
+        self.stock1.units = 50
+        self.stock1.save()
+        self.assertEqual(len(mail.outbox), 8)
 
     def test_get_high_sales_fewer_products(self):
         """Test get_high_sales method."""
