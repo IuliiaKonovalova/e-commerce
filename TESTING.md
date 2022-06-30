@@ -37,8 +37,6 @@ python3 -m http.server
 ![Django unit testing. Profiles. Coverage](documentation/testing/coverage/coverage_profiles.png)
 The missing coverage is due to the fact that I was not able to test the edit profile view on the password form. The description of the view is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
 
-![Django unit testing. Profiles. Coverage. Missing](documentation/testing/coverage/coverage_profiles_views_missing.png)
-
 **Bag app:**
 
 ![Django unit testing. Bag. Coverage](documentation/testing/coverage/coverage_bag.png)
@@ -51,6 +49,10 @@ The missing coverage is due to the fact that I was not able to test the edit pro
 
 ![Django unit testing. Promotions. Coverage](documentation/testing/coverage/coverage_promotions.png)
 
+**Email_notification app:**
+
+![Django unit testing. Email_notification. Coverage](documentation/testing/coverage/coverage_email_notification.png)
+The missing coverage is due to the fact that I was not able to test fully ```EmailStockNotificationFormAJAX```. The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
 
 
 ### Django unit testing Issues
@@ -210,6 +212,8 @@ I imported ```bag_contents``` into views.py file. and used to get the total spen
 
 1. I was getting an error message when I tried multiple times to test JsonResponse response on Password change.
 
+![Django unit testing. Profiles. Coverage. Missing](documentation/testing/coverage/coverage_profiles_views_missing.png)
+
 I have made the following steps to solve this issue:
 
 ```python
@@ -242,7 +246,15 @@ The following screenshot will confirm that the passwords in both cases were hash
 ![Testing JsonResponse on Password change](documentation/testing/tests_issues3.png)
 As it might seem, I am not able to test the response of the JsonResponse.
 
+2. I was getting an error message when I tested ```EmailStockNotificationFormAJAX```. This errors because testing wasn't working correctly as it wasn't confirming the existence of the ```self.product_inventory1``` and relevant ```self.attribute_values1``` and ```self.attribute_values2```.
 
+![Django unit testing. Email notifications. Coverage. Missing](documentation/testing/coverage/coverage_email_notification_missing.png)
+
+However, the view is working correctly. It is **checking** for the existence of the ```self.product_inventory1```. It loop through all possible product_inventories of a product and checking whether a product_inventory with received ```attribute_values``` are present in the table. If so, it returns this product_inventory and checks the units available. If there is enough units in stock, it doesn't send the email and returns an alert message to the page.
+
+![Proof of correct functionality of EmailStockNotificationFormAJAX. Not enough in stock](documentation/testing/email_stock_view1.png)
+
+![Proof of correct functionality of EmailStockNotificationFormAJAX. Enough in stock](documentation/testing/email_stock_view2.png)
 
 ## Bugs
 
