@@ -25,13 +25,10 @@ class StockEmailNotification(admin.ModelAdmin):
         'requested_quantity',
         'created_at',
         'answer_sent',
-        'Requested_values'
+        'get_all_requested_attributes_values_objects'
     )
     list_filter = ('user', 'requested_product')
     search_fields = ('user', 'requested_product')
     ordering = ('-created_at',)
     date_hierarchy = 'created_at'
     list_per_page = 25
-
-    def Requested_values(self, obj):
-        return obj.requested_attributes_values.all()
