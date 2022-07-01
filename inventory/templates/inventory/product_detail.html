@@ -226,6 +226,8 @@
     $(document).ready(function() {
       let product_inventory_id = 0
       let itemQuantity = 1
+      let quantityFinal = 0;
+      let is_match = false;
       console.log('product_inventory_id: ' + product_inventory_id)
       console.log('itemQuantity: ' + itemQuantity)
       let product_id = $('#product').data('id');
@@ -501,7 +503,7 @@
           let price = 0;
           let quantity = 0;
           for (let stockOption of values_list) {
-            let is_match = true;
+            is_match = true;
             for (let key in stockOption) {
               if (key != "Quantity" && key != "Price" && key != "id") {
                 if (stockOption[key] != chosen_attributes[key]) {
@@ -556,8 +558,8 @@
             $('#quantity-warning-message').text('Only ' + itemQuantity + ' items available');
           }
         });
-        let is_match
-        let quantityFinal = 0;
+        //let is_match
+        //let quantityFinal = 0;
 
         const checkReadyToPurchase = (values_list, chosen_attributes) => {
           for (let stockOption of values_list) {
@@ -602,6 +604,7 @@
           }
         }
       } else if (valuesSetActive.length == 0 && values_list_array.length == 1) {
+        //let quantityFinal = 0;
         console.log(values_list);
         console.log(values_list_array);
         console.log('HUY');
@@ -888,10 +891,30 @@
       });
 
 
-
-
-    })
-
-
+      // If user is LOGGED OUT:
+      // check if #ask-user-to-log-in is present
+      if ($('#ask-user-to-log-in').length) {
+        //add click event listener to the button
+        $('#ask-user-to-log-in').on('click', function(e) {
+          e.preventDefault();
+          // remove message block
+          $('#messages-notes').remove();
+          // add the message block with login or register link
+          $('.product__main').before('<div class="message-container" id="messages-notes">' +
+            '<div class="message-container__message">' +
+              '<p>Please login to continue!</p>' +
+            '</div>' +
+          '</div>');
+          // add 3 blinks for the .enter
+          $('.enter').effect('highlight', {
+            color: '#ff0000'
+          }, 3000);
+          // remove the message block after 3 seconds
+          setTimeout(() => {
+            $('#messages-notes').remove();
+          }, 3000);
+        });
+      }
+    });
   </script>
 {% endblock %}
