@@ -3,7 +3,17 @@
 
 {% block content %}
 <div class="product__main">
-  <div>
+  <div class="product__main--image">
+    {% if product.get_sale_price_is_lower_than_store_price %}
+      <div class="product__card--discount">
+        <img src="{% static 'images/sale.png' %}" alt="sale Image">
+      </div>
+    {% endif %}
+    {% if product.get_recently_created %}
+      <div class="product__card--new">
+        New !
+      </div>
+    {% endif %}
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
       {% if active_images and active_images|length > 1 %}
         {% for image in active_images %}
@@ -186,13 +196,8 @@
                 <div class="btn-group in_modal" role="group" aria-label="Basic radio toggle button group" data-group-name="{{ k }}">
                   {% for item in v %}
                     {% if item in values_set %}
-                      {% if item in values_set_active %}
                         <input type="radio" class="btn-check option in_modal" name="request-{{ k }}" id="request-{{ item }}" value="{{ item }}" autocomplete="off">
                         <label class="btn btn-outline-primary" for="request-{{ item }}">{{ item }}</label>
-                      {% else %}
-                        <input type="radio" class="btn-check option in_modal" name="request-{{ k }}" id="request-{{ item }}" value="{{ item }}" autocomplete="off">
-                        <label class="btn btn-outline-primary disabled" style="background-color: {{ item }}" for="request-{{ item }}">{{ item }}</label>
-                      {% endif %}
                     {% endif %}
                   {% endfor %}
                 </div>
@@ -200,15 +205,12 @@
             </div>
           {% endfor %}
           {% comment %} Quatnity field {% endcomment %}
-          <div class="form__section form__section--quantity">
+          <div class="form__section form__section--quantity modal__quantity">
             <div class="product__options--title">Quantity:</div>
             <div class="product__options--quantity-input">
               <input type="number" name="required-quantity" value="1" min="1" max="150" id="">
             </div>
           </div>
-
-
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -791,9 +793,28 @@
           }
         })
       });
+      // if modal is opened, $('#messages-notes').remove();
+      $('#exampleModal').on('show.bs.modal', function(e) {
+        $('#messages-notes').remove();
+        //$('.btn_ok_in_modal').addClass('disabled');
+        // check if it has any options__request
+        if ($('.options__request').length) {
+          // check if user checked 1 in each btn-group
+          // add event listener to each btn-group
+
+          if ($('.btn-check:checked').length == $('.btn-group .in_modal').length) {
+            // if yes, add the button
+            //enable send button in modal
+            //$('.btn_ok_in_modal').removeClass('disabled');
+          }
+        }
+
+      });
 
       $('.btn_ok_in_modal').on('click', function(e) {
           e.preventDefault();
+          // close the modal
+          $('#exampleModal').modal('hide');
           let productRequestOptions = {
             id: product_id,
             options: {},
@@ -828,10 +849,11 @@
             success: function(data) {
               console.log(data);
               console.log('success');
-              if (data.message_alert) {
+              if (data.alert_message) {
+                $('#messages-notes').remove();
                 $('.product__main').before('<div class="message-container" id="messages-notes">' +
                   '<div class="message-container__message">' +
-                  '<p class="message-container__message--text">' + data.message_alert + '</p>' +
+                  '<p class="message-container__message--text">' + data.alert_message + '</p>' +
                   '</div>' +
                   '</div>');
               }
@@ -841,12 +863,14 @@
             },
             error: function(data) {
               console.log('error');
-              $('#messages-notes').remove();
-              $('.bag').before('<div class="message-container" id="messages-notes">' +
-                '<div class="message-container__message">' +
-                '<p class="message-container__message--text">Something went wrong</p>' +
-                '</div>' +
-                '</div>');
+              if (data.alert_message) {
+                $('#messages-notes').remove();
+                $('.product__main').before('<div class="message-container" id="messages-notes">' +
+                  '<div class="message-container__message">' +
+                  '<p class="message-container__message--text">' + data.alert_message + '</p>' +
+                  '</div>' +
+                  '</div>');
+              }
               // remove the message block after 3 seconds
               setTimeout(() => {
                 $('#messages-notes').remove();
