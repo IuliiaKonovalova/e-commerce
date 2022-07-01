@@ -14,6 +14,12 @@
       </div>
     {% else %}
       {% if bag_items %}
+        {% comment %} Clean bag fully {% endcomment %}
+        <div class="bag__clean">
+          <div class="btn bag__items--clean" id="bag-clean" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            clear the bag
+          </div>
+        </div>
         <div id="bag-table">
           <div class="bag__items">
             {% comment %} Table header {% endcomment %}
@@ -44,7 +50,7 @@
                 </div>
                 {% comment %} Product's name {% endcomment %}
                 <a href="{% url 'product_detail' pk=item.product_inventory.product.id %}"
-                  aria-label="Go to {{ item.product_inventory.product.name }}">
+                  aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link">
                   {{ item.product_inventory.product.name|truncatechars:25 }}
                   <i class="fa fa-external-link" aria-hidden="true"></i>
                 </a>
@@ -97,19 +103,23 @@
             {% comment %} Checkout button {% endcomment %}
             <a href="#" class="btn bag__checkout">Checkout</a>
           </div>
-          {% comment %} Clean bag fully {% endcomment %}
-          <div class="bag__clean">
-            <div class="btn bag__items--clean" id="bag-clean">
-              clear the bag
-            </div>
-            <div class="bag__clean--dropdown hidden" id="bag__clean--dropdown">
-              <p class="bag__clean--text">Do you want to empty your bag?</p>
-              <div class="bag__clean--buttons">
-                <button href="#" class="bag__items--clean btn bag__clean--yes" id="clean-confirm">
+        </div>
+
+        {% comment %} Modal {% endcomment %}
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Please fill out the form below!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Do you want to empty your bag?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <button type="button" class="btn btn-primary confirm__email--require btn_ok_in_modal" data-id="" id="clean-confirm">
                   Yes
-                </button>
-                <button href="#" class="bag__items--clean btn bag__clean--no" id="clean-cancel">
-                  No
                 </button>
               </div>
             </div>
@@ -336,7 +346,7 @@
         });
       });
 
-      $('#bag-clean').on('click', (e) => {
+      {% comment %} $('#bag-clean').on('click', (e) => {
         e.preventDefault();
         // add hidden class to the clean bag dropdown
         $('#bag__clean--dropdown').toggleClass('hidden');
@@ -348,11 +358,13 @@
       $('#clean-cancel').on('click', (e) => {
         e.preventDefault();
         $('.bag__clean--dropdown').addClass('hidden');
-      });
+      }); {% endcomment %}
 
       // remove all items from bag
       $('#clean-confirm').on('click', (e) => {
         e.preventDefault();
+        // close modal
+        $('#exampleModal').modal('hide');
         $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
         $.ajax({
           url: "{% url 'remove_all_bag' %}",
@@ -361,6 +373,8 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'
           },
           success: function (data) {
+            // hide clean bag button
+            $('#bag-clean').hide();
             // update shopping bag in navbar
             $('#shopping-bag-count').text(data.product_count);
             // add div to the page above the bag class with the message
