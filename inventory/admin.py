@@ -1,3 +1,4 @@
+"""Admin for the Inventory app."""
 from django.contrib import admin
 from .models import (
     Category,
@@ -104,7 +105,7 @@ class ProductInventoryAdmin(admin.ModelAdmin):
         'sale_price',
         'weight',
         'is_active',
-        'get_attribute_values',
+        'get_all_attribute_values_str',
     )
     list_filter = ('sku', 'upc', 'product', 'product_type', 'is_active')
     search_fields = ('sku', 'upc', 'product', 'product_type')
