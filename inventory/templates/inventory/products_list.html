@@ -12,6 +12,11 @@
                 <img src="{% static 'images/sale.png' %}" alt="sale Image">
               </div>
             {% endif %}
+            {% if product.get_recently_created %}
+              <div class="product__card--new">
+                New !
+              </div>
+            {% endif %}
             <div class="product__card--image">
               {% if product.images.all %}
                 <img src="{{ product.get_main_image }}" alt="Cover image for {{ product.name }}">
