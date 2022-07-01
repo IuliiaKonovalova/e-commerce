@@ -277,12 +277,12 @@ class Product(models.Model):
             return (
                 'https://res.cloudinary.com/learning-coding/image/uploa' +
                 'd/v1656240479/default_product_image.png'
-            ) 
+            )
         else:
             return (
                 'https://res.cloudinary.com/learning-coding/image/uploa' +
                 'd/v1656240479/default_product_image.png'
-            ) 
+            )
 
     def get_out_of_stock(self):
         """Get out of stock products"""
@@ -619,6 +619,15 @@ class ProductInventory(models.Model):
         """String representation of Product inventory model"""
         return self.upc + ' - ' + self.sku
 
+    def get_all_attribute_values_str(self):
+        """Get all attribute values as string"""
+        attribute_values_str = ''
+        for attribute_value in self.attribute_values.all():
+            attr = str(attribute_value.product_attribute.name)
+            value = str(attribute_value.attribute_value)
+            attribute_values_str += attr + ': ' + value + ' '
+        return attribute_values_str
+
     @classmethod
     def get_active_product_inventories(cls):
         """Get active product inventories"""
@@ -722,7 +731,7 @@ class Stock(models.Model):
         if len(recipients) > 0:
             subject = 'Stock email notification'
             message = (
-                'Product ' + self.product_inventory.product.name + \
+                'Product ' + self.product_inventory.product.name +
                 ' is in stock. Please visit the website to order.'
             )
             send_mail(
