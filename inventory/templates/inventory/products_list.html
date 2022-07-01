@@ -87,6 +87,10 @@
       //loop through .wishlist__control
       $('.wishlist__control').each(function () {
         $(this).on('click', function(e) {
+          if ($('#messages-notes').length !== 0) {
+            console.log('messages-notes');
+            $('#messages-notes').remove();
+          }
           let product_id = $(this).data('id');
           console.log(product_id);
         // stop propagation to prevent default behavior

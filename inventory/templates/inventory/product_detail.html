@@ -751,6 +751,9 @@
 
       // add-to/remove-from wishlist
       $('#wishlist-control').on('click', function(e) {
+        if ($('#messages-notes').length !== 0) {
+          $('#messages-notes').remove();
+        }
         e.preventDefault();
         $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
         // AJAX request to add item to the wishlist
