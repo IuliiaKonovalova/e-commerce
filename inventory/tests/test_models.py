@@ -678,6 +678,13 @@ class TestModels(TestCase):
             '11111 - 11111'
         )
 
+    def test_get_all_attribute_values_str(self):
+        """Test get all attribute values str method"""
+        self.assertEqual(
+            str(self.product_inventory1.get_all_attribute_values_str()),
+            'color: red women clothing size: xs '
+        )
+
     def test_get_active_product_inventory(self):
         """Test get_active_product_images method."""
         self.assertQuerysetEqual(
