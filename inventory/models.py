@@ -1,4 +1,5 @@
 """Models for the inventory app."""
+from datetime import datetime, timedelta
 from django.db import models
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
@@ -258,6 +259,12 @@ class Product(models.Model):
     def get_not_active_products(cls):
         """Get not active products"""
         return cls.objects.filter(is_active=False).order_by('name')
+
+    def get_recently_created(self):
+        """Get recently created products"""
+        # if created 7 days ago, return True
+        created_at = self.created_at.replace(tzinfo=None)
+        return created_at >= datetime.now() - timedelta(days=7)
 
     def get_tags(self):
         """Get all tags of product"""
