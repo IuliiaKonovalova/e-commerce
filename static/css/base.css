@@ -665,6 +665,14 @@ input[name=quantity] {
   width: 5vw;
 }
 
+.bag__item--link {
+  color: var(--clr-accent--700);
+}
+
+.bag__item--link:hover {
+  color: var(--clr-accent--900);
+}
+
 .bag__item--values,
 .bag__item--quantity {
   display: flex;
@@ -684,37 +692,21 @@ input[name=quantity] {
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
+  position: relative;
 }
 
 .btn.bag__items--clean {
   background-color: var(--clr-primary--200);
   color: var(--clr-text--500);
   box-shadow: var(--box-shadow-buttons);
+  position: absolute;
+  top: -2rem;
+  right: 0;
 }
 
 .btn.bag__items--clean:hover {
   color: var(--clr-text--900);
   box-shadow: unset;
-}
-
-.bag__clean--dropdown {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.bag__clean--text {
-  margin: 2vh auto;
-}
-
-.bag__clean--buttons {
-  display: flex;
-  width: 100%;
-  max-width: 10rem;
-  justify-content: space-around;
-  align-items: center;
 }
 
 
@@ -752,14 +744,18 @@ input[name=quantity] {
 }
 
 /* Checkout Button */
-.btn.bag__checkout {
+.btn.bag__checkout,
+.btn.add__to--bag,
+.btn.bag__account {
 
   background-color: var(--clr-accent--700);
   color: var(--clr-text--100);
   box-shadow: var(--box-shadow-buttons);
 }
 
-.btn.bag__checkout:hover {
+.btn.bag__checkout:hover,
+.btn.add__to--bag:hover,
+.btn.bag__account:hover {
   background-color: var(--clr-accent--900);
   color: var(--clr-text--100);
 }
@@ -1145,4 +1141,8 @@ input[name=quantity] {
   color: var(--clr-text--100);
   font-size: 1.6rem;
   font-weight: 900;
+}
+
+.blink {
+  background-color: red;
 }
