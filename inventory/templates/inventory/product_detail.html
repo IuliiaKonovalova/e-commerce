@@ -169,11 +169,11 @@
       {% comment %} Add to bag button {% endcomment %}
       <div class="form__section">
         {% if request.user.is_authenticated %}
-          <button class="btn btn-primary disabled product__options--input" id="add-to-bag-button" type="submit" data-attributevalue="add-to-bag">
+          <button class="btn disabled product__options--input add__to--bag" id="add-to-bag-button" type="submit" data-attributevalue="add-to-bag">
             Add to bag
           </button>
         {% else %}
-          <button class="btn btn-primary product__options--input" id="ask-user-to-log-in">
+          <button class="btn product__options--input add__to--bag" id="ask-user-to-log-in">
             Add to bag
           </button>
         {% endif %}
@@ -352,7 +352,7 @@
             if (availableAll == false) {
               $('.product__main').before('<div class="message-container" id="messages-notes">' +
                 '<div class="message-container__message">' +
-                  '<p>Would you like to be notified when particular product\'s options are back in stock?</p>' +
+                  '<p>Order notification about stock updates</p>' +
                     '<div class="message-container__buttons">' +
                       '<button class="btn btn-primary" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
                       '<button class="btn btn-primary btn__no" id="no-button">No</button>' +
@@ -419,7 +419,7 @@
                     $('#messages-notes').remove();
                     $('.product__main').before('<div class="message-container" id="messages-notes">' +
                       '<div class="message-container__message">' +
-                        '<p>Would you like to be notified when particular product\'s options are back in stock?</p>' +
+                        '<p>Order notification about stock updates</p>' +
                           '<div class="message-container__buttons">' +
                             '<button class="btn btn-primary" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
                             '<button class="btn btn-primary btn__no" id="no-button">No</button>' +
@@ -672,7 +672,7 @@
           if (availableAll == false) {
             $('.product__main').before('<div class="message-container" id="messages-notes">' +
               '<div class="message-container__message">' +
-                '<p>Would you like to be notified when this product is back in stock?</p>' +
+                '<p>Order notification about stock updates</p>' +
                   '<div class="message-container__buttons">' +
                     '<button class="btn btn-primary" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
                     '<button class="btn btn-primary btn__no" id="no-button">No</button>' +
