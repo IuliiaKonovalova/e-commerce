@@ -173,7 +173,7 @@
             Add to bag
           </button>
         {% else %}
-          <button class="btn btn-primary product__options--input">
+          <button class="btn btn-primary product__options--input" id="ask-user-to-log-in">
             Add to bag
           </button>
         {% endif %}
@@ -813,8 +813,6 @@
 
       $('.btn_ok_in_modal').on('click', function(e) {
           e.preventDefault();
-          // close the modal
-          $('#exampleModal').modal('hide');
           let productRequestOptions = {
             id: product_id,
             options: {},
@@ -828,6 +826,8 @@
             console.log('group_value ' + group_value);
             productRequestOptions.options[group_name] = group_value;
           });
+          let optionAmount = $('.options__request').length;
+          let optionChecked = $('.modal .btn-check:checked').length;
           let quantity = $('.modal-body input[name="required-quantity"]').val();
           console.log('quantity ' + quantity);
           productRequestOptions['quantity'] = quantity;
@@ -839,54 +839,56 @@
           let data = JSON.stringify(productRequestOptions);
           console.log('data ' + data);
           //AJAX request to add item to the StockEmailNotification table
-          $.ajax({
-            url: "{% url 'add_to_stock_email_notification' %}",
-            type: "POST",
-            data: {
-              'data': data,
-              'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function(data) {
-              console.log(data);
-              console.log('success');
-              if (data.alert_message) {
-                $('#messages-notes').remove();
-                $('.product__main').before('<div class="message-container" id="messages-notes">' +
-                  '<div class="message-container__message">' +
-                  '<p class="message-container__message--text">' + data.alert_message + '</p>' +
-                  '</div>' +
-                  '</div>');
+          if (optionAmount === optionChecked) {
+          // close the modal
+          $('#exampleModal').modal('hide');
+            $.ajax({
+              url: "{% url 'add_to_stock_email_notification' %}",
+              type: "POST",
+              data: {
+                'data': data,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+              },
+              success: function(data) {
+                console.log(data);
+                console.log('success');
+                if (data.alert_message) {
+                  $('#messages-notes').remove();
+                  $('.product__main').before('<div class="message-container" id="messages-notes">' +
+                    '<div class="message-container__message">' +
+                    '<p class="message-container__message--text">' + data.alert_message + '</p>' +
+                    '</div>' +
+                    '</div>');
+                }
+                setTimeout(() => {
+                  $('#messages-notes').remove();
+                }, 3000);
+              },
+              error: function(data) {
+                console.log('error');
+                if (data.alert_message) {
+                  $('#messages-notes').remove();
+                  $('.product__main').before('<div class="message-container" id="messages-notes">' +
+                    '<div class="message-container__message">' +
+                    '<p class="message-container__message--text">' + data.alert_message + '</p>' +
+                    '</div>' +
+                    '</div>');
+                }
+                // remove the message block after 3 seconds
+                setTimeout(() => {
+                  $('#messages-notes').remove();
+                }, 3000);
               }
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 3000);
-            },
-            error: function(data) {
-              console.log('error');
-              if (data.alert_message) {
-                $('#messages-notes').remove();
-                $('.product__main').before('<div class="message-container" id="messages-notes">' +
-                  '<div class="message-container__message">' +
-                  '<p class="message-container__message--text">' + data.alert_message + '</p>' +
-                  '</div>' +
-                  '</div>');
-              }
-              // remove the message block after 3 seconds
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 3000);
-            }
-          })
+            })
+          } else {
+            // change inner text in .modal-title
+            $('.modal-title').text('Please select all options');
+          }
         
       });
 
 
 
-
-
-      // listen if availableAll = false is
-      // if availableAll = false is, then show the message
-      
 
     })
 
