@@ -288,6 +288,21 @@ img {
   width: 5rem;
 }
 
+.product__card--new {
+  position: absolute;
+  top: 1.2rem;
+  left: -0.4rem;
+  height: 3rem;
+  width: 5rem;
+  font-weight: 900;
+  background-color: var(--clr-btn-delete--500);
+  color: var(--clr-text--100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
 .product__card--content,
 .wishlist__item--content {
   position: relative;
@@ -327,6 +342,10 @@ img {
   display: grid;
   grid-template-columns: 1fr 1fr;
   background-color: #06032e;
+}
+
+.product__main--image {
+  position: relative;
 }
 
 .product__images {
@@ -430,6 +449,17 @@ img {
 
 .form__section--quantity {
   position: relative;
+}
+
+.modal__quantity {
+  display: flex;
+  align-items: center;
+}
+
+.modal__quantity input {
+  font-size: 1.2rem !important;
+  max-width: 4rem !important;
+  padding: 0.2em 0.5rem !important;
 }
 
 .quantity__warning {
