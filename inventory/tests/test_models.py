@@ -1,5 +1,6 @@
 """Tests for the models in the inventory app."""
 from django.test import TestCase
+from datetime import datetime, timedelta
 from django.core import mail
 from django.contrib.auth.models import User
 from profiles.models import Role, Profile
@@ -329,6 +330,13 @@ class TestModels(TestCase):
         self.assertQuerysetEqual(
             Product.get_not_active_products(),
             [self.product2]
+        )
+
+    def test_get_recently_created_products(self):
+        """Test get_recently_created_products method."""
+        self.assertTrue(
+            self.product1.get_recently_created(),
+            True
         )
 
     def test_get_tags_for_product(self):
