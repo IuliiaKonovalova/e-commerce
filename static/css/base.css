@@ -1034,15 +1034,17 @@ input[name=quantity] {
 }
 
 .products__table--row {
-  grid-template-columns: 0.1fr 0.5fr 0.5fr 0.8fr 0.4fr 0.4fr 0.4fr 0.2fr 0.3fr 0.2fr 0.1fr;
+  grid-template-columns: 0.1fr 0.7fr 0.5fr 0.8fr 0.4fr 0.4fr 0.2fr 0.2fr 0.1fr;
 
   background-color: #06032e;
   padding: 0;
+  /* gap: 0.1em; */
   gap: 0;
 }
 
 .products__table--cell {
   background-color: var(--clr-primary--100);
+  color: var(--clr-text--900);
   width: 100%;
   height: 100%;
   display: flex;
@@ -1054,11 +1056,27 @@ input[name=quantity] {
 }
 
 .products__table--title {
-  background-color: orange;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 1.5em;
+  height: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.green {
+  border: 3px solid green;
+}
+
+.red {
+  border: 3px solid var(--clr-btn-delete--500)
 }
 
 
@@ -1182,6 +1200,7 @@ input[name=quantity] {
   font-weight: 900;
   text-decoration: none;
   cursor: pointer;
+  z-index: 9999;
 }
 
 .pagination__navigation--btn:hover {
@@ -1191,7 +1210,7 @@ input[name=quantity] {
 
 .pagination__navigation--fake {
   background-color: var(--clr-primary--200);
-  padding: 0.2em 1em;
+  padding: 0.1em 0.5em;
   border-radius: var(--br);
   color: var(--clr-text--100);
   font-size: 1.6rem;
