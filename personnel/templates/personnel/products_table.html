@@ -13,6 +13,7 @@
           <div class="products__table--title">Category</div>
           <div class="products__table--title">Tags</div>
           <div class="products__table--title">Brand</div>
+          <div class="products__table--title">Price<br> Range</div>
           <div class="products__table--title">Img</div>
           <div class="products__table--title">Active</div>
           <div class="products__table--title">Sale</div>
@@ -36,7 +37,43 @@
                 <div>{{ tag.name }}</div>
               {% endfor %}
             </div>
+            {% comment %} Price Range {% endcomment %}
             <div class="products__table--cell">{{ product.brand }}</div>
+                    <div class="products__table--cell">
+              <div class="">
+                {% if product.get_out_of_stock %}
+                  <div class="product__card--price price__sale">
+                    <i class="fa fa-times-circle"></i>
+                  </div>
+                {% elif product.get_same_sale_price %}
+                  {% if product.get_sale_price_is_lower_than_store_price %}
+                    <div class="product__card--price price__regular">
+                      $ {{ product.get_lowest_store_price }}
+                    </div>
+                    <div class="product__card--price price__sale">
+                      $ {{ product.get_lowest_price }}
+                    </div>
+                  {% else %}
+                    <div class="product__card--price">
+                      $ {{ product.get_lowest_price }}
+                    </div>
+                  {% endif %}
+                {% else %}
+                  {% if product.get_sale_price_is_lower_than_store_price %}
+                    <div class="product__card--price price__regular">
+                      $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                    </div>
+                    <div class="product__card--price price__sale">
+                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    </div>
+                  {% else %}
+                    <div class="product__card--price">
+                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div>
             <div class="products__table--cell">
               {% if product.get_all_active_images %}
                 {{ product.get_all_active_images }}
@@ -88,39 +125,7 @@
               {{ product.name }}
             </div>
             <div class="product__card--content">
-              <div class="product__card--prices">
-                {% if product.get_out_of_stock %}
-                  <div class="product__card--price price__sale">
-                    <p>Out of stock</p>
-                  </div>
-                {% elif product.get_same_sale_price %}
-                  {% if product.get_sale_price_is_lower_than_store_price %}
-                    <div class="product__card--price price__regular">
-                      $ {{ product.get_lowest_store_price }}
-                    </div>
-                    <div class="product__card--price price__sale">
-                      $ {{ product.get_lowest_price }}
-                    </div>
-                  {% else %}
-                    <div class="product__card--price">
-                      $ {{ product.get_lowest_price }}
-                    </div>
-                  {% endif %}
-                {% else %}
-                  {% if product.get_sale_price_is_lower_than_store_price %}
-                    <div class="product__card--price price__regular">
-                      $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
-                    </div>
-                    <div class="product__card--price price__sale">
-                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
-                    </div>
-                  {% else %}
-                    <div class="product__card--price">
-                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
-                    </div>
-                  {% endif %}
-                {% endif %}
-              </div>
+              
             </div> {% endcomment %}
         </div>
       {% endfor %}
