@@ -291,6 +291,14 @@ class Product(models.Model):
                 'd/v1656240479/default_product_image.png'
             )
 
+    def get_all_active_images(self):
+        """Get all active images of product"""
+        images = ProductImage.objects.filter(product=self)
+        if images.exists():
+            return images.filter(is_active=True).count()
+        else:
+            return False
+
     def get_out_of_stock(self):
         """Get out of stock products"""
         active_sales_prices = ProductInventory.objects.filter(
@@ -384,7 +392,6 @@ class Product(models.Model):
             return highest_price.store_price
         else:
             return None
-
 
 class ProductImage(models.Model):
     """Product image model"""
