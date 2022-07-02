@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+
+
+            </div>
+          </div>
+        <div class="product">
+            {% comment %} <div class="product__card--image">
+              {% if product.images.all %}
+                <img src="{{ product.get_main_image }}" alt="Cover image for {{ product.name }}">
+              {% else %}
+                <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+              {% endif %}
+            </div>
+            <div class="product__card--name">
+              {{ product.name }}
+            </div>
+            <div class="product__card--content">
+              <div class="product__card--prices">
+                {% if product.get_out_of_stock %}
+                  <div class="product__card--price price__sale">
+                    <p>Out of stock</p>
+                  </div>
+                {% elif product.get_same_sale_price %}
+                  {% if product.get_sale_price_is_lower_than_store_price %}
+                    <div class="product__card--price price__regular">
+                      $ {{ product.get_lowest_store_price }}
+                    </div>
+                    <div class="product__card--price price__sale">
+                      $ {{ product.get_lowest_price }}
+                    </div>
+                  {% else %}
+                    <div class="product__card--price">
+                      $ {{ product.get_lowest_price }}
+                    </div>
+                  {% endif %}
+                {% else %}
+                  {% if product.get_sale_price_is_lower_than_store_price %}
+                    <div class="product__card--price price__regular">
+                      $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                    </div>
+                    <div class="product__card--price price__sale">
+                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    </div>
+                  {% else %}
+                    <div class="product__card--price">
+                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    </div>
+                  {% endif %}
+                {% endif %}
+              </div>
+            </div> {% endcomment %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <p> No products yet </p>
+    {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block postloadjs_extra %}
+
+{% endblock %}
