@@ -105,6 +105,53 @@
             </div>
           </a>
       {% endfor %}
+      </div>
+        {% comment %} Control Pagination {% endcomment %}
+        {% if products.paginator.num_pages %}
+          {% if not products.paginator.num_pages == 1 %}
+            <div class="pagination">
+              <div class="pagination__navigation">
+                {% if products.has_previous and not products.has_next %}
+                  <a href="?page={{ products.previous_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to previous page results">
+                    <i class="fas fa-chevron-left"></i>
+                  </a>
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-right"></i>
+                  </div>
+                {% elif products.has_next and not products.has_previous %}
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-left"></i>
+                  </div>
+                  <a href="?page={{ products.next_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to next page results">
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                {% elif products.has_next and products.has_previous %}
+                  <a href="?page={{ products.previous_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to previous page results">
+                    <i class="fas fa-chevron-left"></i>
+                  </a>
+                  <a href="?page={{ products.next_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to next page results">
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                {% else %}
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-left"></i>
+                  </div>
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-right"></i>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="pagination__location">
+                Page <span>{{ products.number }}</span> of {{ products.paginator.num_pages }}
+              </div>
+            </div>
+          {% endif %}
+        {% endif %}
+      </div>
     {% else %}
       <p> No products yet </p>
     {% endif %}
