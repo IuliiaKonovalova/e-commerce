@@ -393,6 +393,11 @@ class Product(models.Model):
         else:
             return None
 
+    def get_all_inventory(self):
+        """Get all inventory of product"""
+        return ProductInventory.objects.filter(product=self)
+
+
 class ProductImage(models.Model):
     """Product image model"""
     product = models.ForeignKey(
