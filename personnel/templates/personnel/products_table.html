@@ -13,7 +13,7 @@
           <div class="products__table--title">Category</div>
           <div class="products__table--title">Tags</div>
           <div class="products__table--title">Brand</div>
-          <div class="products__table--title">Price<br> Range</div>
+          <div class="products__table--title">($) Price<br> Range</div>
           <div class="products__table--title">Img</div>
           <div class="products__table--title">Active</div>
           <div class="products__table--title">Sale</div>
@@ -30,7 +30,7 @@
                 </div>
               {% endif %}
             </div>
-            <div class="products__table--cell">{{ product.description }}</div>
+            <div class="products__table--cell">{{ product.description|truncatechars:25 }}</div>
             <div class="products__table--cell">{{ product.category.name }}</div>
             <div class="products__table--cell">
               {% for tag in product.get_tags %}
@@ -48,27 +48,27 @@
                 {% elif product.get_same_sale_price %}
                   {% if product.get_sale_price_is_lower_than_store_price %}
                     <div class="product__card--price price__regular">
-                      $ {{ product.get_lowest_store_price }}
+                      {{ product.get_lowest_store_price }}
                     </div>
                     <div class="product__card--price price__sale">
-                      $ {{ product.get_lowest_price }}
+                      {{ product.get_lowest_price }}
                     </div>
                   {% else %}
                     <div class="product__card--price">
-                      $ {{ product.get_lowest_price }}
+                      {{ product.get_lowest_price }}
                     </div>
                   {% endif %}
                 {% else %}
                   {% if product.get_sale_price_is_lower_than_store_price %}
                     <div class="product__card--price price__regular">
-                      $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                      {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
                     </div>
                     <div class="product__card--price price__sale">
-                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                      {{ product.get_lowest_price }} - {{ product.get_highest_price }}
                     </div>
                   {% else %}
                     <div class="product__card--price">
-                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                      {{ product.get_lowest_price }} - {{ product.get_highest_price }}
                     </div>
                   {% endif %}
                 {% endif %}
