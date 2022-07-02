@@ -1023,6 +1023,28 @@ input[name=quantity] {
   position: relative;
 }
 
+/* ----------------- STOCK ----------------- */
+.dashboard {
+  background-color: orange;
+}
+
+.products__table {
+  color: var(--clr-text--900);
+}
+
+.products__table--row {
+  grid-template-columns: 0.1fr 1fr 1.5fr 0.5fr 0.5fr 0.5fr 0.2fr 0.3fr 0.2fr 0.2fr;
+  gap: 0.2rem;
+}
+
+.products__table--row .products__table--cell {
+  border: 0.2px solid var(--clr-accent--200);
+}
+
+.new {
+  color: var(--clr-text--100);
+  background-color: var(--clr-btn-delete--500);
+}
 
 
 /* --------- message-container ---------- */
