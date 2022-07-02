@@ -7,21 +7,30 @@
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="products__table">
         <div class="products__table--row table__titles">
-          <div class="products__table--title">ID</div>
-          <div class="products__table--title">Name</div>
-          <div class="products__table--title">Description</div>
-          <div class="products__table--title">Category</div>
-          <div class="products__table--title">Tags</div>
-          <div class="products__table--title">Brand</div>
-          <div class="products__table--title">($) Price<br> Range</div>
-          <div class="products__table--title">Img</div>
-          <div class="products__table--title">Active</div>
-          <div class="products__table--title">Sale</div>
-          <div class="products__table--title">PI</div>
+          <div class="products__table--cell">ID</div>
+          <div class="products__table--cell">Name</div>
+          <div class="products__table--cell">Description</div>
+          <div class="products__table--cell">Category</div>
+          <div class="products__table--cell">Tags</div>
+          <div class="products__table--cell">Brand</div>
+          {% comment %} <div class="products__table--cell">($) Price<br> Range</div> {% endcomment %}
+          <div class="products__table--cell">Img</div>
+          <div class="products__table--cell">Sale</div>
+          <div class="products__table--cell">PI</div>
         </div>
         {% for product in products %}
-          <div class="products__table--row">
-            <div class="products__table--cell">{{ product.id }}</div>
+          <a class="products__table--row" href="{% url 'product_detail' pk=product.id %}">
+            <div class="products__table--cell">
+              {% if product.is_active %}
+                <div class="circle green">
+                  {{ product.id }}
+                </div>
+              {% else %}
+                <div class="circle red">
+                  {{ product.id }}
+                </div>
+              {% endif %}
+            </div>
             <div class="products__table--cell">
               {{ product.name }}
               {% if product.get_recently_created %}
@@ -37,8 +46,9 @@
                 <div>{{ tag.name }}</div>
               {% endfor %}
             </div>
-            {% comment %} Price Range {% endcomment %}
             <div class="products__table--cell">{{ product.brand }}</div>
+            {% comment %} Price Range {% endcomment %}
+            {% comment %}
                     <div class="products__table--cell">
               <div class="">
                 {% if product.get_out_of_stock %}
@@ -72,8 +82,8 @@
                     </div>
                   {% endif %}
                 {% endif %}
-              </div>
-            </div>
+              </div> 
+            </div>{% endcomment %}
             <div class="products__table--cell">
               {% if product.get_all_active_images %}
                 {{ product.get_all_active_images }}
@@ -82,13 +92,7 @@
               {% endif %}
 
             </div>
-            <div class="products__table--cell">
-              {% if product.is_active %}
-                <i class="fa fa-check-circle"></i>
-              {% else %}
-                <i class="fa fa-times-circle"></i>
-              {% endif %}
-            </div>
+
             <div class="products__table--cell">
               {% if product.get_sale_price_is_lower_than_store_price %}
                 <i class="fa fa-check-circle"></i>
@@ -98,36 +102,8 @@
             </div>
             <div class="products__table--cell">
               {{ product.get_all_inventory.count }}
-
-
-              {% comment %} {% for product_inventory in product.get_all_inventory %}
-                {{ product_inventory }}
-                {% for promotion in active_now_promotions %}
-                  {% if product_inventory in promotion.products_inventory_in_promotion.all %}
-                    <i class="fa fa-check-circle"></i>
-                  {% else %}
-                <i class="fa fa-times-circle"></i>
-                  {% endif %}
-                {% endfor %} 
-              {% endfor %} {% endcomment %}
-
             </div>
-          </div>
-        <div class="product">
-            {% comment %} <div class="product__card--image">
-              {% if product.images.all %}
-                <img src="{{ product.get_main_image }}" alt="Cover image for {{ product.name }}">
-              {% else %}
-                <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
-              {% endif %}
-            </div>
-            <div class="product__card--name">
-              {{ product.name }}
-            </div>
-            <div class="product__card--content">
-              
-            </div> {% endcomment %}
-        </div>
+          </a>
       {% endfor %}
     {% else %}
       <p> No products yet </p>
