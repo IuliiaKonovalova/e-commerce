@@ -1030,15 +1030,41 @@ input[name=quantity] {
 
 .products__table {
   color: var(--clr-text--900);
+  /* gap: 0.2rem; */
 }
 
 .products__table--row {
-  grid-template-columns: 0.1fr 1fr 1.5fr 0.5fr 0.5fr 0.5fr 0.2fr 0.3fr 0.2fr 0.2fr;
-  gap: 0.2rem;
+  grid-template-columns: 0.1fr 0.5fr 0.5fr 0.8fr 0.4fr 0.4fr 0.4fr 0.2fr 0.3fr 0.2fr 0.1fr;
+
+  background-color: #06032e;
+  padding: 0;
+  gap: 0;
 }
 
-.products__table--row .products__table--cell {
-  border: 0.2px solid var(--clr-accent--200);
+.products__table--cell {
+  background-color: var(--clr-primary--100);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0.2em 0.1em;
+}
+
+.products__table--title {
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+
+.dashboard .product__card--price {
+  font-size: var(--fs) !important;
+  font-weight: 400;
 }
 
 .new {
