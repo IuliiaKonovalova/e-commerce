@@ -22,12 +22,12 @@
         <i class="fa fa-times-circle"></i> (Inactive)
       {% endif %}
     </div>
-</div>
-<a href="{% url 'product_detail' pk=product.pk %}" aria-label="Go to {{ product.name }} in the shop" target="_blank"
-  class="btn btn__link">
-  <i class="fa fa-external-link"></i>
-  View in store
-</a>
+    <a href="{% url 'product_detail' pk=product.pk %}" aria-label="Go to {{ product.name }} in the shop" target="_blank"
+      class="btn btn__link">
+      <i class="fa fa-external-link"></i>
+      View in store
+    </a>
+  </div>
 </section>
 <div class="data__main">
   <div class="data__main--section">
@@ -179,15 +179,34 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add new image</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+          <div class="form-group">
+            <label for="image-product-id">Product ID</label>
+            <input type="text" class="form-control" id="image-product-id" value="{{ product.pk }}" readonly>
+          </div>
+          <div class="form-group">
+            <label for="image-url">Image</label>
+            <input type="file" class="form-control-file" id="image-url" name="image">
+          </div>
+          <div class="form-group">
+            <label for="image-alt-text">Alt text</label>
+            <input type="text" class="form-control" id="image-alt-text" name="alt_text">
+          </div>
+          <div class="form-group">
+            <label for="image-default">Default image</label>
+            <input type="checkbox" class="" id="image-default" name="default_image">
+          </div>
+          <div class="form-group">
+            <label for="image-active">Active</label>
+            <input type="checkbox" class="" id="image-active" name="is_active">
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-outline-primary btn__add">Save changes</button>
       </div>
     </div>
   </div>
@@ -196,5 +215,9 @@
 {% endblock %}
 
 {% block postloadjs_extra %}
+  <script>
+    $(document).ready(function() {
 
+    });
+  </script>
 {% endblock %}
