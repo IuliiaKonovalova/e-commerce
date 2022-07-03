@@ -1,6 +1,7 @@
 """Veiws for the personnel app."""
 from django.views import View
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from inventory.models import (
@@ -18,6 +19,9 @@ from inventory.models import (
     ProductTypeAttribute,
 )
 from promotions.models import Promotion
+from .forms import (
+    ProductForm,
+)
 
 
 class ProductsTableView(View):
@@ -133,6 +137,70 @@ class ProductFullDetailView(View):
                     'personnel/product_detail_full.html',
                     context
                 )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+class AddProductView(View):
+    """View for the add product page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = ProductForm()
+                context = {
+                    'form': form,
+                }
+                return render(
+                    request,
+                    'personnel/add_product.html',
+                    context
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = ProductForm(request.POST)
+                if form.is_valid():
+                    product = form.save(commit=False)
+                    tags = form.cleaned_data['tags']
+                    product.save()
+                    product.tags.set(tags)
+                    product.save()
+                    # get pk of this product
+                    product_pk = product.id
+                    return HttpResponseRedirect(
+                        '/personnel/product/{}'.format(product_pk)
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/add_product.html',
+                        {
+                            'form': form,
+                        }
+                    )
         else:
             return render(
                 request,
