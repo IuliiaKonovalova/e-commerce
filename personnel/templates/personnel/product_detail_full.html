@@ -23,6 +23,11 @@
           </div>
         {% endif %}
       </div>
+      <a href="{% url 'product_detail' pk=product.pk %}" aria-label="Go to {{ product.name }} in the shop"
+          target="_blank" class="btn btn__link">
+        <i class="fa fa-external-link"></i>
+        View in store
+      </a>
     </section>
     <div class="data__main">
       <div class="data__main--section">
