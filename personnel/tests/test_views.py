@@ -201,6 +201,10 @@ class TestUrls(TestCase):
         # urls
         self.client = Client()
         self.products_table_url = reverse('products_table')
+        self.product_detail_full_url = reverse(
+            'product_detail_full',
+            kwargs={'pk': 1}
+        )
 
     def test_products_table_view_user_logged_out(self):
         response = self.client.get(self.products_table_url)
@@ -223,3 +227,25 @@ class TestUrls(TestCase):
         response = self.client.get(self.products_table_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/products_table.html')
+
+    def test_product_detail_full_view_user_logged_out(self):
+        response = self.client.get(self.product_detail_full_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_product_detail_full_view_without_access(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.product_detail_full_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_product_detail_full_view_with_access(self):
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.product_detail_full_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/product_detail_full.html')
