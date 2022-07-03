@@ -5,122 +5,119 @@
 {% block content %}
   <div class="dashboard">
 
-    <section class="dashboard__product" style="background-image: pink;">
-            <h1 class="dashboard__product">
-              {{ product.name }}
-              {% if product.get_recently_created %}
-                <span class="new">
-                  New !
-                </span>
-              {% endif %}
-            </h1>
-            <div>
-              <strong>ID: </strong>{{ product.id }}
+    <section class="dashboard__main">
+      <h1 class="dashboard__main--name">
+        {{ product.name }}
+        {% if product.get_recently_created %}
+          <span class="new">
+            New !
+          </span>
+        {% endif %}
+      </h1>
+      <div>
+        <strong>ID: </strong>{{ product.id }}
+        {% if product.is_active %}
+          <i class="fa fa-check-circle"></i> (Active)
+        {% else %}
+          <i class="fa fa-times-circle"></i> (Inactive)
+          </div>
+        {% endif %}
+      </div>
+    </section>
+    <div class="data__main">
+      <div class="data__main--section">
+        <strong>Description: </strong>
+        <p>{{ product.description }}</p>
+      </div>
+      <div class="data__main--section">
+        <strong>Category: </strong>
+        <div>{{ product.category.name }}</div>
+      </div>
+      <div class="data__main--section">
+        <strong>Brand: </strong>
+        <div>{{ product.brand }}</div>
+      </div>
+      <div class="data__main--section">
+        <strong>Tags: {{ product.get_tags.count }}</strong> 
+        <div>
+          {% for tag in product.get_tags %}
+            <a href="#" aria-label=" Go to {{ tag.name }} page" class="data__main--tag">
+              {{ tag.name }}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="data__main--section">
+        <strong>Images: {{ get_all_images.count }}</strong> 
+        {% for image in get_all_images %}
+          {% if image.is_active and image.default_image %}
+            <div>Default and active</div>
+            <div class="dashboard__image--active--default">
+              <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__main">
+            </div>
+          {% elif image.is_active %}
+            <div>active</div>
+            <div class="dashboard__image--active">
+              <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__main">
+            </div>
+          {% elif image.default_image %}
+            <div>default not active</div>
+            <div class="dashboard__image--default">
+              <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__main">
+            </div>
+          {% else %}
+            <div>default not active</div>
+            <div class="dashboard__image--nonactive">
+              <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__main">
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="data__main--section">
+        <strong>PI: {{ product.get_all_inventory.count }}</strong>
+        <div class="dashboard__product__inventory">
+          {% for inventory in product.get_all_inventory %}
+            <div>{{ inventory.is_active }}</div>
+            <div>{{ inventory.sku }}</div>
+            <div>{{ inventory.upc }}</div>
+            <div>{{ inventory.retail_price }}</div>
+            <div>{{ inventory.store_price }}</div>
+            {% if not inventory.store_price == inventory.sale_price %}
+              Sale
+              <div>{{ inventory.sale_price }}</div>
+            {% else %}
+              <div>{{ inventory.sale_price }}</div>
+            {% endif %}
             </div>
             <div>
-              <strong>Status: </strong>
-              {% if product.is_active %}
+              {% if inventory in product_inventory_in_promo_now %}
                 <i class="fa fa-check-circle"></i> (Active)
               {% else %}
                 <i class="fa fa-times-circle"></i> (Inactive)
-                </div>
+              {% endif %}
+              no promotion
+            </div>
+            <div>
+              {% if inventory.stock %}
+                <strong>Units left: {{ inventory.stock.units }}</strong>
+              {% else %}
+                <strong>Stock not found</strong>
+              {% endif %}
+              
+              {% if inventory.stock.units < 50 and inventory.stock.units >= 25 %}
+              <div>less than 50</div>
+              {% elif inventory.stock.units < 25  and inventory.stock.units >= 10 %}
+                <div>less than 25</div>
+              {% elif inventory.stock.units < 10  and inventory.stock.units >= 0 %}
+                <div>less than 10</div>
+              {% elif inventory.stock.units == 0 %}
+                <div>0</div>
               {% endif %}
             </div>
-            <div>
-              <strong>Description: </strong>
-              <p>{{ product.description }}</p>
-            </div>
-            <div>
-              <strong>Category: </strong>
-              <div class="dashboard__product">{{ product.category.name }}</div>
-            </div>
-            <div>
-              <strong>Brand: </strong>
-              <div class="dashboard__product">{{ product.brand }}</div>
-            </div>
-            {% comment %} <div>
-              <strong>Type: </strong>
-              <div class="dashboard__product">{{ product.brand }}</div>
-            </div> {% endcomment %}
-            <div>
-              <strong>Tags: {{ product.get_tags.count }}</strong> 
-              <div class="dashboard__product">
-                {% for tag in product.get_tags %}
-                  <div>{{ tag.name }}</div>
-                {% endfor %}
-              </div>
-            </div>
-            <div class="dashboard__product">
-              <strong>Images: {{ get_all_images.count }}</strong> 
-              {% for image in get_all_images %}
-                {% if image.is_active and image.default_image %}
-                  <div>Default and active</div>
-                  <div class="dashboard__image--active--default">
-                    <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__product">
-                  </div>
-                {% elif image.is_active %}
-                  <div>active</div>
-                  <div class="dashboard__image--active">
-                    <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__product">
-                  </div>
-                {% elif image.default_image %}
-                  <div>default not active</div>
-                  <div class="dashboard__image--default">
-                    <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__product">
-                  </div>
-                {% else %}
-                  <div>default not active</div>
-                  <div class="dashboard__image--nonactive">
-                    <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__product">
-                  </div>
-                {% endif %}
-              {% endfor %}
-            </div>
-            <div class="dashboard__product">
-              <strong>PI: {{ product.get_all_inventory.count }}</strong>
-              <div class="dashboard__product__inventory">
-                {% for inventory in product.get_all_inventory %}
-                  <div>{{ inventory.is_active }}</div>
-                  <div>{{ inventory.sku }}</div>
-                  <div>{{ inventory.upc }}</div>
-                  <div>{{ inventory.retail_price }}</div>
-                  <div>{{ inventory.store_price }}</div>
-                  {% if not inventory.store_price == inventory.sale_price %}
-                    Sale
-                    <div>{{ inventory.sale_price }}</div>
-                  {% else %}
-                    <div>{{ inventory.sale_price }}</div>
-                  {% endif %}
-                  </div>
-                  <div>
-                    {% if inventory in product_inventory_in_promo_now %}
-                      <i class="fa fa-check-circle"></i> (Active)
-                    {% else %}
-                      <i class="fa fa-times-circle"></i> (Inactive)
-                    {% endif %}
-                    no promotion
-                  </div>
-                  <div>
-                    {% if inventory.stock %}
-                      <strong>Units left: {{ inventory.stock.units }}</strong>
-                    {% else %}
-                      <strong>Stock not found</strong>
-                    {% endif %}
-                    
-                    {% if inventory.stock.units < 50 and inventory.stock.units >= 25 %}
-                    <div>less than 50</div>
-                    {% elif inventory.stock.units < 25  and inventory.stock.units >= 10 %}
-                      <div>less than 25</div>
-                    {% elif inventory.stock.units < 10  and inventory.stock.units >= 0 %}
-                      <div>less than 10</div>
-                    {% elif inventory.stock.units == 0 %}
-                      <div>0</div>
-                    {% endif %}
-                  </div>
-                {% endfor %}
-              </div>
-            </div>
-    </section>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
   </div>
 
 
