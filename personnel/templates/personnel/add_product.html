@@ -18,6 +18,9 @@
       {% csrf_token %}
       {{ form }}
       <div class="form__btns">
+        <a href="{% url 'products_table' %}" aria-label="Go to Promotions page" class="btn btn-primary">
+          Cancel
+        </a>
         <button type="submit" class="btn btn-primary">Save</button>
       </div>
     </form>
