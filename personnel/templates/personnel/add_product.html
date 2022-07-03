@@ -7,5 +7,38 @@
 
 
 {% block content %}
+<div class="dashboard">
+  {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+  <div class="dashboard__main">
+    <h1 class="dashboard__main--name">
+      All products table
+    </h1>
+  </div>
+      <form method="POST" class="adding__promotion--form">
+      {% csrf_token %}
+      {{ form }}
+      <div class="form__btns">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  {% endif %}
 
+
+</div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(function () {
+        $('#id_is_active').checkboxradio();
+      });
+      $('select').addClass('js-example-basic-single');
+      $('.js-example-basic-single').select2({
+        placeholder: 'Type name to search',
+      });
+      $('#div_id_assigned_to').css('width', '100%');
+    });
+  </script>
 {% endblock %}
