@@ -5,6 +5,15 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <section class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          All products table
+        </h1>
+        <a href="#" aria-label="Go to add new product page" class="btn btn-primary btn__add">
+          <i class="fas fa-plus-circle"></i>
+          Add new product
+        </a>
+      </section>
       <div class="products__table">
         <div class="products__table--row table__titles">
           <div class="products__table--cell">ID</div>
