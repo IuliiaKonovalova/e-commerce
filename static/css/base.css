@@ -1025,7 +1025,11 @@ input[name=quantity] {
 
 /* ----------------- STOCK ----------------- */
 .dashboard {
-  background-color: orange;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
 }
 
 .products__table {
@@ -1090,6 +1094,77 @@ input[name=quantity] {
   background-color: var(--clr-btn-delete--500);
 }
 
+/* ------------ Product View --------------- */
+.dashboard__main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  position: relative;
+}
+
+.data__main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  position: relative;
+}
+
+.data__main--section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  position: relative;
+  padding: 0.2em 1em;
+}
+
+/* Name */
+.dashboard__main--name {
+  font-size: 1.7rem;
+  font-weight: 900;
+  text-transform: capitalize;
+  padding: 0.5em;
+}
+
+/* Tags */
+
+.data__main--tag {
+  background-color: var(--clr-primary--100);
+  color: var(--clr-text--900);
+  padding: 0.1em 0.4em 0.2em 0.4em;
+  border: 1px solid var(--clr-primary--900);
+  box-shadow: var(--box-shadow-buttons);
+}
+
+.dashboard__product--tag:not(:last-child) {
+  margin-right: 0.3em;
+}
+
+.dashboard__product--tag:hover {
+  background-color: var(--clr-primary--200);
+  color: var(--clr-text--900);
+}
+
+.dashboard__image--active--default {
+  background-color: #381e73;
+}
+
+.dashboard__image--active {
+  background-color: #633b48;
+}
+
+.dashboard__image--default {
+  background-color: #8a6ccf;
+}
+
+.dashboard__image--nonactive {
+  background-color: rgb(126, 82, 0);
+}
 
 /* --------- message-container ---------- */
 .message-container {
