@@ -246,6 +246,17 @@ class TestUrls(TestCase):
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
         self.profile2.role = self.role2
         self.profile2.save()
+        self.promotion.products_inventory_in_promotion.add(
+            self.product_inventory1
+        )
+        self.promotion.save()
         response = self.client.get(self.product_detail_full_url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'personnel/product_detail_full.html')
+        self.assertTemplateUsed(
+            response,
+            'personnel/product_detail_full.html'
+        )
+        self.assertIn(
+            self.product_inventory1,
+            response.context['product_inventory_in_promo_now'],
+        )
