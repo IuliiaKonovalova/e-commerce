@@ -5,11 +5,11 @@
   <div class="promotions">
   {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
     <section class="promotion__header">
-      <h1 class="promotions__title" >Promotions</h1>
+      <h1 class="dashboard__main--name" >Promotions</h1>
       <!-- Add button add promotion -->
       {% if request.user.profile.role.id == 3 %}
         <div class="promotions__add">
-          <a href="{% url 'add_promotion' %}" class="btn btn-primary promotions__add--btn" aria-label="Add promotion">
+          <a href="{% url 'add_promotion' %}" class="btn btn-primary btn__add promotions__add--btn" aria-label="Add promotion">
             <i class="fa fa-plus-circle"></i>
             Add Promotion
           </a>
