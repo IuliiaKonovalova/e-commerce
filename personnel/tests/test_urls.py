@@ -3,7 +3,7 @@ from django.test import SimpleTestCase
 from django.urls import reverse,resolve
 from personnel.views import (
     ProductsTableView,
-    ProductDetailView,
+    ProductFullDetailView,
 )
 
 
@@ -16,5 +16,5 @@ class TestUrls(SimpleTestCase):
 
     def test_product_detail_url(self):
         """Test the product detail url."""
-        url = reverse('product_detail', kwargs={'pk': 1})
-        self.assertEquals(resolve(url).func.view_class, ProductDetailView)
+        url = reverse('product_detail_full', kwargs={'pk': 1})
+        self.assertEquals(resolve(url).func.view_class, ProductFullDetailView)
