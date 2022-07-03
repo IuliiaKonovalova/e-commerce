@@ -25,6 +25,7 @@
   --fs: calc(60% + 0.8vmin);
   --ff-primary: 'Lato', sans-serif;
   --br: 0.5em;
+  --br--links: 0.2em;
   --br-buttons: 0.2em;
   --box-shadow-buttons: 0 1px 2px rgba(0, 0, 0, 0.317);
   --box-shadow-disabled: rgba(50, 50, 93, 0.719) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
@@ -1136,9 +1137,10 @@ input[name=quantity] {
 .data__main--link {
   background-color: var(--clr-primary--100);
   color: var(--clr-text--900);
-  padding: 0.1em 0.4em 0.2em 0.4em;
+  padding: 0.1em 0.6em 0.15em 0.6em;
   border: 1px solid var(--clr-primary--900);
   box-shadow: var(--box-shadow-buttons);
+  border-radius: var(--br--links);
 }
 
 .data__main--link:not(:last-child) {
@@ -1173,17 +1175,81 @@ input[name=quantity] {
 }
 
 .image__container img {
-
   height: 100%;
   object-position: center;
   vertical-align: middle !important;
   margin: auto 0;
 }
 
+/* Product Inventories */
+.data__main--inventories {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  gap: 0.5em;
+}
 
+.data__main--inventory {
+  padding: 0.5em;
+  position: relative;
+}
 
+.data__main--inventory.data__main--link {
+  margin: 0;
+}
 
+.data__main--inventory span {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+  font-weight: 400;
+}
 
+.data__main--inventory div {
+  padding-bottom: 0.2em;
+}
+
+table {
+  margin-bottom: 0.5em;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+}
+
+th,
+td {
+  padding: 0.2em;
+  text-align: center;
+}
+
+.data__accent--sale {
+  background-color: var(--clr-btn-delete--500);
+  color: var(--clr-text--100);
+}
+
+.data__accent--yellow {
+  background-color: yellow;
+
+}
+
+.data__accent--orange {
+  background-color: orange;
+}
+
+.data__accent--redish {
+  background-color: rgb(255, 81, 0);
+}
+
+.data__accent--red {
+  background-color: red;
+}
+
+.data__accent--green {
+  background-color: green;
+}
 
 /* --------- message-container ---------- */
 .message-container {
