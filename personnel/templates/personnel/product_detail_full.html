@@ -31,17 +31,21 @@
       </div>
       <div class="data__main--section">
         <strong>Category: </strong>
-        <div>{{ product.category.name }}</div>
+        <a href="#" aria-label=" Go to {{ product.category.name }} page" class="data__main--link">
+          {{ product.category.name }}
+        </a>
       </div>
       <div class="data__main--section">
         <strong>Brand: </strong>
-        <div>{{ product.brand }}</div>
+        <a href="#" aria-label=" Go to {{ product.brand }} page" class="data__main--link">
+          {{ product.brand }}
+        </a>
       </div>
       <div class="data__main--section">
         <strong>Tags: {{ product.get_tags.count }}</strong> 
         <div>
           {% for tag in product.get_tags %}
-            <a href="#" aria-label=" Go to {{ tag.name }} page" class="data__main--tag">
+            <a href="#" aria-label=" Go to {{ tag.name }} page" class="data__main--link">
               {{ tag.name }}
             </a>
           {% endfor %}
@@ -49,29 +53,39 @@
       </div>
       <div class="data__main--section">
         <strong>Images: {{ get_all_images.count }}</strong> 
-        {% for image in get_all_images %}
-          {% if image.is_active and image.default_image %}
-            <div>Default and active</div>
-            <div class="dashboard__image--active--default">
-              <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__main">
-            </div>
-          {% elif image.is_active %}
-            <div>active</div>
-            <div class="dashboard__image--active">
-              <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__main">
-            </div>
-          {% elif image.default_image %}
-            <div>default not active</div>
-            <div class="dashboard__image--default">
-              <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__main">
-            </div>
-          {% else %}
-            <div>default not active</div>
-            <div class="dashboard__image--nonactive">
-              <img src="{{ image.image.url }}" style="width:100px; hight:100px"alt="{{ product.name }}" class="dashboard__main">
-            </div>
-          {% endif %}
-        {% endfor %}
+        <div class="data__main--images">
+          {% for image in get_all_images %}
+            {% if image.is_active and image.default_image %}
+              <a href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
+                <div>Default and active</div>
+                <div class="image__container">
+                  <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
+                </div>
+              </a>
+            {% elif image.is_active %}
+              <a href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
+                <div>active</div>
+                <div class="image__container">
+                  <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
+                </div>
+              </a>
+            {% elif image.default_image %}
+              <a href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
+                <div>default not active</div>
+                <div class="image__container">
+                  <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
+                </div>
+              </a>
+            {% else %}
+              <a href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
+                <div>not active</div>
+                <div class="image__container">
+                  <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
+                </div>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
       <div class="data__main--section">
         <strong>PI: {{ product.get_all_inventory.count }}</strong>

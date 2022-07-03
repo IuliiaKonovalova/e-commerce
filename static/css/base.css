@@ -1133,7 +1133,7 @@ input[name=quantity] {
 
 /* Tags */
 
-.data__main--tag {
+.data__main--link {
   background-color: var(--clr-primary--100);
   color: var(--clr-text--900);
   padding: 0.1em 0.4em 0.2em 0.4em;
@@ -1141,30 +1141,49 @@ input[name=quantity] {
   box-shadow: var(--box-shadow-buttons);
 }
 
-.dashboard__product--tag:not(:last-child) {
+.data__main--link:not(:last-child) {
   margin-right: 0.3em;
 }
 
-.dashboard__product--tag:hover {
+.data__main--link:hover {
   background-color: var(--clr-primary--200);
   color: var(--clr-text--900);
 }
 
-.dashboard__image--active--default {
-  background-color: #381e73;
+.data__main--images {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(15rem, 100%), 1fr));
+  grid-gap: 0.5rem;
 }
 
-.dashboard__image--active {
-  background-color: #633b48;
+.card__image {
+  width: 100%;
+  display: grid;
+  grid-template-rows: 0.2fr 1fr;
 }
 
-.dashboard__image--default {
-  background-color: #8a6ccf;
+.card__image.image__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  /* margin: auto; */
 }
 
-.dashboard__image--nonactive {
-  background-color: rgb(126, 82, 0);
+.image__container img {
+
+  height: 100%;
+  object-position: center;
+  vertical-align: middle !important;
+  margin: auto 0;
 }
+
+
+
+
+
 
 /* --------- message-container ---------- */
 .message-container {
