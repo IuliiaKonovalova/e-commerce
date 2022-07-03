@@ -865,19 +865,24 @@ input[name=quantity] {
 .promotions__add {
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .promotions__add--btn {
-  position: absolute;
+  /* position: absolute;
   top: 1em;
-  right: 0.5rem;
+  right: 0.5rem; */
+}
+
+.btn__add {
   background-color: var(--clr-accent--700);
   border-color: var(--clr-accent--700);
   color: var(--clr-text--100);
   box-shadow: var(--box-shadow-buttons);
 }
 
-.promotions__add--btn:hover {
+.btn__add:hover {
   background-color: var(--clr-accent--900);
   color: var(--clr-text--100);
 }
@@ -1103,6 +1108,17 @@ input[name=quantity] {
   align-items: center;
   justify-content: start;
   position: relative;
+}
+
+.btn__link {
+  position: absolute;
+  top: -0.7rem;
+  right: 1rem;
+}
+
+.btn__link:hover {
+  background-color: unset;
+  text-decoration: underline;
 }
 
 .data__main {
