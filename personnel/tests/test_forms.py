@@ -244,7 +244,6 @@ class TestForms(TestCase):
         form = ProductForm()
         expected = [
             'name',
-            'slug',
             'description',
             'category',
             'tags',
@@ -259,7 +258,6 @@ class TestForms(TestCase):
         form = ProductForm(
             data={
                 'name': 'Test Product',
-                'slug': 'test-product',
                 'description': 'Test Product Description',
                 'category': self.category1.id,
                 'tags': [self.tag1.id],
