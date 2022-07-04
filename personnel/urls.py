@@ -4,9 +4,10 @@ from .views import (
     ProductsTableView,
     ProductFullDetailView,
     AddProductView,
+    AddImageToProductAJAXView,
 )
 
-
+# add_product_image
 urlpatterns = [
     path(
         'products_table/',
@@ -22,5 +23,10 @@ urlpatterns = [
         'product/add/',
         AddProductView.as_view(),
         name='add_product'
+    ),
+    path(
+        'add_product_image/',
+        AddImageToProductAJAXView.as_view(),
+        name='add_product_image'
     ),
 ]
