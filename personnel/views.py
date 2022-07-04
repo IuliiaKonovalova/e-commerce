@@ -244,7 +244,7 @@ class AddImageToProductAJAXView(View):
                     new_image_alt_text = new_image.alt_text
                     new_image_default_image = new_image.default_image
                     new_image_is_active = new_image.is_active
-                    new_image_image_url = str(new_image.image.url)
+                    new_image_image_url = new_image.image_url
                     return JsonResponse(
                         {
                             'success': True,
@@ -254,6 +254,70 @@ class AddImageToProductAJAXView(View):
                             'new_image_default_image': new_image_default_image,
                             'new_image_is_active': new_image_is_active,
                             'new_image_image_url': new_image_image_url,
+                        }
+                    )
+                else:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                        }
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+class EditImageToProductAJAXView(View):
+    """View for the edit image to product page."""
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                if request.is_ajax():
+                    print('TEST EDITION REQUEST POST')
+                    print(request.POST)
+                    image_id = request.POST.get('image_id')
+                    product = request.POST.get('product_id')
+                    image = request.FILES.get('image')
+                    alt_text = request.POST.get('alt_text')
+                    default_image = request.POST.get('default_image') == 'true'
+                    is_active = request.POST.get('is_active') == 'true'
+                    updated_image = ProductImage.objects.get(id=image_id)
+                    print(image_id)
+                    print(image)
+                    # update product_object
+                    updated_image.image = image
+                    updated_image.alt_text = alt_text
+                    updated_image.default_image = default_image
+                    updated_image.is_active = is_active
+                    updated_image.save()
+                    print('PRODUCT OBJECT UPDATED')
+                    print(updated_image)
+                    # get data:
+                    image_id = image_id
+                    update_image = ProductImage.objects.get(id=image_id)
+                    update_alt_text = update_image.alt_text
+                    update_default_image = update_image.default_image
+                    update_is_active = update_image.is_active
+                    update_image_url = update_image.image_url
+
+                    return JsonResponse(
+                        {
+                            'success': True,
+                            'image_id': image_id,
+                            # 'new_image_image': new_image_image,
+                            'update_alt_text': update_alt_text,
+                            'update_default_image': update_default_image,
+                            'update_is_active': update_is_active,
+                            'update_image_url': update_image_url,
                         }
                     )
                 else:
