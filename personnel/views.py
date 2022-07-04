@@ -333,3 +333,43 @@ class EditImageToProductAJAXView(View):
                 request,
                 'account/login.html',
             )
+
+
+class DeleteImageToProductAJAXView(View):
+    """View for the delete image to product page."""
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                if request.is_ajax():
+                    print('TEST DELETION REQUEST POST')
+                    print(request.POST)
+                    image_id = request.POST.get('image_id')
+                    product = request.POST.get('product_id')
+                    updated_image = ProductImage.objects.get(id=image_id)
+                    print(image_id)
+                    updated_image.delete()
+                    print('PRODUCT OBJECT DELETED')
+                    print(updated_image)
+                    return JsonResponse(
+                        {
+                            'success': True,
+                        }
+                    )
+                else:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                        }
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
