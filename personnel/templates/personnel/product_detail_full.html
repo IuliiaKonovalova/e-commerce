@@ -57,7 +57,7 @@
     </div>
   </div>
   <div class="data__main--section">
-    <strong>Images: {{ get_all_images.count }}</strong>
+    <strong>Images: <span  id="images-count">{{ get_all_images.count }}</span></strong>
     <a class="btn btn-primary btn__add" data-id="{% url 'product_detail' pk=product.pk %}" data-bs-toggle="modal"
       data-bs-target="#exampleModal">
       <i class="fas fa-plus-circle"></i>
@@ -208,6 +208,10 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function() {
+      let imageCount = parseInt($('#images-count').text());
+      //to int
+      {% comment %} imageCount = parseInt(imageCount); {% endcomment %}
+      console.log(imageCount);
       let file;
       let imgUrl
       const imagePreview = (e) => {
@@ -272,6 +276,8 @@
       });
 
       $('#modal-form').on('click', () => {
+        //
+        
         // check if the #image-url is not empty and #image-alt-text is not empty
         if ($('#image-url').val() != '' && $('#image-alt-text').val() != '') {
           // disable modal button
@@ -372,18 +378,23 @@
               $('#modal-form').prop('disabled', false);
               // remove loading icon
               $('#modal-form').html('Save changes');
+              //remove spinner
+              $('#modal-form').find('.spinner').remove();
 
               $('#image-url').val('');
               $('#image-default').prop('checked', false);
               $('#image-active').prop('checked', false);
-              $('.preview').remove();
-              // clear the file input
-              //$(e.target).val('');        
-              //$(e.target).on('change', imagePreview);
+              // 
+              $('#images-count').text(imageCount+1)
+
+
+
               // Close modal
               $('#exampleModal').modal('hide');
               // reload the page
               //location.reload();
+              // remove .preview
+              //$(e.target).parent().find('div.preview').remove();
             },
             error: function(data) {
               console.log('error');
@@ -394,7 +405,7 @@
           // set highlight effect for .modal-title
           $('.modal-title').effect('highlight', {color: '#ff0000'}, 1000);
           // check wich input is empty and set the focus on it
-          if ($('#image-url').val() == '') {
+          if ($('#image-url').val() == '' && $('#exampleModal').find('div.preview').length == 0) {
             $('#image-url').focus();
             $('#image-url').css('border', '1px solid #ff0000');
           } else if ($('#image-alt-text').val() == '') {
@@ -408,6 +419,10 @@
         let imageDefault = $('img[data-id="' + imageId + '"]').attr('data-default');
         let imageActive = $('img[data-id="' + imageId + '"]').attr('data-active');
         let imageSrc = $('img[data-id="' + imageId + '"]').attr('src');
+        console.log(imageSrc);
+        // set the values to the inputs
+        
+
         $('#image-alt-text').val(imageAltText);
         if (imageDefault == 'True') {
           $('#image-default').prop('checked', true);
@@ -470,13 +485,16 @@
         $('#modal-form').off('click');
         $('#modal-form').attr('id', 'modal-form-edit');
         $('#modal-form-edit').text('Edit Image');
+        
         $('#modal-form-edit').on('click', (e) => {
+          
+          
         // check if the #image-url is not empty and #image-alt-text is not empty
-        if ($('#image-url').val() != '' && $('#image-alt-text').val() != '') {
+        if ($('#image-url').val() != '' && $('#image-alt-text').val() != '' && $('#exampleModal').find('div.preview').length != 0) {
           // disable modal button
-          $('#modal-form').prop('disabled', true);
+          $('#modal-form-edit').prop('disabled', true);
           // add loading icon
-          $('#modal-form').html('<i class="fas fa-spinner fa-spin"></i>');
+          $('#modal-form-edit').html('<i class="fas fa-spinner fa-spin"></i>');
           let fileInput = $('#image-url');
           // append to modal form <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
           $('#image-url').off('change');
@@ -513,12 +531,16 @@
               data: formData,
               success: function(data) {
                 console.log(data);
-                // remove spinner
-                $('#modal-form').html('Save changes');
+              // enable modal button
+                $('#modal-form-edit').prop('disabled', false);
+                // remove loading icon
+                $('#modal-form-edit').html('Save changes');
+                //remove spinner
+                $('#modal-form-edit').find('.spinner').remove();
                 // update the image alt text
-                $('img[data-id="' + imageId + '"]').attr('alt', imageAltText);
+                $('img[data-id="' + imageId + '"]').attr('alt', data.update_alt_text);
                 // update the image src
-                $('img[data-id="' + imageId + '"]').attr('src', imageSrc);
+                $('img[data-id="' + imageId + '"]').attr('src', data.update_image_url);
                 // update the image default
                 if (imageDefault == true) {
                   $('img[data-id="' + imageId + '"]').attr('data-default', 'True');
@@ -531,6 +553,22 @@
                 } else {
                   $('img[data-id="' + imageId + '"]').attr('data-active', 'False');
                 }
+
+                //
+                divImageTitleText = $('img[data-id="' + imageId + '"]').parent().prev().find('div')
+
+
+                if (data.update_is_active && data.update_default_image) {
+                  divImageTitleText.text('Default and active image');
+                } else if (data.update_is_active && !data.update_default_image) {
+                  divImageTitleText.text('Active');
+                } else if (!data.update_is_active && data.update_default_image) {
+                  divImageTitleText.text('Default and not active image');
+                } else if (!data.update_is_active && !data.update_default_image) {
+                  divImageTitleText.text('Inactive');
+                }
+
+
                 // close the modal
                 $('#exampleModal').modal('hide');
                 // reload the page
@@ -540,12 +578,13 @@
                 console.log('error');
               }
             });
+            console.log($('#image-url').val())
           } else {
             $('.modal-title').text('Please select all options');
             // set highlight effect for .modal-title
             $('.modal-title').effect('highlight', {color: '#ff0000'}, 1000);
             // check wich input is empty and set the focus on it
-            if ($('#image-url').val() == '') {
+            if ($('#image-url').val() == '' && $('#exampleModal').find('div.preview').length == 0) {
               $('#image-url').focus();
               $('#image-url').css('border', '1px solid #ff0000');
             } else if ($('#image-alt-text').val() == '') {
@@ -564,6 +603,12 @@
         // check if #modal-form-edit exists
         if ($('#modal-form-edit').length) {
           $('#modal-form-edit').attr('id', 'modal-form');
+          $('#exampleModal').find('div.preview').remove();
+          $('#exampleModal').find('#modal-form').text('Save changes');
+          $('#exampleModal').find('#image-alt-text').val('');
+          $('#exampleModal').find('#image-url').val('');
+          $('#exampleModal').find('#image-default').prop('checked', false);
+          $('#exampleModal').find('#image-active').prop('checked', false);
         }
       })
     });
