@@ -211,9 +211,7 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function() {
-      let imageCount = parseInt($('#images-count').text());
-      //to int
-      {% comment %} imageCount = parseInt(imageCount); {% endcomment %}
+      let imageCount;
       console.log(imageCount);
       let file;
       let imgUrl
@@ -396,8 +394,9 @@
               $('#image-url').val('');
               $('#image-default').prop('checked', false);
               $('#image-active').prop('checked', false);
-              // 
-              $('#images-count').text(imageCount+1)
+              // Add +1 to the number of images
+              imageCount = parseInt($('#images-count').text());
+              $('#images-count').text(imageCount+1);
 
 
 
@@ -625,6 +624,9 @@
               console.log(data);
               // remove the image from the page
               $('img[data-id="' + imageId + '"]').parent().parent().remove();
+              //Remove -1 from the image count
+              imageCount = parseInt($('#images-count').text());
+              $('#images-count').text(imageCount-1);
             },
             error: function(data) {
               console.log('error');
