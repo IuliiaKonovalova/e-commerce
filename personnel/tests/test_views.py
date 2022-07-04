@@ -208,13 +208,16 @@ class TestUrls(TestCase):
         self.add_product_url = reverse('add_product')
         self.add_product_image_url = reverse('add_product_image')
         self.edit_product_image_url = reverse('edit_product_image')
+        self.delete_product_image_url = reverse('delete_product_image')
 
     def test_products_table_view_user_logged_out(self):
+        """Test products table view user logged out."""
         response = self.client.get(self.products_table_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
 
     def test_products_table_view_without_access(self):
+        """Test products table view without access."""
         self.client.force_login(self.user)
         response = self.client.get(self.products_table_url)
         self.assertEqual(response.status_code, 200)
@@ -222,6 +225,7 @@ class TestUrls(TestCase):
         self.client.logout()
 
     def test_products_table_view_with_access(self):
+        """Test products table view with access."""
         self.client.force_login(self.user2)
         self.assertFalse(self.profile2.role.id == 1)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
@@ -232,11 +236,13 @@ class TestUrls(TestCase):
         self.assertTemplateUsed(response, 'personnel/products_table.html')
 
     def test_product_detail_full_view_user_logged_out(self):
+        """Test product detail full view user logged out."""
         response = self.client.get(self.product_detail_full_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
 
     def test_product_detail_full_view_without_access(self):
+        """Test product detail full view without access."""
         self.client.force_login(self.user)
         response = self.client.get(self.product_detail_full_url)
         self.assertEqual(response.status_code, 200)
@@ -244,6 +250,7 @@ class TestUrls(TestCase):
         self.client.logout()
 
     def test_product_detail_full_view_with_access(self):
+        """Test product detail full view with access."""
         self.client.force_login(self.user2)
         self.assertFalse(self.profile2.role.id == 1)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
@@ -265,11 +272,13 @@ class TestUrls(TestCase):
         )
 
     def test_add_product_view_user_logged_out(self):
+        """Test add product view user logged out."""
         response = self.client.get(self.add_product_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
 
     def test_add_product_view_without_access(self):
+        """Test add product view without access."""
         self.client.force_login(self.user)
         response = self.client.get(self.add_product_url)
         self.assertEqual(response.status_code, 200)
@@ -277,6 +286,7 @@ class TestUrls(TestCase):
         self.client.logout()
 
     def test_add_product_view_with_access(self):
+        """Test add product view with access."""
         self.client.force_login(self.user2)
         self.assertFalse(self.profile2.role.id == 1)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
@@ -287,11 +297,13 @@ class TestUrls(TestCase):
         self.assertTemplateUsed(response, 'personnel/add_product.html')
 
     def test_add_product_post_view_user_logged_out(self):
+        """Test add product post view user logged out"""
         response = self.client.post(self.add_product_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
 
     def test_add_product_post_view_without_access(self):
+        """Test add product post view without access"""
         self.client.force_login(self.user)
         response = self.client.post(self.add_product_url)
         self.assertEqual(response.status_code, 200)
@@ -299,6 +311,7 @@ class TestUrls(TestCase):
         self.client.logout()
 
     def test_add_product_post_view_with_access(self):
+        """Test add product post view with access"""
         self.client.force_login(self.user2)
         self.assertFalse(self.profile2.role.id == 1)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
@@ -318,6 +331,7 @@ class TestUrls(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_add_product_post_view_with_access_failed(self):
+        """Test add product post view with access failed."""
         self.client.force_login(self.user2)
         self.assertFalse(self.profile2.role.id == 1)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
@@ -336,6 +350,7 @@ class TestUrls(TestCase):
         self.assertTemplateUsed(response, 'personnel/add_product.html')
 
     def test_add__product_image_view_user_logged_out(self):
+        """Test add product image view user logged out"""
         response = self.client.post(
             self.add_product_image_url,
             {
@@ -351,6 +366,7 @@ class TestUrls(TestCase):
         self.assertTemplateUsed(response, 'account/login.html')
 
     def test_add__product_image_view_without_access(self):
+        """Test add product image view without access"""
         self.client.force_login(self.user)
         response = self.client.post(
             self.add_product_image_url,
@@ -368,6 +384,7 @@ class TestUrls(TestCase):
         self.client.logout()
 
     def test_add__product_image_view_with_access(self):
+        """Test add product Image view with access"""
         self.client.force_login(self.user2)
         self.assertFalse(self.profile2.role.id == 1)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
@@ -395,6 +412,7 @@ class TestUrls(TestCase):
         self.assertEqual(response.json()['success'], True)
 
     def test_add__product_image_view_with_access_failed(self):
+        """TEST: add product image view with access failed"""
         self.client.force_login(self.user2)
         self.assertFalse(self.profile2.role.id == 1)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
@@ -417,11 +435,13 @@ class TestUrls(TestCase):
         self.assertEqual(response.json()['success'], False)
 
     def test_edit_product_ajax_post_view_user_logged_out(self):
+        """test edit product ajax post view user logged out"""
         response = self.client.post(self.edit_product_image_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
 
     def test_edit_product_ajax_post_view_without_access(self):
+        """Test edit product ajax post view without access"""
         self.client.force_login(self.user)
         response = self.client.post(self.edit_product_image_url)
         self.assertEqual(response.status_code, 200)
@@ -429,6 +449,7 @@ class TestUrls(TestCase):
         self.client.logout()
 
     def test_edit_product_ajax_post_view_with_access(self):
+        """Test edit product image ajax post view with access"""
         self.client.force_login(self.user2)
         self.assertFalse(self.profile2.role.id == 1)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
@@ -450,6 +471,7 @@ class TestUrls(TestCase):
         self.assertEqual(response.json()['success'], True)
 
     def test_edit_product_ajax_post_view_with_access_failed(self):
+        """Test edit product image view with access failed"""
         self.client.force_login(self.user2)
         self.assertFalse(self.profile2.role.id == 1)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
