@@ -398,7 +398,73 @@
           }
         }
       });
-      
+      $('.image__settings').on('click', (e) => {
+        let imageId = $(e.target).data('id');
+        let imageAltText = $('img[data-id="' + imageId + '"]').attr('alt');
+        let imageDefault = $('img[data-id="' + imageId + '"]').attr('data-default');
+        let imageActive = $('img[data-id="' + imageId + '"]').attr('data-active');
+        let imageSrc = $('img[data-id="' + imageId + '"]').attr('src');
+        $('#image-alt-text').val(imageAltText);
+        if (imageDefault == 'True') {
+          $('#image-default').prop('checked', true);
+        } else {
+          $('#image-default').prop('checked', false);
+        }
+        if (imageActive == 'True') {
+          $('#image-active').prop('checked', true);
+        } else {
+          $('#image-active').prop('checked', false);
+        }
+        let previewDiv = document.createElement('div');
+        previewDiv.classList.add('preview');
+        previewDiv.style.width = '100px';
+        previewDiv.style.height = '100px';
+        previewDiv.style.border = '1px solid #ccc';
+        previewDiv.style.position = 'relative';
+        previewDiv.style.borderRadius = '0 0.7rem 0 0';
+        previewDiv.style.alignSelf = 'start';
+        // previewDiv.style.overflow = 'hidden';
+        let img = document.createElement('img');
+        img.classList.add('image__preview');
+        // add src attribute to the image element
+        
+        img.src = imageSrc;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.objectPosition = 'center';
+        previewDiv.appendChild(img);
+        // create close button
+        let closeButton = $('<i class="fas fa-times-circle"></i>');
+        closeButton.css({
+            position: 'absolute',
+            top: '-8px',
+            right: '-8px',
+            cursor: 'pointer',
+            color: '#ccc',
+        });
+        previewDiv.appendChild(closeButton[0]);
+        // replace the fas-paperclip with the new image
+        let labelBackup = $(e.target).prev().clone();
+        $('#image-url').parent().append(previewDiv);
+        // $(e.target).parent().find('i').replaceWith(previewDiv);
+        // add event handler to the close button
+        closeButton.on('click', () => {
+            // remove the preview image
+            $('#image-url').parent().find('div.preview').remove();
+            // clear the file input
+            $(e.target).val('');        
+            $(e.target).on('change', imagePreview);
+        });
+        // change id for this button:
+        // <button type="button" class="btn btn-outline-primary btn__add" id="modal-form">Save changes</button>
+        $('#modal-form').attr('id', 'modal-form-edit');
+
+
+
+
+        $('#exampleModal').modal('show');
+      })
     });
   </script>
 {% endblock %}
