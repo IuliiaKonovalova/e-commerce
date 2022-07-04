@@ -65,59 +65,25 @@
     </a>
     <div class="data__main--images">
       {% for image in get_all_images %}
-        {% if image.is_active and image.default_image %}
           <div class="data__main--link card__image">
             <div class="card__image--title">
-              <div>Default and active</div>
-              <a href="#" aria-label="Go to edit-delete image modal" class="data__main--link image__settings" data-id="{{ image.id }}" data-bs-toggle="modal"
-      data-bs-target="#exampleModal">
+              {% if image.is_active and image.default_image %}
+                <div>Default and active</div>
+              {% elif image.is_active %}
+                <div>Active</div>
+              {% elif image.default_image %}
+                <div>Default and Inactive</div>
+              {% else %}
+                <div>Inactive</div>
+              {% endif %}
+              <a href="#" aria-label="Go to edit-delete image modal" class="data__main--link image__settings" data-id="{{ image.id }}">
                 settings
               </a>
             </div>
             <div class="image__container">
-              <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
+              <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="" data-id="{{ image.id }}" data-default="{{ image.default_image }}" data-active="{{ image.is_active }}">
             </div>
           </div>
-        {% elif image.is_active %}
-          <div href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
-            <div class="card__image--title">
-              <div>Active</div>
-              <a href="#" aria-label="Go to edit-delete image modal" class="data__main--link image__settings" data-id="{{ image.id }}" data-bs-toggle="modal"
-      data-bs-target="#exampleModal">
-                settings
-              </a>
-            </div>
-            <div class="image__container">
-              <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
-            </div>
-          </div>
-        {% elif image.default_image %}
-          <div href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
-            <div class="card__image--title">
-              <div>Default and Inactive</div>
-              <a href="#" aria-label="Go to edit-delete image modal" class="data__main--link image__settings" data-id="{{ image.id }}" data-bs-toggle="modal"
-      data-bs-target="#exampleModal">
-                settings
-              </a>
-            </div>
-            <div class="image__container">
-              <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
-            </div>
-          </div>
-        {% else %}
-          <div href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
-            <div class="card__image--title">
-              <div>Inactive</div>
-              <a href="#" aria-label="Go to edit-delete image modal" class="data__main--link image__settings" data-id="{{ image.id }}" data-bs-toggle="modal"
-      data-bs-target="#exampleModal">
-                settings
-              </a>
-            </div>
-            <div class="image__container">
-              <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
-            </div>
-          </div>
-        {% endif %}
       {% endfor %}
     </div>
   </div>
@@ -370,8 +336,8 @@
               aSettings.addClass('data__main--link');
               aSettings.addClass('image__settings');
               aSettings.attr('href', '#');
-              aSettings.attr('data-bs-toggle', 'modal');
-              aSettings.attr('data-bs-target', '#exampleModal');
+              //aSettings.attr('data-bs-toggle', 'modal');
+              //aSettings.attr('data-bs-target', '#exampleModal');
               aSettings.attr('data-id', data.new_image_pk);
               //add text settings to a
               aSettings.text('Settings');
@@ -386,6 +352,8 @@
               let img = $('<img>');
               // add src attribute to img
               img.attr('src', data.new_image_image_url);
+              //add data-id to img
+              img.attr('data-id', data.new_image_pk);
               // add alt
               img.attr('alt', data.new_image_alt_text);
               imgDiv.append(img);
@@ -430,6 +398,7 @@
           }
         }
       });
+      
     });
   </script>
 {% endblock %}
