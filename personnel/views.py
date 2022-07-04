@@ -238,10 +238,22 @@ class AddImageToProductAJAXView(View):
                         is_active=is_active,
                     )
                     new_image.save()
+                    # get the new image pk
+                    new_image_pk = new_image.id
+                    # new_image_image = new_image.image
+                    new_image_alt_text = new_image.alt_text
+                    new_image_default_image = new_image.default_image
+                    new_image_is_active = new_image.is_active
+                    new_image_image_url = str(new_image.image.url)
                     return JsonResponse(
                         {
                             'success': True,
-
+                            'new_image_pk': new_image_pk,
+                            # 'new_image_image': new_image_image,
+                            'new_image_alt_text': new_image_alt_text,
+                            'new_image_default_image': new_image_default_image,
+                            'new_image_is_active': new_image_is_active,
+                            'new_image_image_url': new_image_image_url,
                         }
                     )
                 else:
