@@ -206,6 +206,7 @@ class TestUrls(TestCase):
             kwargs={'pk': 1}
         )
         self.add_product_url = reverse('add_product')
+        self.add_product_image_url = reverse('add_product_image')
 
     def test_products_table_view_user_logged_out(self):
         response = self.client.get(self.products_table_url)
@@ -332,3 +333,84 @@ class TestUrls(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/add_product.html')
+
+    def test_add__product_image_view_user_logged_out(self):
+        response = self.client.post(
+            self.add_product_image_url,
+            {
+                'product': self.product1,
+                'image': '',
+                'alt_text': 'Test Image Alt Text',
+                'default_image': True,
+                'is_active': True
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_add__product_image_view_without_access(self):
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.add_product_image_url,
+            {
+                'product': self.product1,
+                'image': '',
+                'alt_text': 'Test Image Alt Text',
+                'default_image': True,
+                'is_active': True
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_add__product_image_view_with_access(self):
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        product5 = Product.objects.create(
+            name='Test Product 5',
+            description='Test Product Description',
+            category=self.category1,
+            brand=self.brand1,
+            is_active=True
+        )
+        response = self.client.post(
+            self.add_product_image_url,
+            {
+                'product_id': 1,
+                'image': '',
+                'alt_text': 'Test Image Alt Text',
+                'default_image': True,
+                'is_active': True
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+
+    def test_add__product_image_view_with_access_failed(self):
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        product = Product.objects.get(id=self.product1.id)
+        image = open('static/images/test_product_image.png', 'rb')
+        # data = 
+        response = self.client.post(
+            self.add_product_image_url,
+            {
+                'product': '1',
+                'image': image,
+                'alt_text': 'Test Image Alt Text',
+                'default_image': True,
+                'is_active': True
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
