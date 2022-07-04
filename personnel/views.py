@@ -292,9 +292,11 @@ class EditImageToProductAJAXView(View):
                     is_active = request.POST.get('is_active') == 'true'
                     updated_image = ProductImage.objects.get(id=image_id)
                     print(image_id)
-                    print(image)
+
+                    if image:
+                        updated_image.image = image
+
                     # update product_object
-                    updated_image.image = image
                     updated_image.alt_text = alt_text
                     updated_image.default_image = default_image
                     updated_image.is_active = is_active
