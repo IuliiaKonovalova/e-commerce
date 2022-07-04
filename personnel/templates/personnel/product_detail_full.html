@@ -76,8 +76,11 @@
               {% else %}
                 <div>Inactive</div>
               {% endif %}
-              <a href="#" aria-label="Go to edit-delete image modal" class="data__main--link image__settings" data-id="{{ image.id }}">
-                settings
+              <a href="#" aria-label="Go to edit image modal" class="data__main--link image__settings" data-id="{{ image.id }}">
+                edit
+              </a>
+              <a href="#" aria-label="Go to delete image modal" class="data__main--link image__delete" data-id="{{ image.id }}">
+                delete
               </a>
             </div>
             <div class="image__container">
@@ -276,7 +279,9 @@
       });
 
       $('#modal-form').on('click', () => {
-        //
+        // change title of the modal
+        $('.modal-title').text('Add new image');
+        //change button text
         
         // check if the #image-url is not empty and #image-alt-text is not empty
         if ($('#image-url').val() != '' && $('#image-alt-text').val() != '') {
@@ -350,10 +355,17 @@
               //aSettings.attr('data-bs-target', '#exampleModal');
               aSettings.attr('data-id', data.new_image_pk);
               //add text settings to a
-              aSettings.text('Settings');
+              aSettings.text('edit');
+              //create delete button
+              let aDelete = $('<a></a>');
+              aDelete.addClass('data__main--link');
+              aDelete.addClass('image__delete');
+              aDelete.attr('href', '#');
+              aDelete.attr('data-id', data.new_image_pk);
               // apend to divImageTitle
               divImageTitle.append(divImageTitleText);
               divImageTitle.append(aSettings);
+              divImageTitle.append(aDelete);
 
               // create image div
               let imgDiv = $('<div></div>');
@@ -421,8 +433,6 @@
         let imageSrc = $('img[data-id="' + imageId + '"]').attr('src');
         console.log(imageSrc);
         // set the values to the inputs
-        
-
         $('#image-alt-text').val(imageAltText);
         if (imageDefault == 'True') {
           $('#image-default').prop('checked', true);
@@ -482,9 +492,16 @@
       });
         // change id for this button:
         // <button type="button" class="btn btn-outline-primary btn__add" id="modal-form">Save changes</button>
-        $('#modal-form').off('click');
-        $('#modal-form').attr('id', 'modal-form-edit');
-        $('#modal-form-edit').text('Edit Image');
+        // check if any other #modal-form exist
+        if ($('#modal-form').length > 0) {
+          $('#modal-form').off('click');
+          $('#modal-form').attr('id', 'modal-form-edit');
+        } else if ($('#modal-form-delete').length > 0) {
+          $('#modal-form-delete').off('click');
+          $('#modal-form-delete').attr('id', 'modal-form-edit');
+        }
+        // change title of the modal
+        $('.modal-title').text('Edit Image');
         
         $('#modal-form-edit').on('click', (e) => {
         // check if the #image-url is not empty and #image-alt-text is not empty
@@ -590,20 +607,40 @@
             }
           }
         });
-
-
-
-
         $('#exampleModal').modal('show');
       })
+      // delete image
+      $('.image__delete').on('click', (e) => {
+        let imageId = $(e.target).data('id');
+        let confirmDelete = confirm('Are you sure you want to delete this image?');
+        if (confirmDelete) {
+          $.ajax({
+            type: 'POST',
+            url: "{% url 'delete_product_image' %}",
+            data: {
+              'image_id': imageId,
+              'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+              console.log(data);
+              // remove the image from the page
+              $('img[data-id="' + imageId + '"]').parent().parent().remove();
+            },
+            error: function(data) {
+              console.log('error');
+            }
+          });
+        } 
+      });
+      //reset modal form
       const myModalEl = document.getElementById('exampleModal')
       myModalEl.addEventListener('hide.bs.modal', event => {
         $('#exampleModal').find('div.preview').remove();
+        $('#exampleModal').find('.modal-title').text('Add new image');
         // check if #modal-form-edit exists
         if ($('#modal-form-edit').length) {
           $('#modal-form-edit').attr('id', 'modal-form');
           $('#exampleModal').find('div.preview').remove();
-          $('#exampleModal').find('#modal-form').text('Save changes');
           $('#exampleModal').find('#image-alt-text').val('');
           $('#exampleModal').find('#image-url').val('');
           $('#exampleModal').find('#image-default').prop('checked', false);
