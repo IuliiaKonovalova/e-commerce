@@ -6,6 +6,7 @@ from personnel.views import (
     ProductFullDetailView,
     AddProductView,
     AddImageToProductAJAXView,
+    EditImageToProductAJAXView,
 )
 
 
@@ -35,4 +36,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             AddImageToProductAJAXView
+        )
+
+    def test_edit_product_image_url(self):
+        """Test the edit product image url."""
+        url = reverse('edit_product_image')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            EditImageToProductAJAXView
         )
