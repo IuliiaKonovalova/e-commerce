@@ -2,6 +2,7 @@
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
+import json
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from inventory.models import (
@@ -199,6 +200,54 @@ class AddProductView(View):
                         'personnel/add_product.html',
                         {
                             'form': form,
+                        }
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+class AddImageToProductAJAXView(View):
+    """View for the add image to product page."""
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                if request.is_ajax():
+                    print(request.POST)
+                    product = request.POST.get('product_id')
+                    image = request.FILES.get('image')
+                    alt_text = request.POST.get('alt_text')
+                    default_image = request.POST.get('default_image') == 'true'
+                    is_active = request.POST.get('is_active') == 'true'
+                    product_object = Product.objects.get(id=product)
+                    # create a new product image
+                    new_image = ProductImage.objects.create(
+                        product=product_object,
+                        image=image,
+                        alt_text=alt_text,
+                        default_image=default_image,
+                        is_active=is_active,
+                    )
+                    new_image.save()
+                    return JsonResponse(
+                        {
+                            'success': True,
+
+                        }
+                    )
+                else:
+                    return JsonResponse(
+                        {
+                            'success': False,
                         }
                     )
         else:
