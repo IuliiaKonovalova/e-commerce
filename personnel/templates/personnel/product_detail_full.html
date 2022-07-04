@@ -467,6 +467,7 @@
       });
         // change id for this button:
         // <button type="button" class="btn btn-outline-primary btn__add" id="modal-form">Save changes</button>
+        $('#modal-form').off('click');
         $('#modal-form').attr('id', 'modal-form-edit');
         $('#modal-form-edit').text('Edit Image');
         $('#modal-form-edit').on('click', (e) => {
