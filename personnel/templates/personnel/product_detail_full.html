@@ -65,35 +65,59 @@
     </a>
     <div class="data__main--images">
       {% for image in get_all_images %}
-      {% if image.is_active and image.default_image %}
-      <a href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
-        <div>Default and active</div>
-        <div class="image__container">
-          <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
-        </div>
-      </a>
-      {% elif image.is_active %}
-      <a href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
-        <div>active</div>
-        <div class="image__container">
-          <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
-        </div>
-      </a>
-      {% elif image.default_image %}
-      <a href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
-        <div>default not active</div>
-        <div class="image__container">
-          <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
-        </div>
-      </a>
-      {% else %}
-      <a href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
-        <div>not active</div>
-        <div class="image__container">
-          <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
-        </div>
-      </a>
-      {% endif %}
+        {% if image.is_active and image.default_image %}
+          <div class="data__main--link card__image">
+            <div class="card__image--title">
+              <div>Default and active</div>
+              <a href="#" aria-label="Go to edit-delete image modal" class="data__main--link image__settings" data-id="{{ image.id }}" data-bs-toggle="modal"
+      data-bs-target="#exampleModal">
+                settings
+              </a>
+            </div>
+            <div class="image__container">
+              <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
+            </div>
+          </div>
+        {% elif image.is_active %}
+          <div href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
+            <div class="card__image--title">
+              <div>Active</div>
+              <a href="#" aria-label="Go to edit-delete image modal" class="data__main--link image__settings" data-id="{{ image.id }}" data-bs-toggle="modal"
+      data-bs-target="#exampleModal">
+                settings
+              </a>
+            </div>
+            <div class="image__container">
+              <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
+            </div>
+          </div>
+        {% elif image.default_image %}
+          <div href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
+            <div class="card__image--title">
+              <div>Default and Inactive</div>
+              <a href="#" aria-label="Go to edit-delete image modal" class="data__main--link image__settings" data-id="{{ image.id }}" data-bs-toggle="modal"
+      data-bs-target="#exampleModal">
+                settings
+              </a>
+            </div>
+            <div class="image__container">
+              <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
+            </div>
+          </div>
+        {% else %}
+          <div href="#" aria-label=" Go to {{ product.name }} image page" class="data__main--link card__image">
+            <div class="card__image--title">
+              <div>Inactive</div>
+              <a href="#" aria-label="Go to edit-delete image modal" class="data__main--link image__settings" data-id="{{ image.id }}" data-bs-toggle="modal"
+      data-bs-target="#exampleModal">
+                settings
+              </a>
+            </div>
+            <div class="image__container">
+              <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="">
+            </div>
+          </div>
+        {% endif %}
       {% endfor %}
     </div>
   </div>
@@ -227,9 +251,7 @@
         // take the image from the file input and show it in the preview
         file = e.target.files[0];
         imgUrl = URL.createObjectURL(file);
-        console.log(imgUrl);
-        // create a new image element
-        
+        // create a new image element        
         let previewDiv = document.createElement('div');
         previewDiv.classList.add('preview');
         previewDiv.style.width = '100px';
@@ -282,6 +304,10 @@
       $('#modal-form').on('click', () => {
         // check if the #image-url is not empty and #image-alt-text is not empty
         if ($('#image-url').val() != '' && $('#image-alt-text').val() != '') {
+          // disable modal button
+          $('#modal-form').prop('disabled', true);
+          // add loading icon
+          $('#modal-form').html('<i class="fas fa-spinner fa-spin"></i>');
           let fileInput = $('#image-url');
           // append to modal form <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
           $('#image-url').off('change');
@@ -302,12 +328,11 @@
           } else {
             formData.append('is_active', 'false');
           }
+          formData.append('alt_text', $('#image-alt-text').val());
 
           formData.append('product_id', $('#image-product-id').val());
           formData.append('image', file);
           formData.append('csrfmiddlewaretoken', csrfToken);
-          console.log(formData);
-          console.log(csrfToken);
           // send the data to the server
           $.ajax({
             url: "{% url 'add_product_image' %}",
@@ -318,18 +343,73 @@
             data: formData,
             success: function(data) {
               console.log('success');
+              console.log(imgUrl);
+              // add new
+              // get .data__main--images
+              let images = $('.data__main--images');
+              // append <div>
+              let imageCard = $('<div></div>');
+              // add class to a
+              imageCard.addClass('data__main--link');
+              imageCard.addClass('card__image');
+              //append new div 
+              let divImageTitle = $('<div></div>');
+              divImageTitle.addClass('card__image--title');
+              let divImageTitleText = $('<div></div>');
+              // add text to div
+              if (data.new_image_is_active && data.new_image_default) {
+                divImageTitleText.text('Default and active image');
+              } else if (data.new_image_is_active && !data.new_image_default) {
+                divImageTitleText.text('Active');
+              } else if (!data.new_image_is_active && data.new_image_default) {
+                divImageTitleText.text('Default and not active image');
+              } else if (!data.new_image_is_active && !data.new_image_default) {
+                divImageTitleText.text('Inactive');
+              }
+              let aSettings = $('<a></a>');
+              aSettings.addClass('data__main--link');
+              aSettings.addClass('image__settings');
+              aSettings.attr('href', '#');
+              aSettings.attr('data-bs-toggle', 'modal');
+              aSettings.attr('data-bs-target', '#exampleModal');
+              aSettings.attr('data-id', data.new_image_pk);
+              //add text settings to a
+              aSettings.text('Settings');
+              // apend to divImageTitle
+              divImageTitle.append(divImageTitleText);
+              divImageTitle.append(aSettings);
+
+              // create image div
+              let imgDiv = $('<div></div>');
+              imgDiv.addClass('image__container');
+              // append img to imgDiv
+              let img = $('<img>');
+              // add src attribute to img
+              img.attr('src', data.new_image_image_url);
+              // add alt
+              img.attr('alt', data.new_image_alt_text);
+              imgDiv.append(img);
+              //append div and imgDiv to a
+              imageCard.append(divImageTitle);
+              imageCard.append(imgDiv);
+              images.append(imageCard);
+
               $('#image-alt-text').val('');
               // empty the file input in #image-alt-text
+              // enable modal button
+              $('#modal-form').prop('disabled', false);
+              // remove loading icon
+              $('#modal-form').html('Save changes');
 
-              $('#image-url').val() == '';
+              $('#image-url').val('');
               $('#image-default').prop('checked', false);
               $('#image-active').prop('checked', false);
               $('.preview').remove();
               // clear the file input
-              $(e.target).val('');        
-              $(e.target).on('change', imagePreview);
-
-              //$('#exampleModal').modal('hide');
+              //$(e.target).val('');        
+              //$(e.target).on('change', imagePreview);
+              // Close modal
+              $('#exampleModal').modal('hide');
               // reload the page
               //location.reload();
             },
@@ -350,9 +430,6 @@
           }
         }
       });
-
-
-
     });
   </script>
 {% endblock %}
