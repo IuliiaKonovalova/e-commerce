@@ -418,9 +418,7 @@ class TestUrls(TestCase):
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
         self.profile2.role = self.role2
         self.profile2.save()
-        product = Product.objects.get(id=self.product1.id)
         image = open('static/images/test_product_image.png', 'rb')
-        # data = 
         response = self.client.post(
             self.add_product_image_url,
             {
@@ -461,6 +459,29 @@ class TestUrls(TestCase):
                 'product_id': 1,
                 'image_id': 1,
                 'image': '',
+                'alt_text': 'Test Edit Image Alt Text',
+                'default_image': True,
+                'is_active': True
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+
+    def test_edit_product_ajax_post_view_with_access_with_image(self):
+        """Test edit product image ajax post view with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        image = open('static/images/test_product_image.png', 'rb')
+        response = self.client.post(
+            self.edit_product_image_url,
+            {
+                'product_id': 1,
+                'image_id': 1,
+                'image': image,
                 'alt_text': 'Test Edit Image Alt Text',
                 'default_image': True,
                 'is_active': True
