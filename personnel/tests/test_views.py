@@ -489,3 +489,61 @@ class TestUrls(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['success'], False)
+
+    def test_delete_product_ajax_post_view_user_logged_out(self):
+        """Test delete product ajax post view user logged out"""
+        response = self.client.post(self.delete_product_image_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_product_ajax_post_view_without_access(self):
+        """Test delete product ajax post view without access"""
+        self.client.force_login(self.user)
+        response = self.client.post(self.delete_product_image_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_product_ajax_post_view_with_access(self):
+        """Test delete product image ajax post view with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        # count products
+        self.assertEqual(ProductImage.objects.count(), 1)
+        response = self.client.post(
+            self.delete_product_image_url,
+            {
+                'product_id': 1,
+                'image_id': 1
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        # count products
+        self.assertEqual(ProductImage.objects.count(), 0)
+
+    def test_delete_product_ajax_post_view_with_access_failed(self):
+        """Test delete product image view with access failed"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.delete_product_image_url,
+            {
+                'product_id': self.product1.id,
+                'image_id': 1
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        # count products
+        self.assertEqual(ProductImage.objects.count(), 1)
+
+
+
