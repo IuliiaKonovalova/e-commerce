@@ -42,7 +42,7 @@ class ProductsTableView(View):
                 promotions = Promotion.objects.all().filter(active=True)
                 active_now_promotions = []
                 for promotion in promotions:
-                    if promotion.is_active_now() == True:
+                    if promotion.is_active_now():
                         active_now_promotions.append(promotion)
                 context = {
                     'products': products,
@@ -87,7 +87,7 @@ class ProductFullDetailView(View):
                 print(promotions)
                 active_now_promotions = []
                 for promotion in promotions:
-                    if promotion.is_active_now() == True:
+                    if promotion.is_active_now():
                         print(promotion)
                         active_now_promotions.append(promotion)
                 print(active_now_promotions)
@@ -104,14 +104,13 @@ class ProductFullDetailView(View):
                         print(p)
                         if p in products_inventory:
                             product_inventory_in_promo_now.add(p)
-                print(product_inventory_in_promo_now)
-                
                 attributes_set = set()
                 values_set = set()
                 attribute_values_dict = {}
                 for product_inventory in products_inventory:
                     # Get the attribute for the product
-                    attr = product_inventory.product_type.product_type_attributes.all()
+                    attr = product_inventory.product_type.\
+                        product_type_attributes.all()
                     for attribute in attr:
                         # Get the attribute values for the product
                         attributes_set.add(attribute)
@@ -128,7 +127,9 @@ class ProductFullDetailView(View):
                     'active_images': active_images,
                     'get_all_images': get_all_images,
                     'active_now_promotions': active_now_promotions,
-                    'product_inventory_in_promo_now': product_inventory_in_promo_now,
+                    'product_inventory_in_promo_now': (
+                        product_inventory_in_promo_now
+                    ),
                     'attributes_set': attributes_set,
                     'values_set': values_set,
                     'attribute_values_dict': attribute_values_dict,
