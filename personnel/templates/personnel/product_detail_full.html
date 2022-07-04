@@ -559,6 +559,13 @@
 
         $('#exampleModal').modal('show');
       })
+      const myModalEl = document.getElementById('exampleModal')
+      myModalEl.addEventListener('hide.bs.modal', event => {
+        // check if #modal-form-edit exists
+        if ($('#modal-form-edit').length) {
+          $('#modal-form-edit').attr('id', 'modal-form');
+        }
+      })
     });
   </script>
 {% endblock %}
