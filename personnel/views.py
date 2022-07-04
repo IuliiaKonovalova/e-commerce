@@ -81,27 +81,20 @@ class ProductFullDetailView(View):
                 get_all_images = ProductImage.objects.filter(
                     product=product
                 )
-
                 # promotions active now
                 promotions = Promotion.objects.all().filter(active=True)
-                print(promotions)
                 active_now_promotions = []
                 for promotion in promotions:
                     if promotion.is_active_now():
-                        print(promotion)
                         active_now_promotions.append(promotion)
-                print(active_now_promotions)
                 product_inventory_in_promo_now = set()
-
                 # pi
                 products_inventory = ProductInventory.objects.filter(
                     product=product
                 )
                 for promotion in active_now_promotions:
                     pi = promotion.products_inventory_in_promotion.all()
-                    print(pi)
                     for p in pi:
-                        print(p)
                         if p in products_inventory:
                             product_inventory_in_promo_now.add(p)
                 attributes_set = set()
@@ -223,7 +216,6 @@ class AddImageToProductAJAXView(View):
                 )
             else:
                 if request.is_ajax():
-                    print(request.POST)
                     product = request.POST.get('product_id')
                     image = request.FILES.get('image')
                     alt_text = request.POST.get('alt_text')
@@ -283,8 +275,6 @@ class EditImageToProductAJAXView(View):
                 )
             else:
                 if request.is_ajax():
-                    print('TEST EDITION REQUEST POST')
-                    print(request.POST)
                     image_id = request.POST.get('image_id')
                     product = request.POST.get('product_id')
                     image = request.FILES.get('image')
@@ -292,18 +282,13 @@ class EditImageToProductAJAXView(View):
                     default_image = request.POST.get('default_image') == 'true'
                     is_active = request.POST.get('is_active') == 'true'
                     updated_image = ProductImage.objects.get(id=image_id)
-                    print(image_id)
-
                     if image:
                         updated_image.image = image
-
                     # update product_object
                     updated_image.alt_text = alt_text
                     updated_image.default_image = default_image
                     updated_image.is_active = is_active
                     updated_image.save()
-                    print('PRODUCT OBJECT UPDATED')
-                    print(updated_image)
                     # get data:
                     image_id = image_id
                     update_image = ProductImage.objects.get(id=image_id)
@@ -311,7 +296,6 @@ class EditImageToProductAJAXView(View):
                     update_default_image = update_image.default_image
                     update_is_active = update_image.is_active
                     update_image_url = update_image.image_url
-
                     return JsonResponse(
                         {
                             'success': True,
@@ -349,15 +333,9 @@ class DeleteImageToProductAJAXView(View):
                 )
             else:
                 if request.is_ajax():
-                    print('TEST DELETION REQUEST POST')
-                    print(request.POST)
                     image_id = request.POST.get('image_id')
-                    product = request.POST.get('product_id')
                     updated_image = ProductImage.objects.get(id=image_id)
-                    print(image_id)
                     updated_image.delete()
-                    print('PRODUCT OBJECT DELETED')
-                    print(updated_image)
                     return JsonResponse(
                         {
                             'success': True,
