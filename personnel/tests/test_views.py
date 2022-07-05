@@ -22,8 +22,8 @@ from inventory.models import (
 from promotions.models import Promotion
 
 
-class TestUrls(TestCase):
-    """Test Inventory URLs."""
+class TestViews(TestCase):
+    """Test Inventory Views."""
     def setUp(self):
         """Set up the test."""
         # create users
@@ -209,6 +209,10 @@ class TestUrls(TestCase):
         self.add_product_image_url = reverse('add_product_image')
         self.edit_product_image_url = reverse('edit_product_image')
         self.delete_product_image_url = reverse('delete_product_image')
+        self.product_inventory_details_url = reverse(
+            'product_inventory_details',
+            kwargs={'pk': 1, 'inventory_pk': 1}
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -565,3 +569,49 @@ class TestUrls(TestCase):
         self.assertEqual(response.json()['success'], False)
         # count products
         self.assertEqual(ProductImage.objects.count(), 1)
+
+    def test_product_inventory_details_view_user_logged_out(self):
+        """Test product inventory details view user logged out"""
+        response = self.client.get(self.product_inventory_details_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_product_inventory_details_view_without_access(self):
+        """Test product inventory details view without access"""
+        self.client.force_login(self.user)
+        response = self.client.get(self.product_inventory_details_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_product_inventory_details_view_with_access(self):
+        """Test product inventory details view with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.product_inventory_details_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'personnel/product_inventory_details.html'
+        )
+
+    def test_product_inventory_details_view_in_promotion_with_access(self):
+        """Test product inventory details view in promotion with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        self.promotion.products_inventory_in_promotion.add(
+            self.product_inventory1
+        )
+        self.promotion.save()
+        response = self.client.get(self.product_inventory_details_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'personnel/product_inventory_details.html'
+        )
