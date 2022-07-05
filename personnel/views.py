@@ -352,3 +352,50 @@ class DeleteImageToProductAJAXView(View):
                 request,
                 'account/login.html',
             )
+
+
+class ProductInventoryDetailsView(View):
+    """View for the product inventory details page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                product_id = kwargs.get('pk')
+                print(product_id)
+                product_inventory_id = kwargs.get('inventory_pk')
+                print(product_inventory_id)
+                product_inventory = ProductInventory.objects.get(
+                    id=product_inventory_id,
+                )
+                product = Product.objects.get(id=product_id)
+                # promotions active now
+                promotions = Promotion.objects.all().filter(active=True)
+                active_now_promotions = []
+                for promotion in promotions:
+                    if promotion.is_active_now():
+                        active_now_promotions.append(promotion)
+                inPromoNow = False
+                for promo in active_now_promotions:
+                    promo_units = promo.products_inventory_in_promotion.all()
+                    if product_inventory in promo_units:
+                        inPromoNow = True
+                return render(
+                    request,
+                    'personnel/product_inventory_details.html',
+                    {
+                        'product': product,
+                        'inventory': product_inventory,
+                        'inPromoNow': inPromoNow,
+                    }
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
