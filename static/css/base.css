@@ -490,6 +490,10 @@ img {
   font-weight: 900;
 }
 
+button:active {
+  color: var(--clr-accent--100);
+}
+
 .btn-check:active+.btn,
 .btn-check:checked+.btn,
 .btn.active,
@@ -506,16 +510,19 @@ img {
 .btn:hover {
   background-color: var(--clr-primary--300);
   border-color: var(--clr-accent--100);
+  color: var(--clr-accent--100);
 }
 
 .btn[type="submit"] {
   background-color: var(--clr-accent--700);
   border-color: var(--clr-accent--900);
   box-shadow: var(--box-shadow-buttons);
+  color: var(--clr-accent--100);
 }
 
 .btn[type="submit"]:hover {
   background-color: var(--clr-accent--900);
+  color: var(--clr-accent--100);
 }
 
 .btn-outline-primary {
@@ -856,12 +863,6 @@ input[name=quantity] {
   position: relative;
 }
 
-.promotions__title {
-  font-size: 2rem;
-  font-weight: 900;
-  margin: 2em;
-}
-
 .promotions__add {
   width: 100%;
   display: flex;
@@ -880,6 +881,10 @@ input[name=quantity] {
   border-color: var(--clr-accent--700);
   color: var(--clr-text--100);
   box-shadow: var(--box-shadow-buttons);
+  --bs-btn-hover-bg: var(--clr-accent--900);
+  --bs-btn-hover-border-color: var(--clr-accent--900);
+  --bs-btn-active-bg: var(--clr-accent--900);
+  --bs-btn-active-border-color: var(--clr-accent--900);
 }
 
 .btn__add:hover {
@@ -1119,6 +1124,7 @@ input[name=quantity] {
 .btn__link:hover {
   background-color: unset;
   text-decoration: underline;
+  color: var(--clr-text--900);
 }
 
 .data__main {
@@ -1317,7 +1323,22 @@ td {
 
 }
 
-
+.select2-container .select2-search--inline .select2-search__field {
+  box-sizing: border-box;
+  border: none;
+  font-size: 100%;
+  margin-top: 5px;
+  margin-left: 7px;
+  padding: 0;
+  max-width: 100%;
+  resize: none;
+  /* height: 18px; */
+  height: 70px !important;
+  vertical-align: bottom;
+  font-family: sans-serif;
+  overflow: hidden;
+  word-break: keep-all;
+}
 
 /* --------- Modal ----------- */
 .modal {
