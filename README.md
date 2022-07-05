@@ -13,6 +13,21 @@
 
 ### User Stories
 
+#### First Time Visitor
+
+| Issue ID    | User Story |
+|-------------|-------------|
+| [#1]        |    As a First Time Visitor, I want to be able to register my account,, so that I can learn the benefits of the app as a user.        |
+| [#2]   | As a First Time Visitor, I want to be able to easily understand the main purpose of the app, so that I can learn more about this app. |
+| [#3] | As a First Time Visitor, I want to be able to easily navigate through the app, so that I can find the content. |
+| [#4] | As a First Time Visitor,, I want to be able to find the app useful, so that I can use it according to my needs. |
+| [#5] | As a First Time Visitor, I want to be informed clearly if I am making any errors when registering my account, so that I can be able to fix any errors quickly if I make some. |
+| [#16] | As a First Time Visitor, I want to be able to see the list of products, so that I can learn the benefits of the app as a user. |
+| [#78]  |  As a First Time Visitor, I want to be able to register with social media, so that I can **easily register my account or login **. |
+
+
+
+
 
 *All User stories were initially created in LibreOffice Calc*
 **PDF version**
