@@ -71,6 +71,35 @@
 | [#77](https://github.com/IuliiaKonovalova/e-commerce/issues/77) | As a Regular User, I want to be able to change primary address, so that I can set the primary address without editing it. |
 
 
+#### Manager + Admin
+
+| Issue ID    | User Story |
+|-------------|-------------|
+| [#43](https://github.com/IuliiaKonovalova/e-commerce/issues/43) | As a Manager, I want to be able to add, edit, and delete category, so that I can keep products’ categories up to date. |
+| [#44](https://github.com/IuliiaKonovalova/e-commerce/issues/44) | As a Manager, I want to be able to add, edit, and delete products, so that I can keep shop products up to date.  |
+| [#45](https://github.com/IuliiaKonovalova/e-commerce/issues/45) | As a Manager, I want to be able to add, edit, delete tags, so that I can keep products’ sorting up to date and, as a result, increase sales.  |
+| [#46](https://github.com/IuliiaKonovalova/e-commerce/issues/46) | As a Manager, I want to be able to change tags for a product, so that I can increase sales for a particular product.  |
+| [#47](https://github.com/IuliiaKonovalova/e-commerce/issues/47) | As a Manager, I want to be able to Add, edit, and delete products’ options (attributes and values), so that I can keep products’ options up to date. |
+| [#49](https://github.com/IuliiaKonovalova/e-commerce/issues/49) | As a Manager, I want to be able to send emails to customers about future promotions, so that I can increase sales by notifying customers about promotions. |
+| [#50](https://github.com/IuliiaKonovalova/e-commerce/issues/50) | As a Manager, I want to be able to view customers' data, so that I can contact customers if needed and solve possible problems with purchases.  |
+| [#52](https://github.com/IuliiaKonovalova/e-commerce/issues/52) | As a Manager, I want to be able to answer to customers immediately, so that I can satisfy customers' needs. |
+| [#53](https://github.com/IuliiaKonovalova/e-commerce/issues/53) | As a Manager, I want to be able to sort and review live support chats, so that I can get access to the previous conversation between a customer and other tech support managers.  |
+| [#184](https://github.com/IuliiaKonovalova/e-commerce/issues/184) | As a Manager, I want to be able to control product status (active/not active), so that I can keep shop stock up to date.  |
+| [#186](https://github.com/IuliiaKonovalova/e-commerce/issues/186) | As a Manager, I want to be able to Review user’s requests on a product that is out of stock, so that I can understand customers' urgent needs. |
+| [#187](https://github.com/IuliiaKonovalova/e-commerce/issues/187) | As a Manager, I want to be able to review user’s requests on a product that is about to go out of stock, so that I can understand customers' urgent needs and products’ popularity.  |
+| [#188](https://github.com/IuliiaKonovalova/e-commerce/issues/188) | As a Manager, I want to be able to send emails to customers who left notification letters about products coming back to the shop, so that I can enhance customer loyalty and increase sales.  |
+| [#189](https://github.com/IuliiaKonovalova/e-commerce/issues/189) | As a Manager, I want to be able to send emails to customers who left notification letters about products that are no longer in the shop, so that I can enhance customer loyalty and increase sales.  |
+| [#190](https://github.com/IuliiaKonovalova/e-commerce/issues/190) | As a Manager, I want to be able to review and edit orders’ status, so that I can control customers’ orders and sales.  |
+| [#191](https://github.com/IuliiaKonovalova/e-commerce/issues/191) | As a Manager, I want to be able to sort products by rating, sales, and reviews, so that I can understand customers' preferences and increase sales.  |
+| [#192](https://github.com/IuliiaKonovalova/e-commerce/issues/192) | As a Manager, I want to be able to sort products by stock number, so that I can control stock numbers.  |
+| [#193](https://github.com/IuliiaKonovalova/e-commerce/issues/193) | As a Manager, I want to be able to create sales statistics, so that I can implement new sales strategies if needed.  |
+| [#194](https://github.com/IuliiaKonovalova/e-commerce/issues/194) | As a Manager, I want to be able to review customers’ orders, so that I can control orders.  |
+| [#195](https://github.com/IuliiaKonovalova/e-commerce/issues/195) | As a Manager, I want to be able to sort orders by date and status, so that I can prioritize orders.  |
+| [#196](https://github.com/IuliiaKonovalova/e-commerce/issues/196) | As a Manager, I want to be able to learn and sort customers’ reviews left by date, rating, and username, so that I can understand customers' feedback and needs.  |
+| [#197](https://github.com/IuliiaKonovalova/e-commerce/issues/197) | As a Manager, I want to be able to display new products label, so that I can be sure that customers will be aware of new products in the shop.  |
+| [#198](https://github.com/IuliiaKonovalova/e-commerce/issues/198) | As a Manager, I want to be able to add/render store purchases, so that I can keep the stock app to date.  |
+| [#199](https://github.com/IuliiaKonovalova/e-commerce/issues/199) | As a Manager, I want to be able to control my suppliers' data, so that I can easily connect with them.  |
+| [#200](https://github.com/IuliiaKonovalova/e-commerce/issues/200) | As a Manager, I want to be able to Allow customers to leave reviews only after they receive a product, so that I can control that reviews are relevant.  |
 
 
 #### Admin
