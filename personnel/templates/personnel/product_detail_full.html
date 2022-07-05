@@ -212,9 +212,9 @@
   <script>
     $(document).ready(function() {
       let imageCount;
-      console.log(imageCount);
       let file;
       let imgUrl
+      // Add image preview to image modal form:
       const imagePreview = (e) => {
         // temporarily disable the event handler
         e.preventDefault();
@@ -236,7 +236,6 @@
         let img = document.createElement('img');
         img.classList.add('image__preview');
         // add src attribute to the image element
-        
         img.src = imgUrl;
         img.style.width = '100%';
         img.style.height = '100%';
@@ -637,7 +636,8 @@
               console.log('error');
             }
           });
-        } 
+        }
+      }
       
       // edit image on click
       $('.image__settings').on('click', editImage);
