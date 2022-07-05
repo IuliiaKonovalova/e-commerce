@@ -57,8 +57,8 @@
       <ul class="navbar__items">
         {% if not request.user.is_authenticated %}
         <li class="navbar__item">
-          <a href="{% url 'account_signup' %}" class="">SignUp</a>
-          <a href="{% url 'account_login' %}" class="">Login</a>
+          <a href="{% url 'account_signup' %}" class="enter">SignUp</a>
+          <a href="{% url 'account_login' %}" class="enter">Login</a>
         </li>
         {% endif %}
         {% comment %} Links for school members {% endcomment %}
@@ -97,16 +97,23 @@
         </li>
       </ul>
     </nav>
-      {% if request.user.is_authenticated and not request.user == 1 %}
-      <ul class="subnavbar__items">
-        <li class="navbar__item">
-          <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="account__option">
-            Promotions
-            <i class="fas fa-gift"></i>
-          </a>
-        </li>
-      </ul>
-      {% endif %}
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+    <ul class="subnavbar__items">
+      <li class="navbar__item">
+        <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="account__option">
+          Promotions
+          <i class="fas fa-gift"></i>
+        </a>
+      </li>
+      <li class="navbar__item">
+        <a href="{% url 'products_table' %}" aria-label="Go to Orders page" class="account__option">
+          Products
+          <!-- Icon for stock -->
+          <i class="fas fa-table"></i>
+        </a>
+      </li>
+    </ul>
+    {% endif %}
   </header>
   {% comment %} Main content container {% endcomment %}
   <main class="main">
