@@ -65,7 +65,63 @@
           </table>
         </div>
         <div>
+          <strong>Stock: </strong>
+          {% if inventory.stock %}
+            {% if inventory.stock.units < 50 and inventory.stock.units >= 25 %}
+              <div class="data__accent--yellow">
+                <i class="fa fa-exclamation-triangle"></i>
+              </div>
+            {% elif inventory.stock.units < 25 and inventory.stock.units >= 10 %}
+              <div class="data__accent--orange">
+                <i class="fa fa-exclamation-triangle"></i>
+              </div>
+            {% elif inventory.stock.units < 10 and inventory.stock.units >= 0 %}
+              <div class="data__accent--redish">
+                <i class="fa fa-exclamation-triangle"></i>
+              </div>
+            {% elif inventory.stock.units == 0 %}
+              <div class="data__accent--red">
+                <i class="fa fa-exclamation-triangle"></i>
+              </div>
+            {% else %}
+              <div class="data__accent--green">
+                <i class="fa fa-exclamation-triangle"></i>
+              </div>
+            {% endif %}
+            <table>
+              <tr>
+                <th>Purchased</th>
+                <th>Left</th>
+                <th>Sold</th>
+                <th>Last Checked</th>
+                <th>Inconcistency</th>
+              </tr>
+              <tr>
+                <td>{{ inventory.stock.units }}</td>
+                <td>{{ inventory.stock.units_variable }}</td>
+                <td>{{ inventory.stock.units_sold }}</td>
+                <td>{{ inventory.stock.last_checked }}</td>
+                <td>
+                  {% if inventory.stock in stock_inconsistency %}
+                    <div class="data__accent--red">
+                      <i class="fa fa-exclamation-triangle"></i>
+                    </div>
+                  {% else %}
+                    <div class="data__accent--green">
+                      <i class="fa fa-exclamation-triangle"></i>
+                    </div>
+                  {% endif %}
+                </td>
+              </tr>
+            </table>
 
+          {% else %}
+            <div class="data__accent--red">
+              <strong>Stock not found</strong>
+              {% comment %} Check if user is admin {% endcomment %}
+            </div>
+          {% endif %}
+        </div>
       </div>
     {% endif %}
   </div>
