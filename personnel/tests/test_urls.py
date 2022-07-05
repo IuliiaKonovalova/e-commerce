@@ -8,6 +8,7 @@ from personnel.views import (
     AddImageToProductAJAXView,
     EditImageToProductAJAXView,
     DeleteImageToProductAJAXView,
+    ProductInventoryDetailsView,
 )
 
 
@@ -53,4 +54,15 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             DeleteImageToProductAJAXView
+        )
+
+    def test_product_inventory_details_url(self):
+        """Test the product inventory details url."""
+        url = reverse(
+            'product_inventory_details',
+            kwargs={'pk': 1, 'inventory_pk': 1}
+        )
+        self.assertEquals(
+            resolve(url).func.view_class,
+            ProductInventoryDetailsView
         )
