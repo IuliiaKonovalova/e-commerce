@@ -385,6 +385,9 @@ class ProductInventoryDetailsView(View):
                     promo_units = promo.products_inventory_in_promotion.all()
                     if product_inventory in promo_units:
                         inPromoNow = True
+                stock_inconsistency = Stock.get_units_inconsistent()
+                print(stock_inconsistency)
+                print(product_inventory)
                 return render(
                     request,
                     'personnel/product_inventory_details.html',
@@ -392,6 +395,7 @@ class ProductInventoryDetailsView(View):
                         'product': product,
                         'inventory': product_inventory,
                         'inPromoNow': inPromoNow,
+                        'stock_inconsistency': stock_inconsistency,
                     }
                 )
         else:
