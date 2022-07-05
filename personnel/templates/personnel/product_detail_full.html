@@ -94,7 +94,7 @@
     <strong>Product inventories: {{ product.get_all_inventory.count }}</strong>
     <div class="data__main--inventories">
       {% for inventory in product.get_all_inventory %}
-        <div class="data__main--inventory data__main--link">
+        <a href="#" aria-label="Go to product inventories details" class="data__main--inventory data__main--link">
           <span>
             {% if inventory.is_active %}
             <i class="fa fa-check-circle"></i> (Active)
@@ -109,6 +109,10 @@
           <div>
             <strong>UPC: </strong>
             {{ inventory.upc }}
+          </div>
+          <div>
+            <strong>Options: </strong>
+            {{ inventory.get_all_attribute_values_str }}
           </div>
           <div>
             <strong>Price: </strong>
@@ -160,7 +164,7 @@
               </div>
             {% endif %}
           </div>
-        </div>
+        </a>
       {% endfor %}
     </div>
   </div>
