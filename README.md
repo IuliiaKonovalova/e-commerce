@@ -18,12 +18,12 @@
 | Issue ID    | User Story |
 |-------------|-------------|
 | [#1](https://github.com/IuliiaKonovalova/e-commerce/issues/1) | As a First Time Visitor, I want to be able to register my account, so that I can learn the benefits of the app as a user. |
-| [#2](https://github.com/IuliiaKonovalova/e-commerce/issues/2)   | As a First Time Visitor, I want to be able to easily understand the main purpose of the app, so that I can learn more about this app. |
+| [#2](https://github.com/IuliiaKonovalova/e-commerce/issues/2) | As a First Time Visitor, I want to be able to easily understand the main purpose of the app, so that I can learn more about this app. |
 | [#3](https://github.com/IuliiaKonovalova/e-commerce/issues/3) | As a First Time Visitor, I want to be able to easily navigate through the app, so that I can find the content. |
 | [#4](https://github.com/IuliiaKonovalova/e-commerce/issues/4) | As a First Time Visitor,, I want to be able to find the app useful, so that I can use it according to my needs. |
 | [#5](https://github.com/IuliiaKonovalova/e-commerce/issues/5) | As a First Time Visitor, I want to be informed clearly if I am making any errors when registering my account, so that I can be able to fix any errors quickly if I make some. |
 | [#16](https://github.com/IuliiaKonovalova/e-commerce/issues/16) | As a First Time Visitor, I want to be able to see the list of products, so that I can learn the benefits of the app as a user. |
-| [#78](https://github.com/IuliiaKonovalova/e-commerce/issues/78)  |  As a First Time Visitor, I want to be able to register with social media, so that I can **easily register my account or login **. |
+| [#78](https://github.com/IuliiaKonovalova/e-commerce/issues/78) | As a First Time Visitor, I want to be able to register with social media, so that I can easily register my account or login. |
 
 
 #### Regular User (Customer)
@@ -33,7 +33,7 @@
 | [#6](https://github.com/IuliiaKonovalova/e-commerce/issues/6) | As a Regular User, I want to be able to access my account without having to log in every time, so that I can quickly buy a product that I need. |
 | [#7](https://github.com/IuliiaKonovalova/e-commerce/issues/7) | As a Regular User, I want to be sure that my account details are protected, so that I can safely make purchases. |
 | [#8](https://github.com/IuliiaKonovalova/e-commerce/issues/8) | As a Regular User, I want to be able to view my data, so that I can easily check my account details and past orders. |
-| [#9](https://github.com/IuliiaKonovalova/e-commerce/issues/9) | As a Regular User, I want to be able to search for a product, so that I can get the most appropriate choices, so that I am likely to find what I am looking for.. |
+| [#9](https://github.com/IuliiaKonovalova/e-commerce/issues/9) | As a Regular User, I want to be able to search for a product, so that I can get the most appropriate choices, so that I am likely to find what I am looking for. |
 | [#10](https://github.com/IuliiaKonovalova/e-commerce/issues/10) | As a Regular User, I want to be able to add, edit, and save my address data, so that I can make an order faster. |
 | [#11](https://github.com/IuliiaKonovalova/e-commerce/issues/11) | As a Regular User, I want to be able to search products by category, tag, or text search, so that I can find a product faster.  |
 | [#12](https://github.com/IuliiaKonovalova/e-commerce/issues/12) | As a Regular User, I want to be able to sort products by rating, price, and category, so that I can find the best option to buy.  |
@@ -72,6 +72,17 @@
 
 
 
+
+#### Admin
+
+| Issue ID    | User Story |
+|-------------|-------------|
+| [#48](https://github.com/IuliiaKonovalova/e-commerce/issues/48) | As an Admin, I want to be able to add promotions, so that I can increase sales and enhance customers’ loyalty.  |
+| [#92](https://github.com/IuliiaKonovalova/e-commerce/issues/92) | As an Admin, I want to be able to get a visible notice about products that are running in stock, so that I can keep stock up to date. |
+| [#93](https://github.com/IuliiaKonovalova/e-commerce/issues/93) |  As an Admin, I want to be able to be aware of units sold, so that I can be aware of sales on a particular product. |
+| [#94](https://github.com/IuliiaKonovalova/e-commerce/issues/94) | As an Admin, I want to be able to get a visible notice if there is some inconsistency in sales, so that I can be aware of possible stealing.  |
+| [#95](https://github.com/IuliiaKonovalova/e-commerce/issues/95) | As an Admin, I want to be able to get a visible notice if there a product is not salable, so that I can make a decision about stopping purchasing this product for my store.  |
+| [#185](https://github.com/IuliiaKonovalova/e-commerce/issues/185) |  As an Admin, I want to be able to send special discounts email notifications, so that I can inform loyal customers about special offers. |
 
 
 
