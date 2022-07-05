@@ -114,11 +114,20 @@
                 </td>
               </tr>
             </table>
-
+            <a href="#" class="btn btn-primary btn__add">
+              <i class="fa fa-refresh"></i>
+              Update Stock
+            </a>
           {% else %}
             <div class="data__accent--red">
               <strong>Stock not found</strong>
               {% comment %} Check if user is admin {% endcomment %}
+              {% if request.user.profile.role.id == 3 %}
+                <a href="#" class="btn btn-primary btn__add">
+                  <i class="fa fa-plus-circle"></i>
+                  Add Stock
+                </a>
+              {% endif %}
             </div>
           {% endif %}
         </div>
