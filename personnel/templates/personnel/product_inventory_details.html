@@ -5,7 +5,68 @@
 {% block content %}
 <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          {{ product.name }}
+          {% if product.get_recently_created %}
+            <span class="new">
+              New !
+            </span>
+          {% endif %}
+        </h1>
+      </div>
+      <div class="data__main">
+        <span>
+          {% if inventory.is_active %}
+            <i class="fa fa-check-circle"></i> (Active Unit)
+          {% else %}
+            <i class="fa fa-times-circle"></i> (Inactive Unit)
+          {% endif %}
+        </span>
+        <div>
+          <strong>SKU: </strong>
+          {{ inventory.sku }}
+        </div>
+        <div>
+          <strong>UPC: </strong>
+          {{ inventory.upc }}
+        </div>
+        <div>
+          <strong>Options: </strong>
+          {{ inventory.get_all_attribute_values_str }}
+        </div>
+        <div>
+          <strong>Promo: </strong>
+          {% if inPromoNow %}
+            <i class="fa fa-check-circle"></i> (Active Promo)
+          {% else %}
+            <i class="fa fa-times-circle"></i> (Not in Promo)
+          {% endif %}
+        </div>
+        <div>
+          <strong>Price: </strong>
+          <table>
+            <tr>
+              <th>Retail</th>
+              <th>Store</th>
+              <th>Sale</th>
+            </tr>
+            <tr>
+              <td>$ {{ inventory.retail_price }}</td>
+              <td>$ {{ inventory.store_price }}</td>
+              <td>
+                {% if not inventory.store_price == inventory.sale_price %}
+                <div class="data__accent--sale">$ {{ inventory.sale_price }}</div>
+                {% else %}
+                <div>$ {{ inventory.sale_price }}</div>
+                {% endif %}
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div>
 
+      </div>
     {% endif %}
   </div>
 {% endblock %}
