@@ -403,3 +403,34 @@ class ProductInventoryDetailsView(View):
                 request,
                 'account/login.html',
             )
+
+
+class AddProductInventoryDetailsView(View):
+    """View for the add product inventory details page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                product_id = kwargs.get('pk')
+                product = Product.objects.get(id=product_id)
+                # get all ProductType
+                product_types = ProductType.objects.all()
+                return render(
+                    request,
+                    'personnel/add_product_inventory_details.html',
+                    {
+                        'product': product,
+                        'product_types': product_types,
+                    }
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
