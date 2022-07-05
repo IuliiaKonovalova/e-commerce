@@ -8,6 +8,7 @@ from .views import (
     EditImageToProductAJAXView,
     DeleteImageToProductAJAXView,
     ProductInventoryDetailsView,
+    AddProductInventoryDetailsView,
 )
 
 # add_product_image
@@ -46,5 +47,10 @@ urlpatterns = [
         'product/<int:pk>/inventory/<int:inventory_pk>/',
         ProductInventoryDetailsView.as_view(),
         name='product_inventory_details'
+    ),
+    path(
+        'product/<int:pk>/add_inventory/',
+        AddProductInventoryDetailsView.as_view(),
+        name='add_product_inventory_details'
     ),
 ]
