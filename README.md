@@ -13,6 +13,11 @@
 
 ### User Stories
 
+
+*All User stories were initially created in LibreOffice Calc*
+**PDF version**
+[PDF version](documentation/user_stories/user_stories.pdf)
+
 #### **First Time Visitor Goals**
 
 
