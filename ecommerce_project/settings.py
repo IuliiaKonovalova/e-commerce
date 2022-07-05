@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'wishlist',
     'promotions',
     'email_notifications',
+    'personnel',
 ]
 
 MIDDLEWARE = [

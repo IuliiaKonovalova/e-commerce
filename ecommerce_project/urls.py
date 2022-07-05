@@ -13,4 +13,5 @@ urlpatterns = [
     path('wishlist/', include('wishlist.urls')),
     path('promotions/', include('promotions.urls')),
     path('email_notifications/', include('email_notifications.urls')),
+    path('personnel/', include('personnel.urls')),
 ]
