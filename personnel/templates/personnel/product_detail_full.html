@@ -115,6 +115,14 @@
             {{ inventory.get_all_attribute_values_str }}
           </div>
           <div>
+            <strong>Promo: </strong>
+            {% if inventory in product_inventory_in_promo_now %}
+              <i class="fa fa-check-circle"></i> (Active Promo)
+            {% else %}
+              <i class="fa fa-times-circle"></i> (Inactive)
+            {% endif %}
+          </div>
+          <div>
             <strong>Price: </strong>
             <table>
               <tr>
