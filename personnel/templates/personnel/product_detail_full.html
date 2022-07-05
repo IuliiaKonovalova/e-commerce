@@ -91,6 +91,10 @@
         </div>
         <div class="data__main--section">
           <strong>Product inventories: {{ product.get_all_inventory.count }}</strong>
+          <a class="btn btn-primary btn__add" href="{% url 'add_product_inventory_details' pk=product.pk %}">
+            <i class="fas fa-plus-circle"></i>
+            Add new unit
+          </a>
           <div class="data__main--inventories">
             {% for inventory in product.get_all_inventory %}
               <a href="{% url 'product_inventory_details' pk=product.pk inventory_pk=inventory.id %}" aria-label="Go to product inventories details" class="data__main--inventory data__main--link">
