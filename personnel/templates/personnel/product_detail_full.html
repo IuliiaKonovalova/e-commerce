@@ -94,73 +94,73 @@
     <strong>Product inventories: {{ product.get_all_inventory.count }}</strong>
     <div class="data__main--inventories">
       {% for inventory in product.get_all_inventory %}
-      <div class="data__main--inventory data__main--link">
-        <span>
-          {% if inventory.is_active %}
-          <i class="fa fa-check-circle"></i> (Active)
-          {% else %}
-          <i class="fa fa-times-circle"></i> (Inactive)
-          {% endif %}
-        </span>
-        <div>
-          <strong>SKU: </strong>
-          {{ inventory.sku }}
-        </div>
-        <div>
-          <strong>UPC: </strong>
-          {{ inventory.upc }}
-        </div>
-        <div>
-          <strong>Price: </strong>
-          <table>
-            <tr>
-              <th>Retail</th>
-              <th>Store</th>
-              <th>Sale</th>
-            </tr>
-            <tr>
-              <td>$ {{ inventory.retail_price }}</td>
-              <td>$ {{ inventory.store_price }}</td>
-              <td>
-                {% if not inventory.store_price == inventory.sale_price %}
-                <div class="data__accent--sale">$ {{ inventory.sale_price }}</div>
-                {% else %}
-                <div>$ {{ inventory.sale_price }}</div>
-                {% endif %}
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div>
-          {% if inventory.stock %}
-          {% if inventory.stock.units < 50 and inventory.stock.units >= 25 %}
-            <div class="data__accent--yellow">
-              <strong>Units left: {{ inventory.stock.units }}</strong>
-            </div>
-            {% elif inventory.stock.units < 25 and inventory.stock.units >= 10 %}
-              <div class="data__accent--orange">
-                <strong>Units left: {{ inventory.stock.units }}</strong>
-              </div>
+        <div class="data__main--inventory data__main--link">
+          <span>
+            {% if inventory.is_active %}
+            <i class="fa fa-check-circle"></i> (Active)
+            {% else %}
+            <i class="fa fa-times-circle"></i> (Inactive)
+            {% endif %}
+          </span>
+          <div>
+            <strong>SKU: </strong>
+            {{ inventory.sku }}
+          </div>
+          <div>
+            <strong>UPC: </strong>
+            {{ inventory.upc }}
+          </div>
+          <div>
+            <strong>Price: </strong>
+            <table>
+              <tr>
+                <th>Retail</th>
+                <th>Store</th>
+                <th>Sale</th>
+              </tr>
+              <tr>
+                <td>$ {{ inventory.retail_price }}</td>
+                <td>$ {{ inventory.store_price }}</td>
+                <td>
+                  {% if not inventory.store_price == inventory.sale_price %}
+                    <div class="data__accent--sale">$ {{ inventory.sale_price }}</div>
+                  {% else %}
+                    <div>$ {{ inventory.sale_price }}</div>
+                  {% endif %}
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div>
+            {% if inventory.stock %}
+              {% if inventory.stock.units < 50 and inventory.stock.units >= 25 %}
+                <div class="data__accent--yellow">
+                  <strong>Units left: {{ inventory.stock.units }}</strong>
+                </div>
+              {% elif inventory.stock.units < 25 and inventory.stock.units >= 10 %}
+                <div class="data__accent--orange">
+                  <strong>Units left: {{ inventory.stock.units }}</strong>
+                </div>
               {% elif inventory.stock.units < 10 and inventory.stock.units >= 0 %}
                 <div class="data__accent--redish">
                   <strong>Units left: {{ inventory.stock.units }}</strong>
                 </div>
-                {% elif inventory.stock.units == 0 %}
+              {% elif inventory.stock.units == 0 %}
                 <div class="data__accent--red">
                   <strong>Units left: {{ inventory.stock.units }}</strong>
                 </div>
-                {% else %}
+              {% else %}
                 <div class="data__accent--green">
                   <strong>Units left: {{ inventory.stock.units }}</strong>
                 </div>
-                {% endif %}
-                {% else %}
-                <div class="data__accent--red">
-                  <strong>Stock not found</strong>
-                </div>
-                {% endif %}
+              {% endif %}
+            {% else %}
+              <div class="data__accent--red">
+                <strong>Stock not found</strong>
+              </div>
+            {% endif %}
+          </div>
         </div>
-      </div>
       {% endfor %}
     </div>
   </div>
@@ -349,17 +349,20 @@
               aSettings.addClass('data__main--link');
               aSettings.addClass('image__settings');
               aSettings.attr('href', '#');
-              //aSettings.attr('data-bs-toggle', 'modal');
-              //aSettings.attr('data-bs-target', '#exampleModal');
               aSettings.attr('data-id', data.new_image_pk);
               //add text settings to a
               aSettings.text('edit');
+              //add event on click to aSettings
+              aSettings.on('click', editImage);
               //create delete button
               let aDelete = $('<a></a>');
               aDelete.addClass('data__main--link');
               aDelete.addClass('image__delete');
               aDelete.attr('href', '#');
               aDelete.attr('data-id', data.new_image_pk);
+              aDelete.text('delete');
+              //add event on click to aDelete
+              aDelete.on('click', deleteImage);
               // apend to divImageTitle
               divImageTitle.append(divImageTitleText);
               divImageTitle.append(aSettings);
@@ -424,7 +427,7 @@
           }
         }
       });
-      $('.image__settings').on('click', (e) => {
+      const editImage = function(e) {
         let imageId = $(e.target).data('id');
         let imageAltText = $('img[data-id="' + imageId + '"]').attr('alt');
         let imageDefault = $('img[data-id="' + imageId + '"]').attr('data-default');
@@ -607,9 +610,11 @@
           }
         });
         $('#exampleModal').modal('show');
-      })
-      // delete image
-      $('.image__delete').on('click', (e) => {
+      }
+
+      // delete image function
+      const deleteImage = function(e) {
+        e.preventDefault();
         let imageId = $(e.target).data('id');
         let confirmDelete = confirm('Are you sure you want to delete this image?');
         if (confirmDelete) {
@@ -633,7 +638,11 @@
             }
           });
         } 
-      });
+      
+      // edit image on click
+      $('.image__settings').on('click', editImage);
+      // delete image on click
+      $('.image__delete').on('click', deleteImage);
       //reset modal form
       const myModalEl = document.getElementById('exampleModal')
       myModalEl.addEventListener('hide.bs.modal', event => {
