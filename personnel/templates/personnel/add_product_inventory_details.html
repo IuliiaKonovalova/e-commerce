@@ -206,7 +206,28 @@
             cache: false,
             success: function(data) {
               console.log(data);
-
+              if (data.success) {
+                if (data.success_message) {
+                  alert(data.success_message);
+                  // impty all inputs
+                  $('#sku').val('');
+                  $('#upc').val('');
+                  $('#retail_price').val('');
+                  $('#store_price').val('');
+                  $('#sale_price').val('');
+                  $('#weight').val('');
+                  $('#flexCheckDefault').prop('checked', false);
+                  $('select').each(function() {
+                    $(this).val('');
+                  });
+                  $('#attributes').empty();
+                } else if (data.error_message) {
+                  alert(data.error_message);
+                }
+              }
+            },
+            error: function(data) {
+              alert("Error: Something went wrong. Try again later.");
             }
           });
 
