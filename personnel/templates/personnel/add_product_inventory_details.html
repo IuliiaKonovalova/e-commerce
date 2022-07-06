@@ -73,5 +73,21 @@
 {% endblock %}
 
 {% block postloadjs_extra %}
+  <script>
+    $(document).ready(function() {
+      const onlyNumberKey = function(e) {
+        // Only ASCII character in that range allowed
+        if (e.which < 48 || e.which > 57) {
+          e.preventDefault();
+        }
+      };
 
+      $('#sku').on('keypress', onlyNumberKey);
+      $('#upc').on('keypress', onlyNumberKey);
+      $('#weight').on('keypress', onlyNumberKey);
+
+
+      
+    });
+  </script>
 {% endblock %}
