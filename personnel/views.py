@@ -251,6 +251,55 @@ class EditProductView(View):
             )
 
 
+class DeleteProductView(View):
+    """View for the delete product page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                product = get_object_or_404(Product, id=kwargs['pk'])
+                context = {
+                    'product': product,
+                }
+                return render(
+                    request,
+                    'personnel/delete_product.html',
+                    context
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                product = get_object_or_404(Product, id=kwargs['pk'])
+                product.delete()
+                return HttpResponseRedirect(
+                    '/personnel/products_table/'
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
 class AddImageToProductAJAXView(View):
     """View for the add image to product page."""
     def post(self, request, *args, **kwargs):
