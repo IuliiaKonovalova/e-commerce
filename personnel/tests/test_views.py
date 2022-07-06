@@ -209,6 +209,10 @@ class TestViews(TestCase):
         )
         self.add_product_url = reverse('add_product')
         self.edit_product_url = reverse('edit_product', kwargs={'pk': 1})
+        self.delete_product_url = reverse(
+            'delete_product',
+            kwargs={'pk': 1,}
+        )
         self.add_product_image_url = reverse('add_product_image')
         self.edit_product_image_url = reverse('edit_product_image')
         self.delete_product_image_url = reverse('delete_product_image')
@@ -443,6 +447,58 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/edit_product.html')
+
+    def test_delete_product_view_user_logged_out(self):
+        """Test delete product view user logged out."""
+        response = self.client.get(self.delete_product_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_product_view_without_access(self):
+        """Test delete product view without access."""
+        self.client.force_login(self.user)
+        response = self.client.get(self.delete_product_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_product_view_with_access(self):
+        """Test delete product view with access."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.delete_product_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/delete_product.html')
+
+    def test_delete_product_post_view_user_logged_out(self):
+        """Test delete product post view user logged out."""
+        response = self.client.post(self.delete_product_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_product_post_view_without_access(self):
+        """Test delete product post view without access."""
+        self.client.force_login(self.user)
+        response = self.client.post(self.delete_product_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_product_post_view_with_access(self):
+        """Test delete product post view with access."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        # check how many products are in the database
+        self.assertEqual(Product.objects.count(), 4)
+        response = self.client.post(self.delete_product_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Product.objects.count(), 3)
 
     def test_add__product_image_view_user_logged_out(self):
         """Test add product image view user logged out"""
