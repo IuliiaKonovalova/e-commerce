@@ -347,9 +347,7 @@ class ProductInventoryDetailsView(View):
                 )
             else:
                 product_id = kwargs.get('pk')
-                print(product_id)
                 product_inventory_id = kwargs.get('inventory_pk')
-                print(product_inventory_id)
                 product_inventory = ProductInventory.objects.get(
                     id=product_inventory_id,
                 )
@@ -366,8 +364,6 @@ class ProductInventoryDetailsView(View):
                     if product_inventory in promo_units:
                         inPromoNow = True
                 stock_inconsistency = Stock.get_units_inconsistent()
-                print(stock_inconsistency)
-                print(product_inventory)
                 return render(
                     request,
                     'personnel/product_inventory_details.html',
@@ -430,13 +426,10 @@ class GetTypeAttributeAJAXView(View):
             else:
                 if request.is_ajax():
                     type_id = request.POST.get('type_id')
-                    print(type_id)
                     type_attribute = ProductType.objects.get(id=type_id)
                     all_attr = type_attribute.get_product_type_attributes()
                     attributes_set = set()
-                    values_set = set()
                     attribute_values_dict = {}
-
                     for attribute in all_attr:
                         # Get the attribute values for the product
                         attributes_set.add(attribute)
@@ -447,14 +440,8 @@ class GetTypeAttributeAJAXView(View):
                         values_list = []
                         for attr_value in attr_values:
                             values_list.append(attr_value.attribute_value)
-                        print(values_list)
                         attribute_values_set.add(attr_value)
                         attribute_values_dict[attribute.name] = values_list
-                    # values = product_inventory.productattributevalues.all()
-                    # values_set.add(values)
-                        print(attr_value)
-                        print(attribute_values_dict)
-
                     return JsonResponse(
                         {
                             'success': True,
@@ -487,52 +474,20 @@ class ProductInventoryCreateAJAXView(View):
                 )
             else:
                 if request.is_ajax():
-                    print(request.POST)
                     sku = request.POST.get('sku')
-                    print(sku)
                     upc = request.POST.get('upc')
-                    print(upc)
                     product = request.POST.get('product')
-                    print(product)
                     product_obj = Product.objects.get(id=product)
-                    print(product_obj)
                     product_type = request.POST.get('product_type')
-                    print(product_type)
                     product_type_obj = ProductType.objects.get(id=product_type)
-                    print('product_type_obj', product_type_obj)
-                    # attribute_values = request.POST.getlist('attribute_values')
-                    # print(attribute_values)
                     attribute_values = request.POST.get('attribute_values')
-                    print(attribute_values)
-                    # attribute_values convert to dic
+                    # attribute_values convert to dictionary
                     attribute_values_dict = json.loads(attribute_values)
-                    print(attribute_values_dict)
-                    # for attr_value in attribute_values_dict:
-                    #     print(attr_value)
-                    #     print(attribute_values_dict[attr_value])
-                    #     attr_obj = ProductAttribute.objects.get(name=attr_value)
-                    #     print('attr_obj', attr_obj)
-
-                    #     attr_value_obj = ProductAttributeValue.objects.get(
-                    #         product_attribute=attr_obj,
-                    #         attribute_value=attribute_values_dict[attr_value],
-                    #     )
-                    #     print('attr_value_obj', attr_value_obj.id)
                     retail_price = Decimal(request.POST.get('retail_price'))
-                    print(retail_price)
                     store_price = Decimal(request.POST.get('store_price'))
-                    print(store_price)
-
                     sale_price = Decimal(request.POST.get('sale_price'))
-                    print(sale_price)
                     weight = request.POST.get('weight')
-                    print(weight)
                     is_active = request.POST.get('active') == 'true'
-                    print(is_active)
-                    # Send variable for return
-                    pk = str(product)
-
-                    # try 
                     try:
                         product_inventory = ProductInventory.objects.create(
                             sku=sku,
@@ -547,18 +502,18 @@ class ProductInventoryCreateAJAXView(View):
                         )
                         product_inventory.save()
                         for attr_value in attribute_values_dict:
-                            print(attr_value)
-                            print(attribute_values_dict[attr_value])
-                            attr_obj = ProductAttribute.objects.get(name=attr_value)
-                            print('attr_obj', attr_obj)
-
+                            attr_obj = ProductAttribute.objects.get(
+                                name=attr_value,
+                            )
                             attr_value_obj = ProductAttributeValue.objects.get(
                                 product_attribute=attr_obj,
-                                attribute_value=attribute_values_dict[attr_value],
+                                attribute_value=attribute_values_dict[
+                                    attr_value
+                                ],
                             )
-                            print('attr_value_obj', attr_value_obj.id)
-
-                            product_inventory.attribute_values.add(attr_value_obj)
+                            product_inventory.attribute_values.add(
+                                attr_value_obj
+                            )
                             product_inventory.save()
                         success_message = (
                             'Product inventory added successfully'
@@ -570,7 +525,6 @@ class ProductInventoryCreateAJAXView(View):
                             }
                         )
                     except Exception as e:
-                        print(e)
                         error_message = (
                             'Error adding product inventory. '
                             'Error: '
