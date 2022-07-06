@@ -9,6 +9,8 @@ from .views import (
     DeleteImageToProductAJAXView,
     ProductInventoryDetailsView,
     AddProductInventoryDetailsView,
+    GetTypeAttributeAJAXView,
+
 )
 
 # add_product_image
@@ -53,4 +55,10 @@ urlpatterns = [
         AddProductInventoryDetailsView.as_view(),
         name='add_product_inventory_details'
     ),
+    path(
+        'get_type_attribute/',
+        GetTypeAttributeAJAXView.as_view(),
+        name='get_type_attribute'
+    ),
+
 ]
