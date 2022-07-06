@@ -1,4 +1,5 @@
 """Veiws for the personnel app."""
+from decimal import Decimal
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
@@ -473,3 +474,123 @@ class GetTypeAttributeAJAXView(View):
             )
 
 
+class ProductInventoryCreateAJAXView(View):
+    """View for the add product inventory details page."""
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                if request.is_ajax():
+                    print(request.POST)
+                    sku = request.POST.get('sku')
+                    print(sku)
+                    upc = request.POST.get('upc')
+                    print(upc)
+                    product = request.POST.get('product')
+                    print(product)
+                    product_obj = Product.objects.get(id=product)
+                    print(product_obj)
+                    product_type = request.POST.get('product_type')
+                    print(product_type)
+                    product_type_obj = ProductType.objects.get(id=product_type)
+                    print('product_type_obj', product_type_obj)
+                    # attribute_values = request.POST.getlist('attribute_values')
+                    # print(attribute_values)
+                    attribute_values = request.POST.get('attribute_values')
+                    print(attribute_values)
+                    # attribute_values convert to dic
+                    attribute_values_dict = json.loads(attribute_values)
+                    print(attribute_values_dict)
+                    # for attr_value in attribute_values_dict:
+                    #     print(attr_value)
+                    #     print(attribute_values_dict[attr_value])
+                    #     attr_obj = ProductAttribute.objects.get(name=attr_value)
+                    #     print('attr_obj', attr_obj)
+
+                    #     attr_value_obj = ProductAttributeValue.objects.get(
+                    #         product_attribute=attr_obj,
+                    #         attribute_value=attribute_values_dict[attr_value],
+                    #     )
+                    #     print('attr_value_obj', attr_value_obj.id)
+                    retail_price = Decimal(request.POST.get('retail_price'))
+                    print(retail_price)
+                    store_price = Decimal(request.POST.get('store_price'))
+                    print(store_price)
+
+                    sale_price = Decimal(request.POST.get('sale_price'))
+                    print(sale_price)
+                    weight = request.POST.get('weight')
+                    print(weight)
+                    is_active = request.POST.get('active') == 'true'
+                    print(is_active)
+                    # Send variable for return
+                    pk = str(product)
+
+                    # try 
+                    try:
+                        product_inventory = ProductInventory.objects.create(
+                            sku=sku,
+                            upc=upc,
+                            product=product_obj,
+                            product_type=product_type_obj,
+                            retail_price=retail_price,
+                            store_price=store_price,
+                            sale_price=sale_price,
+                            weight=weight,
+                            is_active=is_active,
+                        )
+                        product_inventory.save()
+                        for attr_value in attribute_values_dict:
+                            print(attr_value)
+                            print(attribute_values_dict[attr_value])
+                            attr_obj = ProductAttribute.objects.get(name=attr_value)
+                            print('attr_obj', attr_obj)
+
+                            attr_value_obj = ProductAttributeValue.objects.get(
+                                product_attribute=attr_obj,
+                                attribute_value=attribute_values_dict[attr_value],
+                            )
+                            print('attr_value_obj', attr_value_obj.id)
+
+                            product_inventory.attribute_values.add(attr_value_obj)
+                            product_inventory.save()
+                        success_message = (
+                            'Product inventory added successfully'
+                        )
+                        return JsonResponse(
+                            {
+                                'success': True,
+                                'success_message': success_message,
+                            }
+                        )
+                    except Exception as e:
+                        print(e)
+                        error_message = (
+                            'Error adding product inventory. '
+                            'Error: '
+                            f'{e}'
+                            ' Please check unique fields.'
+                        )
+                        return JsonResponse(
+                            {
+                                'success': True,
+                                'error_message': error_message,
+                            }
+                        )
+                else:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                        }
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
