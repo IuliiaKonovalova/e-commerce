@@ -31,6 +31,10 @@
           <i class="fa fa-pencil"></i>
           Edit product
         </a>
+        <a class="btn btn-primary btn__delete" href="{% url 'delete_product' pk=product.pk %}">
+          <i class="fa fa-trash"></i>
+          Delete product
+        </a>
       </div>
       <div class="data__main">
         <div class="data__main--section">
