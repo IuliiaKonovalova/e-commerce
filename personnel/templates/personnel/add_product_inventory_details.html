@@ -81,9 +81,29 @@
           e.preventDefault();
         }
       };
-
+      const validPrice = function(e) {
+        // Only ASCII character in that range allowed
+        if ((e.which < 48 || e.which > 57) && e.which != 46) {
+          e.preventDefault();
+          }
+          // get the input field
+          let $input = $(e.target);
+          // get the value of the input field
+          let inputVal = $input.val();
+          console.log(inputVal);
+          if (e.which == 46) {
+            //check if input value '.' already exists
+            if (inputVal.indexOf('.') > -1) {
+              console.log('already exists');
+              e.preventDefault();
+            }
+        }
+      };
       $('#sku').on('keypress', onlyNumberKey);
       $('#upc').on('keypress', onlyNumberKey);
+      $('#retail_price').on('keypress', validPrice);
+      $('#store_price').on('keypress', validPrice);
+      $('#sale_price').on('keypress', validPrice);
       $('#weight').on('keypress', onlyNumberKey);
 
 
