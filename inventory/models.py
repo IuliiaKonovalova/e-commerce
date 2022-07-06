@@ -583,7 +583,7 @@ class ProductInventory(models.Model):
     )
     product = models.ForeignKey(
         Product,
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name='inventory',
         verbose_name='Product',
     )
@@ -820,12 +820,12 @@ class ProductTypeAttribute(models.Model):
     product_attribute = models.ForeignKey(
         ProductAttribute,
         related_name="productattribute",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
     )
     product_type = models.ForeignKey(
         ProductType,
         related_name="producttype",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
     )
 
     class Meta:
