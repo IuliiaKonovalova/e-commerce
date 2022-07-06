@@ -804,12 +804,12 @@ class ProductAttributeValues(models.Model):
     attributevalues = models.ForeignKey(
         ProductAttributeValue,
         related_name="attributevalues",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
     )
     productinventory = models.ForeignKey(
         ProductInventory,
         related_name="productattributevalues",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
     )
 
     class Meta:
