@@ -217,6 +217,9 @@ class TestViews(TestCase):
             'add_product_inventory_details',
             kwargs={'pk': 1}
         )
+        self.get_type_attribute_url = reverse(
+            'get_type_attribute'
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -647,3 +650,62 @@ class TestViews(TestCase):
             response,
             'personnel/add_product_inventory_details.html'
         )
+
+    def test_get_type_attribute_ajax_post_view_user_logged_out(self):
+        """Test get type attribute ajax post view user logged out"""
+        response = self.client.post(
+            self.get_type_attribute_url,
+            {
+                'type_id': 1
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_get_type_attribute_ajax_post_view_without_access(self):
+        """Test get type attribute ajax post view without access"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.get_type_attribute_url,
+            {
+                'type_id': 1
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_get_type_attribute_ajax_post_view_with_access(self):
+        """Test get type attribute ajax post view with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.get_type_attribute_url,
+            {
+                'type_id': 1
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+
+    def test_get_type_attribute_ajax_post_view_with_access_failed(self):
+        """Test get type attribute ajax post view with access failed"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.get_type_attribute_url,
+            {
+                'type_id': 0
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
