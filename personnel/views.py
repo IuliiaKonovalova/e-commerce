@@ -183,6 +183,74 @@ class AddProductView(View):
             )
 
 
+class EditProductView(View):
+    """View for the edit product page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                product = get_object_or_404(Product, id=kwargs['pk'])
+                form = ProductForm(instance=product)
+                context = {
+                    'form': form,
+                    'product': product,
+                }
+                return render(
+                    request,
+                    'personnel/edit_product.html',
+                    context
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                product = get_object_or_404(Product, id=kwargs['pk'])
+                form = ProductForm(request.POST, instance=product)
+                if form.is_valid():
+                    product = form.save(commit=False)
+                    tags = form.cleaned_data['tags']
+                    product.save()
+                    product.tags.set(tags)
+                    product.save()
+                    # get pk of this product
+                    product_pk = product.id
+                    return HttpResponseRedirect(
+                        '/personnel/product/{}'.format(product_pk)
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/edit_product.html',
+                        {
+                            'form': form,
+                            'product': product,
+                        }
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
 class AddImageToProductAJAXView(View):
     """View for the add image to product page."""
     def post(self, request, *args, **kwargs):
