@@ -97,24 +97,6 @@ class ProductFullDetailView(View):
                     for p in pi:
                         if p in products_inventory:
                             product_inventory_in_promo_now.add(p)
-                attributes_set = set()
-                values_set = set()
-                attribute_values_dict = {}
-                for product_inventory in products_inventory:
-                    # Get the attribute for the product
-                    attr = product_inventory.product_type.\
-                        product_type_attributes.all()
-                    for attribute in attr:
-                        # Get the attribute values for the product
-                        attributes_set.add(attribute)
-                        attribute_values_set = set()
-                        attribute_value = ProductAttributeValue.objects.filter(
-                            product_attribute=attribute,
-                        )
-                        attribute_values_set.add(attribute_value)
-                        attribute_values_dict[attribute] = attribute_value
-                    values = product_inventory.productattributevalues.all()
-                    values_set.add(values)
                 context = {
                     'product': product,
                     'active_images': active_images,
@@ -123,9 +105,6 @@ class ProductFullDetailView(View):
                     'product_inventory_in_promo_now': (
                         product_inventory_in_promo_now
                     ),
-                    'attributes_set': attributes_set,
-                    'values_set': values_set,
-                    'attribute_values_dict': attribute_values_dict,
                 }
                 return render(
                     request,
@@ -434,3 +413,4 @@ class AddProductInventoryDetailsView(View):
                 request,
                 'account/login.html',
             )
+
