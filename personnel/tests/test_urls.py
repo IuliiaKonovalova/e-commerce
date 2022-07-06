@@ -10,6 +10,7 @@ from personnel.views import (
     DeleteImageToProductAJAXView,
     ProductInventoryDetailsView,
     AddProductInventoryDetailsView,
+    GetTypeAttributeAJAXView,
 )
 
 
@@ -77,4 +78,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             AddProductInventoryDetailsView
+        )
+
+    def test_get_type_attribute_url(self):
+        """Test the get type attribute url."""
+        url = reverse('get_type_attribute')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            GetTypeAttributeAJAXView
         )
