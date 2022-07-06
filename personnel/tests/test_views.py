@@ -1,5 +1,7 @@
 """Test Inventory views."""
 from django.test import TestCase, Client
+# import QueryDict
+from django.http import QueryDict
 from django.urls import reverse
 from datetime import datetime
 from django.utils import timezone
@@ -219,6 +221,9 @@ class TestViews(TestCase):
         )
         self.get_type_attribute_url = reverse(
             'get_type_attribute'
+        )
+        self.product_inventory_create_url = reverse(
+            'product_inventory_create'
         )
 
     def test_products_table_view_user_logged_out(self):
@@ -709,3 +714,177 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['success'], False)
+
+    def test_product_inventory_create_view_user_logged_out(self):
+        """Test product inventory create view user logged out"""
+        response = self.client.post(
+            self.product_inventory_create_url,
+            data={
+                'sku': 2222,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': [
+                    '{"color":"red","women clothing size":"xs"}'
+                ],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_product_inventory_create_view_without_access(self):
+        """Test product inventory create view without access"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.product_inventory_create_url,
+            data={
+                'sku': 2222,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': [
+                    '{"color":"red","women clothing size":"xs"}'
+                ],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_product_inventory_create_view_with_access_no_values(self):
+        """Test product inventory create view with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.product_inventory_create_url,
+            data={
+                'sku': 2222,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': ['{}'],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['success_message'],
+            'Product inventory added successfully',
+        )
+
+    def test_product_inventory_create_view_with_access(self):
+        """Test product inventory create view with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.product_inventory_create_url,
+            data={
+                'sku': 2222,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': [
+                    '{"color":"red","women clothing size":"xs"}'
+                ],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['success_message'],
+            'Product inventory added successfully',
+        )
+
+    def test_product_inventory_create_view_with_access_failed(self):
+        """Test if the AJAX failed"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.product_inventory_create_url,
+            data={
+                'sku': 2222,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': [
+                    '{"color":"red","women clothing size":"xs"}'
+                ],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+
+    def test_product_inventory_update_view_pi_exist(self):
+        """Test product inventory update view pi exist"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.product_inventory_create_url,
+            data={
+                'csrfmiddlewaretoken': 'LRtDcXPWz1Ibje4CuGjs9T0BXp1LBILuDkq4M6zoAezKed0Kq9fLZ4T3h9F9JSXI',
+                'sku': 11111,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': ['{"Color":"red","size-shoes":"35"}'],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        error_message = (
+            'Error adding product inventory. '
+            'Error: '
+            'UNIQUE constraint failed: inventory_productinventory.sku'
+            ' Please check unique fields.'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['error_message'],
+            error_message,
+        )
