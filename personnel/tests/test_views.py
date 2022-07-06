@@ -208,6 +208,7 @@ class TestViews(TestCase):
             kwargs={'pk': 1}
         )
         self.add_product_url = reverse('add_product')
+        self.edit_product_url = reverse('edit_product', kwargs={'pk': 1})
         self.add_product_image_url = reverse('add_product_image')
         self.edit_product_image_url = reverse('edit_product_image')
         self.delete_product_image_url = reverse('delete_product_image')
@@ -364,6 +365,84 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/add_product.html')
+
+    def test_edit_product_view_user_logged_out(self):
+        """Test edit product view user logged out."""
+        response = self.client.get(self.edit_product_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_product_view_without_access(self):
+        """Test edit product view without access."""
+        self.client.force_login(self.user)
+        response = self.client.get(self.edit_product_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_product_view_with_access(self):
+        """Test edit product view with access."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.edit_product_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/edit_product.html')
+
+    def test_edit_product_post_view_user_logged_out(self):
+        """Test edit product post view user logged out"""
+        response = self.client.post(self.edit_product_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_product_post_view_without_access(self):
+        """Test edit product post view without access"""
+        self.client.force_login(self.user)
+        response = self.client.post(self.edit_product_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_product_post_view_with_access(self):
+        """Test edit product post view with access."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.edit_product_url,
+            {
+                'name': 'Test Product',
+                'description': 'Test Product Description',
+                'category': self.category1.id,
+                'tags': [self.tag1.id],
+                'brand': self.brand1.id,
+                'is_active': True
+            }
+        )
+        self.assertEqual(response.status_code, 302)
+
+    def test_edit_product_post_view_with_access_failed(self):
+        """Test edit product post view with access failed."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.edit_product_url,
+            {
+                'name': '',
+                'description': 'Test Product Description',
+                'brand': self.brand1.id,
+                'is_active': True
+            }
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/edit_product.html')
 
     def test_add__product_image_view_user_logged_out(self):
         """Test add product image view user logged out"""
