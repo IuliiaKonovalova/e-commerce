@@ -62,6 +62,7 @@
                     Cancel
                   </a>
                   <button type="submit" class="btn btn-primary">Save</button>
+                  <button type="" id="form-check" class="btn btn-primary">check form</button>
                 </div>
               </form>
             </div>
@@ -125,7 +126,23 @@
             console.log(data);
             console.log(data.attribute_values_dict);
             // loop through attribute_values_dict and create inputs
+            $('#attributes').empty();
+            for (let key in data.attribute_values_dict) {
 
+              console.log(key);
+              console.log(data.attribute_values_dict[key]);
+              let formControlBlock = '<div class="form-group">';
+              formControlBlock += '<label for="' + key + '">' + key + '</label>';
+              formControlBlock += '<select class="form-control" id="' + key + '" name="' + key + '"required>';
+              formControlBlock += '<option value="">Select ' + key + '</option>';
+              for (let i = 0; i < data.attribute_values_dict[key].length; i++) {
+                formControlBlock += '<option value="' + data.attribute_values_dict[key][i] + '">' + data.attribute_values_dict[key][i] + '</option>';
+              }
+              formControlBlock += '</select>';
+              formControlBlock += '</div>';
+              $('#attributes').append(formControlBlock);
+            }
+          }
         });
       });
 
