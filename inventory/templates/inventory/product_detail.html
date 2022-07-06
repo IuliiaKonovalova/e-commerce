@@ -546,16 +546,24 @@
         // Control the plus button
         $('#plus-button').on('click', function(e) {
           e.preventDefault();
+          console.log('Check plus button' + $('input[name="quantity"]').val());
           // check if input with name="quantity" max is not reached
           let quantityCheck = $('input[name="quantity"]').val();
           if (quantityCheck < itemQuantity) {
             $('#plus-button').removeClass('disabled');
             $('input[name="quantity"]').val(parseInt(quantityCheck) + 1);
           } else {
-            $('#plus-button').addClass('disabled');
-            // STOCK WARNING MESSAGE
-            $('#quantity-warning').removeClass('hidden');
-            $('#quantity-warning-message').text('Only ' + itemQuantity + ' items available');
+            // CHECK THAT INPUT GROUPS WERE ALL CHECKED
+            if ($('input:checked').length == $('.product__options--input .btn-group').length) {
+              $('#plus-button').addClass('disabled');
+              // STOCK WARNING MESSAGE
+              $('#quantity-warning').removeClass('hidden');
+              $('#quantity-warning-message').text('Only ' + itemQuantity + ' items available');
+              //check of all selected
+              
+              } else {
+                $('#add-to-cart').addClass('disabled');
+              }
           }
         });
         //let is_match
@@ -568,6 +576,7 @@
               if (key != "Quantity" && key != "Price" && key != "id") {
                 if (stockOption[key] != chosen_attributes[key]) {
                   is_match = false;
+                  
                 }
               }
               if (is_match) {
