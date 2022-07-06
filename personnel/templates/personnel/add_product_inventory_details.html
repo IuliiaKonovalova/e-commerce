@@ -77,6 +77,8 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function() {
+      let product_id = $('#product_id').data('product');
+      let typeId = 0;
       const onlyNumberKey = function(e) {
         // Only ASCII character in that range allowed
         if (e.which < 48 || e.which > 57) {
@@ -108,7 +110,7 @@
       $('#sale_price').on('keypress', validPrice);
       $('#weight').on('keypress', onlyNumberKey);
       //variables
-      let typeId = 0;
+      
       //get selected option from #type
       $('#type').on('change', function() {
         typeId = $(this).val()
@@ -145,7 +147,63 @@
           }
         });
       });
+      let formData
+      let csrfToken = '{{ csrf_token }}';
+      // get form data
+      
+      console.log(csrfToken);
+      //check if all selects are filled
+      //$('form').on('submit', function(e) {
+      $('#form-check').on('click', function(e) {
+        e.preventDefault();
+        let isValid = true;
 
+        $('select').each(function() {
+          if ($(this).val() == '') {
+            isValid = false;
+          }
+        });
+        if (isValid) {
+          $(this).unbind('submit').submit();
+          // get values of all inputs
+          let formData = new FormData();
+          formData.append('csrfmiddlewaretoken', csrfToken);
+          formData.append('sku', $('#sku').val());
+          formData.append('upc', $('#upc').val());
+          formData.append('product', product_id);
+          formData.append('product_type', typeId);
+          let attribute_values = {};
+          $('#attributes select').each(function() {
+            attribute_values[$(this).attr('name')] = $(this).val();
+          });
+          formData.append('attribute_values', JSON.stringify(attribute_values));
+          formData.append('retail_price', $('#retail_price').val());
+          formData.append('store_price', $('#store_price').val());
+          formData.append('sale_price', $('#sale_price').val());
+          formData.append('weight', $('#weight').val());
+          //check if ##flexCheckDefault checked
+          if ($('#flexCheckDefault').is(':checked')) {
+            formData.append('active', 'true');
+          } else {
+            formData.append('active', 'false');
+          }
+          
+
+          
+
+          console.log(formData);
+          // convert to str
+          let formDataStr = '';
+          for (let value of formData.values()) {
+            formDataStr += value + ' ';
+          }
+          console.log(formDataStr);
+
+
+        } else {
+          alert('Please fill all selects');
+        }
+      });
 
       
     });
