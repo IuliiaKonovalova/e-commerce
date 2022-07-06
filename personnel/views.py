@@ -414,3 +414,62 @@ class AddProductInventoryDetailsView(View):
                 'account/login.html',
             )
 
+
+class GetTypeAttributeAJAXView(View):
+    """View for the get type attribute page."""
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                if request.is_ajax():
+                    type_id = request.POST.get('type_id')
+                    print(type_id)
+                    type_attribute = ProductType.objects.get(id=type_id)
+                    all_attr = type_attribute.get_product_type_attributes()
+                    attributes_set = set()
+                    values_set = set()
+                    attribute_values_dict = {}
+
+                    for attribute in all_attr:
+                        # Get the attribute values for the product
+                        attributes_set.add(attribute)
+                        attribute_values_set = set()
+                        attr_values = ProductAttributeValue.objects.filter(
+                            product_attribute=attribute,
+                        )
+                        values_list = []
+                        for attr_value in attr_values:
+                            values_list.append(attr_value.attribute_value)
+                        print(values_list)
+                        attribute_values_set.add(attr_value)
+                        attribute_values_dict[attribute.name] = values_list
+                    # values = product_inventory.productattributevalues.all()
+                    # values_set.add(values)
+                        print(attr_value)
+                        print(attribute_values_dict)
+
+                    return JsonResponse(
+                        {
+                            'success': True,
+                            'attribute_values_dict': attribute_values_dict,
+                        }
+                    )
+                else:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                        }
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
