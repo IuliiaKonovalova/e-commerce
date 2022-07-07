@@ -96,8 +96,15 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function() {
-
-
+      // get present values for this inventory
+      let givenValues = $('.given__values');
+      // loop through each element
+      listOfValues = [];
+      givenValues.each(function() {
+        // get the value
+        let value = $(this).text();
+        listOfValues.push(value);
+      });
       let product_id;
       //get typeId value by selected option in select #type
       let typeId = $('#type option:selected').val();
@@ -133,7 +140,53 @@
       $('#store_price').on('keypress', validPrice);
       $('#sale_price').on('keypress', validPrice);
       $('#weight').on('keypress', onlyNumberKey);
+      // Set control attributes and values on selected type
+      const typeControl = function() {
+        if ($(this).val() != typeId) {
+          typeId = $(this).val();
+        }
+        typeId = $('#type option:selected').val();
 
+        //typeId = $(this).val();
+        //$('#product_id').data('product');
+        console.log(typeId);
+        // AJAX request to get attributes + values
+        $.ajax({
+          url: '{% url "get_type_attribute" %}',
+          type: 'POST',
+          data: {
+            'type_id': typeId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function(data) {
+            console.log(data);
+            console.log(data.attribute_values_dict);
+            // loop through attribute_values_dict and create inputs
+            $('#attributes').empty();
+            for (let key in data.attribute_values_dict) {
+              console.log(key);
+              console.log(data.attribute_values_dict[key]);
+              let formControlBlock = '<div class="form-group">';
+              formControlBlock += '<label for="' + key + '">' + key + '</label>';
+              formControlBlock += '<select class="form-control" id="' + key + '" name="' + key + '"required>';
+              formControlBlock += '<option value="">Select ' + key + '</option>';
+              for (let i = 0; i < data.attribute_values_dict[key].length; i++) {
+                //check if data.attribute_values_dict[key][i] is in listOfValues
+                if (data.attribute_values_dict[key][i] == listOfValues[i]) {
+                  formControlBlock += '<option value="' + data.attribute_values_dict[key][i] + '" selected>' + data.attribute_values_dict[key][i] + '</option>';
+                } else {
+                  formControlBlock += '<option value="' + data.attribute_values_dict[key][i] + '">' + data.attribute_values_dict[key][i] + '</option>';
+                }
+              }
+              formControlBlock += '</select>';
+              formControlBlock += '</div>';
+              $('#attributes').append(formControlBlock);
+            }
+          }
+        });
+      }
+      $(document).ready(typeControl);
+      $('#type').on('change', typeControl);
     });
   </script>
 {% endblock %}
