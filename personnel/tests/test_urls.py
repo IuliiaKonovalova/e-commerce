@@ -17,6 +17,7 @@ from personnel.views import (
     EditProductInventoryView,
     UpdateProductInventoryAJAXView,
     DeleteProductInventoryView,
+    ProductInventoriesTableView,
 )
 
 
@@ -147,4 +148,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             DeleteProductInventoryView
+        )
+
+    def test_product_inventories_table_url(self):
+        """Test the product inventories table url."""
+        url = reverse('product_inventories_table')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            ProductInventoriesTableView
         )
