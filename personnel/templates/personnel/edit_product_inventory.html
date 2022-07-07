@@ -115,7 +115,6 @@
       //get typeId value by selected option in select #type
       let typeId = $('#type option:selected').val();
       // check if #attribute block is empty
-      console.log(typeId);
       const onlyNumberKey = function(e) {
         // Only ASCII character in that range allowed
         if (e.which < 48 || e.which > 57) {
@@ -131,11 +130,9 @@
           let $input = $(e.target);
           // get the value of the input field
           let inputVal = $input.val();
-          console.log(inputVal);
           if (e.which == 46) {
             //check if input value '.' already exists
             if (inputVal.indexOf('.') > -1) {
-              console.log('already exists');
               e.preventDefault();
             }
         }
@@ -152,10 +149,6 @@
           typeId = $(this).val();
         }
         typeId = $('#type option:selected').val();
-
-        //typeId = $(this).val();
-        //$('#product_id').data('product');
-        console.log(typeId);
         // AJAX request to get attributes + values
         $.ajax({
           url: '{% url "get_type_attribute" %}',
@@ -165,23 +158,21 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'
           },
           success: function(data) {
-            console.log(data);
-            console.log(data.attribute_values_dict);
             // loop through attribute_values_dict and create inputs
             $('#attributes').empty();
             for (let key in data.attribute_values_dict) {
-              console.log(key);
-              console.log(data.attribute_values_dict[key]);
               let formControlBlock = '<div class="form-group">';
               formControlBlock += '<label for="' + key + '">' + key + '</label>';
               formControlBlock += '<select class="form-control" id="' + key + '" name="' + key + '"required>';
               formControlBlock += '<option value="">Select ' + key + '</option>';
               for (let i = 0; i < data.attribute_values_dict[key].length; i++) {
                 //check if data.attribute_values_dict[key][i] is in listOfValues
-                if (data.attribute_values_dict[key][i] == listOfValues[i]) {
-                  formControlBlock += '<option value="' + data.attribute_values_dict[key][i] + '" selected>' + data.attribute_values_dict[key][i] + '</option>';
-                } else {
+                for (let j = 0; j < listOfValues.length; j++) {
+                  if (data.attribute_values_dict[key][i] == listOfValues[j]) {
+                    formControlBlock += '<option value="' + data.attribute_values_dict[key][i] + '" selected>' + data.attribute_values_dict[key][i] + '</option>';
+                  } else {
                   formControlBlock += '<option value="' + data.attribute_values_dict[key][i] + '">' + data.attribute_values_dict[key][i] + '</option>';
+                }
                 }
               }
               formControlBlock += '</select>';
@@ -193,21 +184,13 @@
       }
       $(document).ready(typeControl);
       $('#type').on('change', typeControl);
-
-
-
-
+      // Set form Data
       let formData
       let csrfToken = '{{ csrf_token }}';
-      // get form data
-      
-      console.log(csrfToken);
       //check if all selects are filled
-      //$('form').on('submit', function(e) {
       $('#form-check').on('click', function(e) {
         e.preventDefault();
         let isValid = true;
-
         $('select').each(function() {
           if ($(this).val() == '') {
             isValid = false;
@@ -239,13 +222,7 @@
           } else {
             formData.append('active', 'false');
           }
-          console.log(formData);
-          // convert to str
-          let formDataStr = '';
-          for (let value of formData.values()) {
-            formDataStr += value + ' ';
-          }
-          console.log(formDataStr);
+          // AJAX request to update product
           $.ajax({
             url: '{% url "product_inventory_update" %}',
             type: 'POST',
@@ -254,7 +231,6 @@
             contentType: false,
             cache: false,
             success: function(data) {
-              console.log(data);
               if (data.success) {
                 if (data.success_message) {
                   alert(data.success_message);
@@ -286,12 +262,10 @@
               alert("Error: Something went wrong. Try again later.");
             }
           });
-
         } else {
           alert('Please fill all selects');
         }
       });
-
     });
   </script>
 {% endblock %}
