@@ -887,6 +887,10 @@ input[name=quantity] {
   --bs-btn-active-border-color: var(--clr-accent--900);
 }
 
+.btn__add i {
+  color: var(--clr-text--100) !important;
+}
+
 .btn__add:hover {
   background-color: var(--clr-accent--900);
   color: var(--clr-text--100);
