@@ -15,9 +15,13 @@
         {{ form }}
         <div class="form__btns">
           <a href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to Promotions page" class="btn btn-primary">
+            <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn-primary">Delete</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-trash-alt"></i>
+            Delete
+          </button>
         </div>
       </form>
     {% endif %}
