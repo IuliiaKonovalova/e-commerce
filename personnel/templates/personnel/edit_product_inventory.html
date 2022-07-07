@@ -4,7 +4,7 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      {% comment %} Add Product inventory form {% endcomment %}
+      {% comment %} Eidt Product inventory form {% endcomment %}
       <div class="row">
         <div class="col-md-12">
           <div class="panel panel-default">
@@ -21,13 +21,15 @@
                 </div>
                 <div class="form-group">
                   <label for="product_name">UPC</label>
+                  {% comment %} add profilled input with inventory.upc {% endcomment %}
                   <input type="text" class="form-control" id="upc" name="upc" value="{{ inventory.upc }}" maxlength="50" required>
                 <div class="form-group">
                   <label for="product_description">Product ID</label>
-                  {% comment %} add input wich is disabled {% endcomment %}
+                  {% comment %} add product data profilled and disabled {% endcomment %}
                   <input type="text" class="form-control" id="product_id" data-product="{{ pk }}" name="product_id" placeholder="{{ inventory.product.name }}" readonly>
                 <div class="form-group" id="type-block">
                   <label for="exampleDataList" class="form-label">Type</label>
+                  {% comment %} Add types select {% endcomment %}
                   <select class="form-control" id="type" name="type" required>
                     <option value="">Select Type</option>
                     {% for type in product_types %}
@@ -40,13 +42,14 @@
                   </select>
                 </div>
                 <div class="hidden">
-                {% for inv_val in inventory.attribute_values.all %}
-                  <p class="given__values">{{inv_val}}</p>
-                {% endfor %}
-                </div>
-                <div id="attributes">
-
-                </div>
+                  {% comment %} Get this product inventory's values  {% endcomment %}
+                  {% for inv_val in inventory.attribute_values.all %}
+                    <p class="given__values">{{inv_val}}</p>
+                  {% endfor %}
+                  </div>
+                {% comment %} If attributes, insert here {% endcomment %}
+                <div id="attributes"></div>
+                {% comment %} profilled inputs for prices and weight {% endcomment %}
                 <div class="form-group">
                   <label for="product_quantity">Retail Price</label>
                   <input type="text" class="form-control" id="retail_price" name="retail_price" value="{{ inventory.retail_price }}" maxlength="50" required>
@@ -64,6 +67,7 @@
                   <input type="text" class="form-control" id="weight" name="weight" value="{{ inventory.weight }}" maxlength="50" required>
                 </div>
                 <div class="form-check">
+                {% comment %} Check if pi is active {% endcomment %}
                   {% if inventory.is_active %}
                     <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1" checked data-active="true">
                   {% else %}
