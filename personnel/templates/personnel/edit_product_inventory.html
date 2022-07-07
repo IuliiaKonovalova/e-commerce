@@ -72,10 +72,10 @@
                     <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1" checked data-active="true">
                   {% else %}
                     <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="0" data-active="false">
+                  {% endif %}
                     <label class="form-check-label" for="flexCheckDefault">
                       Active
                     </label>
-                  {% endif %}
                 </div>
                 <div class="form__btns">
                   <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}" aria-label="Go to Promotions page" class="btn btn-primary">
