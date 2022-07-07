@@ -234,6 +234,9 @@ class TestViews(TestCase):
             'edit_product_inventory',
             kwargs={'pk': 1, 'inventory_pk': 1}
         )
+        self.product_inventory_update_url = reverse(
+            'product_inventory_update',
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -1054,5 +1057,176 @@ class TestViews(TestCase):
         self.assertTemplateUsed(
             response,
             'personnel/edit_product_inventory.html'
+        )
+        self.client.logout()
+
+    def test_product_inventory_update_view_user_logged_out(self):
+        """Test product inventory update view user logged out"""
+        response = self.client.post(
+            self.product_inventory_update_url,
+            data={
+                'inventory_id': 1,
+                'sku': 11111,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': ['{"Color":"red","size-shoes":"35"}'],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_product_inventory_update_view_user_without_access(self):
+        """Test product inventory update view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.product_inventory_update_url,
+            data={
+                'inventory_id': 1,
+                'sku': 11111,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': ['{"Color":"red","size-shoes":"35"}'],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_product_inventory_update_view_user_with_access(self):
+        """Test product inventory update view user logged in"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.product_inventory_update_url,
+            data={
+                'inventory_id': 1,
+                'sku': 11111,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': ['{"Color":"red","size-shoes":"35"}'],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.client.logout()
+
+    def test_product_inventory_update_view_user_with_access_not_values(self):
+        """Test product inventory update view user logged in"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.product_inventory_update_url,
+            data={
+                'inventory_id': 1,
+                'sku': 11111,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': ['{}'],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['success_message'],
+            'Product inventory updated successfully',
+        )
+        self.client.logout()
+
+    def test_product_inventory_update_view_user_with_access_failed(self):
+        """Test product inventory update view user logged in"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.product_inventory_update_url,
+            data={
+                'inventory_id': 1,
+                'sku': 11111,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': ['{"Color":"red","size-shoes":"35"}'],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        self.client.logout()
+
+    def test_product_inventory_update_view_user_with_access_error(self):
+        """Test if there is an error in the form"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.product_inventory_update_url,
+            data={
+                'inventory_id': 1,
+                'sku': 11111,
+                'upc': 2222,
+                'product': 1,
+                'product_type': 1,
+                'attribute_values': ['{"Color":"red","size-shoes":"35"}'],
+                'retail_price': ['100'],
+                'store_price': ['120'],
+                'sale_price': ['110'],
+                'weight': ['900'],
+                'active': ['true']
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        error_message = (
+            'Error updating product inventory. '
+            'Error: '
+            'ProductAttribute matching query does not exist.'
+            ' Please check unique fields.'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['error_message'],
+            error_message,
         )
         self.client.logout()
