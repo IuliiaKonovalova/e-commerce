@@ -413,3 +413,11 @@ The errors were made in the following commits:
 1. 3cb0b4f275e0650749c9f5cee59072d3889e4a97
 
 Aff wishlist app and url path - > Add instead of Aff
+
+2. da08e5f77a1f886ba7e492d0f2c4aaf20782f5cb
+
+Add url path for viewing product - > Add test for url path
+
+3. a13d44771be873e84c8f60750efe12b5b4ff5d89
+
+Add ProductInventoriesTable View - > Add product_inventory_table url path
