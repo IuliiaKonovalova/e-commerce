@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          Delete {{ inventory.product.name }} Unit {{ inventory.sku }}
+        </h1>
+      </div>
+
+    {% endif %}
+  </div>
+{% endblock %}
