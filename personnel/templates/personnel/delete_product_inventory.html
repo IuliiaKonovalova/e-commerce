@@ -10,7 +10,20 @@
           Delete {{ inventory.product.name }} Unit {{ inventory.sku }}
         </h1>
       </div>
-
+      <form method="POST" class="adding__promotion--form">
+        {% csrf_token %}
+        {{ form }}
+        <div class="form__btns">
+          <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}" aria-label="Go to Promotions page" class="btn btn-primary">
+            <i class="fas fa-arrow-circle-left"></i>
+            Cancel
+          </a>
+          <button type="submit" class="btn btn-primary btn__delete">
+            <i class="fas fa-trash-alt"></i>
+            Delete
+          </button>
+        </div>
+      </form>
     {% endif %}
   </div>
 {% endblock %}
