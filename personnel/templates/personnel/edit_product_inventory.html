@@ -2,5 +2,97 @@
 {% load static %}
 
 {% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      {% comment %} Add Product inventory form {% endcomment %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Edit Unit for {{ inventory.product.name }}</h3>
+            </div>
+            <div class="panel-body">
+              <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="product_name">SKU</label>
+                  {% comment %} add profilled input with inventory.sku {% endcomment %}
+                  <input type="text" class="form-control" id="sku" name="sku" value="{{ inventory.sku }}" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                  <label for="product_name">UPC</label>
+                  <input type="text" class="form-control" id="upc" name="upc" value="{{ inventory.upc }}" maxlength="50" required>
+                <div class="form-group">
+                  <label for="product_description">Product ID</label>
+                  {% comment %} add input wich is disabled {% endcomment %}
+                  <input type="text" class="form-control" id="product_id" data-product="{{ pk }}" name="product_id" placeholder="{{ inventory.product.name }}" readonly>
+                <div class="form-group" id="type-block">
+                  <label for="exampleDataList" class="form-label">Type</label>
+                  <select class="form-control" id="type" name="type" required>
+                    <option value="">Select Type</option>
+                    {% for type in product_types %}
+                      {% if inventory.product_type == type %}
+                        <option value="{{ type.id }}" selected>{{ type.name }}</option>
+                      {% else %}
+                        <option value="{{ type.id }}">{{ type.name }}</option>
+                      {% endif %}
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="hidden">
+                {% for inv_val in inventory.attribute_values.all %}
+                  <p class="given__values">{{inv_val}}</p>
+                {% endfor %}
+                </div>
+                <div id="attributes">
+
+                </div>
+                <div class="form-group">
+                  <label for="product_quantity">Retail Price</label>
+                  <input type="text" class="form-control" id="retail_price" name="retail_price" value="{{ inventory.retail_price }}" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                  <label for="product_quantity">Store Price</label>
+                  <input type="text" class="form-control" id="store_price" name="store_price" value="{{ inventory.store_price }}" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                  <label for="product_quantity">Sale Price</label>
+                  <input type="text" class="form-control" id="sale_price" name="sale_price" value="{{ inventory.sale_price }}" maxlength="50" required>
+                </div>
+                <div class="form-group">
+                  <label for="product_image">Weight (grams)</label>
+                  <input type="text" class="form-control" id="weight" name="weight" value="{{ inventory.weight }}" maxlength="50" required>
+                </div>
+                <div class="form-check">
+                  {% if inventory.is_active %}
+                    <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1" checked data-active="true">
+                  {% else %}
+                    <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="0" data-active="false">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      Active
+                    </label>
+                  {% endif %}
+                </div>
+                <div class="form__btns">
+                  {% comment %} <a href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to Promotions page" class="btn btn-primary">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    Back to Product
+                  </a> {% endcomment %}
+                  <button id="form-check" class="btn btn-primary btn__add">
+                    <i class="fa fa-plus-circle"></i>
+                    Confirm Changes
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
 
 {% endblock %}
