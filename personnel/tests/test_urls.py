@@ -15,6 +15,7 @@ from personnel.views import (
     GetTypeAttributeAJAXView,
     ProductInventoryCreateAJAXView,
     EditProductInventoryView,
+    UpdateProductInventoryAJAXView,
 )
 
 
@@ -126,4 +127,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             EditProductInventoryView
+        )
+
+    def test_update_product_inventory_url(self):
+        """Test the update product inventory url."""
+        url = reverse('product_inventory_update')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            UpdateProductInventoryAJAXView
         )
