@@ -23,6 +23,10 @@
         <i class="fa fa-pencil"></i>
         Edit Unit
       </a>
+      <a class="btn btn-primary btn__delete" href="{% url 'delete_product_inventory' pk=product.id inventory_pk=inventory.pk %}">
+        <i class="fas fa-trash-alt"></i>
+        Delete Unit
+      </a>
       <div class="data__main">
         <span>
           {% if inventory.is_active %}
