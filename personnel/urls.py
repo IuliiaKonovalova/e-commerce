@@ -13,6 +13,7 @@ from .views import (
     AddProductInventoryDetailsView,
     GetTypeAttributeAJAXView,
     ProductInventoryCreateAJAXView,
+    EditProductInventoryView,
 )
 
 
@@ -76,5 +77,10 @@ urlpatterns = [
         'product_inventory_create',
         ProductInventoryCreateAJAXView.as_view(),
         name='product_inventory_create'
+    ),
+    path(
+        'product/<int:pk>/edit_inventory/<int:inventory_pk>/',
+        EditProductInventoryView.as_view(),
+        name='edit_product_inventory'
     ),
 ]
