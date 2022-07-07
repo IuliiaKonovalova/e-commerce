@@ -906,3 +906,33 @@ class ProductInventoriesTableView(View):
                 request,
                 'account/login.html',
             )
+
+
+class CategoriesTableView(View):
+    """View for the categories table page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                p = Paginator(Category.objects.all(), 25)
+                page = request.GET.get('page')
+                categories = p.get_page(page)
+                context = {
+                    'categories': categories,
+                }
+                return render(
+                    request,
+                    'personnel/categories_table.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
