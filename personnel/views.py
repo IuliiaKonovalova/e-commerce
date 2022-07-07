@@ -868,3 +868,41 @@ class DeleteProductInventoryView(View):
                 request,
                 'account/login.html',
             )
+
+
+class ProductInventoriesTableView(View):
+    """View for the product inventories table page."""
+
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                p = Paginator(ProductInventory.objects.all(), 10)
+                page = request.GET.get('page')
+                inventories = p.get_page(page)
+                # promotions active now
+                promotions = Promotion.objects.all().filter(active=True)
+                active_now_promotions = []
+                for promotion in promotions:
+                    if promotion.is_active_now():
+                        active_now_promotions.append(promotion)
+                context = {
+                    'inventories': inventories,
+                    'active_now_promotions': active_now_promotions,
+                }
+                return render(
+                    request,
+                    'personnel/product_inventories_table.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
