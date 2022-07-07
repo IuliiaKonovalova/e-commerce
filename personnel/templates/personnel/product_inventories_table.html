@@ -5,7 +5,97 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      {% if inventories %}
+        <div class="data__main--inventories">
+          {% for inventory in inventories %}
+            <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}" aria-label="Go to product inventories details" class="data__main--inventory data__main--link">
+              <span>
+                {% if inventory.is_active %}
+                <i class="fa fa-check-circle"></i> (Active)
+                {% else %}
+                <i class="fa fa-times-circle"></i> (Inactive)
+                {% endif %}
+              </span>
+              <div>
+                <strong>SKU: </strong>
+                {{ inventory.sku }}
+              </div>
+              <div>
+                <strong>UPC: </strong>
+                {{ inventory.upc }}
+              </div>
+              <div>
+                <strong>Options: </strong>
+                {{ inventory.get_all_attribute_values_str }}
+              </div>
+              <div>
+                <strong>Promo: </strong>
+                {% for promo in active_now_promotions %}
+                  {% if inventory in promo.products_inventory_in_promotion.all %}
+                    <i class="fa fa-check-circle"></i> (Active Promo)
+                  {% else %}
+                    <i class="fa fa-times-circle"></i> (Inactive)
+                  {% endif %}
+                {% endfor %}
+              </div>
+              <div>
+                <strong>Price: </strong>
+                <table>
+                  <tr>
+                    <th>Retail</th>
+                    <th>Store</th>
+                    <th>Sale</th>
+                  </tr>
+                  <tr>
+                    <td>$ {{ inventory.retail_price }}</td>
+                    <td>$ {{ inventory.store_price }}</td>
+                    <td>
+                      {% if not inventory.store_price == inventory.sale_price %}
+                        <div class="data__accent--sale">$ {{ inventory.sale_price }}</div>
+                      {% else %}
+                        <div>$ {{ inventory.sale_price }}</div>
+                      {% endif %}
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div>
+                {% if inventory.stock %}
+                  {% if inventory.stock.units < 50 and inventory.stock.units >= 25 %}
+                    <div class="data__accent--yellow">
+                      <strong>Units left: {{ inventory.stock.units }}</strong>
+                    </div>
+                  {% elif inventory.stock.units < 25 and inventory.stock.units >= 10 %}
+                    <div class="data__accent--orange">
+                      <strong>Units left: {{ inventory.stock.units }}</strong>
+                    </div>
+                  {% elif inventory.stock.units < 10 and inventory.stock.units >= 0 %}
+                    <div class="data__accent--redish">
+                      <strong>Units left: {{ inventory.stock.units }}</strong>
+                    </div>
+                  {% elif inventory.stock.units == 0 %}
+                    <div class="data__accent--red">
+                      <strong>Units left: {{ inventory.stock.units }}</strong>
+                    </div>
+                  {% else %}
+                    <div class="data__accent--green">
+                      <strong>Units left: {{ inventory.stock.units }}</strong>
+                    </div>
+                  {% endif %}
+                {% else %}
+                  <div class="data__accent--red">
+                    <strong>Stock not found</strong>
+                  </div>
+                {% endif %}
+              </div>
+            </a>
+          {% endfor %}
+        </div>
 
+
+      {% else %}
+        <p> No Units yet </p>
+      {% endif %}
     {% endif %}
   </div>
 {% endblock %}
