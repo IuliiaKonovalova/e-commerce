@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<div class="dashboard">
+  <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
@@ -68,9 +68,9 @@
               <td>$ {{ inventory.store_price }}</td>
               <td>
                 {% if not inventory.store_price == inventory.sale_price %}
-                <div class="data__accent--sale">$ {{ inventory.sale_price }}</div>
+                  <div class="data__accent--sale">$ {{ inventory.sale_price }}</div>
                 {% else %}
-                <div>$ {{ inventory.sale_price }}</div>
+                  <div>$ {{ inventory.sale_price }}</div>
                 {% endif %}
               </td>
             </tr>
