@@ -665,3 +665,39 @@ class ProductInventoryCreateAJAXView(View):
                 request,
                 'account/login.html',
             )
+
+
+class EditProductInventoryView(View):
+    """View for the edit product inventory page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                product_inventory_id = kwargs.get('inventory_pk')
+                inventory = ProductInventory.objects.get(
+                    id=product_inventory_id,
+                )
+                pk = inventory.product.id
+                product_types = ProductType.objects.all()
+                inventory_type = inventory.product_type
+                return render(
+                    request,
+                    'personnel/edit_product_inventory.html',
+                    {
+                        'inventory': inventory,
+                        'product_types': product_types,
+                        'pk': pk,
+                        'inventory_type': inventory_type,
+                    }
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
