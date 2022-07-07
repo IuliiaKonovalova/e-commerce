@@ -1,7 +1,7 @@
 """Veiws for the personnel app."""
 from decimal import Decimal
 from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.http import HttpResponseRedirect
 import json
 from django.http import JsonResponse
@@ -701,3 +701,98 @@ class EditProductInventoryView(View):
                 request,
                 'account/login.html',
             )
+
+
+class UpdateProductInventoryAJAXView(View):
+    """View for the update product inventory page."""
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                if request.is_ajax():
+                    print(request.POST)
+                    product_inventory_id = request.POST.get('inventory_id')
+                    inventory = ProductInventory.objects.get(
+                        id=product_inventory_id,
+                    )
+                    sku = request.POST.get('sku')
+                    upc = request.POST.get('upc')
+                    product = request.POST.get('product')
+                    product_obj = Product.objects.get(id=product)
+                    product_type = request.POST.get('product_type')
+                    product_type_obj = ProductType.objects.get(id=product_type)
+                    attribute_values = request.POST.get('attribute_values')
+                    # attribute_values convert to dictionary
+                    attribute_values_dict = json.loads(attribute_values)
+                    retail_price = Decimal(request.POST.get('retail_price'))
+                    store_price = Decimal(request.POST.get('store_price'))
+                    sale_price = Decimal(request.POST.get('sale_price'))
+                    weight = request.POST.get('weight')
+                    is_active = request.POST.get('active') == 'true'
+                    try:
+                        inventory.sku = sku
+                        inventory.upc = upc
+                        inventory.product = product_obj
+                        inventory.product_type = product_type_obj
+                        inventory.retail_price = retail_price
+                        inventory.store_price = store_price
+                        inventory.sale_price = sale_price
+                        inventory.weight = weight
+                        inventory.is_active = is_active
+                        inventory.save()
+                        #  remove all from inventory.attribute_values
+                        inventory.attribute_values.clear()
+                        for attr_value in attribute_values_dict:
+                            attr_obj = ProductAttribute.objects.get(
+                                name=attr_value,
+                            )
+                            attr_value_obj = ProductAttributeValue.objects.get(
+                                product_attribute=attr_obj,
+                                attribute_value=attribute_values_dict[
+                                    attr_value
+                                ],
+                            )
+                            inventory.attribute_values.add(
+                                attr_value_obj
+                            )
+                            inventory.save()
+                        success_message = (
+                            'Product inventory updated successfully'
+                        )
+                        return JsonResponse(
+                            {
+                                'success': True,
+                                'success_message': success_message,
+                            }
+                        )
+                    except Exception as e:
+                        error_message = (
+                            'Error updating product inventory. '
+                            'Error: '
+                            f'{e}'
+                            ' Please check unique fields.'
+                        )
+                        return JsonResponse(
+                            {
+                                'success': True,
+                                'error_message': error_message,
+                            }
+                        )
+                else:
+                    return JsonResponse(
+                        {
+                            'success': False,
+                        }
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
