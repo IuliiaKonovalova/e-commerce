@@ -28,6 +28,7 @@ from .forms import (
 
 class ProductsTableView(View):
     """View for the home page."""
+
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             # Check if user is a admin
@@ -64,6 +65,7 @@ class ProductsTableView(View):
 
 class ProductFullDetailView(View):
     """View for the product detail page."""
+
     def get(self, request, *args, **kwargs):
         """Handle GET requests."""
         if request.user.is_authenticated:
@@ -121,6 +123,7 @@ class ProductFullDetailView(View):
 
 class AddProductView(View):
     """View for the add product page."""
+
     def get(self, request, *args, **kwargs):
         """Handle GET requests."""
         if request.user.is_authenticated:
@@ -185,6 +188,7 @@ class AddProductView(View):
 
 class EditProductView(View):
     """View for the edit product page."""
+
     def get(self, request, *args, **kwargs):
         """Handle GET requests."""
         if request.user.is_authenticated:
@@ -253,6 +257,7 @@ class EditProductView(View):
 
 class DeleteProductView(View):
     """View for the delete product page."""
+
     def get(self, request, *args, **kwargs):
         """Handle GET requests."""
         if request.user.is_authenticated:
@@ -302,6 +307,7 @@ class DeleteProductView(View):
 
 class AddImageToProductAJAXView(View):
     """View for the add image to product page."""
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -361,6 +367,7 @@ class AddImageToProductAJAXView(View):
 
 class EditImageToProductAJAXView(View):
     """View for the edit image to product page."""
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -419,6 +426,7 @@ class EditImageToProductAJAXView(View):
 
 class DeleteImageToProductAJAXView(View):
     """View for the delete image to product page."""
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -453,6 +461,7 @@ class DeleteImageToProductAJAXView(View):
 
 class ProductInventoryDetailsView(View):
     """View for the product inventory details page."""
+
     def get(self, request, *args, **kwargs):
         """Handle GET requests."""
         if request.user.is_authenticated:
@@ -500,6 +509,7 @@ class ProductInventoryDetailsView(View):
 
 class AddProductInventoryDetailsView(View):
     """View for the add product inventory details page."""
+
     def get(self, request, *args, **kwargs):
         """Handle GET requests."""
         if request.user.is_authenticated:
@@ -531,6 +541,7 @@ class AddProductInventoryDetailsView(View):
 
 class GetTypeAttributeAJAXView(View):
     """View for the get type attribute page."""
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -580,6 +591,7 @@ class GetTypeAttributeAJAXView(View):
 
 class ProductInventoryCreateAJAXView(View):
     """View for the add product inventory details page."""
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -669,6 +681,7 @@ class ProductInventoryCreateAJAXView(View):
 
 class EditProductInventoryView(View):
     """View for the edit product inventory page."""
+
     def get(self, request, *args, **kwargs):
         """Handle GET requests."""
         if request.user.is_authenticated:
@@ -705,6 +718,7 @@ class EditProductInventoryView(View):
 
 class UpdateProductInventoryAJAXView(View):
     """View for the update product inventory page."""
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -716,7 +730,6 @@ class UpdateProductInventoryAJAXView(View):
                 )
             else:
                 if request.is_ajax():
-                    print(request.POST)
                     product_inventory_id = request.POST.get('inventory_id')
                     inventory = ProductInventory.objects.get(
                         id=product_inventory_id,
@@ -796,3 +809,62 @@ class UpdateProductInventoryAJAXView(View):
                 'account/login.html',
             )
 
+
+class DeleteProductInventoryView(View):
+    """View for the delete product inventory page."""
+
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                inventory = get_object_or_404(
+                    ProductInventory,
+                    id=kwargs['inventory_pk']
+                )
+                pk = inventory.product.id
+                return render(
+                    request,
+                    'personnel/delete_product_inventory.html',
+                    {
+                        'inventory': inventory,
+                        'pk': pk,
+                    }
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                inventory = get_object_or_404(
+                    ProductInventory,
+                    id=kwargs['inventory_pk']
+                )
+                inventory.delete()
+                pk = inventory.product.id
+                return HttpResponseRedirect(
+                    '/personnel/product/{}/'.format(
+                        pk
+                    )
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
