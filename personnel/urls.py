@@ -17,6 +17,7 @@ from .views import (
     UpdateProductInventoryAJAXView,
     DeleteProductInventoryView,
     ProductInventoriesTableView,
+    CategoriesTableView,
 )
 
 
@@ -100,5 +101,10 @@ urlpatterns = [
         'product_inventories_table/',
         ProductInventoriesTableView.as_view(),
         name='product_inventories_table'
+    ),
+    path(
+        'categories_table/',
+        CategoriesTableView.as_view(),
+        name='categories_table'
     ),
 ]
