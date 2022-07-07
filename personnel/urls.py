@@ -15,6 +15,7 @@ from .views import (
     ProductInventoryCreateAJAXView,
     EditProductInventoryView,
     UpdateProductInventoryAJAXView,
+    DeleteProductInventoryView,
 )
 
 
@@ -88,5 +89,10 @@ urlpatterns = [
         'product_inventory_update/',
         UpdateProductInventoryAJAXView.as_view(),
         name='product_inventory_update'
+    ),
+    path(
+        'product/<int:pk>/delete_inventory/<int:inventory_pk>/',
+        DeleteProductInventoryView.as_view(),
+        name='delete_product_inventory'
     ),
 ]
