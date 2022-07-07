@@ -26,6 +26,7 @@ from promotions.models import Promotion
 
 class TestViews(TestCase):
     """Test Inventory Views."""
+
     def setUp(self):
         """Set up the test."""
         # create users
@@ -211,7 +212,7 @@ class TestViews(TestCase):
         self.edit_product_url = reverse('edit_product', kwargs={'pk': 1})
         self.delete_product_url = reverse(
             'delete_product',
-            kwargs={'pk': 1,}
+            kwargs={'pk': 1, }
         )
         self.add_product_image_url = reverse('add_product_image')
         self.edit_product_image_url = reverse('edit_product_image')
@@ -236,6 +237,10 @@ class TestViews(TestCase):
         )
         self.product_inventory_update_url = reverse(
             'product_inventory_update',
+        )
+        self.delete_product_inventory_url = reverse(
+            'delete_product_inventory',
+            kwargs={'pk': 1, 'inventory_pk': 1}
         )
 
     def test_products_table_view_user_logged_out(self):
@@ -1113,6 +1118,11 @@ class TestViews(TestCase):
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
         self.profile2.role = self.role2
         self.profile2.save()
+        # Create new product_attr_value
+        self.product_attr_value3 = ProductAttributeValue.objects.create(
+            product_attribute=self.product_attribute2,
+            attribute_value='s'
+        )
         response = self.client.post(
             self.product_inventory_update_url,
             data={
@@ -1121,7 +1131,9 @@ class TestViews(TestCase):
                 'upc': 2222,
                 'product': 1,
                 'product_type': 1,
-                'attribute_values': ['{"Color":"red","size-shoes":"35"}'],
+                'attribute_values': [
+                    '{"color":"red","women clothing size":"s"}'
+                ],
                 'retail_price': ['100'],
                 'store_price': ['120'],
                 'sale_price': ['110'],
@@ -1132,6 +1144,10 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['success'], True)
+        self.assertEqual(
+            response.json()['success_message'],
+            'Product inventory updated successfully',
+        )
         self.client.logout()
 
     def test_product_inventory_update_view_user_with_access_not_values(self):
@@ -1181,7 +1197,9 @@ class TestViews(TestCase):
                 'upc': 2222,
                 'product': 1,
                 'product_type': 1,
-                'attribute_values': ['{"Color":"red","size-shoes":"35"}'],
+                'attribute_values': [
+                    '{"color":"red","women clothing size":"xs"}'
+                ],
                 'retail_price': ['100'],
                 'store_price': ['120'],
                 'sale_price': ['110'],
@@ -1204,11 +1222,13 @@ class TestViews(TestCase):
             self.product_inventory_update_url,
             data={
                 'inventory_id': 1,
-                'sku': 11111,
+                'sku': '',
                 'upc': 2222,
                 'product': 1,
                 'product_type': 1,
-                'attribute_values': ['{"Color":"red","size-shoes":"35"}'],
+                'attribute_values': [
+                    '{"Color":"red","women clothing size":"xs"}'
+                ],
                 'retail_price': ['100'],
                 'store_price': ['120'],
                 'sale_price': ['110'],
