@@ -14,6 +14,7 @@ from .views import (
     GetTypeAttributeAJAXView,
     ProductInventoryCreateAJAXView,
     EditProductInventoryView,
+    UpdateProductInventoryAJAXView,
 )
 
 
@@ -74,7 +75,7 @@ urlpatterns = [
         name='get_type_attribute'
     ),
     path(
-        'product_inventory_create',
+        'product_inventory_create/',
         ProductInventoryCreateAJAXView.as_view(),
         name='product_inventory_create'
     ),
@@ -82,5 +83,10 @@ urlpatterns = [
         'product/<int:pk>/edit_inventory/<int:inventory_pk>/',
         EditProductInventoryView.as_view(),
         name='edit_product_inventory'
+    ),
+    path(
+        'product_inventory_update/',
+        UpdateProductInventoryAJAXView.as_view(),
+        name='product_inventory_update'
     ),
 ]
