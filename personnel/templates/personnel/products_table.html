@@ -28,7 +28,7 @@
           <div class="products__table--cell">PI</div>
         </div>
         {% for product in products %}
-          <a class="products__table--row" href="{% url 'product_detail_full' pk=product.id %}">
+          <a class="products__table--row" href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to product detail page">
             <div class="products__table--cell">
               {% if product.is_active %}
                 <div class="circle green">
@@ -125,9 +125,12 @@
         {% endif %}
       </div>
     {% else %}
-      <p> No products yet </p>
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          You are not authorized to delete categories
+        </h1>
+      </div>
     {% endif %}
-        </div>
     </div>
 
 {% endblock %}
