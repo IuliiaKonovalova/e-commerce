@@ -43,7 +43,7 @@
         </div>
         <div class="data__main--section">
           <strong>Category: </strong>
-          <a href="#" aria-label=" Go to {{ product.category.name }} page" class="data__main--link">
+          <a href="{% url 'categories_table' %}" aria-label=" Go to categories page" class="data__main--link">
             {{ product.category.name }}
           </a>
         </div>
