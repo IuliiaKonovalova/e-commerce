@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <div class="dashboard__main">
+        <h1>Add Brand</h1>
+      </div>
+      <form method="POST" class="form">
+        {% csrf_token %}
+        {{ form }}
+        <div class="form__btns">
+          <a href="{% url 'brands_table' %}" aria-label="Go to Brands page" class="btn btn-primary btn__cancel">
+            <i class="fas fa-arrow-circle-left"></i>
+            Cancel
+          </a>
+          <button type="submit" class="btn btn-primary btn__add">
+            <i class="fa fa-plus-circle"></i>
+            Add Brand
+          </button>
+        </div>
+      </form>
+    {% else %}
+      <div class="dashboard__main">
+        <h1>You are not authorized to access this page</h1>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
