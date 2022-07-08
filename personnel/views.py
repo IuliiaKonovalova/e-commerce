@@ -1047,3 +1047,54 @@ class EditCategoryView(View):
                 request,
                 'account/login.html',
             )
+
+
+class DeleteCategoryView(View):
+    """View for the delete category page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 3:
+                category = get_object_or_404(
+                    Category,
+                    id=kwargs['category_pk']
+                )
+                return render(
+                    request,
+                    'personnel/delete_category.html',
+                    {'category': category},
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 3:
+                category = get_object_or_404(
+                    Category,
+                    id=kwargs['category_pk']
+                )
+                category.delete()
+                return HttpResponseRedirect(
+                    '/personnel/categories_table/'
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
