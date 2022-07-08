@@ -21,6 +21,7 @@ from .views import (
     AddCategoryView,
     EditCategoryView,
     DeleteCategoryView,
+    BrandsTableView,
 )
 
 
@@ -124,5 +125,10 @@ urlpatterns = [
         'category/<int:category_pk>/delete/',
         DeleteCategoryView.as_view(),
         name='delete_category'
+    ),
+    path(
+        'brands_table/',
+        BrandsTableView.as_view(),
+        name='brands_table'
     ),
 ]
