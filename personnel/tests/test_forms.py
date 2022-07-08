@@ -210,7 +210,7 @@ class TestForms(TestCase):
     def test_brand_form_has_fields(self):
         """Test the brand form has the correct fields."""
         form = BrandForm()
-        expected = ['name', 'slug', 'description', 'is_active']
+        expected = ['name', 'description', 'is_active']
         actual = list(form.fields)
         self.assertSequenceEqual(expected, actual)
 
@@ -219,7 +219,6 @@ class TestForms(TestCase):
         form = BrandForm(
             data={
                 'name': 'Test Brand',
-                'slug': 'test-brand',
                 'description': 'Test Brand Description',
                 'is_active': True
             }
@@ -230,8 +229,7 @@ class TestForms(TestCase):
         """Test the brand form is invalid."""
         form = BrandForm(
             data={
-                'name': 'Test Brand',
-                'slug': '',
+                'name': '',
                 'description': 'Test Brand Description',
                 'is_active': True
             }
