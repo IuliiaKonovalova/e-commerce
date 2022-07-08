@@ -20,6 +20,7 @@ from personnel.views import (
     ProductInventoriesTableView,
     CategoriesTableView,
     AddCategoryView,
+    EditCategoryView,
 )
 
 
@@ -174,4 +175,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             AddCategoryView
+        )
+
+    def test_edit_category_url(self):
+        """Test the edit category url."""
+        url = reverse('edit_category', kwargs={'category_pk': 1})
+        self.assertEquals(
+            resolve(url).func.view_class,
+            EditCategoryView
         )
