@@ -490,6 +490,23 @@ img {
   font-weight: 900;
 }
 
+.btn-primary {
+  /* --bs-btn-color: #fff;
+  --bs-btn-bg: #0d6efd;
+  --bs-btn-border-color: #0d6efd;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #0b5ed7;
+  --bs-btn-hover-border-color: #0a58ca;
+  --bs-btn-focus-shadow-rgb: 49,132,253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #0a58ca;
+  --bs-btn-active-border-color: #0a53be;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #0d6efd;
+  --bs-btn-disabled-border-color: #0d6efd; */
+}
+
 button:active {
   color: var(--clr-accent--100);
 }
@@ -630,7 +647,8 @@ input[name=quantity] {
 
 .bag__items,
 .promotions__table,
-.products__table {
+.products__table,
+.brand__table {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -644,7 +662,8 @@ input[name=quantity] {
 .bag__items--titles,
 .promotion,
 .promotions__table--titles,
-.products__table--row {
+.products__table--row,
+.brand__table--row {
   width: 100%;
   background-color: var(--clr-primary--100);
   display: grid;
@@ -1061,7 +1080,8 @@ input[name=quantity] {
   gap: 0;
 }
 
-.products__table--cell {
+.products__table--cell,
+.brand__table--cell {
   background-color: var(--clr-primary--100);
   color: var(--clr-text--900);
   width: 100%;
@@ -1276,6 +1296,20 @@ td {
 .data__accent--green {
   background-color: green;
 }
+
+
+/* ---------- Brands Table -------------- */
+
+
+.brand__table--row {
+  grid-template-columns: 1fr 0.2fr 0.7fr;
+
+  background-color: #06032e;
+  padding: 0;
+  /* gap: 0.1em; */
+  gap: 0;
+}
+
 
 /* --------- message-container ---------- */
 .message-container {
