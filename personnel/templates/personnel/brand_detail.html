@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          {{ brand.name }}
+        </h1>
+          {% if brand.is_active %}
+            <i class="fa fa-check-circle"></i> (Active)
+          {% else %}
+            <i class="fa fa-times-circle"></i> (Inactive)
+          {% endif %}
+        <div class="dashboard__main--info">
+          <div>
+            <strong>Product with this brand: {{ brand.products.count }}</strong>
+          <div>
+          <div>
+            <strong>Description: </strong>
+            <div>
+              {{ brand.description }}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          You are not authorized to delete categories
+        </h1>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
