@@ -106,14 +106,21 @@
         </a>
       </li>
       <li class="navbar__item">
-        <a href="{% url 'products_table' %}" aria-label="Go to Orders page" class="account__option">
+        <a href="{% url 'categories_table' %}" aria-label="Go to Categories page" class="account__option">
+          Categories
+          <!-- Icon for stock -->
+          <i class="fas fa-table"></i>
+        </a>
+      </li>
+      <li class="navbar__item">
+        <a href="{% url 'products_table' %}" aria-label="Go to Products page" class="account__option">
           Products
           <!-- Icon for stock -->
           <i class="fas fa-table"></i>
         </a>
       </li>
       <li class="navbar__item">
-        <a href="{% url 'product_inventories_table' %}" aria-label="Go to Orders page" class="account__option">
+        <a href="{% url 'product_inventories_table' %}" aria-label="Go to Units page" class="account__option">
           Units
           <!-- Icon for stock -->
           <i class="fas fa-table"></i>
