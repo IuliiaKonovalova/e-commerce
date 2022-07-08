@@ -27,7 +27,12 @@
               <i class="fa fa-pencil"></i>
               Edit Category
             </a>
-
+            {% if request.user.profile.role.id == 3 %}
+              <a class="btn btn-primary btn__delete" href="{% url 'delete_category' category_pk=category.pk %}">
+                <i class="fa fa-trash"></i>
+                Delete product
+              </a>
+            {% endif %}
           </div>
         {% endfor %}
       </div>
