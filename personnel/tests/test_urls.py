@@ -21,6 +21,7 @@ from personnel.views import (
     CategoriesTableView,
     AddCategoryView,
     EditCategoryView,
+    DeleteCategoryView,
 )
 
 
@@ -184,3 +185,12 @@ class TestUrls(SimpleTestCase):
             resolve(url).func.view_class,
             EditCategoryView
         )
+
+    def test_delete_category_url(self):
+        """Test the delete category url."""
+        url = reverse('delete_category', kwargs={'category_pk': 1})
+        self.assertEquals(
+            resolve(url).func.view_class,
+            DeleteCategoryView
+        )
+        self.assertEquals(resolve(url).kwargs['category_pk'], 1)
