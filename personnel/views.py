@@ -974,7 +974,7 @@ class AddCategoryView(View):
                 if form.is_valid():
                     form.save()
                     return HttpResponseRedirect(
-                        '/personnel/categories/'
+                        '/personnel/categories_table/'
                     )
                 else:
                     return render(
