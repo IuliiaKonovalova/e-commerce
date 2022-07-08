@@ -989,4 +989,61 @@ class AddCategoryView(View):
             )
 
 
-# class EditCategoryView(View):
+class EditCategoryView(View):
+    """View for the edit category page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                category = get_object_or_404(
+                    Category,
+                    id=kwargs['category_pk']
+                )
+                form = CategoryForm(instance=category)
+                return render(
+                    request,
+                    'personnel/edit_category.html',
+                    {'form': form, 'category': category},
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                category = get_object_or_404(
+                    Category,
+                    id=kwargs['category_pk']
+                )
+                form = CategoryForm(request.POST, instance=category)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/categories_table/'
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/edit_category.html',
+                        {'form': form, 'category': category},
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
