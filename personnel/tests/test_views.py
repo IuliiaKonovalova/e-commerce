@@ -255,8 +255,11 @@ class TestViews(TestCase):
             'delete_category',
             kwargs={'category_pk': 1}
         )
-
         self.brands_table_url = reverse('brands_table')
+        self.brand_detail_url = reverse(
+            'brand_detail',
+            kwargs={'brand_pk': 1}
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
