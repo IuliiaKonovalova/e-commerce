@@ -65,20 +65,13 @@ class BrandForm(forms.ModelForm):
     """Form for the Brand model."""
     class Meta:
         model = Brand
-        fields = ['name', 'slug', 'description', 'is_active']
+        fields = ['name', 'description', 'is_active']
         widgets = {
             'name': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                     'title': 'max_length=50',
                     'placeholder': 'Brand Name',
-                }
-            ),
-            'slug': forms.TextInput(
-                attrs={
-                    'class': 'form-control',
-                    'title': 'max_length=50',
-                    'placeholder': 'Brand Slug Name',
                 }
             ),
             'description': forms.Textarea(
