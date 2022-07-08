@@ -1608,3 +1608,121 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Category.objects.count(), 2)
         self.client.logout()
+
+    def test_delete_category_get_view_user_logged_out(self):
+        """Test delete category get view user logged out"""
+        response = self.client.get(
+            self.delete_category_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_category_get_view_user_logged_in(self):
+        """Test delete category get view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.delete_category_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_category_get_view_staff_without_access(self):
+        """Test delete category get view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.delete_category_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_category_get_view_user_with_access(self):
+        """Test delete category get view user with access"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        self.assertEqual(Category.objects.count(), 2)
+        response = self.client.get(
+            self.delete_category_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'personnel/delete_category.html'
+        )
+        self.client.logout()
+
+
+    def test_delete_category_post_view_user_logged_out(self):
+        """Test delete category post view user logged out"""
+        response = self.client.post(
+            self.delete_category_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_category_post_view_user_logged_in(self):
+        """Test delete category post view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.delete_category_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_category_post_view_staff_without_access(self):
+        """Test delete category post view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        self.assertEqual(Category.objects.count(), 2)
+        response = self.client.post(
+            self.delete_category_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_category_post_view_user_with_access(self):
+        """Test delete category post view user with access"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        self.assertEqual(Category.objects.count(), 2)
+        response = self.client.post(
+            self.delete_category_url,
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Category.objects.count(), 1)
+        self.client.logout()
+
+    def test_delete_category_post_view_user_with_access_failed(self):
+        """Test delete category post view user with access"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        self.delete_category_url = reverse(
+            'delete_category',
+            kwargs={'category_pk': 0,}
+        )
+        self.assertEqual(Category.objects.count(), 2)
+        response = self.client.post(
+            self.delete_category_url,
+        )
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(Category.objects.count(), 2)
+        self.client.logout()
