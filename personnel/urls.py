@@ -20,6 +20,7 @@ from .views import (
     CategoriesTableView,
     AddCategoryView,
     EditCategoryView,
+    DeleteCategoryView,
 )
 
 
@@ -118,5 +119,10 @@ urlpatterns = [
         'category/<int:category_pk>/edit/',
         EditCategoryView.as_view(),
         name='edit_category'
+    ),
+    path(
+        'category/<int:category_pk>/delete/',
+        DeleteCategoryView.as_view(),
+        name='delete_category'
     ),
 ]
