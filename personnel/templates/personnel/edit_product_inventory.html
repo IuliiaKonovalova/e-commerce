@@ -4,7 +4,7 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      {% comment %} Eidt Product inventory form {% endcomment %}
+      {% comment %} Edit Product inventory form {% endcomment %}
       <div class="row">
         <div class="col-md-12">
           <div class="panel panel-default">
@@ -93,7 +93,12 @@
           </div>
         </div>
       </div>
-
+    {% else %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          You are not authorized to delete categories
+        </h1>
+      </div>
     {% endif %}
   </div>
 {% endblock %}
