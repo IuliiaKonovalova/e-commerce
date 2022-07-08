@@ -24,6 +24,7 @@ from promotions.models import Promotion
 from .forms import (
     ProductForm,
     CategoryForm,
+    BrandForm,
 )
 
 
@@ -1151,6 +1152,58 @@ class BrandDetailView(View):
                     'personnel/brand_detail.html',
                     {'brand': brand},
                 )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+class AddBrandView(View):
+    """View for the add brand page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = BrandForm()
+                return render(
+                    request,
+                    'personnel/add_brand.html',
+                    {'form': form},
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = BrandForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/brands_table/'
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/add_brand.html',
+                        {'form': form},
+                    )
         else:
             return render(
                 request,
