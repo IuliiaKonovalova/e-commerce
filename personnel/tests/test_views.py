@@ -247,6 +247,10 @@ class TestViews(TestCase):
         )
         self.categories_table_url = reverse('categories_table')
         self.add_category_url = reverse('add_category')
+        self.edit_category_url = reverse(
+            'edit_category',
+            kwargs={'category_pk': 1}
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -1477,3 +1481,87 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Category.objects.count(), 3)
         self.client.logout()
+
+    def test_edit_category_get_view_user_logged_out(self):
+        """Test edit category get view user logged out"""
+        response = self.client.get(
+            self.edit_category_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_category_get_view_user_logged_in(self):
+        """Test edit category get view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.edit_category_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_category_get_view_user_with_access(self):
+        """Test edit category get view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.edit_category_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'personnel/edit_category.html'
+        )
+        self.client.logout()
+
+    def test_edit_category_post_view_user_logged_out(self):
+        """Test edit category post view user logged out"""
+        response = self.client.post(
+            self.edit_category_url,
+            data={
+                'name': 'Pets',
+                'slug': 'pets',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_category_post_view_user_logged_in(self):
+        """Test edit category post view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.edit_category_url,
+            data={
+                'name': 'Pets',
+                'slug': 'pets',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_category_post_view_user_with_access(self):
+        """Test edit category post view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        self.assertEqual(Category.objects.count(), 2)
+        response = self.client.post(
+            self.edit_category_url,
+            data={
+                'name': 'Pets',
+                'slug': 'pets',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Category.objects.count(), 2)
+        self.client.logout()
+        
