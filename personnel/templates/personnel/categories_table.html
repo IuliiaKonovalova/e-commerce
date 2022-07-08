@@ -4,7 +4,17 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-
+      {% for category in categories %}
+        <div>
+        {{ category.name }}
+          {% if category.is_active %}
+            <i class="fa fa-check-circle"></i> (Active)
+          {% else %}
+            <i class="fa fa-times-circle"></i> (Inactive)
+          {% endif %}
+          {{ category.products.count }} products
+        </div>
+      {% endfor %}
     {% endif %}
   </div>
 {% endblock %}
