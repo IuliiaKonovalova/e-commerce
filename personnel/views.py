@@ -1112,7 +1112,9 @@ class BrandsTableView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                brands = Brand.objects.all()
+                p  = Paginator(Brand.objects.all(), 25)
+                page = request.GET.get('page')
+                brands = p.get_page(page)
                 context = {
                     'brands': brands,
                 }
