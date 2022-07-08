@@ -22,6 +22,7 @@ from .views import (
     EditCategoryView,
     DeleteCategoryView,
     BrandsTableView,
+    BrandDetailView,
 )
 
 
@@ -130,5 +131,10 @@ urlpatterns = [
         'brands_table/',
         BrandsTableView.as_view(),
         name='brands_table'
+    ),
+    path(
+        'brand/<int:brand_pk>/',
+        BrandDetailView.as_view(),
+        name='brand_detail'
     ),
 ]
