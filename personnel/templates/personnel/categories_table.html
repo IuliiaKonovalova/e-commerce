@@ -23,6 +23,11 @@
               <i class="fa fa-times-circle"></i> (Inactive)
             {% endif %}
             {{ category.products.count }} products
+            <a class="btn btn-primary btn__edit" href="{% url 'edit_category' category_pk=category.pk %}">
+              <i class="fa fa-pencil"></i>
+              Edit Category
+            </a>
+
           </div>
         {% endfor %}
       </div>
