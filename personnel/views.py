@@ -920,9 +920,7 @@ class CategoriesTableView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                p = Paginator(Category.objects.all(), 25)
-                page = request.GET.get('page')
-                categories = p.get_page(page)
+                categories = Category.objects.all()
                 context = {
                     'categories': categories,
                 }
