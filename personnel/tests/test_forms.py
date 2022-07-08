@@ -153,7 +153,7 @@ class TestForms(TestCase):
     def test_category_form_has_fields(self):
         """Test the category form has the correct fields."""
         form = CategoryForm()
-        expected = ['name', 'slug', 'is_active']
+        expected = ['name', 'is_active']
         actual = list(form.fields)
         self.assertSequenceEqual(expected, actual)
 
@@ -162,7 +162,6 @@ class TestForms(TestCase):
         form = CategoryForm(
             data={
                 'name': 'Test Category',
-                'slug': 'test-category',
                 'is_active': True
             }
         )
@@ -172,8 +171,8 @@ class TestForms(TestCase):
         """Test the category form is invalid."""
         form = CategoryForm(
             data={
-                'name': 'Test Category',
-                'slug': '',
+                'name': '',
+                'slug': 'fd',
                 'is_active': True
             }
         )
