@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+  <div class="dashboard">
+    <div class="dashboard__main">
+      <h1>Add Category</h1>
+    </div>
+    <form method="POST" class="form">
+      {% csrf_token %}
+      {{ form }}
+      <div class="form__btns">
+        <a href="{% url 'categories_table' %}" aria-label="Go to Categories page" class="btn btn-primary btn__cancel">
+          <i class="fas fa-arrow-circle-left"></i>
+          Cancel
+        </a>
+        <button type="submit" class="btn btn-primary btn__add">
+          <i class="fa fa-plus-circle"></i>
+          Add Category
+        </button>
+      </div>
+    </form>
+  </div>
+{% endblock %}
