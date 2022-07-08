@@ -227,6 +227,12 @@
           </div>
         </div>
       </div>
+    {% else %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          You are not authorized to delete categories
+        </h1>
+      </div>
     {% endif %}
   </div>
 
@@ -298,9 +304,8 @@
         //delete border
         $('#image-url').css('border', 'none');
       });
-
-      $('#modal-form').on('click', () => {
-        // change title of the modal
+      const addImage = function () {
+                // change title of the modal
         $('.modal-title').text('Add new image');
         //change button text
         
@@ -418,20 +423,14 @@
               $('#modal-form').find('.spinner').remove();
 
               $('#image-url').val('');
+              $('#image-url').on('change', imagePreview);
               $('#image-default').prop('checked', false);
               $('#image-active').prop('checked', false);
               // Add +1 to the number of images
               imageCount = parseInt($('#images-count').text());
               $('#images-count').text(imageCount+1);
-
-
-
               // Close modal
               $('#exampleModal').modal('hide');
-              // reload the page
-              //location.reload();
-              // remove .preview
-              //$(e.target).parent().find('div.preview').remove();
             },
             error: function(data) {
               console.log('error');
@@ -449,7 +448,8 @@
             $('#image-alt-text').focus();
           }
         }
-      });
+      }
+      $('#modal-form').on('click', addImage);
       const editImage = function(e) {
         let imageId = $(e.target).data('id');
         let imageAltText = $('img[data-id="' + imageId + '"]').attr('alt');
@@ -510,11 +510,11 @@
             $(e.target).val('');        
             $(e.target).on('change', imagePreview);
         });
-              $('#image-url').on('change', imagePreview);
-      $('#image-url').on('click', () => {
-        //delete border
-        $('#image-url').css('border', 'none');
-      });
+        $('#image-url').on('change', imagePreview);
+        $('#image-url').on('click', () => {
+          //delete border
+          $('#image-url').css('border', 'none');
+        });
         // change id for this button:
         // <button type="button" class="btn btn-outline-primary btn__add" id="modal-form">Save changes</button>
         // check if any other #modal-form exist
@@ -608,6 +608,8 @@
                   divImageTitleText.text('Inactive');
                 }
 
+                $('#image-url').on('change', imagePreview);
+
 
                 // close the modal
                 $('#exampleModal').modal('hide');
@@ -674,7 +676,9 @@
         $('#exampleModal').find('.modal-title').text('Add new image');
         // check if #modal-form-edit exists
         if ($('#modal-form-edit').length) {
+          $('#modal-form-edit').off('click', editImage);
           $('#modal-form-edit').attr('id', 'modal-form');
+          $('#modal-form').on('click', addImage);
           $('#exampleModal').find('div.preview').remove();
           $('#exampleModal').find('#image-alt-text').val('');
           $('#exampleModal').find('#image-url').val('');
