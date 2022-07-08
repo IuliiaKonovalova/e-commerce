@@ -23,6 +23,7 @@ from inventory.models import (
 from promotions.models import Promotion
 from .forms import (
     ProductForm,
+    CategoryForm,
 )
 
 
@@ -934,3 +935,58 @@ class CategoriesTableView(View):
                 request,
                 'account/login.html',
             )
+
+
+class AddCategoryView(View):
+    """View for the add category page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = CategoryForm(request.POST)
+                return render(
+                    request,
+                    'personnel/add_category.html',
+                    {'form': form},
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = CategoryForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/categories/'
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/add_category.html',
+                        {'form': form},
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+# class EditCategoryView(View):
