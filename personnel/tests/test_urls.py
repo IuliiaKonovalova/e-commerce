@@ -23,6 +23,7 @@ from personnel.views import (
     EditCategoryView,
     DeleteCategoryView,
     BrandsTableView,
+    BrandDetailView,
 )
 
 
@@ -202,4 +203,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             BrandsTableView
+        )
+
+    def test_brand_detail_url(self):
+        """Test the brand detail url."""
+        url = reverse('brand_detail', kwargs={'brand_pk': 1})
+        self.assertEquals(
+            resolve(url).func.view_class,
+            BrandDetailView
         )
