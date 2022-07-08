@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <section class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          Brands
+        </h1>
+        <a href="#" aria-label="Go to add new brand page" class="btn btn-primary btn__add">
+          <i class="fas fa-plus-circle"></i>
+          Add New Brand
+        </a>
+      </section>
+      <div class="brand__table">
+        <div class="brand__table--row table__titles">
+          <div class="brand__table--cell">Name</div>
+          <div class="brand__table--cell">Active</div>
+          <div class="brand__table--cell">Products</div>
+        </div>
+        {% for brand in brands %}
+          <div class="brand__table--row">
+            <div class="brand__table--cell">{{ brand.name }}</div>
+            <div class="brand__table--cell">
+              {% if brand.is_active %}
+                <i class="fa fa-check-circle"></i>
+              {% else %}
+                <i class="fa fa-times-circle"></i>
+              {% endif %}
+            </div>
+            <div class="brand__table--cell">
+              {{ brand.products.count }} products
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+    {% else %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          You are not authorized to delete categories
+        </h1>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
