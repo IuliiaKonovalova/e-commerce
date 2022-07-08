@@ -18,6 +18,7 @@ from .views import (
     DeleteProductInventoryView,
     ProductInventoriesTableView,
     CategoriesTableView,
+    AddCategoryView,
 )
 
 
@@ -106,5 +107,10 @@ urlpatterns = [
         'categories_table/',
         CategoriesTableView.as_view(),
         name='categories_table'
+    ),
+    path(
+        'category/add/',
+        AddCategoryView.as_view(),
+        name='add_category'
     ),
 ]
