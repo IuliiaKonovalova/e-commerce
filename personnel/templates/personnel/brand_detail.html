@@ -8,6 +8,16 @@
         <h1 class="dashboard__main--name">
           {{ brand.name }}
         </h1>
+        <a class="btn btn-primary btn__edit" href="{% url 'edit_brand' brand_pk=brand.pk %}" aria-label="Go to edit brand form">
+          <i class="fa fa-pencil"></i>
+          Edit Brand
+        </a>
+        {% comment %} {% if request.user.profile.role.id == 3 %}
+          <a class="btn btn-primary btn__delete" href="{% url 'delete_category' category_pk=category.pk %}">
+            <i class="fa fa-trash"></i>
+            Delete product
+          </a>
+        {% endif %} {% endcomment %}
           {% if brand.is_active %}
             <i class="fa fa-check-circle"></i> (Active)
           {% else %}
