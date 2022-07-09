@@ -1547,3 +1547,40 @@ class DeleteTagView(View):
                 request,
                 'account/login.html',
             )
+
+
+class StockView(View):
+    """View for the stock page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                p = Paginator(Stock.objects.all(), 25)
+                page = request.GET.get('page')
+                all_stock = p.get_page(page)
+                stock_inconsistency = Stock.get_units_inconsistent()
+                # get all products without stock
+                products_without_stock = ProductInventory.objects.filter(
+                    stock__isnull=True
+                )
+                context = {
+                    'all_stock': all_stock,
+                    'stock_inconsistency': stock_inconsistency,
+                    'products_without_stock': products_without_stock,
+                }
+                return render(
+                    request,
+                    'personnel/stock.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
