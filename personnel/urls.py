@@ -30,6 +30,7 @@ from .views import (
     TagDetailView,
     AddTagView,
     EditTagView,
+    DeleteTagView
 )
 
 
@@ -178,5 +179,10 @@ urlpatterns = [
         'tag/<int:tag_pk>/edit/',
         EditTagView.as_view(),
         name='edit_tag'
+    ),
+    path(
+        'tag/<int:tag_pk>/delete/',
+        DeleteTagView.as_view(),
+        name='delete_tag'
     ),
 ]
