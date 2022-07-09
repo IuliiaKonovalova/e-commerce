@@ -26,6 +26,7 @@ from personnel.views import (
     BrandDetailView,
     AddBrandView,
     EditBrandView,
+    DeleteBrandView,
 )
 
 
@@ -230,3 +231,12 @@ class TestUrls(SimpleTestCase):
             resolve(url).func.view_class,
             EditBrandView
         )
+
+    def test_delete_brand_url(self):
+        """Test the delete brand url."""
+        url = reverse('delete_brand', kwargs={'brand_pk': 1})
+        self.assertEquals(
+            resolve(url).func.view_class,
+            DeleteBrandView
+        )
+        self.assertEquals(resolve(url).kwargs['brand_pk'], 1)
