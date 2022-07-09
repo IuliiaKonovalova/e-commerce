@@ -78,7 +78,7 @@
             Wishlist
           </a>
         </li>
-        {% comment %} Links acccessable to every member {% endcomment %}
+        {% comment %} Links accessable to every member {% endcomment %}
         {% else %}
         <li class="navbar__item ">
 
@@ -115,6 +115,13 @@
       <li class="navbar__item">
         <a href="{% url 'brands_table' %}" aria-label="Go to Brands page" class="account__option">
           Brands
+          <!-- Icon for stock -->
+          <i class="fas fa-table"></i>
+        </a>
+      </li>
+      <li class="navbar__item">
+        <a href="{% url 'tags_table' %}" aria-label="Go to Tags page" class="account__option">
+          Tags
           <!-- Icon for stock -->
           <i class="fas fa-table"></i>
         </a>
