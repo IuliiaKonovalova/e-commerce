@@ -25,6 +25,7 @@ from personnel.views import (
     BrandsTableView,
     BrandDetailView,
     AddBrandView,
+    EditBrandView,
 )
 
 
@@ -220,4 +221,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             AddBrandView
+        )
+
+    def test_edit_brand_url(self):
+        """Test the edit brand url."""
+        url = reverse('edit_brand', kwargs={'brand_pk': 1})
+        self.assertEquals(
+            resolve(url).func.view_class,
+            EditBrandView
         )
