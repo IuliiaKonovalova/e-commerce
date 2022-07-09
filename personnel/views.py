@@ -1436,3 +1436,63 @@ class AddTagView(View):
                 request,
                 'account/login.html',
             )
+
+
+class EditTagView(View):
+    """View for the edit tag page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                tag = get_object_or_404(
+                    Tag,
+                    id=kwargs['tag_pk']
+                )
+                form = TagForm(instance=tag)
+                return render(
+                    request,
+                    'personnel/edit_tag.html',
+                    {'form': form, 'tag': tag},
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                tag = get_object_or_404(
+                    Tag,
+                    id=kwargs['tag_pk']
+                )
+                form = TagForm(request.POST, instance=tag)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/tag/{}/'.format(tag.id)
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/edit_tag.html',
+                        {'form': form, 'tag': tag},
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
