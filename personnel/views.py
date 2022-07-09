@@ -1269,3 +1269,54 @@ class EditBrandView(View):
                 request,
                 'account/login.html',
             )
+
+
+class DeleteBrandView(View):
+    """View for the delete brand page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 3:
+                brand = get_object_or_404(
+                    Brand,
+                    id=kwargs['brand_pk']
+                )
+                return render(
+                    request,
+                    'personnel/delete_brand.html',
+                    {'brand': brand},
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 3:
+                brand = get_object_or_404(
+                    Brand,
+                    id=kwargs['brand_pk']
+                )
+                brand.delete()
+                return HttpResponseRedirect(
+                    '/personnel/brands_table/'
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
