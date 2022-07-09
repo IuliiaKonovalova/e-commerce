@@ -269,6 +269,7 @@ class TestViews(TestCase):
             'delete_brand',
             kwargs={'brand_pk': 1}
         )
+        self.tags_table_url = reverse('tags_table')
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -2097,4 +2098,36 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Brand.objects.count(), 1)
+        self.client.logout()
+
+    def test_tags_table_view_user_logged_out(self):
+        """Test tags table view user logged out"""
+        response = self.client.get(
+            self.tags_table_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_tags_table_view_user_logged_in(self):
+        """Test tags table view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.tags_table_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_tags_table_view_staff_with_access(self):
+        """Test tags table view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.tags_table_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/tags_table.html')
         self.client.logout()
