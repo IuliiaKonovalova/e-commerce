@@ -19,7 +19,10 @@
           <i class="fa fa-pencil"></i>
           Edit Tag
         </a>
-
+        <a class="btn btn-primary btn__delete" href="{% url 'delete_tag' tag_pk=tag.pk %}"  aria-label="Go to delete tag form">
+          <i class="fa fa-trash"></i>
+          Delete Tag
+        </a>
       </div>
 
       <div class="">
