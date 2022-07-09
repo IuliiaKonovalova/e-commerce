@@ -25,6 +25,7 @@ from .views import (
     BrandDetailView,
     AddBrandView,
     EditBrandView,
+    DeleteBrandView,
 )
 
 
@@ -148,5 +149,10 @@ urlpatterns = [
         'brand/<int:brand_pk>/edit/',
         EditBrandView.as_view(),
         name='edit_brand'
+    ),
+    path(
+        'brand/<int:brand_pk>/delete/',
+        DeleteBrandView.as_view(),
+        name='delete_brand'
     ),
 ]
