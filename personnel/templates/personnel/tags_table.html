@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          All Tags
+        </h1>
+
+      <div class="brand__table">
+        <div class="brand__table--row table__titles">
+          <div class="brand__table--cell">Name</div>
+          <div class="brand__table--cell">Active</div>
+          <div class="brand__table--cell">Products</div>
+        </div>
+        {% for tag in tags %}
+          <a class="brand__table--row brand__table--link"  
+          {% comment %} href="{% url 'brand_detail' brand_pk=brand.id %}"  {% endcomment %}
+          aria-label="Go to Tag detail page">
+            <div class="brand__table--cell">
+              {{ tag.name }}
+            </div>
+            <div class="brand__table--cell">
+              {% if brand.is_active %}
+                <i class="fa fa-check-circle"></i>
+              {% else %}
+                <i class="fa fa-times-circle"></i>
+              {% endif %}
+            </div>
+            <div class="brand__table--cell">
+              {{ tag.products.count }} products
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+      {% comment %} Control Pagination {% endcomment %}
+      {% if brands.paginator.num_pages %}
+        {% if not brands.paginator.num_pages == 1 %}
+          <div class="pagination">
+            <div class="pagination__navigation">
+              {% if brands.has_previous and not brands.has_next %}
+                <a href="?page={{ brands.previous_page_number }}" class="pagination__navigation--btn"
+                  aria-label="Go to previous page results">
+                  <i class="fas fa-chevron-left"></i>
+                </a>
+                <div class="pagination__navigation--fake">
+                  <i class="fas fa-chevron-right"></i>
+                </div>
+              {% elif brands.has_next and not brands.has_previous %}
+                <div class="pagination__navigation--fake">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+                <a href="?page={{ brands.next_page_number }}" class="pagination__navigation--btn"
+                  aria-label="Go to next page results">
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              {% elif brands.has_next and brands.has_previous %}
+                <a href="?page={{ brands.previous_page_number }}" class="pagination__navigation--btn"
+                  aria-label="Go to previous page results">
+                  <i class="fas fa-chevron-left"></i>
+                </a>
+                <a href="?page={{ brands.next_page_number }}" class="pagination__navigation--btn"
+                  aria-label="Go to next page results">
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              {% else %}
+                <div class="pagination__navigation--fake">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="pagination__navigation--fake">
+                  <i class="fas fa-chevron-right"></i>
+                </div>
+              {% endif %}
+            </div>
+            <div class="pagination__location">
+              Page <span>{{ brands.number }}</span> of {{ brands.paginator.num_pages }}
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% else %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          You are not authorized to delete categories
+        </h1>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
