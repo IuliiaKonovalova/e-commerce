@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          All Tags
+        </h1>
+      </div>
+      <div class="">
+        {% if tag_products.count %}
+          <div class="">
+            {{ tag_products.count }} products
+          </div>
+          {% for product in tag_products %}
+            <a class="data__main--link" href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to product detail page">
+              {{ product }}
+              {% if product.is_active %}
+                <i class="fa fa-check-circle"></i>
+              {% else %}
+                <i class="fa fa-times-circle"></i>
+              {% endif %}
+            </a>
+          {% endfor %}
+        {% else %}
+          <div class="">
+            No products found
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          You are not authorized to view this page.
+        </h1>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
