@@ -8,7 +8,10 @@
         <h1 class="dashboard__main--name">
           All Tags
         </h1>
-
+        <a href="{% url 'add_tag' %}" aria-label="Go to add new tag page" class="btn btn-primary btn__add">
+          <i class="fas fa-plus-circle"></i>
+          Add New Tag
+        </a>
       </div> 
       <div class="brand__table">
         <div class="brand__table--row table__titles">
@@ -22,7 +25,7 @@
               {{ tag.name }}
             </div>
             <div class="brand__table--cell">
-              {% if brand.is_active %}
+              {% if tag.is_active %}
                 <i class="fa fa-check-circle"></i>
               {% else %}
                 <i class="fa fa-times-circle"></i>
