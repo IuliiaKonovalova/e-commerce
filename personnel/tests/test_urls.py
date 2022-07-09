@@ -30,6 +30,7 @@ from personnel.views import (
     TagsTableView,
     TagDetailView,
     AddTagView,
+    EditTagView,
 )
 
 
@@ -266,4 +267,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             AddTagView
+        )
+
+    def test_edit_tag_url(self):
+        """Test the edit tag url."""
+        url = reverse('edit_tag', kwargs={'tag_pk': 1})
+        self.assertEquals(
+            resolve(url).func.view_class,
+            EditTagView
         )
