@@ -275,6 +275,10 @@ class TestViews(TestCase):
             kwargs={'tag_pk': 1}
         )
         self.add_tag_url = reverse('add_tag')
+        self.edit_tag_url = reverse(
+            'edit_tag',
+            kwargs={'tag_pk': 1}
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -2262,3 +2266,99 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/add_tag.html')
         self.client.logout()
+
+    def test_edit_tag_view_user_logged_out(self):
+        """Test edit tag view user logged out"""
+        response = self.client.get(
+            self.edit_tag_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_tag_view_user_logged_in(self):
+        """Test edit tag view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.edit_tag_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_tag_view_staff_with_access(self):
+        """Test edit tag view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.edit_tag_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/edit_tag.html')
+        self.client.logout()
+
+    def test_edit_tag_post_view_user_logged_out(self):
+        """Test edit tag post view user logged out"""
+        response = self.client.post(
+            self.edit_tag_url,
+            data={
+                'name': 'Test Tag',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_tag_post_view_user_logged_in(self):
+        """Test edit tag post view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.edit_tag_url,
+            data={
+                'name': 'Test Tag',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_tag_post_view_staff_with_access(self):
+        """Test edit tag post view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        self.assertEqual(Tag.objects.count(), 2)
+        response = self.client.post(
+            self.edit_tag_url,
+            data={
+                'name': 'Test Tag',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Tag.objects.count(), 2)
+        self.client.logout()
+
+    def test_edit_tag_post_view_staff_with_access_failed(self):
+        """Test edit tag post view user with access failed"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.edit_tag_url,
+            data={
+                'name': '',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/edit_tag.html')
+        self.client.logout()
+        
