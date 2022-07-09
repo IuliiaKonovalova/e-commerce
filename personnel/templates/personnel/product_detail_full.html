@@ -49,7 +49,7 @@
         </div>
         <div class="data__main--section">
           <strong>Brand: </strong>
-          <a href="#" aria-label=" Go to {{ product.brand }} page" class="data__main--link">
+          <a href="{% url 'brand_detail' brand_pk=product.brand.id %}" aria-label=" Go to {{ product.brand }} page" class="data__main--link">
             {{ product.brand }}
           </a>
         </div>
