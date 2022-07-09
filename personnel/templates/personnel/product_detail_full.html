@@ -57,7 +57,7 @@
           <strong>Tags: {{ product.get_tags.count }}</strong>
           <div>
             {% for tag in product.get_tags %}
-              <a href="#" aria-label=" Go to {{ tag.name }} page" class="data__main--link">
+              <a href="{% url 'tag_detail' tag_pk=tag.id %}" aria-label=" Go to {{ tag.name }} page" class="data__main--link">
                 {{ tag.name }}
               </a>
             {% endfor %}
