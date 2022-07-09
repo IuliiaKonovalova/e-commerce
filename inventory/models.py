@@ -206,7 +206,7 @@ class Product(models.Model):
     )
     category = models.ForeignKey(
         Category,
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name='products',
         verbose_name='Category',
         help_text='format: required, max_length=100'
@@ -219,7 +219,7 @@ class Product(models.Model):
     )
     brand = models.ForeignKey(
         Brand,
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name='products',
         verbose_name='Brand',
         help_text='format: required, max_length=100'
