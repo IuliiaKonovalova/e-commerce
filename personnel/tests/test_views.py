@@ -274,6 +274,7 @@ class TestViews(TestCase):
             'tag_detail',
             kwargs={'tag_pk': 1}
         )
+        self.add_tag_url = reverse('add_tag')
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -2165,4 +2166,99 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/tag_detail.html')
+        self.client.logout()
+
+    def test_add_tag_view_user_logged_out(self):
+        """Test add tag view user logged out"""
+        response = self.client.get(
+            self.add_tag_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_add_tag_view_user_logged_in(self):
+        """Test add tag view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.add_tag_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_add_tag_view_staff_with_access(self):
+        """Test add tag view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.add_tag_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/add_tag.html')
+        self.client.logout()
+
+    def test_add_tag_post_view_user_logged_out(self):
+        """Test add tag post view user logged out"""
+        response = self.client.post(
+            self.add_tag_url,
+            data={
+                'name': 'Test Tag',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_add_tag_post_view_user_logged_in(self):
+        """Test add tag post view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.add_tag_url,
+            data={
+                'name': 'Test Tag',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_add_tag_post_view_staff_with_access(self):
+        """Test add tag post view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        self.assertEqual(Tag.objects.count(), 2)
+        response = self.client.post(
+            self.add_tag_url,
+            data={
+                'name': 'Test Tag',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Tag.objects.count(), 3)
+        self.client.logout()
+
+    def test_add_tag_post_view_staff_with_access_failed(self):
+        """Test add tag post view user with access failed"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.add_tag_url,
+            data={
+                'name': '',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/add_tag.html')
         self.client.logout()
