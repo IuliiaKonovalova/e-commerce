@@ -181,7 +181,7 @@ class TestForms(TestCase):
     def test_tag_form_has_fields(self):
         """Test the tag form has the correct fields."""
         form = TagForm()
-        expected = ['name', 'slug', 'is_active']
+        expected = ['name', 'is_active']
         actual = list(form.fields)
         self.assertSequenceEqual(expected, actual)
 
@@ -190,7 +190,6 @@ class TestForms(TestCase):
         form = TagForm(
             data={
                 'name': 'Test Tag',
-                'slug': 'test-tag',
                 'is_active': True
             }
         )
@@ -200,8 +199,7 @@ class TestForms(TestCase):
         """Test the tag form is invalid."""
         form = TagForm(
             data={
-                'name': 'Test Tag',
-                'slug': '',
+                'name': '',
                 'is_active': True
             }
         )
