@@ -265,6 +265,10 @@ class TestViews(TestCase):
             'edit_brand',
             kwargs={'brand_pk': 1}
         )
+        self.delete_brand_url = reverse(
+            'delete_brand',
+            kwargs={'brand_pk': 1}
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -2000,4 +2004,97 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Brand.objects.count(), 2)
         self.assertTemplateUsed(response, 'personnel/edit_brand.html')
+        self.client.logout()
+
+    def test_delete_brand_get_view_user_logged_out(self):
+        """Test delete brand get view user logged out"""
+        response = self.client.get(
+            self.delete_brand_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_brand_get_view_user_logged_in(self):
+        """Test delete brand get view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.delete_brand_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_brand_get_view_staff_without_access(self):
+        """Test delete brand get view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.delete_brand_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_brand_get_view_admin_with_access(self):
+        """Test delete brand post view admin with access"""
+        self.client.force_login(self.user3)
+        self.assertTrue(self.profile3.role.id == 3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(
+            self.delete_brand_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/delete_brand.html')
+        self.client.logout()
+
+    def test_delete_brand_post_view_user_logged_out(self):
+        """Test delete brand post view user logged out"""
+        response = self.client.post(
+            self.delete_brand_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_brand_post_view_user_logged_in(self):
+        """Test delete brand post view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.delete_brand_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_brand_post_view_staff_without_access(self):
+        """Test delete brand post view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.delete_brand_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+
+    def test_delete_brand_post_view_admin_with_access(self):
+        """Test delete brand post view user with access"""
+        self.client.force_login(self.user3)
+        self.assertTrue(self.profile3.role.id == 3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.post(
+            self.delete_brand_url,
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Brand.objects.count(), 1)
         self.client.logout()
