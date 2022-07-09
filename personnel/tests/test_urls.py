@@ -31,6 +31,7 @@ from personnel.views import (
     TagDetailView,
     AddTagView,
     EditTagView,
+    DeleteTagView,
 )
 
 
@@ -276,3 +277,12 @@ class TestUrls(SimpleTestCase):
             resolve(url).func.view_class,
             EditTagView
         )
+
+    def test_delete_tag_url(self):
+        """Test the delete tag url."""
+        url = reverse('delete_tag', kwargs={'tag_pk': 1})
+        self.assertEquals(
+            resolve(url).func.view_class,
+            DeleteTagView
+        )
+        self.assertEquals(resolve(url).kwargs['tag_pk'], 1)
