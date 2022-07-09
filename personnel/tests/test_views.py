@@ -261,6 +261,10 @@ class TestViews(TestCase):
             kwargs={'brand_pk': 1}
         )
         self.add_brand_url = reverse('add_brand')
+        self.edit_brand_url = reverse(
+            'edit_brand',
+            kwargs={'brand_pk': 1}
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -1874,4 +1878,126 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Brand.objects.count(), 3)
+        self.client.logout()
+
+    def test_add_brand_post_view_staff_with_access_invalid(self):
+        """Test add brand post view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.add_brand_url,
+            data={
+                'name': '',
+                'description': 'Brand description',
+                'is_active': '',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Brand.objects.count(), 2)
+        self.assertTemplateUsed(response, 'personnel/add_brand.html')
+        self.client.logout()
+
+    def test_edit_brand_get_view_user_logged_out(self):
+        """Test edit brand get view user logged out"""
+        response = self.client.get(
+            self.edit_brand_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_brand_get_view_user_logged_in(self):
+        """Test edit brand get view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.edit_brand_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_brand_get_view_staff_with_access(self):
+        """Test edit brand get view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.edit_brand_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/edit_brand.html')
+        self.client.logout()
+
+    def test_edit_brand_post_view_user_logged_out(self):
+        """Test edit brand post view user logged out"""
+        response = self.client.post(
+            self.edit_brand_url,
+            data={
+                'name': 'Brand',
+                'description': 'Brand description',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_brand_post_view_user_logged_in(self):
+        """Test edit brand post view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.edit_brand_url,
+            data={
+                'name': 'Brand',
+                'description': 'Brand description',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_brand_post_view_staff_with_access(self):
+        """Test edit brand post view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.assertEqual(Brand.objects.count(), 2)
+        self.profile2.save()
+        response = self.client.post(
+            self.edit_brand_url,
+            data={
+                'name': 'Brand3',
+                'description': 'Brand description',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Brand.objects.count(), 2)
+        self.client.logout()
+
+
+    def test_edit_brand_post_view_staff_with_access_invalid(self):
+        """Test edit brand post view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.assertEqual(Brand.objects.count(), 2)
+        self.profile2.save()
+        response = self.client.post(
+            self.edit_brand_url,
+            data={
+                'name': '',
+                'description': 'Brand description',
+                'is_active': True,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Brand.objects.count(), 2)
+        self.assertTemplateUsed(response, 'personnel/edit_brand.html')
         self.client.logout()
