@@ -9,6 +9,7 @@
           All Tags
         </h1>
 
+      </div> 
       <div class="brand__table">
         <div class="brand__table--row table__titles">
           <div class="brand__table--cell">Name</div>
@@ -16,9 +17,7 @@
           <div class="brand__table--cell">Products</div>
         </div>
         {% for tag in tags %}
-          <a class="brand__table--row brand__table--link"  
-          {% comment %} href="{% url 'brand_detail' brand_pk=brand.id %}"  {% endcomment %}
-          aria-label="Go to Tag detail page">
+          <a class="brand__table--row brand__table--link" href="{% url 'tag_detail' tag_pk=tag.id %}" aria-label="Go to Tag detail page">
             <div class="brand__table--cell">
               {{ tag.name }}
             </div>
@@ -83,7 +82,7 @@
     {% else %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
-          You are not authorized to delete categories
+          You are not authorized to view this page.
         </h1>
       </div>
     {% endif %}
