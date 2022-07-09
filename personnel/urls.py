@@ -27,6 +27,7 @@ from .views import (
     EditBrandView,
     DeleteBrandView,
     TagsTableView,
+    TagDetailView,
 )
 
 
@@ -160,5 +161,10 @@ urlpatterns = [
         'tags_table/',
         TagsTableView.as_view(),
         name='tags_table'
+    ),
+    path(
+        'tag/<int:tag_pk>/',
+        TagDetailView.as_view(),
+        name='tag_detail'
     ),
 ]
