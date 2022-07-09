@@ -27,6 +27,7 @@ from personnel.views import (
     AddBrandView,
     EditBrandView,
     DeleteBrandView,
+    TagsTableView,
 )
 
 
@@ -240,3 +241,11 @@ class TestUrls(SimpleTestCase):
             DeleteBrandView
         )
         self.assertEquals(resolve(url).kwargs['brand_pk'], 1)
+
+    def test_tags_table_url(self):
+        """Test the tags table url."""
+        url = reverse('tags_table')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            TagsTableView
+        )
