@@ -270,6 +270,10 @@ class TestViews(TestCase):
             kwargs={'brand_pk': 1}
         )
         self.tags_table_url = reverse('tags_table')
+        self.tag_detail_url = reverse(
+            'tag_detail',
+            kwargs={'tag_pk': 1}
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -2085,7 +2089,6 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'profiles/access_denied.html')
         self.client.logout()
 
-
     def test_delete_brand_post_view_admin_with_access(self):
         """Test delete brand post view user with access"""
         self.client.force_login(self.user3)
@@ -2130,4 +2133,36 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/tags_table.html')
+        self.client.logout()
+
+    def test_tag_details_view_user_logged_out(self):
+        """Test tag details view user logged out"""
+        response = self.client.get(
+            self.tag_detail_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_tag_details_view_user_logged_in(self):
+        """Test tag details view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.tag_detail_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_tag_details_view_staff_with_access(self):
+        """Test tag details view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.tag_detail_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/tag_detail.html')
         self.client.logout()
