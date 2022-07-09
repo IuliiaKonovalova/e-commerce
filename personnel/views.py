@@ -1496,3 +1496,54 @@ class EditTagView(View):
                 request,
                 'account/login.html',
             )
+
+
+class DeleteTagView(View):
+    """View for the delete tag page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                tag = get_object_or_404(
+                    Tag,
+                    id=kwargs['tag_pk']
+                )
+                return render(
+                    request,
+                    'personnel/delete_tag.html',
+                    {'tag': tag},
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                tag = get_object_or_404(
+                    Tag,
+                    id=kwargs['tag_pk']
+                )
+                tag.delete()
+                return HttpResponseRedirect(
+                    '/personnel/tags_table/'
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
