@@ -32,6 +32,7 @@ from personnel.views import (
     AddTagView,
     EditTagView,
     DeleteTagView,
+    StockView,
 )
 
 
@@ -286,3 +287,11 @@ class TestUrls(SimpleTestCase):
             DeleteTagView
         )
         self.assertEquals(resolve(url).kwargs['tag_pk'], 1)
+
+    def test_stock_url(self):
+        """Test the stock table url."""
+        url = reverse('stock')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            StockView
+        )
