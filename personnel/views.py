@@ -1350,3 +1350,36 @@ class TagsTableView(View):
                 request,
                 'account/login.html',
             )
+
+
+class TagDetailView(View):
+    """View for the tag detail page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                tag = get_object_or_404(
+                    Tag,
+                    id=kwargs['tag_pk']
+                )
+                tag_products = tag.products.all()
+                context = {
+                    'tag': tag,
+                    'tag_products': tag_products,
+                }
+                return render(
+                    request,
+                    'personnel/tag_detail.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
