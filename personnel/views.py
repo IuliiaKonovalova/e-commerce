@@ -25,6 +25,7 @@ from .forms import (
     ProductForm,
     CategoryForm,
     BrandForm,
+    TagForm,
 )
 
 
@@ -1378,6 +1379,58 @@ class TagDetailView(View):
                     'personnel/tag_detail.html',
                     context,
                 )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+class AddTagView(View):
+    """View for the add tag page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = TagForm()
+                return render(
+                    request,
+                    'personnel/add_tag.html',
+                    {'form': form},
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = TagForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/tags_table/'
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/add_tag.html',
+                        {'form': form},
+                    )
         else:
             return render(
                 request,
