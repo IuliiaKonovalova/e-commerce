@@ -12,12 +12,12 @@
           <i class="fa fa-pencil"></i>
           Edit Brand
         </a>
-        {% comment %} {% if request.user.profile.role.id == 3 %}
-          <a class="btn btn-primary btn__delete" href="{% url 'delete_category' category_pk=category.pk %}">
+        {% if request.user.profile.role.id == 3 %}
+          <a class="btn btn-primary btn__delete" href="{% url 'delete_brand' brand_pk=brand.pk %}"  aria-label="Go to delete brand form">
             <i class="fa fa-trash"></i>
             Delete product
           </a>
-        {% endif %} {% endcomment %}
+        {% endif %}
           {% if brand.is_active %}
             <i class="fa fa-check-circle"></i> (Active)
           {% else %}
