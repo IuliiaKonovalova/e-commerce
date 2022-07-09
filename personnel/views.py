@@ -1209,3 +1209,63 @@ class AddBrandView(View):
                 request,
                 'account/login.html',
             )
+
+
+class EditBrandView(View):
+    """View for the edit brand page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                brand = get_object_or_404(
+                    Brand,
+                    id=kwargs['brand_pk']
+                )
+                form = BrandForm(instance=brand)
+                return render(
+                    request,
+                    'personnel/edit_brand.html',
+                    {'form': form, 'brand': brand},
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                brand = get_object_or_404(
+                    Brand,
+                    id=kwargs['brand_pk']
+                )
+                form = BrandForm(request.POST, instance=brand)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/brand/{}/'.format(brand.id)
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/edit_brand.html',
+                        {'form': form, 'brand': brand},
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
