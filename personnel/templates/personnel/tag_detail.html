@@ -6,9 +6,22 @@
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
-          All Tags
+          {{ tag.name }}
         </h1>
+        <div>
+          {% if tag.is_active %}
+            <i class="fa fa-check-circle"></i> (Active)
+          {% else %}
+            <i class="fa fa-times-circle"></i> (Inactive)
+          {% endif %}
+        </div>
+        <a class="btn btn-primary btn__edit" href="{% url 'edit_tag' tag_pk=tag.pk %}" aria-label="Go to edit tag form">
+          <i class="fa fa-pencil"></i>
+          Edit Tag
+        </a>
+
       </div>
+
       <div class="">
         {% if tag_products.count %}
           <div class="">
