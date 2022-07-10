@@ -24,7 +24,88 @@
             </div>
           {% endif %}
         </div>
+        <table class="stock__table">
+          <tr>
+            <th>SKU</th>
+            <th>Overview</th>
+            <th>Purchased</th>
+            <th>Left</th>
+            <th>Sold</th>
+            <th>Last Checked</th>
+            <th>Inconcistency</th>
+            {% if request.user.profile.role.id == 3 %}
+              <th>Update</th>
+              <th>Delete</th>
+            {% endif %}
+          </tr>
+          {% for stock in all_stock %}
+            {% if stock in  stocks_without_units %}
+              <tr style="background-color: #ffc0cb;">
+            {% else %}
+              <tr>
+            {% endif %}
+              <td>
+                {% if stock.product_inventory.sku %}
+                  {{ stock.product_inventory.sku }}
+                {% else %}
+                  No SKU
+                {% endif %}
+              </td>
+              <td>
+                {% if stock.units < 50 and stock.units >= 25 %}
+                  <div class="data__accent--yellow">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% elif stock.units < 25 and stock.units >= 10 %}
+                  <div class="data__accent--orange">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% elif stock.units < 10 and stock.units >= 0 %}
+                  <div class="data__accent--redish">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% elif stock.units == 0 %}
+                  <div class="data__accent--red">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% else %}
+                  <div class="data__accent--green">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% endif %}
+              </td>
+              <td>{{ stock.units }}</td>
+              <td>{{ stock.units_variable }}</td>
+              <td>{{ stock.units_sold }}</td>
+              <td>{{ stock.last_checked }}</td>
+              <td>
+                {% if stock in stock_inconsistency %}
+                  <div class="data__accent--red">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% else %}
+                  <div class="data__accent--green">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% endif %}
+                </td>
+              {% if request.user.profile.role.id == 3 %}
+                <td>
+                  <a href="#" class="btn btn-primary btn__edit" aria-label="Update stock for this {{ stock.product_inventory.sku }}">
+                    <i class="fa fa-refresh"></i>
+                  </a>
+                </td>
+                <td>
+                  <a href="#" class="btn btn-primary btn__delete" aria-label="Delete stock for this {{ stock.product_inventory.sku }}">
+                    <i class="fa fa-trash"></i>
+                  </a>
+                </td>
+              {% endif %}
+            {% endfor %}
+          </table>
 
+    {% else %}
+      <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           You are not authorized to delete categories
         </h1>
