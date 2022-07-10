@@ -1569,10 +1569,15 @@ class StockView(View):
                 products_without_stock = ProductInventory.objects.filter(
                     stock__isnull=True
                 )
+                # get stocks with product_inventory is null
+                stocks_without_units = Stock.objects.filter(
+                    product_inventory__isnull=True
+                )
                 context = {
                     'all_stock': all_stock,
                     'stock_inconsistency': stock_inconsistency,
                     'products_without_stock': products_without_stock,
+                    'stocks_without_units': stocks_without_units,
                 }
                 return render(
                     request,
