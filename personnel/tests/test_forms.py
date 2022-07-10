@@ -456,7 +456,6 @@ class TestForms(TestCase):
         """Test the stock form has the correct fields."""
         form = StockForm()
         expected = [
-            'product_inventory',
             'last_checked',
             'units_variable',
             'units',
