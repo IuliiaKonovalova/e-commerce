@@ -327,20 +327,12 @@ class StockForm(forms.ModelForm):
     class Meta:
         model = Stock
         fields = [
-            'product_inventory',
             'last_checked',
             'units_variable',
             'units',
             'units_sold',
         ]
         widgets = {
-            'product_inventory': forms.Select(
-                attrs={
-                    'class': 'form-control',
-                    'title': 'select a product inventory',
-                    'placeholder': 'Product Inventory',
-                }
-            ),
             'last_checked': forms.DateTimeInput(
                 attrs={
                     'class': 'form-control',
