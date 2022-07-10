@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <div class="dashboard__main">
+          <h1 class="dashboard__main--name">Stock</h1>
+      </div>
+      <div class="data__main--stock">
+        <div class="products__stock--no">
+          <div class="products__stock--no--title">You have <strong>{{ products_without_stock.count }}</strong> Units without stock</div>
+          {% comment %} add button show {% endcomment %}
+          {% if products_without_stock.count > 0 %}
+            <button id="without-stock" class="btn btn__add">Show</button>
+            <div class="hidden nostock__units" id="without-stock-table">
+              {% for unit in products_without_stock %}
+                <a class="nostock__unit" href="{% url 'product_inventory_details' pk=unit.product.pk inventory_pk=unit.id %}" aria-label="Go to product inventories details">
+                  <div class="products__stock--no--unit--name">{{ unit.sku }}</div>
+                  <div class="products__stock--no--unit--price">{{ unit.product.name }}</div>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <h1 class="dashboard__main--name">
+          You are not authorized to delete categories
+        </h1>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
