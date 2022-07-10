@@ -163,5 +163,19 @@
 {% endblock %}
 
 {% block postloadjs_extra %}
-
+  <script>
+    $(document).ready(function() {
+      let btnWithoutStock = $('#without-stock');
+      let tableWithoutStock = $('#without-stock-table');
+      // show table without stock
+      btnWithoutStock.on('click', function() {
+        tableWithoutStock.toggleClass('hidden');
+        if (btnWithoutStock.text() == 'Show') {
+          btnWithoutStock.text('Hide');
+        } else {
+          btnWithoutStock.text('Show');
+        }
+      });
+    });
+  </script>
 {% endblock %}
