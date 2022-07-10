@@ -701,7 +701,10 @@ class Stock(models.Model):
 
     def __str__(self):
         """String representation of Stock model"""
-        if self.units > 0:
+        # check if product inventory is null
+        if self.product_inventory is None and self.units > 0:
+            return 'No SKU: ' + str(self.id)
+        elif self.units > 0:
             return (
                 self.product_inventory.sku + ' - ' + str(self.units)
             )
