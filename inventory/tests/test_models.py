@@ -718,6 +718,34 @@ class TestModels(TestCase):
         """Test the name field."""
         self.assertEqual(str(self.stock1), '11111 - 10')
         self.assertEqual(str(self.stock2), '22222 - Out of stock')
+        # count product inventories
+        self.assertEqual(ProductInventory.objects.count(), 2)
+        self.product_inventory3 = ProductInventory.objects.create(
+            sku='11112',
+            upc='11112',
+            product=self.product1,
+            product_type=self.product_type1,
+            retail_price=10.00,
+            store_price=11.00,
+            sale_price=9.00,
+            weight=float(1.0),
+            is_active=True,
+        )
+        self.assertEqual(ProductInventory.objects.count(), 3)
+        # create stock with product inventory is null
+        stock3 = Stock.objects.create(
+            product_inventory=self.product_inventory3,
+            units=10,
+            units_variable=10,
+            units_sold=0,
+        )
+        # delete product inventory3
+        self.product_inventory3.delete()
+        # count product inventories
+        self.assertEqual(ProductInventory.objects.count(), 2)
+        # THIS DOESN'T WORK:
+        # self.assertEqual(str(stock3), 'No SKU - 10')
+
 
     def test_reset_product_inventory_is_active(self):
         """Test reset_product_inventory_is_active method."""
