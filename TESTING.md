@@ -256,6 +256,27 @@ However, the view is working correctly. It is **checking** for the existence of 
 
 ![Proof of correct functionality of EmailStockNotificationFormAJAX. Enough in stock](documentation/testing/email_stock_view2.png)
 
+3. I was getting an error when I was testing string method for stock model:
+
+```python
+    def __str__(self):
+        """String representation of Stock model"""
+        # check if product inventory is null
+        if self.product_inventory is None and self.units > 0:
+            return 'No SKU: ' + str(self.id)
+        elif self.units > 0:
+            return (
+                self.product_inventory.sku + ' - ' + str(self.units)
+            )
+        else:
+            return (
+                self.product_inventory.sku + ' - ' + 'Out of stock'
+            )
+```
+
+![Django unit testing. Stock. Testing issue. String](documentation/testing/tests_issues9.png)
+
+However, when I was testing string method in my template, I was getting the correct string for the stock with deleted product inventory.
 ## Bugs
 
 **Solved bugs:**
@@ -421,3 +442,11 @@ Add url path for viewing product - > Add test for url path
 3. a13d44771be873e84c8f60750efe12b5b4ff5d89
 
 Add ProductInventoriesTable View - > Add product_inventory_table url path
+
+4. 55748cb415b51a625a38d04a68b3e2db7d6caab0
+
+Ad categories data to template - > Add categories data to template
+
+5. ec5a9ae366c8cd077c2d3d45e9e308b912b49c5d
+
+Add view for adding brand functionality -> Add testing to test adding brand functionality
