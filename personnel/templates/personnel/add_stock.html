@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and request.user.profile.role.id == 3 %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          Add Stock for {{ product }} unit {{ product_inventory.sku }}
+        </h1>
+      </div>
+      <form method="POST" class="form">
+        {% csrf_token %}
+        {{ form }}
+        <div class="form__btns">
+          <a href="#" aria-label="Go to product inventories details" class="btn btn-primary btn__cancel">
+            <i class="fas fa-arrow-circle-left"></i>
+            Cancel
+          </a>
+          <button type="submit" class="btn btn-primary btn__add">
+            <i class="fa fa-plus-circle"></i>
+            Add Tag
+          </button>
+        </div>
+      </form>
+    {% else %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          You are not authorized to access this page
+        </h1>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
