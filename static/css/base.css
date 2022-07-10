@@ -1385,6 +1385,23 @@ td {
   max-width: 60rem;
 }
 
+.stock__item--link {
+  color: var(--clr-text--900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stock__item--link i {
+  font-size: 0.6rem;
+  margin-left: 0.3em;
+}
+
+.stock__item--link:hover {
+  color: var(--clr-primary--500);
+  text-decoration: underline;
+}
+
 
 
 
