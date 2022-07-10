@@ -277,6 +277,14 @@ However, the view is working correctly. It is **checking** for the existence of 
 ![Django unit testing. Stock. Testing issue. String](documentation/testing/tests_issues9.png)
 
 However, when I was testing string method in my template, I was getting the correct string for the stock with deleted product inventory.
+
+```html
+      {% for stock in all_stock %}
+        {{ stock }}
+      {% endfor %}
+```
+
+![Django unit testing. Stock. Testing issue. String](documentation/testing/tests_issues10.png)
 ## Bugs
 
 **Solved bugs:**
