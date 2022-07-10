@@ -32,6 +32,7 @@ from .views import (
     EditTagView,
     DeleteTagView,
     StockView,
+    AddStockView,
 )
 
 
@@ -190,5 +191,10 @@ urlpatterns = [
         'stock/',
         StockView.as_view(),
         name='stock'
+    ),
+    path(
+        'product/<int:pk>/inventory/<int:inventory_pk>/add_stock/',
+        AddStockView.as_view(),
+        name='add_stock'
     ),
 ]
