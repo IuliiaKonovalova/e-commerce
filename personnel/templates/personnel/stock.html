@@ -28,16 +28,12 @@
         <table class="stock__table">
           <tr>
             <th>SKU</th>
-            <th>Overview</th>
-            <th>Purchased</th>
+            <th>Alert</th>
+            <th>Bought</th>
             <th>Left</th>
             <th>Sold</th>
-            <th>Last Checked</th>
+            <th>Checked</th>
             <th>Inconcistency</th>
-            {% if request.user.profile.role.id == 3 %}
-              <th>Update</th>
-              <th>Delete</th>
-            {% endif %}
           </tr>
           {% for stock in all_stock %}
           {% if stock in  stocks_without_units %}
@@ -45,9 +41,13 @@
           {% else %}
             <tr>
           {% endif %}
-            <td>
+            <td class="stock__sku">
               {% if stock.product_inventory.sku %}
-                {{ stock.product_inventory.sku }}
+              <a class="stock__item--link" aria-label="Go to product inventories details"
+                  href="{% url 'product_inventory_details' pk=stock.product_inventory.product.pk inventory_pk=stock.product_inventory.id %}">
+                    {{ stock.product_inventory.sku }}
+                    <i class="fa fa-external-link" aria-hidden="true"></i>
+              </a>
               {% else %}
                 No SKU
               {% endif %}
@@ -89,19 +89,7 @@
                   <i class="fa fa-exclamation-triangle"></i>
                 </div>
               {% endif %}
-              </td>
-            {% if request.user.profile.role.id == 3 %}
-              <td>
-                <a href="#" class="btn btn-primary btn__edit" aria-label="Update stock for this {{ stock.product_inventory.sku }}">
-                  <i class="fa fa-refresh"></i>
-                </a>
-              </td>
-              <td>
-                <a href="#" class="btn btn-primary btn__delete" aria-label="Delete stock for this {{ stock.product_inventory.sku }}">
-                  <i class="fa fa-trash"></i>
-                </a>
-              </td>
-            {% endif %}
+            </td>
           {% endfor %}
         </table>
       </div>
