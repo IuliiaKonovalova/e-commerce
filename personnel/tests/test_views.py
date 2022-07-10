@@ -2571,6 +2571,27 @@ class TestViews(TestCase):
         self.assertEqual(Stock.objects.count(), 1)
         self.client.logout()
 
+    def test_add_stock_post_view_admin_with_access_failed(self):
+        """Test add stock post view admin with access"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        self.assertEqual(Stock.objects.count(), 0)
+        response = self.client.post(
+            self.add_stock_url,
+            {
+                'last_checked': '2020-01-01',
+                'units_variable': 50,
+                'units': '',
+                'units_sold': 10,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Stock.objects.count(), 0)
+        self.client.logout()
+
     def test_update_stock_get_view_user_logged_out(self):
         """Test update stock get view user logged out"""
         response = self.client.get(
@@ -2688,5 +2709,37 @@ class TestViews(TestCase):
             },
         )
         self.assertEqual(response.status_code, 302)
+        self.assertEqual(Stock.objects.count(), 1)
+        self.client.logout()
+
+    def test_update_stock_post_view_admin_with_access_failed(self):
+        """Test update stock post view admin with access"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        self.assertEqual(Stock.objects.count(), 0)
+        response = self.client.post(
+            self.add_stock_url,
+            {
+                'last_checked': '2020-01-01',
+                'units_variable': 50,
+                'units': 40,
+                'units_sold': 10,
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Stock.objects.count(), 1)
+        response = self.client.post(
+            self.update_stock_url,
+            {
+                'last_checked': '2020-01-01',
+                'units_variable': 500,
+                'units': '',
+                'units_sold': 10,
+            },
+        )
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(Stock.objects.count(), 1)
         self.client.logout()
