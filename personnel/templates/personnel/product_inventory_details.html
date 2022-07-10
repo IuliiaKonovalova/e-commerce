@@ -126,7 +126,7 @@
                 </td>
               </tr>
             </table>
-            <a href="#" class="btn btn-primary btn__add">
+            <a href="{% url 'update_stock' pk=product.id inventory_pk=inventory.pk stock_pk=inventory.stock.pk %}" class="btn btn-primary btn__add">
               <i class="fa fa-refresh"></i>
               Update Stock
             </a>
