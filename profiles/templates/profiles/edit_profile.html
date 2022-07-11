@@ -1,22 +1,31 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block extra_css %}
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
+
 {% block content %}
-<div>
+<div class="profile">
+  <h1>Edit profile data</h1>
   {% comment %} Editing Profile Avatar {% endcomment %}
   <div class="avatar__edit--form">
     <h2 class="avatar__edit--title">Edit Profile Avatar</h2>
-    <div class="">
+    <div class="profile__avatar">
       {% if user.profile.avatar %}
       <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
       {% else %}
       <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
       {% endif %}
       <div class="avatar-buttons">
-        <button class="" id="edit-avatar-btn">Edit</button>
-        <button class="" id="reset-avatar-btn">Remove avatar</button>
+        <a class="btn btn__edit" id="edit-avatar-btn">
+          <i class="fas fa-pencil-alt"></i>
+          Edit
+        </a>
+        <a class="btn btn__delete" id="reset-avatar-btn">
+          <i class="fas fa-trash-alt"></i>
+          Delete
+        </a>
       </div>
     </div>
     {% comment %} Editing Profile Data {% endcomment %}
@@ -25,21 +34,28 @@
         <h2 class="profile__edit--title">Edit Profile Data</h2>
         {% csrf_token %}
         {{ profile_form }}
-        <button class="save-form profile-bio-edit-btn" id="profile-save-btn">Save changes</button>
+        <a class="save-form profile-bio-edit-btn btn btn__add" id="profile-save-btn">
+          <i class="fas fa-save"></i>
+          Save changes
+        </a>
       </form>
       <form class="profile__password--form">
         <h2 class="profile__password--title">Edit password</h2>
         {% csrf_token %}
         {{ password_form }}
-        <button class="save-form password-form-btn" id="save-password-btn">Change password</button>
+        <a class="save-form password-form-btn btn btn__add" id="save-password-btn">
+          <i class="fas fa-save"></i>
+          Change password
+        </a>
       </form>
     </div>
 
     {% comment %} Delete Profile Form {% endcomment %}
     <div class="profile__delete--form">
-      <button class="btn__delete" id="btn-delete-profile">
-        Delete account <i class="fas fa-trash-alt"></i>
-      </button>
+      <a class="btn__delete btn" id="btn-delete-profile">
+      <i class="fas fa-trash-alt"></i>
+        Delete account
+      </a>
       <div class="profile__delete--dropdown hidden" id="delete-dropwdown">
         <p>Are you sure you want to permanently delete your account?</p>
         <p>This action is irreversible!!!</p>
