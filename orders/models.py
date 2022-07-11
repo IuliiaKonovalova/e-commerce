@@ -51,7 +51,7 @@ class Order(models.Model):
         ordering = ('-created',)
     
     def __str__(self):
-        return str(self.created) + ' - ' + str(self.order_key)
+        return str(self.order_key)
 
     def _generate_order_key(self):
         """Generate a random, unique order key using UUID"""
@@ -64,4 +64,19 @@ class Order(models.Model):
         super().save(*args, **kwargs)
 
 
+class OrderItem(models.Model):
+    """Model for OrderItem."""
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.CASCADE,
+        related_name='order_item'
+    )
+    product_inventory = models.ForeignKey(
+        ProductInventory,
+        on_delete=models.CASCADE,
+        related_name='order_item_inventory'
+    )
+    quantity = models.PositiveIntegerField(default=1)
 
+    def __str__(self):
+        return str(self.id)
