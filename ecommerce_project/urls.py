@@ -14,4 +14,6 @@ urlpatterns = [
     path('promotions/', include('promotions.urls')),
     path('email_notifications/', include('email_notifications.urls')),
     path('personnel/', include('personnel.urls')),
+    path('payment/', include('payment.urls')),
+    path('orders/', include('orders.urls')),
 ]

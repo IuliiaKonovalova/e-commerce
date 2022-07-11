@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'email_notifications',
     'personnel',
     'payment',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -188,6 +189,8 @@ ASGI_APPLICATION = ''
 
 ASGI_THREADS = 100  # number of threads to use
 
+STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
 
 if 'DEVELOPMENT' in os.environ:
     print('Development environment')
