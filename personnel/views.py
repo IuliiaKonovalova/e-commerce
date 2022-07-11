@@ -1789,3 +1789,81 @@ class UpdateStockView(View):
                 request,
                 'account/login.html',
             )
+
+
+class DeleteStockView(View):
+    """View for the delete stock page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 3:
+                inventory_pk = kwargs['inventory_pk']
+                pk = kwargs['pk']
+                stock_pk = kwargs['stock_pk']
+                # get stock
+                stock = get_object_or_404(
+                    Stock,
+                    id=stock_pk
+                )
+                # get product inventory
+                product_inventory = get_object_or_404(
+                    ProductInventory,
+                    id=inventory_pk
+                )
+                # get product
+                product = get_object_or_404(Product, id=pk)
+                context = {
+                    'inventory_pk': inventory_pk,
+                    'pk': pk,
+                    'product_inventory': product_inventory,
+                    'product': product,
+                    'stock_pk': stock_pk,
+                    'stock': stock,
+                }
+                return render(
+                    request,
+                    'personnel/delete_stock.html',
+                    context,
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 3:
+                inventory_pk = kwargs['inventory_pk']
+                pk = kwargs['pk']
+                stock_pk = kwargs['stock_pk']
+                # get stock
+                stock = get_object_or_404(
+                    Stock,
+                    id=stock_pk
+                )
+                stock.delete()
+                return HttpResponseRedirect(
+                    '/personnel/product/{}/inventory/{}/'.format(
+                        pk,
+                        inventory_pk,
+                    )
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
