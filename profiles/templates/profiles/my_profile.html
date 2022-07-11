@@ -1,15 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block content %}
-  My Profile
-  <div>{{ my_profile.first_name }} {{ my_profile.last_name }}</div>
-  {% if user.profile.avatar %}
-    <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
-  {% else %}
-    <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
-  {% endif %}
+<div class="profile">
+  <h1>My Profile</h1>
+  <strong>{{ my_profile.first_name }} {{ my_profile.last_name }}</strong>
+  
+  <div class="profile__avatar">
+    {% if user.profile.avatar %}
+      <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
+    {% else %}
+      <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
+    {% endif %}
+  </div>
   <div>
-    <a href="{% url 'edit_profile' user=request.user %}" aria-label="Go to Edit My Profile Page">Edit Profile</a>
+    <a href="{% url 'edit_profile' user=request.user %}" aria-label="Go to Edit My Profile Page"
+        class="btn btn__edit">
+      <i class="fas fa-user-edit"></i>
+      Edit Profile
+    </a>
   </div>
 
   <div>
@@ -30,17 +39,32 @@
         You haven't added the primary address
       {% endif %}
       <div>
-        <a href="{% url 'my_addresses' user=request.user %}" aria-label="Go to Manage My Addresses Page">Manage my addresses</a>
+        <a href="{% url 'my_addresses' user=request.user %}" aria-label="Go to Manage My Addresses Page" class="btn btn__settings">
+          <i class="fas fa-map-marked-alt"></i>
+          Manage my addresses
+        </a>
       </div>
     {% else %}
       <div>No addresses found</div>
       <div>
-        <a href="{% url 'add_address' user=request.user %}" aria-label="Go to Add Address Page">Add address</a>
+        <a href="{% url 'add_address' user=request.user %}" aria-label="Go to Add Address Page" class="btn btn__settings">
+          <i class="fas fa-plus-circle"></i>
+          Add address
+        </a>
       </div>
     {% endif %}
   </div>
-  <a href="#" aria-label="Go to My Orders Page">My orders</a>
-  <a href="#" aria-label="Go to My Wishlist Page">My wishlist</a>
-  <a href="#" aria-label="Go to My reviews Page">My reviews</a>
-
+  <a href="#" aria-label="Go to My Orders Page" class="btn btn__redirect">
+    <i class="fas fa-shopping-cart"></i>
+    My orders
+  </a>
+  <a href="#" aria-label="Go to My Wishlist Page" class="btn btn__redirect">
+    <i class="fas fa-heart"></i>
+    My wishlist
+  </a>
+  <a href="#" aria-label="Go to My reviews Page" class="btn btn__redirect">
+    <i class="fas fa-star"></i>
+    My reviews
+  </a>
+</div>
 {% endblock %}
