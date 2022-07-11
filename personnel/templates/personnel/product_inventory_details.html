@@ -126,18 +126,25 @@
                 </td>
               </tr>
             </table>
-            <a href="{% url 'update_stock' pk=product.id inventory_pk=inventory.pk stock_pk=inventory.stock.pk %}" class="btn btn-primary btn__add">
-              <i class="fa fa-refresh"></i>
-              Update Stock
+            <a href="{% url 'update_stock' pk=product.id inventory_pk=inventory.pk stock_pk=inventory.stock.pk %}"
+                aria-label="Go to Update stock page" class="btn btn-primary btn__add">
+                  <i class="fa fa-refresh"></i>
+                  Update Stock
+            </a>
+            <a href="{% url 'delete_stock' pk=product.id inventory_pk=inventory.pk stock_pk=inventory.stock.pk %}"
+                aria-label="Go to Delete stock page" class="btn btn-primary btn__delete">
+                  <i class="fas fa-trash-alt"></i>
+                  Delete Stock
             </a>
           {% else %}
             <div class="data__accent--red">
               <strong>Stock not found</strong>
               {% comment %} Check if user is admin {% endcomment %}
               {% if request.user.profile.role.id == 3 %}
-                <a href="{% url 'add_stock' pk=product.id inventory_pk=inventory.pk %}" class="btn btn-primary btn__add">
-                  <i class="fa fa-plus-circle"></i>
-                  Add Stock
+                <a href="{% url 'add_stock' pk=product.id inventory_pk=inventory.pk %}"
+                    aria-label="Go to Add stock page" class="btn btn-primary btn__add">
+                      <i class="fa fa-plus-circle"></i>
+                      Add Stock
                 </a>
               {% endif %}
             </div>
