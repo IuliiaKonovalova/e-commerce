@@ -11,6 +11,7 @@
   --clr-primary--900: #151422;
   --clr-accent--100: #ffd8e4;
   --clr-accent--200: #efb8c8;
+  --clr-accent--500: #e27393;
   --clr-accent--700: #633b48;
   --clr-accent--900: #4a2532;
   --clr-text--100: #ffffff;
@@ -171,6 +172,82 @@ button {
   width: 100%;
 }
 
+/* -------- Profile -------------- */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.profile h1 {
+  font-size: 1.7rem;
+  font-weight: 900;
+  color: var(--clr-text--900);
+  margin: 0;
+  padding: 0.5em;
+  text-align: center;
+}
+
+.profile h2 {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--clr-text--900);
+  margin: 0;
+  padding: 0.5em;
+  text-align: center;
+}
+
+.profile__avatar {
+  max-width: 20rem;
+}
+
+.btn__delete {
+  background-color: var(--clr-btn-delete--500);
+  color: var(--clr-text--100);
+}
+
+.btn__delete:hover,
+.btn__delete:focus {
+  background-color: var(--clr-btn-delete--900) !important;
+  color: var(--clr-text--100) !important;
+}
+
+.btn__edit,
+.btn__settings {
+  background-color: var(--clr-btn-edit--500);
+  color: var(--clr-text--100);
+}
+
+.btn__edit:hover,
+.btn__settings:hover {
+  background-color: var(--clr-btn-edit--900) !important;
+  color: var(--clr-text--100) !important;
+}
+
+.btn__save {
+  background-color: var(--clr-accent--500);
+  color: var(--clr-text--100);
+}
+
+.btn__save:hover {
+  background-color: var(--clr-accent--900) !important;
+  color: var(--clr-text--100) !important;
+}
+
+.btn__redirect {
+  background-color: var(--clr-accent--200);
+  color: var(--clr-text--900);
+}
+
+.btn__redirect:hover {
+  background-color: var(--clr-accent--500) !important;
+  color: var(--clr-text--100) !important;
+}
+
 /* Address cards */
 
 .addresses__all {
@@ -178,6 +255,7 @@ button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
   grid-gap: 1rem;
+  padding: 1em 0.5em;
 }
 
 .addresses__all>div {
