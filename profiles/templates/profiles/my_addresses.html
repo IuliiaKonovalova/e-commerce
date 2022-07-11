@@ -3,8 +3,14 @@
 {% block content %}
 
 
-<div class="">
-  <div>Your addresses:</div>
+<div class="profile">
+  <h1>Your addresses:</h1>
+  <div>
+    <a href="{% url 'add_address' user=request.user %}" class="btn btn__redirect">
+      Add new address
+      <i class="fas fa-plus-circle"></i>
+    </a>
+  </div>
   <div class="addresses__all">
     {% if addresses %}
     {% for address in addresses %}
@@ -31,11 +37,13 @@
       <div>
         Primary: {{ address.is_primary }}
       </div>
-      <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}" aria-label="Go to Edit Address Page">
-      Edit
-      <i class="fas fa-edit"></i>
+      <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
+        aria-label="Go to Edit Address Page">
+        Edit
+        <i class="fas fa-edit"></i>
       </a>
-      <a class="address__primary--btn address__card--disable" href="#" aria-label="Disable Primary Address" data-id="{{ address.id }}">
+      <a class="address__primary--btn address__card--disable" href="#" aria-label="Disable Primary Address"
+        data-id="{{ address.id }}">
         Disable as Primary
       </a>
     </div>
@@ -62,22 +70,18 @@
       <div>
         Primary: {{ address.is_primary }}
       </div>
-      <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}" aria-label="Go to Edit Address Page">
-      Edit
-            <i class="fas fa-edit"></i>
+      <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
+        aria-label="Go to Edit Address Page">
+        Edit
+        <i class="fas fa-edit"></i>
       </a>
-      <a class="address__primary--btn address__card--enable" href="#" aria-label="Enable Primary Address" data-id="{{ address.pk }}">
-        <div >Enable as Primary</div>
+      <a class="address__primary--btn address__card--enable" href="#" aria-label="Enable Primary Address"
+        data-id="{{ address.pk }}">
+        <div>Enable as Primary</div>
       </a>
     </div>
     {% endif %}
     {% endfor %}
-    <div>
-      <a href="{% url 'add_address' user=request.user %}">
-        Add new address
-        <i class="fas fa-plus-circle"></i>
-      </a>
-    </div>
     {% else %}
     <p>You have no addresses.</p>
 
@@ -91,8 +95,8 @@
 <script>
   $(document).ready(function () {
     let disableAddress = document.querySelector('.address__card--disable');
-    $('.address__primary--btn').each(function(address) {
-      $(this).on('click', function(e) {
+    $('.address__primary--btn').each(function (address) {
+      $(this).on('click', function (e) {
         e.preventDefault();
         let addressId = $(this).data('id');
         $(this).append('<i class="fas fa-spinner fa-spin"></i>');
@@ -103,15 +107,15 @@
             'address_id': addressId,
             'csrfmiddlewaretoken': '{{ csrf_token }}'
           },
-          success: function(data) {
+          success: function (data) {
             console.log(data);
 
             // reset all other addresses to not primary
-            $('.address__card').each(function(address) {
+            $('.address__card').each(function (address) {
               $(this).removeClass('address__card--primary');
-              
+
             });
-            $('.address__primary--btn').each(function(address) {
+            $('.address__primary--btn').each(function (address) {
               $(this).removeClass('address__card--disable');
               $(this).addClass('address__card--enable');
               $(this).text('Enable as Primary');
