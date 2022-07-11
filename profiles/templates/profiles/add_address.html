@@ -4,19 +4,25 @@
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 {% block content %}
-Add address:
 
-<div class="">
-  <div>
-    <p>Add new address.</p>
 
-  </div>
-
-  <div class="">
+<div class="profile">
+  <h1>Add new address</h1>
+  <div class="profile__section">
     <form class="address__add--form" method="post" action="{% url 'add_address' user=request.user %}">
       {% csrf_token %}
       {{ address_form.as_p }}
-      <button class="" id="save-address-btn" type="submit">Save changes</button>
+      <div class="form__btns">
+        <a href="{% url 'my_addresses' user=request.user %}" aria-label="Go to addresses details"
+          class="btn btn-primary btn__cancel">
+          <i class="fas fa-arrow-circle-left"></i>
+          Cancel
+        </a>
+        <button class="btn__save btn" id="save-address-btn" type="submit">
+          <i class="fas fa-save"></i>
+          Save changes
+        </button>
+      </div>
     </form>
   </div>
 </div>

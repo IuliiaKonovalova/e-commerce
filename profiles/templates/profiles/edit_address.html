@@ -7,169 +7,186 @@
 {% block content %}
 
 
-  <div class="">
-    <div>
-      <p>Edit address.</p>
-      <div class="">
-        <form class="address__add--form" method="post">
-          {% csrf_token %}
-          {{ address_form.as_p }}
-          <button class="" id="save-address-btn" type="submit">Save changes</button>
-        </form>
-      </div>
-    </div>
-    {% comment %} Delete Address Form {% endcomment %}
-    <div class="address__delete--form">
-      <button class="btn__delete" id="btn-delete-address">
-        Delete Address <i class="fas fa-trash-alt"></i>
-      </button>
-      <div class="address__delete--dropdown hidden" id="delete-dropwdown">
-        <p>Are you sure you want to permanently delete this address?</p>
-        <p>This action is irreversible!</p>
-        <div class="">
-          <a id="delete-confirm" href="{% url 'delete_address' user=request.user.username pk=address.pk %}">
-            Yes, delete this Address</a>
-          <a id="delete-cancel" href="javascript:void(0);">No, cancel</a>
+<div class="profile">
+  <div class="profile__section">
+    <h1>Edit address.</h1>
+    <div class="">
+      <form class="address__add--form" method="post">
+        {% csrf_token %}
+        {{ address_form.as_p }}
+        <div class="form__btns">
+          <a href="{% url 'my_addresses' user=request.user %}" aria-label="Go to addresses details"
+            class="btn btn-primary btn__cancel">
+            <i class="fas fa-arrow-circle-left"></i>
+            Cancel
+          </a>
+          <button class="btn btn__save" id="save-address-btn" type="submit">
+            <i class="fas fa-save"></i>
+            Save changes
+          </button>
         </div>
+      </form>
+    </div>
+  </div>
+  {% comment %} Delete Address Form {% endcomment %}
+  <div class="address__delete--form">
+    <button class="btn__delete btn" id="btn-delete-address">
+      <i class="fas fa-trash-alt"></i>
+      Delete Address
+    </button>
+    <div class="address__delete--dropdown hidden" id="delete-dropwdown">
+      <p>Are you sure you want to permanently delete this address?</p>
+      <p>This action is irreversible!</p>
+      <div class="">
+        <a id="delete-confirm" href="{% url 'delete_address' user=request.user.username pk=address.pk %}"
+          class="btn btn__delete">
+          <i class="fas fa-trash-alt"></i>
+          Yes, delete this Address
+        </a>
+        <a id="delete-cancel" href="javascript:void(0);" class="btn btn__cancel btn-primary">
+          <i class="fas fa-times"></i>
+          No, cancel
+        </a>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}
-  {% block postloadjs_extra %}
+{% block postloadjs_extra %}
 
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-  <script>
-    $(document).ready(function () {
-      let user_country = '{{ address.country }}';
-      let user_county_region = '{{ address.county_region }}';
-      let user_city = '{{ address.city }}';
-      $('#id_country').select2(
-        {
-          placeholder: "Select a country",
-          allowClear: true,
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function () {
+    let user_country = '{{ address.country }}';
+    let user_county_region = '{{ address.county_region }}';
+    let user_city = '{{ address.city }}';
+    $('#id_country').select2(
+      {
+        placeholder: "Select a country",
+        allowClear: true,
+      }
+    );
+    $('#id_county_region').select2(
+      {
+        placeholder: "Select a county or region",
+        allowClear: true,
+      }
+    );
+    $('#id_city').select2(
+      {
+        placeholder: "Select a city",
+        allowClear: true,
+      }
+    );
+    $('#id_country').on('select2:open', function () {
+      $('body').css('overflow-x', 'hidden');
+    });
+    $('#id_city').on('select2:open', function () {
+      $('body').css('overflow-x', 'hidden');
+    });
+
+    $('#id_county_region').on('select2:open', function () {
+      $('body').css('overflow-x', 'hidden');
+    });
+    $('#id_country').on('select2:close', function () {
+      $('body').css('overflow-x', 'auto');
+    });
+    $('#id_county_region').on('select2:close', function () {
+      $('body').css('overflow-x', 'auto');
+    });
+    $('#id_city').on('select2:close', function () {
+      $('body').css('overflow-x', 'auto');
+    });
+
+
+
+    // need to fetch only country names from geonames.org
+    $.ajax({
+      url: 'https://secure.geonames.org/countryInfoJSON?username=juliia55',
+      type: 'GET',
+      dataType: 'json',
+      success: function (data) {
+        let select = $('#id_country');
+        for (var i = 0; i < data.geonames.length; i++) {
+          select.append($('<option>', {
+            value: data.geonames[i].countryName,
+            text: data.geonames[i].countryName,
+            data: {
+              code: data.geonames[i].countryCode,
+              id: data.geonames[i].geonameId,
+            }
+          }));
         }
-      );
-      $('#id_county_region').select2(
-        {
-          placeholder: "Select a county or region",
-          allowClear: true,
-        }
-      );
-      $('#id_city').select2(
-        {
-          placeholder: "Select a city",
-          allowClear: true,
-        }
-      );
-      $('#id_country').on('select2:open', function () {
-        $('body').css('overflow-x', 'hidden');
-      });
-      $('#id_city').on('select2:open', function () {
-        $('body').css('overflow-x', 'hidden');
-      });
+        $('#id_country').val(user_country).trigger('change');
+      }
 
-      $('#id_county_region').on('select2:open', function () {
-        $('body').css('overflow-x', 'hidden');
-      });
-      $('#id_country').on('select2:close', function () {
-        $('body').css('overflow-x', 'auto');
-      });
-      $('#id_county_region').on('select2:close', function () {
-        $('body').css('overflow-x', 'auto');
-      });
-      $('#id_city').on('select2:close', function () {
-        $('body').css('overflow-x', 'auto');
-      });
-
-
-
-      // need to fetch only country names from geonames.org
+    })
+    $('#id_country').on('change', () => {
+      let countryId = $('#id_country').find(':selected').data('id');
       $.ajax({
-        url: 'https://secure.geonames.org/countryInfoJSON?username=juliia55',
+        url: 'https://secure.geonames.org/childrenJSON?geonameId=' + countryId + '&username=juliia55',
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-          let select = $('#id_country');
+          let select = $('#id_county_region');
+          select.empty();
+          select.append($('<option>', {
+            value: '',
+            text: 'Select a county or region',
+            data: {
+              code: '',
+              id: '',
+            }
+          }));
           for (var i = 0; i < data.geonames.length; i++) {
             select.append($('<option>', {
-              value: data.geonames[i].countryName,
-              text: data.geonames[i].countryName,
+              value: data.geonames[i].name,
+              text: data.geonames[i].name,
               data: {
                 code: data.geonames[i].countryCode,
                 id: data.geonames[i].geonameId,
               }
             }));
           }
-          $('#id_country').val(user_country).trigger('change');
+          // select user's county or region by default
+          $('#id_county_region').val(user_county_region).trigger('change');
         }
-
       })
-      $('#id_country').on('change', () => {
-        let countryId = $('#id_country').find(':selected').data('id');
-        $.ajax({
-          url: 'https://secure.geonames.org/childrenJSON?geonameId=' + countryId + '&username=juliia55',
-          type: 'GET',
-          dataType: 'json',
-          success: function (data) {
-            let select = $('#id_county_region');
-            select.empty();
-            select.append($('<option>', {
-              value: '',
-              text: 'Select a county or region',
-              data: {
-                code: '',
-                id: '',
-              }
-            }));
-            for (var i = 0; i < data.geonames.length; i++) {
-              select.append($('<option>', {
-                value: data.geonames[i].name,
-                text: data.geonames[i].name,
-                data: {
-                  code: data.geonames[i].countryCode,
-                  id: data.geonames[i].geonameId,
-                }
-              }));
-            }
-            // select user's county or region by default
-            $('#id_county_region').val(user_county_region).trigger('change');
-          }
-        })
-      })
+    })
 
-      $('#id_county_region').on('change', () => {
-        let stateName = $('#id_county_region').find(':selected').text();
-        let stateNameFirstWord = stateName.split(' ')[0];
-        const city = $('#id_city');
+    $('#id_county_region').on('change', () => {
+      let stateName = $('#id_county_region').find(':selected').text();
+      let stateNameFirstWord = stateName.split(' ')[0];
+      const city = $('#id_city');
 
-        $.ajax({
-          url: 'https://secure.geonames.org/searchJSON?q=' + stateNameFirstWord + '&username=juliia55&style=FULL&fclName=city, village,...&maxRows=1000',
-          type: 'GET',
-          dataType: 'json',
-          success: function (data) {
-            console.log(data);
-            city.html('<option value="" selected disabled>Select City</option>');
-            $.each(data.geonames, function (key, value) {
-              city.append('<option value="' + value.name + '">' + value.name + '</option>');
-            });
-            $('#id_city').val(user_city);
-          }
-        });
-      })
-      $(function () {
-        $("#id_is_primary").checkboxradio();
+      $.ajax({
+        url: 'https://secure.geonames.org/searchJSON?q=' + stateNameFirstWord + '&username=juliia55&style=FULL&fclName=city, village,...&maxRows=1000',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+          console.log(data);
+          city.html('<option value="" selected disabled>Select City</option>');
+          $.each(data.geonames, function (key, value) {
+            city.append('<option value="' + value.name + '">' + value.name + '</option>');
+          });
+          $('#id_city').val(user_city);
+        }
       });
-
-      $('#btn-delete-address').on('click', (e) => {
-        $('#delete-dropwdown').toggleClass('hidden');
-        $('html, body').animate({
-          scrollTop: $(document).height()
-        }, 'slow');
-      });
-      $('#delete-cancel').on('click', (e) => {
-        $('#delete-dropwdown').addClass('hidden');
-      });
+    })
+    $(function () {
+      $("#id_is_primary").checkboxradio();
     });
-  </script>
+
+    $('#btn-delete-address').on('click', (e) => {
+      $('#delete-dropwdown').toggleClass('hidden');
+      $('html, body').animate({
+        scrollTop: $(document).height()
+      }, 'slow');
+    });
+    $('#delete-cancel').on('click', (e) => {
+      $('#delete-dropwdown').addClass('hidden');
+    });
+  });
+</script>
 
 {% endblock %}
