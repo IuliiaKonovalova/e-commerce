@@ -37,9 +37,10 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     total_paid = models.DecimalField(max_digits=5, decimal_places=2)
-    order_key = models.CharField(
+    order_number = models.CharField(
         max_length=32, null=False, editable=False
     )
+    order_key = models.CharField(max_length=200, blank=True, null=True)
     billing_status = models.BooleanField(default=False)
     status = models.CharField(
         max_length=20,
@@ -51,16 +52,16 @@ class Order(models.Model):
         ordering = ('-created',)
     
     def __str__(self):
-        return str(self.order_key)
+        return str(self.order_number)
 
-    def _generate_order_key(self):
-        """Generate a random, unique order key using UUID"""
+    def _generate_order_number(self):
+        """Generate a random, unique order number using UUID"""
         return uuid.uuid4().hex.upper()
 
     def save(self, *args, **kwargs):
-        """Override the save method to set the order key."""
-        if not self.order_key:
-            self.order_key = self._generate_order_key()
+        """Override the save method to set the order number."""
+        if not self.order_number:
+            self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
 
 

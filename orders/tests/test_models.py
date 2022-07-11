@@ -174,12 +174,13 @@ class TestOrder(TestCase):
             country='USA',
             zip_code='10001',
             total_paid=10.00,
-            order_key='',
+            order_number='',
+            order_key='4rguytrfdre454tgETreyhtgfgsd',
             billing_status=False,
             status='Pending',
         )
         self.order1.save()
-        self.get_order_key = Order.objects.get(id=1).order_key
+        self.get_order_number = Order.objects.get(id=1).order_number
         self.order_item1 = OrderItem.objects.create(
             order=self.order1,
             product_inventory=self.product_inventory1,
@@ -188,11 +189,11 @@ class TestOrder(TestCase):
 
     def test_save_order(self):
         """Test save order."""
-        self.assertEqual(self.order1.order_key, self.get_order_key)
+        self.assertEqual(self.order1.order_number, self.get_order_number)
 
     def test_order_str(self):
         """Test order str."""
-        self.assertEqual(str(self.order1), self.get_order_key)
+        self.assertEqual(str(self.order1), self.get_order_number)
 
     def test_order_item_str(self):
         """Test order item str."""
