@@ -2,6 +2,7 @@
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
+from django.core.paginator import Paginator
 from .models import Order, OrderItem
 from bag.contexts import bag_contents
 
@@ -19,7 +20,9 @@ class OrdersView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                orders = Order.objects.filter(user=request.user)
+                p = Paginator(Order.objects.filter(user=request.user), 25)
+                page = request.GET.get('page')
+                orders = p.get_page(page)
                 context = {
                     'orders': orders,
                 }
@@ -82,4 +85,27 @@ class AddOrderAJAXView(View):
             return render(
                 request,
                 'account/login.html',
+            )
+
+
+def payment_confirmation(data):
+    Order.objects.filter(order_key=data).update(billing_status=True)
+
+
+class UserOrdersView(View):
+    """View for user orders page."""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            user = request.user
+            p = Paginator(Order.objects.filter(user=user).filter(
+                billing_status=True
+            ), 25)
+            page = request.GET.get('page')
+            orders = p.get_page(page)
+            return render(
+                request, 'orders/user_orders.html', {'orders': orders}
+            )
+        else:
+            return render(
+                request, 'account/login.html',
             )
