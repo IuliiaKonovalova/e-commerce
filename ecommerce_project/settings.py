@@ -191,6 +191,7 @@ ASGI_THREADS = 100  # number of threads to use
 
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+STRIPE_ENDPOINT_SECRET = os.environ.get("STRIPE_ENDPOINT_SECRET")
 
 if 'DEVELOPMENT' in os.environ:
     print('Development environment')
@@ -205,7 +206,7 @@ if 'DEVELOPMENT' in os.environ:
         'default': {
             'BACKEND': 'channels_redis.core.RedisChannelLayer',
             'CONFIG': {
-                "hosts": [('127.0.0.1', 6379)],
+                "hosts": [('127.0.0.1', 6379, 'localhost')],
                 # "capacity": 200,
             },
         },
