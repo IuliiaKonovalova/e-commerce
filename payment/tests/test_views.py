@@ -171,8 +171,6 @@ class TestPaymentViews(TestCase):
         self.product_inventory2.attribute_values.set(
             [product_attr_value1],
         )
-
-
         # create stock
         self.stock = Stock.objects.create(
             product_inventory=self.product_inventory1,
@@ -205,7 +203,7 @@ class TestPaymentViews(TestCase):
         self.assertTrue(self.client.session['bag'], {})
         # get data from the bag
         bag = self.client.session['bag']
-        # check that it isinstance of dict: if isinstance(item_data, int): 
+        # check that it isinstance of dict: if isinstance(item_data, int):
         self.assertTrue(isinstance(bag, dict))
         # get product inventory by product_inventory_id from the dict
         product_inventory = ProductInventory.objects.get(id=bag['1'])
@@ -217,7 +215,8 @@ class TestPaymentViews(TestCase):
         product_item_total = product_inventory.sale_price * bag['1']
         # count the total
         total = product_inventory.sale_price * bag['1']
-        # add product_inventory_id, quantity, product_item_total, total to bag_items
+        # add product_inventory_id, quantity, product_item_total,
+        # total to bag_items
         bag_items.append({
             'product_inventory': product_inventory,
             'product_item_total': product_item_total,
