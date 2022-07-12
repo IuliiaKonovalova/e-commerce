@@ -224,6 +224,7 @@ class TestPaymentViews(TestCase):
             'quantity': bag['1'],
         })
         self.payment_url = reverse('payment')
+        self.order_placed_url = reverse('order_placed')
 
     def test_payment_view(self):
         """Test payment view."""
@@ -240,3 +241,23 @@ class TestPaymentViews(TestCase):
         self.assertTrue('total_sum' in response.context)
         self.assertTrue('client_secret' in response.context)
         self.assertTrue('stripe_public_key' in response.context)
+
+    def test_order_placed_view(self):
+        """Test order placed view."""
+        # login
+        self.client.force_login(self.user)
+        # check how many units are in the stock
+        # get bag
+        bag = self.client.session['bag']
+        # check how many units are in the bag
+        self.assertEqual(bag['1'], 1)
+        # get product inventory by product_inventory_id from the dict
+        product_inventory = ProductInventory.objects.get(id=bag['1'])
+        # check how many units are in the stock
+        self.assertEqual(product_inventory.stock.units, 10)
+        self.assertEqual(self.stock.units, 10)
+        # check how many sold_units are in the stock
+        self.assertEqual(self.stock.units_sold, 0)
+        response = self.client.post(self.order_placed_url)
+        self.assertTemplateUsed(response, 'payment/order_placed.html')
+        self.assertEqual(response.status_code, 200)
