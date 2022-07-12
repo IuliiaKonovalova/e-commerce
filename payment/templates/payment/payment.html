@@ -121,3 +121,11 @@
     </div>
   </div>
 {% endblock %}
+
+{% block postloadjs_extra %}
+  <script>
+      let CSRF_TOKEN = '{{ csrf_token }}';
+      let stripe_public_key = '{{ stripe_public_key }}';
+  </script>
+
+{% endblock %}
