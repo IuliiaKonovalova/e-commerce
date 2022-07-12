@@ -5,6 +5,7 @@ from orders.views import (
     OrdersView,
     AddOrderAJAXView,
     UserOrdersView,
+    UserOrderDetailsView,
 )
 
 
@@ -25,4 +26,11 @@ class TestUrls(SimpleTestCase):
         url = reverse('my_orders', kwargs={'user': 'test'})
         self.assertEquals(resolve(url).func.view_class, UserOrdersView)
 
+    def test_user_order_details_url(self):
+        """Test user order details url."""
+        url = reverse(
+            'my_order_details',
+            kwargs={'user': 'test', 'order_id': 1}
+        )
+        self.assertEquals(resolve(url).func.view_class, UserOrderDetailsView)
 
