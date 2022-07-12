@@ -6,7 +6,11 @@
 <div class="profile">
   {% if request.user.is_authenticated %}
     <h1>Order {{ order.id }}</h1>
-
+    <a href="{% url 'my_orders' user=request.user %}" aria-label="Back to my orders"
+        class="btn btn__redirect">
+      <i class="fas fa-arrow-circle-left"></i>
+      Back to my orders
+    </a>
     <div class="">
       <div>
         <strong>Order ID:</strong> {{ order.id }}
