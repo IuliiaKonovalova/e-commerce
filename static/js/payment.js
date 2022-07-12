@@ -1,13 +1,12 @@
 let stripePublicKey = stripe_public_key;
 let stripe = Stripe(stripePublicKey);
-console.log('connected to stripe');
 let elem = document.getElementById('submit');
 let paymentForm = document.getElementById('payment-form');
 clientsecret = elem.getAttribute('data-secret');
 
 // Set up Stripe.js and Elements to use in checkout form
-var elements = stripe.elements();
-var style = {
+let elements = stripe.elements();
+let style = {
   base: {
     color: "#000",
     lineHeight: '2.4',
@@ -15,13 +14,13 @@ var style = {
   }
 };
 
-var card = elements.create("card", {
+let card = elements.create("card", {
   style: style
 });
 card.mount("#card-element");
 
 card.on('change', function (event) {
-  var displayError = document.getElementById('card-errors')
+  let displayError = document.getElementById('card-errors')
   if (event.error) {
     displayError.textContent = event.error.message;
     $('#card-errors').addClass('alert alert-info');
@@ -56,10 +55,9 @@ form.addEventListener('submit', function (ev) {
     </div>
   `;
   $('#card-errors').html(warning);
-
+  // Set up order details
   let formData = new FormData();
   formData.append('full_name', customerName);
-  console.log(customerName);
   formData.append('email', customerEmail);
   formData.append('phone', customerPhone);
   formData.append('address1', customerAddress);
@@ -71,56 +69,43 @@ form.addEventListener('submit', function (ev) {
   formData.append('order_key', clientsecret);
   formData.append('csrfmiddlewaretoken', CSRF_TOKEN);
   formData.append('action', 'post');
-
-  console.log(clientsecret);
-  // loop through formData and console.log all elements
-  for (var pair of formData.entries()) {
-    console.log(pair[0] + ', ' + pair[1]);
-  }
-  //to string
-  // let data = JSON.stringify(formData);
-  // console.log(data);
-
-
-
-  stripe.confirmCardPayment(clientsecret, {
-    payment_method: {
-      card: card,
-      billing_details: {
-        address: {
-          line1: customerAddress,
-          line2: customerAddress2
-        },
-        name: customerName
-      },
-    }
-  }).then(function (result) {
-    if (result.error) {
-      console.log('payment error')
-      console.log(result.error.message);
-      error = `
-      <div class="col-12">
-
-        <div class="alert alert-danger" role="alert">
-          ${result.error.message}
-          Please check your card details and try again!
-        </div>
-      </div>
-      `;
-      $('#card-errors').html(error);
-
-    } else {
-      if (result.paymentIntent.status === 'succeeded') {
-        console.log('payment processed')
-        window.location.replace(window.location.origin + "/payment/order_placed/");
-        // window.location.replace("http://127.0.0.1:8000/payment/orderplaced/");
-      }
-    }
+  // AJAX to handle order creation and AJAX payment
+  $.ajax({
+    url: window.location.origin + '/orders/add/',
+    type: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (json) {
+      stripe.confirmCardPayment(clientsecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            address: {
+              line1: customerAddress,
+              line2: customerAddress2
+            },
+            name: customerName
+          },
+        }
+      }).then(function (result) {
+        if (result.error) {
+          error = `
+            <div class="col-12">
+              <div class="alert alert-danger" role="alert">
+                ${result.error.message}
+                Please check your card details and try again!
+              </div>
+            </div>
+          `;
+          $('#card-errors').html(error);
+        } else {
+          if (result.paymentIntent.status === 'succeeded') {
+            window.location.replace(window.location.origin + "/payment/order_placed/");
+          }
+        }
+      });
+    },
+    error: function (xhr, errmsg, err) {},
   });
-
-
-
-
-
-
 });
