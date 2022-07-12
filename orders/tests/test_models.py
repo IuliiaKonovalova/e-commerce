@@ -195,6 +195,10 @@ class TestOrder(TestCase):
         """Test order str."""
         self.assertEqual(str(self.order1), self.get_order_number)
 
+    def test_get_order_items(self):
+        """Test get order items."""
+        self.assertEqual(self.order1.get_order_items()[0], self.order_item1)
+
     def test_order_item_str(self):
         """Test order item str."""
         self.assertEqual(str(self.order_item1), '1')
