@@ -45,6 +45,42 @@ form.addEventListener('submit', function (ev) {
   let customerRegion = document.getElementById("customer-region").value;
   let customerCity = document.getElementById("customer-city").value;
   let postCode = document.getElementById("post-code").value;
+  // warning message for the user to prevent refreshing the page,
+  // which will cause the payment to fail
+  let warning = `
+    <div class="col-12">
+      <div class="alert alert-danger" role="alert">
+        Your payment is being processed.
+        Please do not refresh the page or close this window!
+      </div>
+    </div>
+  `;
+  $('#card-errors').html(warning);
+
+  let formData = new FormData();
+  formData.append('full_name', customerName);
+  console.log(customerName);
+  formData.append('email', customerEmail);
+  formData.append('phone', customerPhone);
+  formData.append('address1', customerAddress);
+  formData.append('address2', customerAddress2);
+  formData.append('country', customerCountry);
+  formData.append('county_region_state', customerRegion);
+  formData.append('city', customerCity);
+  formData.append('zip_code', postCode);
+  formData.append('order_key', clientsecret);
+  formData.append('csrfmiddlewaretoken', CSRF_TOKEN);
+  formData.append('action', 'post');
+
+  console.log(clientsecret);
+  // loop through formData and console.log all elements
+  for (var pair of formData.entries()) {
+    console.log(pair[0] + ', ' + pair[1]);
+  }
+  //to string
+  // let data = JSON.stringify(formData);
+  // console.log(data);
+
 
 
   stripe.confirmCardPayment(clientsecret, {
@@ -62,7 +98,16 @@ form.addEventListener('submit', function (ev) {
     if (result.error) {
       console.log('payment error')
       console.log(result.error.message);
+      error = `
+      <div class="col-12">
 
+        <div class="alert alert-danger" role="alert">
+          ${result.error.message}
+          Please check your card details and try again!
+        </div>
+      </div>
+      `;
+      $('#card-errors').html(error);
 
     } else {
       if (result.paymentIntent.status === 'succeeded') {
@@ -72,6 +117,7 @@ form.addEventListener('submit', function (ev) {
       }
     }
   });
+
 
 
 
