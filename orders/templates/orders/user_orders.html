@@ -8,7 +8,7 @@
       <h1>My orders</h1>
       <div class="orders__all">
         {% for order in orders %}
-        <a class="" >
+        <a class="" href="{% url 'my_order_details' user=request.user order_id=order.id %}">
           <div>
             <strong>Order ID:</strong> {{ order.id }}
           </div>
