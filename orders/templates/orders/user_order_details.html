@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="profile">
+  {% if request.user.is_authenticated %}
+    <h1>Order {{ order.id }}</h1>
+
+    <div class="">
+      <div>
+        <strong>Order ID:</strong> {{ order.id }}
+      </div>
+      <div>
+        <strong>Order Number:</strong> {{ order.order_number|truncatechars:15 }}
+      </div>
+      <div>
+        <strong>Order Key:</strong> {{ order.order_key|truncatechars:15 }}
+      </div>
+      <div>
+        <strong>Order Date:</strong> {{ order.created }}
+      </div>
+      <div>
+        <strong>Order Total:</strong> {{ order.total_paid }}
+      </div>
+      <div>
+        <strong>Paid:</strong> {{ order.billing_status }}
+      </div>
+      <div>
+        <strong>Order Status:</strong> {{ order.status }}
+      </div>
+      <div>
+        <strong>Order Details:</strong>
+        <div>
+          {% for item in order_items %}
+          <div id="{{ item.id }}" class="order__item">
+            <div>
+              <strong>Item:</strong> {{ item.product_inventory.product.name }}
+            </div>
+            <div>
+              {% if item.product_inventory.get_attribute_values %}
+                <strong>Options:</strong>
+                {% for value in item.product_inventory.get_attribute_values %}
+                  {{ value }}
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            
+            <div>
+              <strong>Quantity:</strong> {{ item.quantity }}
+            </div>
+            <div>
+              <strong>Price:</strong> {{ item.product_inventory.sale_price }}
+            </div>
+
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+  {% else %}
+  <div class="profile">
+    <h1>Please, login to see your order</h1>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+
+{% endblock %}
