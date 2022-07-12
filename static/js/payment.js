@@ -47,5 +47,34 @@ form.addEventListener('submit', function (ev) {
   let postCode = document.getElementById("post-code").value;
 
 
+  stripe.confirmCardPayment(clientsecret, {
+    payment_method: {
+      card: card,
+      billing_details: {
+        address: {
+          line1: customerAddress,
+          line2: customerAddress2
+        },
+        name: customerName
+      },
+    }
+  }).then(function (result) {
+    if (result.error) {
+      console.log('payment error')
+      console.log(result.error.message);
+
+
+    } else {
+      if (result.paymentIntent.status === 'succeeded') {
+        console.log('payment processed')
+        window.location.replace(window.location.origin + "/payment/order_placed/");
+        // window.location.replace("http://127.0.0.1:8000/payment/orderplaced/");
+      }
+    }
+  });
+
+
+
+
 
 });
