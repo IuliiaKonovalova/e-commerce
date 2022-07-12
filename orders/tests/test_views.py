@@ -245,8 +245,8 @@ class TestOrdersViews(TestCase):
         })
         self.order_url = reverse('orders')
         self.add_url = reverse('add')
-
         self.add_to_bag_url = reverse('add_to_bag')
+        self.my_orders_url = reverse('my_orders', kwargs={'user': self.user})
 
     def test_orders_view_user_logged_out(self):
         """Test orders view user logged out"""
@@ -400,3 +400,16 @@ class TestOrdersViews(TestCase):
             Order.objects.get(order_key='1111111sdgsrz67terte4n89').status,
             'Pending'
         )
+
+    def test_my_orders_view_user_logged_out(self):
+        """Test my orders view user logged out"""
+        response = self.client.get(self.my_orders_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_my_orders_view_user_logged_in(self):
+        """Test my orders view user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.get(self.my_orders_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'orders/user_orders.html')
