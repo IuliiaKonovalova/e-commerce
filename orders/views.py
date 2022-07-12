@@ -78,7 +78,6 @@ class AddOrderAJAXView(View):
                             product_inventory=item['product_inventory'],
                             quantity=item['quantity'],
                         )
-                        print(item)
                 return JsonResponse({'success': True})
             return JsonResponse({'success': False})
         else:
@@ -105,6 +104,31 @@ class UserOrdersView(View):
             return render(
                 request, 'orders/user_orders.html', {'orders': orders}
             )
+        else:
+            return render(
+                request, 'account/login.html',
+            )
+
+
+class UserOrderDetailsView(View):
+    """View for user order details page."""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            order = get_object_or_404(Order, id=kwargs['order_id'])
+            # get order items
+            order_items = OrderItem.objects.filter(order=order)
+            print(order_items)
+            all_items = Order.get_order_items(order)
+            print(all_items)
+            if order.user == request.user:
+                return render(
+                    request, 'orders/user_order_details.html',
+                    {'order': order, 'order_items': order_items}
+                )
+            else:
+                return render(
+                    request, 'profiles/access_denied.html',
+                )
         else:
             return render(
                 request, 'account/login.html',
