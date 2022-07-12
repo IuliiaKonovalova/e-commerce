@@ -14,7 +14,6 @@ from bag.contexts import bag_contents
 
 
 
-
 @login_required
 def BasketView(request):
     """View for payment page."""
@@ -52,3 +51,21 @@ def BasketView(request):
         'stripe_public_key': stripe_public_key,
     }
     return render(request, 'payment/payment.html', context)
+
+
+def order_placed(request):
+    """View for order placed page."""
+    bag = bag_contents(request)
+    bag_items = bag['bag_items']
+    print(bag_items)
+    for item in bag_items:
+        sold_product_inventory = item['product_inventory']
+        sold_quantity = item['quantity']
+        sold_product_inventory.stock.units_sold += sold_quantity
+        sold_product_inventory.stock.units -= sold_quantity
+        sold_product_inventory.stock.save()
+    # clear the bag
+    bag = request.session.get('bag', {})
+    bag.clear()
+    request.session['bag'] = bag
+    return render(request, 'payment/order_placed.html')
