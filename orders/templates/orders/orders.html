@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <div class="dashboard__main">
+        <h1>Add Brand</h1>
+      </div>
+      <div class="data__main">
+        {% for order in orders %}
+          <div>
+            <div>
+              <strong>Order ID:</strong> {{ order.id }}
+            </div>
+            <div>
+              <strong>Order Number:</strong> {{ order.order_number|truncatechars:15 }}
+            </div>
+            <div>
+              <strong>Order Key:</strong> {{ order.order_key|truncatechars:15 }}
+            </div>
+            <div>
+              <strong>Order Date:</strong> {{ order.created }}
+            </div>
+            <div>
+              <strong>Order Total:</strong> {{ order.total_paid }}
+            </div>
+            <div>
+              <strong>Paid:</strong> {{ order.billing_status }}
+            </div>
+            <div>
+              <strong>Order Status:</strong> {{ order.status }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="dashboard__main">
+        <h1>You are not authorized to access this page</h1>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+{% endblock %}
