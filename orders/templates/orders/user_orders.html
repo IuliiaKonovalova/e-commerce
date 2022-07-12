@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+  <div class="profile">
+    {% if request.user.is_authenticated %}
+      <h1>My orders</h1>
+      <div class="orders__all">
+        {% for order in orders %}
+        <a class="" >
+          <div>
+            <strong>Order ID:</strong> {{ order.id }}
+          </div>
+          <div>
+            <strong>Order Number:</strong> {{ order.order_number|truncatechars:15 }}
+          </div>
+          <div>
+            <strong>Order Key:</strong> {{ order.order_key|truncatechars:15 }}
+          </div>
+          <div>
+            <strong>Order Date:</strong> {{ order.created }}
+          </div>
+          <div>
+            <strong>Order Total:</strong> {{ order.total_paid }}
+          </div>
+          <div>
+            <strong>Paid:</strong> {{ order.billing_status }}
+          </div>
+          <div>
+            <strong>Order Status:</strong> {{ order.status }}
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    {% else %}
+    <div class="">
+      <h1>Please, login to see your orders</h1>
+    </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+{% endblock %}
