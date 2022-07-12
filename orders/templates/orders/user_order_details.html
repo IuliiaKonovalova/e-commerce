@@ -57,7 +57,12 @@
             <div>
               <strong>Price:</strong> {{ item.product_inventory.sale_price }}
             </div>
-
+            <div>
+              <strong>Total:</strong>
+              <div class="quantity" data-quantity="{{ item.quantity }}">{{ item.quantity }}</div>
+              x <div class="price" data-price="{{ item.product_inventory.sale_price }}">{{ item.product_inventory.sale_price }}</div>
+              = <span class="items-total"></span>
+            </div>
           </div>
           {% endfor %}
         </div>
@@ -72,5 +77,20 @@
 {% endblock %}
 
 {% block postloadjs_extra %}
-
+  <script>
+    $(document).ready(function() {
+      $('.order__item').each(function() {
+        let quantity = $(this).find('.quantity')
+        // get data-quantity from quantity div
+        let quantity_value = quantity.data('quantity')
+        let price = $(this).find('.price')
+        // get data-price from price div
+        let price_value = price.data('price')
+        let items_total = $(this).find('.items-total')
+        // multiply data-quantity and data-price and put it in items-total span
+        items_total.text(quantity_value * price_value)
+      });
+        
+    });
+  </script>
 {% endblock %}
