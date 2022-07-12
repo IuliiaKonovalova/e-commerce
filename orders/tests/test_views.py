@@ -15,6 +15,7 @@ from inventory.models import (
     ProductInventory,
     Stock,
 )
+from orders.models import Order, OrderItem
 
 
 class TestOrdersViews(TestCase):
@@ -202,9 +203,50 @@ class TestOrdersViews(TestCase):
             units=10,
             units_sold=0,
         )
+        # set order
+        self.order1 = Order.objects.create(
+            user=self.user,
+            full_name='John Doe',
+            email='john@gmail.com',
+            phone='123456789',
+            address1='123 Main St',
+            address2='',
+            country='US',
+            county_region_state='CA',
+            city='San Francisco',
+            zip_code=94107,
+            total_paid=10.00,
+            order_key='1111111sdgsrz67terte4n89',
+        )
         # urls
         self.client = Client()
+        # set bag
+        self.add_to_bag_url = reverse('add_to_bag')
+        bag_items = []
+        total = 0
+        product_item_total = 0
+        response = self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 1},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertTrue(self.client.session['bag'], {})
+        bag = self.client.session['bag']
+        self.assertTrue(isinstance(bag, dict))
+        product_inventory = ProductInventory.objects.get(id=bag['1'])
+        self.assertIsNotNone(product_inventory)
+        self.assertEqual(bag['1'], 1)
+        product_item_total = product_inventory.sale_price * bag['1']
+        total = product_inventory.sale_price * bag['1']
+        bag_items.append({
+            'product_inventory': product_inventory,
+            'product_item_total': product_item_total,
+            'quantity': bag['1'],
+        })
         self.order_url = reverse('orders')
+        self.add_url = reverse('add')
+
+        self.add_to_bag_url = reverse('add_to_bag')
 
     def test_orders_view_user_logged_out(self):
         """Test orders view user logged out"""
@@ -229,3 +271,132 @@ class TestOrdersViews(TestCase):
         response = self.client.get(self.order_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'orders/orders.html')
+
+    def test_add_order_ajax_view_user_logged_out(self):
+        """Test add order ajax view user logged out"""
+        response = self.client.post(
+            self.add_url,
+            data={
+                'full_name': ['John Doe'],
+                'email': ['john@gmail.com'],
+                'phone': ['123456789'],
+                'address1': ['123 Main St'],
+                'address2': [''],
+                'country': ['US'],
+                'county_region_state': ['CA'],
+                'city': ['San Francisco'],
+                'zip_code': ['94107'],
+                'total_paid': ['10.00'],
+                'order_key': ['12345sfsdfsdgsrz67terte4n89'],
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_add_order_ajax_view(self):
+        """Test add order ajax view"""
+        self.client.force_login(self.user)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        bag = self.client.session['bag']
+        # check how many units are in the bag
+        self.assertEqual(bag['1'], 1)
+        self.assertEqual(Order.objects.count(), 1)
+        response = self.client.post(
+            self.add_url,
+            data={
+                'full_name': ['John Doe'],
+                'email': ['john@gmail.com'],
+                'phone': ['123456789'],
+                'address1': ['123 Main St'],
+                'address2': [''],
+                'country': ['US'],
+                'county_region_state': ['CA'],
+                'city': ['San Francisco'],
+                'zip_code': ['94107'],
+                'total_paid': ['10.00'],
+                'order_key': ['12345sfsdfsdgsrz67terte4n89'],
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(Order.objects.count(), 2)
+        self.assertEqual(
+            Order.objects.get(order_key='12345sfsdfsdgsrz67terte4n89').status,
+            'Pending'
+        )
+        self.assertEqual(OrderItem.objects.count(), 1)
+        self.assertEqual(
+            OrderItem.objects.get(
+                order=Order.objects.get(
+                    order_key='12345sfsdfsdgsrz67terte4n89'
+                )
+            ).product_inventory,
+            self.product_inventory1
+        )
+
+    def test_add_order_ajax_view_failed(self):
+        """Test add order ajax view"""
+        self.client.force_login(self.user)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.add_url,
+            data={
+                'full_name': ['John Doe'],
+                'email': ['john@gmail.com'],
+                'phone': ['123456789'],
+                'address1': ['123 Main St'],
+                'address2': [''],
+                'country': ['US'],
+                'county_region_state': ['CA'],
+                'city': ['San Francisco'],
+                'zip_code': ['94107'],
+                'total_paid': ['10.00'],
+                'order_key': ['12345sfsdfsdgsrz67terte4n89'],
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+
+
+    def test_add_order_ajax_view_order_exist(self):
+        """Test add order ajax view"""
+        self.client.force_login(self.user)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        bag = self.client.session['bag']
+        # check how many units are in the bag
+        self.assertEqual(bag['1'], 1)
+        response = self.client.post(
+            self.add_url,
+            data={
+                'full_name': ['John Doe'],
+                'email': ['john@gmail.com'],
+                'phone': ['123456789'],
+                'address1': ['123 Main St'],
+                'address2': [''],
+                'country': ['US'],
+                'county_region_state': ['CA'],
+                'city': ['San Francisco'],
+                'zip_code': ['94107'],
+                'total_paid': ['10.00'],
+                'order_key': ['1111111sdgsrz67terte4n89'],
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(Order.objects.count(), 1)
+        self.assertEqual(
+            Order.objects.get(order_key='1111111sdgsrz67terte4n89').status,
+            'Pending'
+        )
