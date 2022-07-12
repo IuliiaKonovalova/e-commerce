@@ -64,6 +64,11 @@ class Order(models.Model):
             self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
 
+    def get_order_items(self):
+        """Get the order items for the order."""
+        items = OrderItem.objects.filter(order=self)
+        return items
+
 
 class OrderItem(models.Model):
     """Model for OrderItem."""
@@ -81,3 +86,4 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return str(self.id)
+
