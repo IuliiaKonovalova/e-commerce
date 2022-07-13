@@ -2,7 +2,6 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
-from profiles.models import Role, Profile
 from profiles.models import Role, Profile, Address
 from inventory.models import (
     Category,
@@ -45,7 +44,7 @@ class TestPaymentViews(TestCase):
             created_at='2020-01-01',
             updated_at='2020-01-01'
         )
-# set Products
+        # set Products
         self.category1 = Category.objects.create(
             name='Clothing',
             slug='clothing',
@@ -178,17 +177,6 @@ class TestPaymentViews(TestCase):
             units=10,
             units_sold=0,
         )
-        # Create promotion
-        # self.promotion = Promotion.objects.create(
-        #     name='Promotion 1',
-        #     slug='promotion-1',
-        #     description='Promotion 1 description',
-        #     promotion_code='PROMO1',
-        #     promotion_reduction=10,
-        #     start_date=datetime.now(),
-        #     end_date=datetime.now() + timezone.timedelta(days=365 * 5),
-        #     active=True,
-        # )
         self.client = Client()
         # urls
         self.add_to_bag_url = reverse('add_to_bag')
