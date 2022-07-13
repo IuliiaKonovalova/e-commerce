@@ -41,6 +41,12 @@ The missing coverage is due to the fact that I was not able to test the edit pro
 
 ![Django unit testing. Bag. Coverage](documentation/testing/coverage/coverage_bag.png)
 
+However, after implementing the promotion functionality, I was not been able to get access to the full contexts.py and therefore I am missing 4 cases on the coverage report.
+
+![Django unit testing. Promotions. Coverage](documentation/testing/coverage/coverage_promotions_2.png)
+
+ The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
+
 **Wishlist app:**
 
 ![Django unit testing. Wishlist. Coverage](documentation/testing/coverage/coverage_wishlist.png)
@@ -48,6 +54,7 @@ The missing coverage is due to the fact that I was not able to test the edit pro
 **Promotions app:**
 
 ![Django unit testing. Promotions. Coverage](documentation/testing/coverage/coverage_promotions.png)
+
 
 **Email_notification app:**
 
@@ -208,6 +215,7 @@ I imported ```bag_contents``` into views.py file. and used to get the total spen
 
 
 
+
 **Unsolved issues:**
 
 1. I was getting an error message when I tried multiple times to test JsonResponse response on Password change.
@@ -285,6 +293,13 @@ However, when I was testing string method in my template, I was getting the corr
 ```
 
 ![Django unit testing. Stock. Testing issue. String](documentation/testing/tests_issues10.png)
+
+4. This issue is regarding the importing context.py file. There are no errors in functionality but 3 missing cases are present
+
+![Django unit testing. Profiles. Coverage. Missing-unsolved](documentation/testing/coverage/coverage_report_contexts.png)
+
+
+
 ## Bugs
 
 **Solved bugs:**
