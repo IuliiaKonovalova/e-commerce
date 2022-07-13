@@ -173,7 +173,8 @@ button {
 }
 
 /* -------- Profile -------------- */
-.profile {
+.profile,
+.payment {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -183,7 +184,8 @@ button {
   position: relative;
 }
 
-.profile h1 {
+.profile h1,
+.payment h1 {
   font-size: 1.7rem;
   font-weight: 900;
   color: var(--clr-text--900);
@@ -223,7 +225,9 @@ button {
 }
 
 .btn__edit:hover,
-.btn__settings:hover {
+.btn__edit:focus,
+.btn__settings:hover,
+.btn__settings:focus {
   background-color: var(--clr-btn-edit--900) !important;
   color: var(--clr-text--100) !important;
 }
@@ -233,7 +237,8 @@ button {
   color: var(--clr-text--100);
 }
 
-.btn__save:hover {
+.btn__save:hover,
+.btn__save:focus {
   background-color: var(--clr-accent--900) !important;
   color: var(--clr-text--100) !important;
 }
@@ -243,14 +248,15 @@ button {
   color: var(--clr-text--900);
 }
 
-.btn__redirect:hover {
+.btn__redirect:hover,
+.btn__redirect:focus {
   background-color: var(--clr-accent--500) !important;
   color: var(--clr-text--100) !important;
 }
 
-/* Address cards */
-
-.addresses__all {
+/* Address cards, My orders cards */
+.addresses__all,
+.orders__all {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
@@ -258,7 +264,8 @@ button {
   padding: 1em 0.5em;
 }
 
-.addresses__all>div {
+.addresses__all>div,
+.orders__all>a {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -271,6 +278,10 @@ button {
   color: var(--clr-primary--500);
   padding: 1em;
   background-color: var(--clr-text--100);
+}
+
+.orders__all>a:hover {
+  background-color: var(--clr-primary--100)
 }
 
 .address__card--primary {
@@ -1391,6 +1402,16 @@ td {
 
 .brand__table--row {
   grid-template-columns: 1fr 0.2fr 0.7fr;
+}
+
+
+
+
+
+/* --------------- Payment ---------------- */
+.payment p {
+  margin-bottom: 2em;
+  font-weight: 900;
 }
 
 
