@@ -5,11 +5,19 @@
   <style>
     .bag__promotion {
       display: flex !important;
+      padding: 1em 0;
     }
     input.bag__promotion--input {
       border: 2px solid #ccc;
-      font-size: 1.6rem !important;
+      font-size: 1.2rem !important;
       margin-right: 1rem !important;
+    }
+    .btn__edit {
+      width: 50%;
+    }
+    .data__promo--total {
+      font-weight: 900;
+      padding-bottom: 1em;
     }
   </style>
 {% endblock %}
@@ -17,14 +25,16 @@
 {% block content %}
   {% comment %} Bag Template {% endcomment %}
   <div class="bag" id="bag">
-    <h1>Hello! This is a bag!</div>
+    {% comment %} add alret message at the top about loyalty program {% endcomment %}
+
     {% if not request.user.is_authenticated %}
-      <h2>Please, log in to add items to your bag</h2>
+      <h1>Please, log in to add items to your bag</h1>
       <div>
         <a href="{% url 'account_signup' %}" class="btn bag__account">SignUp</a>
         <a href="{% url 'account_login' %}" class="btn bag__account">Login</a>
       </div>
     {% else %}
+      <h1>Hello! This is a bag!</div>
       {% if bag_items %}
         {% comment %} Clean bag fully {% endcomment %}
         <div class="bag__clean">
@@ -114,12 +124,14 @@
             </div>
 
               {% comment %} add input to add promotions code + button {% endcomment %}
-            <form class="bag__promotion col-md-4">
+            <form class="bag__promotion col-md-6">
               <input type="text" class="bag__promotion--input form-control" placeholder="Promotion code" required>
-              <button class="btn btn__edit">Apply</button>
+              <button class="btn btn__edit" id="bag-promotion">
+                Apply code
+              </button>
             </form>
             {% comment %} Checkout button {% endcomment %}
-            <a href="{% url 'payment' %}" class="btn bag__checkout">Checkout</a>
+            <a href="{% url 'payment' %}" class="btn btn__add">Checkout</a>
           </div>
         </div>
 
@@ -188,6 +200,10 @@
               'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             success: function (data) {
+              // if .data__promo--total exists -> remove it
+              if ($('.data__promo--total').length) {
+                $('.data__promo--total').remove();
+              }
               // update shopping bag in navbar
               $('#shopping-bag-count').text(data.product_count);
               // add div to the page above the bag class with the message
@@ -261,6 +277,10 @@
               'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             success: function (data) {
+              // if .data__promo--total exists -> remove it
+              if ($('.data__promo--total').length) {
+                $('.data__promo--total').remove();
+              }
               // update shopping bag in navbar
               $('#shopping-bag-count').text(data.product_count);
               // add div to the page above the bag class with the message
@@ -313,6 +333,10 @@
 
       // remove item from bag
       $('.bag__item--remove').each(function () {
+        // if .data__promo--total exists -> remove it
+        if ($('.data__promo--total').length) {
+          $('.data__promo--total').remove();
+        }
         $(this).click(function (e) {
           e.preventDefault();
           let productInventoryId = $(this).data('id');
@@ -391,6 +415,10 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'
           },
           success: function (data) {
+            // if .data__promo--total exists -> remove it
+            if ($('.data__promo--total').length) {
+              $('.data__promo--total').remove();
+            }
             // hide clean bag button
             $('#bag-clean').hide();
             // update shopping bag in navbar
@@ -429,6 +457,38 @@
               $('#messages-notes').remove();
             }, 3000);
           }
+        })
+      });
+
+      // promo:
+      $('#bag-promotion').on('click', (e) => {
+        e.preventDefault();
+        // get the value from input bag__promotion--input
+        let promoCode = $('.bag__promotion--input').val();
+        console.log(promoCode);
+        // create AJAX call
+        $.ajax({
+          url: "{% url 'apply_promo_code' %}",
+          type: 'POST',
+          data: {
+            'promo_code': promoCode,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function (data) {
+            console.log('success');
+            // emty the input
+            $('.bag__promotion--input').val('');
+            // check if .data__promo--total exists:
+            if ($('.data__promo--total').length) {
+              $('.data__promo--total').replaceWith('<div class="data__promo--total">Total after confirming ' + promoCode + ' promo code: ' + data.total_promo + '</div>');
+            } else {
+              // add the total cost
+            $('.bag__promotion--input').parent().after(
+              '<div class="data__promo--total">Total after confirming promo ' + promoCode + ' code: ' + data.total_promo + '</div>'
+              );
+            }
+          }
+
         })
       });
     });
