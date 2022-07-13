@@ -37,7 +37,11 @@
         <p>If you want to be our member of loyalty programm, you need to login and sign up for subscription.</p>
       {% endif %}
     </div>
-
+    {% if user.is_authenticated and request.user.profile.subscription %}
+      <div class="alert alert-danger">
+        <p>Remember to reenter the coupon code if you update your bag.</p>
+      </div>
+    {% endif %}
     {% if not request.user.is_authenticated %}
       <h1>Please, log in to add items to your bag</h1>
       <div>
