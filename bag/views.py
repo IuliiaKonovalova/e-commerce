@@ -1,8 +1,10 @@
 """Views for the bag app."""
+from decimal import Decimal
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from inventory.models import ProductInventory
+from promotions.models import Promotion
 from .contexts import bag_contents
 
 
@@ -10,6 +12,8 @@ from .contexts import bag_contents
 class BagDisplayView(View):
     """View for the bag display page."""
     def get(self, request, *args, **kwargs):
+        # UPDATE TOTAL PROMO
+        request.session['total_promo'] = 0
         return render(request, 'bag/bag_display.html')
 
 
@@ -30,6 +34,8 @@ class AddToBagAJAXView(View):
                 bag = request.session.get('bag', {})
                 quantity_in_bag = bag.get(product_inventory_id, 0)
                 appropriate_quantity = int(quantity) + quantity_in_bag
+                # UPDATE TOTAL PROMO
+                request.session['total_promo'] = 0
                 if appropriate_quantity > units:
                     quantity = units
                     bag[product_inventory_id] = int(quantity)
@@ -40,6 +46,8 @@ class AddToBagAJAXView(View):
                     )
                 else:
                     bag[product_inventory_id] += int(quantity)
+                    # UPDATE TOTAL PROMO
+                    request.session['total_promo'] = 0
                     message_alert = (
                         f'{product_inventory.product.name} UPDATED.'
                     )
@@ -55,6 +63,8 @@ class AddToBagAJAXView(View):
                     message_alert = (
                         f'{product_inventory.product.name} ADDED TO BAG.'
                     )
+                    # UPDATE TOTAL PROMO
+                    request.session['total_promo'] = 0
             request.session['bag'] = bag
             contents = bag_contents(request)
             total = contents['total']
@@ -82,6 +92,8 @@ class RemoveUnitFromBagAJAXView(View):
             bag = request.session.get('bag', {})
             message_alert = ''
             if product_inventory_id in bag:
+                # UPDATE TOTAL PROMO
+                request.session['total_promo'] = 0
                 if bag[product_inventory_id] > 1:
                     bag[product_inventory_id] -= 1
                     message_alert = (
@@ -119,6 +131,65 @@ class RemoveUnitFromBagAJAXView(View):
         return JsonResponse({'success': False})
 
 
+class PromoCodeAJAXView(View):
+    """View for the promo code AJAX."""
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            promo_code = request.POST.get('promo_code')
+            promo = get_object_or_404(
+                Promotion,
+                promotion_code=promo_code
+            )
+            if promo.active and promo.is_active_now():
+                bag = request.session.get('bag', {})
+                # get total from the bag
+                total = bag_contents(request)['total']
+                total_promo = total
+                # get bag_items
+                bag_items = bag.items()
+                promo_items = promo.get_products_in_promotion()
+                for item in bag_items:
+                    # get product_inventory
+                    product_inventory = get_object_or_404(
+                        ProductInventory,
+                        id=item[0]
+                    )
+                    # check if the product is in the promo
+                    if product_inventory in promo_items:
+                        reduction = promo.promotion_reduction
+                        reduction_percent = float(reduction) * 0.01
+                        price = product_inventory.sale_price
+                        price_after_reduction = (
+                            float(price) * reduction_percent
+                        ) * item[1]
+                        price_after_reduction = round(
+                            Decimal(price_after_reduction), 2
+                        )
+                        total_promo -= price_after_reduction
+                request.session['total_promo'] = str(total_promo)
+                return JsonResponse(
+                    {
+                        'success': True,
+                        'total_promo': total_promo,
+                    }
+                )
+            else:
+                alert_message = 'Promo code is not active.'
+                return JsonResponse(
+                    {
+                        'success': False,
+                        'alert_message': alert_message
+                    }
+                )
+        alert_message = 'Something went wrong. Please try again.'
+        return JsonResponse(
+            {
+                'success': False,
+                'alert_message': alert_message
+            }
+        )
+
+
 class AddUnitToBagAJAXView(View):
     """View for the add unit to bag AJAX."""
     def post(self, request, *args, **kwargs):
@@ -132,6 +203,8 @@ class AddUnitToBagAJAXView(View):
             if product_inventory_id in bag:
                 bag[product_inventory_id] += 1
                 message_alert = f'{product_inventory.product.name} UPDATED.'
+                # UPDATE TOTAL PROMO
+                request.session['total_promo'] = 0
             else:
                 message_alert = 'This product was not in the bag.'
             bag = request.session.get('bag', {})
@@ -170,6 +243,8 @@ class RemoveAllItemUnitsFromBagAJAXView(View):
             message_alert = ''
             if product_inventory_id in bag:
                 bag.pop(product_inventory_id)
+                # UPDATE TOTAL PROMO
+                request.session['total_promo'] = 0
                 message_alert = (
                     f'{product_inventory.product.name} REMOVED.'
                 )
@@ -200,6 +275,8 @@ class RemoveAllBagAJAXView(View):
             contents = bag_contents(request)
             total = contents['total']
             product_count = contents['product_count']
+            # UPDATE TOTAL PROMO
+            request.session['total_promo'] = 0
             message_alert = 'Bag is now empty.'
             return JsonResponse(
                 {
