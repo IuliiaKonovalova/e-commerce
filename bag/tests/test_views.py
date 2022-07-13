@@ -1,4 +1,5 @@
 """Test Bag views."""
+import datetime
 from django.test import TestCase, Client
 from django.urls import reverse
 from inventory.models import (
@@ -13,6 +14,9 @@ from inventory.models import (
     ProductInventory,
     Stock,
 )
+from promotions.models import Promotion
+from datetime import datetime
+from django.utils import timezone
 
 
 class TestBagViews(TestCase):
@@ -133,6 +137,31 @@ class TestBagViews(TestCase):
             units=10,
             units_sold=0,
         )
+        # Create promotion
+        self.promotion = Promotion.objects.create(
+            name='Promotion 1',
+            slug='promotion-1',
+            description='Promotion 1 description',
+            promotion_code='PROMO1',
+            promotion_reduction=10,
+            start_date=datetime.now(),
+            end_date=datetime.now() + timezone.timedelta(days=365 * 5),
+            active=True,
+        )
+        self.promotion2 = Promotion.objects.create(
+            name='Promotion 2',
+            slug='promotion-2',
+            description='Promotion 2 description',
+            promotion_code='PROMO2',
+            promotion_reduction=20,
+            start_date=datetime.now(),
+            end_date=datetime.now() + timezone.timedelta(days=365 * 5),
+            active=True,
+        )
+        self.promotion2.products_inventory_in_promotion.add(
+            self.product_inventory1
+        )
+        # urls
         self.client = Client()
         self.user = self.client.login(
             username='testuser',
@@ -147,6 +176,7 @@ class TestBagViews(TestCase):
         self.remove_all_bag_items_url = reverse(
             'remove_all_bag'
         )
+        self.apply_promo_code_url = reverse('apply_promo_code')
 
     def test_bag_display_view(self):
         """Test bag display view."""
@@ -315,7 +345,6 @@ class TestBagViews(TestCase):
             response.json()['message_alert'],
             'This product was not in the bag.'
         )
-        #  check that the context
         self.client.post(
             self.add_to_bag_url,
             {'product_inventory_id': 1, 'quantity': 1},
@@ -397,13 +426,9 @@ class TestBagViews(TestCase):
         # check that bag session has 1 item
         self.assertEqual(len(self.client.session['bag']), 1)
         self.assertTrue(self.client.session['bag'], True)
-        print('test contexts.py')
-        print(self.client.session['bag'])
         self.assertTrue(isinstance(self.client.session['bag'], dict))
         # loop through the bag and check the quantity and product_inventory_id
         for item in self.client.session['bag']:
-            print(item)
-            print(self.client.session['bag'][item])
             self.assertEqual(item, '1')
             self.assertEqual(self.client.session['bag'][item], 10)
 
@@ -433,3 +458,88 @@ class TestBagViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['success'], False)
+
+    def test_apply_promo_code_ajax_view(self):
+        """Test initialize bag clean session."""
+        # Create promotion
+        response = self.client.post(
+            self.apply_promo_code_url,
+            {'promo_code': 'PROMO1'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(self.client.session['total_promo'], '0')
+
+    def test_apply_promo_code_ajax_view_failed(self):
+        """Test initialize bag clean session."""
+        # Create promotion
+        response = self.client.post(
+            self.apply_promo_code_url,
+            {'promo_code': 'PROMO1'},
+        )
+        self.assertEqual(response.json()['success'], False)
+
+    def test_update_bag_view_product_inventory_not_in_promotion(self):
+        """Test initialize bag clean session."""
+        response = self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 1},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.client.session['bag'], {'1': 1})
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(self.client.session['total_promo'], 0)
+        response = self.client.post(
+            self.apply_promo_code_url,
+            {'promo_code': 'PROMO1'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(self.client.session['total_promo'], '9.00')
+
+    def test_update_bag_view_product_inventory_in_promotion(self):
+        """Test initialize bag clean session."""
+        response = self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 1},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.client.session['bag'], {'1': 1})
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(self.client.session['total_promo'], 0)
+        response = self.client.post(
+            self.apply_promo_code_url,
+            {'promo_code': 'PROMO2'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(self.client.session['total_promo'], '7.20')
+        self.assertEqual(self.client.session['bag'], {'1': 1})
+
+    def test_update_bag_view_product_inventory_not_in_active_promotion(self):
+        """Test initialize bag clean session."""
+        # set self.promotion to active=False
+        self.promotion.active = False
+        self.promotion.save()
+        response = self.client.post(
+            self.add_to_bag_url,
+            {'product_inventory_id': 1, 'quantity': 1},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.client.session['bag'], {'1': 1})
+        self.assertEqual(response.json()['success'], True)
+        self.assertEqual(self.client.session['total_promo'], 0)
+        response = self.client.post(
+            self.apply_promo_code_url,
+            {'promo_code': 'PROMO1'},
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        self.assertEqual(self.client.session['total_promo'], 0)
