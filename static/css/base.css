@@ -729,7 +729,6 @@ input[name=quantity] {
 .bag,
 .promotions,
 .dashboard {
-  background-color: var(--clr-accent--100);
   padding: 2vh 2vw;
   display: flex;
   flex-direction: column;
