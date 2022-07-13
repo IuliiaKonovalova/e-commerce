@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .bag__promotion {
+      display: flex !important;
+    }
+    input.bag__promotion--input {
+      border: 2px solid #ccc;
+      font-size: 1.6rem !important;
+      margin-right: 1rem !important;
+    }
+  </style>
+{% endblock %}
 
 {% block content %}
   {% comment %} Bag Template {% endcomment %}
@@ -100,8 +112,14 @@
               Total items: 
               <div class="bag__items--count">{{ product_count }}</div>
             </div>
+
+              {% comment %} add input to add promotions code + button {% endcomment %}
+            <form class="bag__promotion col-md-4">
+              <input type="text" class="bag__promotion--input form-control" placeholder="Promotion code" required>
+              <button class="btn btn__edit">Apply</button>
+            </form>
             {% comment %} Checkout button {% endcomment %}
-            <a href="#" class="btn bag__checkout">Checkout</a>
+            <a href="{% url 'payment' %}" class="btn bag__checkout">Checkout</a>
           </div>
         </div>
 
