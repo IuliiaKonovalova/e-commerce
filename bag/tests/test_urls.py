@@ -8,6 +8,7 @@ from bag.views import (
     AddUnitToBagAJAXView,
     RemoveAllItemUnitsFromBagAJAXView,
     RemoveAllBagAJAXView,
+    PromoCodeAJAXView,
 )
 
 
@@ -49,3 +50,8 @@ class TestUrls(SimpleTestCase):
         """Test remove all bag url."""
         url = reverse('remove_all_bag')
         self.assertEquals(resolve(url).func.view_class, RemoveAllBagAJAXView)
+
+    def test_apply_promo_code_url(self):
+        """Test apply promo code url."""
+        url = reverse('apply_promo_code')
+        self.assertEquals(resolve(url).func.view_class, PromoCodeAJAXView)
