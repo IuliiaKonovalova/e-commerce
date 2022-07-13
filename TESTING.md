@@ -66,6 +66,8 @@ The missing coverage is due to the fact that I was not able to test fully ```Ema
 ![Django unit testing. Payment. Coverage](documentation/testing/coverage/coverage_payment.png)
 The missing cases in the coverage is simply because I have no idea how test webhooks. The functionality is working well and described in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:** 
 
+![Django unit testing. Payment. Coverage. Missing cases](documentation/testing/coverage/coverage_payment_missing_cases.png)
+
 
 ### Django unit testing Issues
 
@@ -303,7 +305,27 @@ However, when I was testing string method in my template, I was getting the corr
 
 ![Django unit testing. Profiles. Coverage. Missing-unsolved](documentation/testing/coverage/coverage_report_contexts.png)
 
+5. I was not able to test webhooks in the payment ap. However, the functionality is working well. To proof that, I attached the following screenshots:
 
+  - I have added products in the bag:
+
+    ![Django unit testing. Payment. Coverage. Missing](documentation/testing/payment_1.png)
+
+  - Click on checkout, then I was redirected to the payment page:
+
+    ![Django unit testing. Payment. Coverage. Missing](documentation/testing/payment_4.png)
+
+  - Filled out the payment form and clicked on the submit button:
+
+    ![Django unit testing. Payment. Coverage. Missing](documentation/testing/payment_5.png)
+
+  - In the terminal, I was able to see that the stock is updated and the order is created
+
+    ![Django unit testing. Payment. Coverage. Missing](documentation/testing/payment_2.png)
+
+  - In the admin panel, I was able to see that the order is created and the billing status is set to True, which proves that the webhook is working correctly.
+
+    ![Django unit testing. Payment. Coverage. Missing](documentation/testing/webhooks_work.png)
 
 ## Bugs
 
