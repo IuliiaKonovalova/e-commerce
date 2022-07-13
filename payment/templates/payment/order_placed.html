@@ -5,7 +5,8 @@
   <div class="payment">
     <h1 class="mb-4">Order has been placed</h1>
     <p>Check your email for confirmation</p>
-    <a class="btn btn__redirect" href="{% url 'my_profile' user=request.user %}">
+    <a class="btn btn__redirect" href="{% url 'my_orders' user=request.user %}"
+        aria-label="Go to my orders">
       <i class="fas fa-shopping-cart"></i>
       See orders
     </a>
