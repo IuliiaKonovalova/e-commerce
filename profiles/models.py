@@ -86,7 +86,8 @@ class Profile(models.Model):
         Role,
         on_delete=models.SET_NULL,
         null=True,
-        default=1,
+        # default=1,
+        blank=True,
         verbose_name='Role',
         help_text=(
             'format: not required'
