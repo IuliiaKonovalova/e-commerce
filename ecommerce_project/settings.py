@@ -184,7 +184,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ASGI_APPLICATION = ''
+ASGI_APPLICATION = 'ecommerce_project.asgi.application'
 
 
 ASGI_THREADS = 100  # number of threads to use
