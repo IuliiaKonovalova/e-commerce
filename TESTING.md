@@ -61,6 +61,11 @@ However, after implementing the promotion functionality, I was not been able to 
 ![Django unit testing. Email_notification. Coverage](documentation/testing/coverage/coverage_email_notification.png)
 The missing coverage is due to the fact that I was not able to test fully ```EmailStockNotificationFormAJAX```. The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
 
+**Payment app:**
+
+![Django unit testing. Payment. Coverage](documentation/testing/coverage/coverage_payment.png)
+The missing cases in the coverage is simply because I have no idea how test webhooks. The functionality is working well and described in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:** 
+
 
 ### Django unit testing Issues
 
