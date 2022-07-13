@@ -7,6 +7,8 @@ from .views import (
     AddUnitToBagAJAXView,
     RemoveAllItemUnitsFromBagAJAXView,
     RemoveAllBagAJAXView,
+    PromoCodeAJAXView,
+
 )
 
 
@@ -36,5 +38,10 @@ urlpatterns = [
         'remove_all_bag/',
         RemoveAllBagAJAXView.as_view(),
         name='remove_all_bag'
+    ),
+    path(
+        'apply_promo_code/',
+        PromoCodeAJAXView.as_view(),
+        name='apply_promo_code'
     ),
 ]
