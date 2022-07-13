@@ -26,6 +26,17 @@
   {% comment %} Bag Template {% endcomment %}
   <div class="bag" id="bag">
     {% comment %} add alret message at the top about loyalty program {% endcomment %}
+    <div class="alert alert-success">
+      {% if user.is_authenticated %}
+        {% if request.user.profile.subscription %}
+          <p>You are currently enrolled in the loyalty program. Please, check your email for your coupon code.</p>
+        {% else %}
+          <p>If you want to be enrolled in the loyalty program, please, sign up for subscription.</p>
+        {% endif %}
+      {% else %}
+        <p>If you want to be our member of loyalty programm, you need to login and sign up for subscription.</p>
+      {% endif %}
+    </div>
 
     {% if not request.user.is_authenticated %}
       <h1>Please, log in to add items to your bag</h1>
