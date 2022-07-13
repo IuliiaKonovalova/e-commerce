@@ -1,4 +1,4 @@
-"""Veiws for the personnel app."""
+"""Views for the personnel app."""
 from decimal import Decimal
 from django.views import View
 from django.shortcuts import render, get_object_or_404, redirect, reverse
@@ -963,6 +963,7 @@ class AddCategoryView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -1019,6 +1020,7 @@ class EditCategoryView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -1078,6 +1080,7 @@ class DeleteCategoryView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -1115,7 +1118,7 @@ class BrandsTableView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                p  = Paginator(Brand.objects.all(), 25)
+                p = Paginator(Brand.objects.all(), 25)
                 page = request.GET.get('page')
                 brands = p.get_page(page)
                 context = {
@@ -1184,6 +1187,7 @@ class AddBrandView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -1240,6 +1244,7 @@ class EditBrandView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -1336,7 +1341,7 @@ class TagsTableView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                p  = Paginator(Tag.objects.all(), 25)
+                p = Paginator(Tag.objects.all(), 25)
                 page = request.GET.get('page')
                 tags = p.get_page(page)
                 context = {
@@ -1410,6 +1415,7 @@ class AddTagView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -1525,6 +1531,7 @@ class DeleteTagView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -1632,6 +1639,7 @@ class AddStockView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
