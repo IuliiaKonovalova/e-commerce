@@ -11,7 +11,7 @@
         <i class="fas fa-arrow-circle-left"></i>
         Back to orders
       </a>
-      <div class="data__main--order">
+      <div class="data__main--order" id="order-id" data-id="{{ order.id }}">
         <div>
           <strong>Order ID:</strong> {{ order.id }}
         </div>
@@ -40,31 +40,42 @@
         <div >
           <strong>Order Status: </strong>
           {% if order.status == 'Pending' %}
-            <div class="order__status" data-status="pending">
+            <div class="order__status order__status--pending" data-status="pending">
               PENDING
             </div>
           {% elif order.status == 'Processing' %}
-            <div class="order__status" data-status="processing">
+            <div class="order__status order__status--processing" data-status="processing">
               PROCESSING
             </div>
           {% elif order.status == 'shipped' %}
-            <div class="order__status" data-status="delivery">
+            <div class="order__status order__status--delivery" data-status="delivery">
               IN DELIVERY
             </div>
           {% elif order.status == 'Refunded' %}
-            <div class="order__status" data-status="refunded">
+            <div class="order__status order__status--refunded" data-status="refunded">
               REFUNDED
             </div>
           {% else %}
-            <div class="order__status" data-status="completed">
+            <div class="order__status order__status--completed" data-status="completed">
               COMPLITED
             </div>
           {% endif %}
+        <select class="form-control order__status--select hidden" id="type" name="type" required>
+          <option value="Pending" {% if order.status == 'Pending' %} selected {% endif %}>Pending</option>
+          <option value="Processing" {% if order.status == 'Processing' %} selected {% endif %}>Processing</option>
+          <option value="shipped" {% if order.status == 'shipped' %} selected {% endif %}>In Delivery</option>
+          <option value="Refunded" {% if order.status == 'Refunded' %} selected {% endif %}>Refunded</option>
+          <option value="Completed" {% if order.status == 'Completed' %} selected {% endif %}>Completed</option>
+        </select>
           {% if request.user.profile.role.id == 3 or request.user.profile.role.id == 4 %}
             <div class="btn btn__edit" id="order-edit-status">
               <i class="fas fa-edit"></i>
               Edit
             </div>
+          <div class="btn btn__save hidden" id="order-save-status">
+            <i class="fas fa-save"></i>
+            Save
+          </div>
           {% endif %}
         </div>
         <div class="order__details">
@@ -168,29 +179,75 @@
       
       // edit order status
       let orderEditStatus = $('#order-edit-status');
-      // if clicked, replace with select box
-      orderEditStatus.click(function() {
+      let orderStatusSelect = $('.order__status--select');
+      let saveBtn = $('#order-save-status');
+      // function to run on edit button click
+      const editStatusPreset = function() {
         let orderStatus = $(this).parent().find('.order__status')
         let orderStatusValue = orderStatus.data('status')
-        let orderStatusSelect = `
-          <select class="form-control order__status--select" id="type" name="type" required>
-            <option value="Pending" {% if order.status == 'Pending' %} selected {% endif %}>Pending</option>
-            <option value="Processing" {% if order.status == 'Processing' %} selected {% endif %}>Processing</option>
-            <option value="shipped" {% if order.status == 'shipped' %} selected {% endif %}>In Delivery</option>
-            <option value="Refunded" {% if order.status == 'Refunded' %} selected {% endif %}>Refunded</option>
-            <option value="Completed" {% if order.status == 'Completed' %} selected {% endif %}>Completed</option>
-          </select>
-        `
-        orderStatus.replaceWith(orderStatusSelect)
+        orderStatus.addClass('hidden');
+        orderStatusSelect.removeClass('hidden');
+        orderEditStatus.addClass('hidden');
+        saveBtn.removeClass('hidden');
+      }
+      // if clicked, replace with select box
+      orderEditStatus.on('click', editStatusPreset);
+
+
+        let orderStatus;
         // if select box changed, change data-status
-        $('.order__status--select').change(function() {
-          let orderStatusValue = $(this).val()
+        orderStatusSelect.change(function() {
+          console.log('changed')
+          orderStatusValue = $(this).val()
           console.log(orderStatusValue)
-          let orderStatus = $(this).parent().parent().find('.order__status')
+          orderStatus = $(this).parent().parent().find('.order__status')
           orderStatus.data('status', orderStatusValue)
           orderStatus.text(orderStatusValue)
         })
-      })
+        // if save button clicked, create an ajax request to update order status
+        $('#order-save-status').click(function() {
+          // get order id
+          //replace icon with fas fa-spinner
+          $(this).find('i').replaceWith('<i class="fas fa-spinner fa-spin"></i>')
+          let orderId = $('#order-id').data('id')
+          $.ajax({
+            url: "{% url 'update_order_status' %}",
+            type: 'POST',
+            data: {
+              'order_id': orderId,
+              'order_status': orderStatusValue,
+              'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+              console.log(data)
+              console.log('success')
+              $('.fa-spinner').remove();
+              // replace this button with edit button
+              orderStatus.removeClass('hidden');
+              orderStatus.css(
+                'background-color',
+                'red'
+              )
+              orderStatusSelect.addClass('hidden');
+              orderEditStatus.removeClass('hidden');
+              saveBtn.addClass('hidden');
+              orderEditStatus.on('click', editStatusPreset);
+            },
+            error: function(data) {
+              $('.fa-spinner').remove();
+              $('#messages-notes').remove();
+              $('.bag').before('<div class="message-container" id="messages-notes">' +
+                '<div class="message-container__message">' +
+                '<p class="message-container__message--text">Something went wrong</p>' +
+                '</div>' +
+                '</div>');
+              // remove the message block after 3 seconds
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
+            }
+          })
+        })
     });
   </script>
 {% endblock %}
