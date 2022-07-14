@@ -3,6 +3,7 @@ from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 from orders.views import (
     OrdersView,
+    OrderDetailsView,
     AddOrderAJAXView,
     UserOrdersView,
     UserOrderDetailsView,
@@ -15,6 +16,11 @@ class TestUrls(SimpleTestCase):
         """Test orders url."""
         url = reverse('orders')
         self.assertEquals(resolve(url).func.view_class, OrdersView)
+
+    def test_order_details_url(self):
+        """Test order details url."""
+        url = reverse('order_details', kwargs={'order_id': 1})
+        self.assertEquals(resolve(url).func.view_class, OrderDetailsView)
 
     def test_add_order_url(self):
         """Test add order url."""
