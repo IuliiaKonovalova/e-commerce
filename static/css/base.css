@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap');
 
 :root {
+  /* --clr-primary--100: #545454; */
   --clr-primary--100: #eaddff;
   --clr-primary--200: #d0bcff;
   --clr-primary--300: #4f378b;
@@ -240,6 +241,17 @@ button {
 .btn__save:hover,
 .btn__save:focus {
   background-color: var(--clr-accent--900) !important;
+  color: var(--clr-text--100) !important;
+}
+
+.btn__cancel {
+  background-color: var(--clr-btn-edit--300) !important;
+  color: var(--clr-text--100) !important;
+}
+
+.btn__cancel:hover,
+.btn__cancel:focus {
+  background-color: var(--clr-btn-edit--400) !important;
   color: var(--clr-text--100) !important;
 }
 
