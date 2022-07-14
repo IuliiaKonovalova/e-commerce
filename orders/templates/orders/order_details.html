@@ -37,7 +37,7 @@
               {% endif %}
           </div>
         </div>
-        <div>
+        <div >
           <strong>Order Status: </strong>
           {% if order.status == 'Pending' %}
             <div class="order__status" data-status="pending">
@@ -61,10 +61,10 @@
             </div>
           {% endif %}
           {% if request.user.profile.role.id == 3 or request.user.profile.role.id == 4 %}
-            <button class="btn btn__edit" id="order-edit-status">
+            <div class="btn btn__edit" id="order-edit-status">
               <i class="fas fa-edit"></i>
               Edit
-            </button>
+            </div>
           {% endif %}
         </div>
         <div class="order__details">
@@ -165,7 +165,32 @@
         // multiply data-quantity and data-price and put it in items-total span
         items_total.text(quantity_value * price_value)
       });
-        
+      
+      // edit order status
+      let orderEditStatus = $('#order-edit-status');
+      // if clicked, replace with select box
+      orderEditStatus.click(function() {
+        let orderStatus = $(this).parent().find('.order__status')
+        let orderStatusValue = orderStatus.data('status')
+        let orderStatusSelect = `
+          <select class="form-control order__status--select" id="type" name="type" required>
+            <option value="Pending" {% if order.status == 'Pending' %} selected {% endif %}>Pending</option>
+            <option value="Processing" {% if order.status == 'Processing' %} selected {% endif %}>Processing</option>
+            <option value="shipped" {% if order.status == 'shipped' %} selected {% endif %}>In Delivery</option>
+            <option value="Refunded" {% if order.status == 'Refunded' %} selected {% endif %}>Refunded</option>
+            <option value="Completed" {% if order.status == 'Completed' %} selected {% endif %}>Completed</option>
+          </select>
+        `
+        orderStatus.replaceWith(orderStatusSelect)
+        // if select box changed, change data-status
+        $('.order__status--select').change(function() {
+          let orderStatusValue = $(this).val()
+          console.log(orderStatusValue)
+          let orderStatus = $(this).parent().parent().find('.order__status')
+          orderStatus.data('status', orderStatusValue)
+          orderStatus.text(orderStatusValue)
+        })
+      })
     });
   </script>
 {% endblock %}
