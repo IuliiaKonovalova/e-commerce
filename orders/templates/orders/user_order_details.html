@@ -11,7 +11,7 @@
       <i class="fas fa-arrow-circle-left"></i>
       Back to my orders
     </a>
-    <div class="">
+    <div class="data__main--order">
       <div>
         <strong>Order ID:</strong> {{ order.id }}
       </div>
@@ -28,18 +28,59 @@
         <strong>Order Total:</strong> {{ order.total_paid }}
       </div>
       <div>
-        <strong>Paid:</strong> {{ order.billing_status }}
+        <strong>Paid: </strong>
+          <div>
+            {% if order.billing_status %}
+              <i class="fa fa-check-circle"></i>
+            {% else %}
+              <i class="fa fa-times-circle"></i>
+            {% endif %}
+        </div>
       </div>
       <div>
-        <strong>Order Status:</strong> {{ order.status }}
+        <strong>Order Status: </strong>
+        {% if order.status == 'Pending' %}
+          <div class="order__status" data-status="pending">
+            PENDING
+          </div>
+        {% elif order.status == 'Processing' %}
+          <div class="order__status" data-status="processing">
+            PROCESSING
+          </div>
+        {% elif order.status == 'shipped' %}
+          <div class="order__status" data-status="delivery">
+            IN DELIVERY
+          </div>
+        {% elif order.status == 'Refunded' %}
+          <div class="order__status" data-status="refunded">
+            REFUNDED
+          </div>
+        {% else %}
+          <div class="order__status" data-status="completed">
+            COMPLITED
+          </div>
+        {% endif %}
       </div>
-      <div>
+      <div class="order__details">
         <strong>Order Details:</strong>
-        <div>
+        <div class="order__details--units">
           {% for item in order_items %}
           <div id="{{ item.id }}" class="order__item">
             <div>
-              <strong>Item:</strong> {{ item.product_inventory.product.name }}
+              <strong>Item:</strong>
+              <a href="{% url 'product_detail' pk=item.product_inventory.product.id %}"
+                aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link"> 
+                {{ item.product_inventory.product.name }}
+                <i class="fa fa-external-link" aria-hidden="true"></i>
+                <div class="bag__item--image">
+                  {% if item.product_inventory.product.images.all %}
+                    <img src="{{ item.product_inventory.product.get_main_image }}"
+                      alt="Cover image for {{ item.product_inventory.product.name }}">
+                  {% else %}
+                    <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+                  {% endif %}
+                </div>
+              </a>
             </div>
             <div>
               {% if item.product_inventory.get_attribute_values %}
@@ -48,11 +89,9 @@
                   {{ value }}
                 {% endfor %}
               {% endif %}
-            </div>
-
-            
+            </div>              
             <div>
-              <strong>Quantity:</strong> {{ item.quantity }}
+              <strong>Qty:</strong> {{ item.quantity }}
             </div>
             <div>
               <strong>Price:</strong> {{ item.product_inventory.sale_price }}
@@ -67,6 +106,7 @@
           {% endfor %}
         </div>
       </div>
+    </div>
   </div>
   {% else %}
   <div class="profile">
