@@ -62,6 +62,36 @@ class OrderDetailsView(View):
             )
 
 
+class UpdateOrderStatusAJAXView(View):
+    """
+    View for updating order status with access only
+    for admin and logistic manager
+    """
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            user_role = request.user.profile.role.id
+            if user_role == 3 or user_role == 4:
+                if request.is_ajax():
+                    print(request.POST)
+                    order_id =  request.POST.get('order_id')
+                    order = get_object_or_404(Order, id=order_id)
+                    order.status = request.POST.get('order_status')
+                    order.save()
+                    return JsonResponse({'success': True})
+                else:
+                    return JsonResponse({'success': False})
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
 class AddOrderAJAXView(View):
     """View for adding order AJAX."""
     def post(self, request, *args, **kwargs):
