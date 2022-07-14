@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <h1 class="dashboard__main--name">Order ID {{ order.id }}</h1>
+
+      <div class="data__main--order">
+        <div>
+          <strong>Order ID:</strong> {{ order.id }}
+        </div>
+        <div>
+          <strong>Order Number:</strong> {{ order.order_number }}
+        </div>
+        <div>
+          <strong>Order Key:</strong> {{ order.order_key }}
+        </div>
+        <div>
+          <strong>Order Date:</strong> {{ order.created }}
+        </div>
+        <div>
+          <strong>Order Total:</strong> {{ order.total_paid }}
+        </div>
+        <div>
+          <strong>Paid: </strong>
+            <div>
+              {% if order.billing_status %}
+                <i class="fa fa-check-circle"></i>
+              {% else %}
+                <i class="fa fa-times-circle"></i>
+              {% endif %}
+          </div>
+        </div>
+        <div>
+          <strong>Order Status: </strong>
+          {% if order.status == 'Pending' %}
+            <div class="order__status" data-status="pending">
+              PENDING
+            </div>
+          {% elif order.status == 'Processing' %}
+            <div class="order__status" data-status="processing">
+              PROCESSING
+            </div>
+          {% elif order.status == 'shipped' %}
+            <div class="order__status" data-status="delivery">
+              IN DELIVERY
+            </div>
+          {% elif order.status == 'Refunded' %}
+            <div class="order__status" data-status="refunded">
+              REFUNDED
+            </div>
+          {% else %}
+            <div class="order__status" data-status="completed">
+              COMPLITED
+            </div>
+          {% endif %}
+        </div>
+        <div class="order__details">
+          <strong>Order Details:</strong>
+          <div class="order__details--units">
+            {% for item in order_items %}
+            <div id="{{ item.id }}" class="order__item">
+              <div>
+                <strong>Item:</strong>
+
+              </div>
+              <div>
+                {% if item.product_inventory.get_attribute_values %}
+                  <strong>Options:</strong>
+                  {% for value in item.product_inventory.get_attribute_values %}
+                    {{ value }}
+                  {% endfor %}
+                {% endif %}
+              </div>              
+              <div>
+                <strong>Qty:</strong> {{ item.quantity }}
+              </div>
+              <div>
+                <strong>Price:</strong> {{ item.product_inventory.sale_price }}
+              </div>
+              <div>
+                <strong>Total:</strong>
+                <div class="quantity" data-quantity="{{ item.quantity }}">{{ item.quantity }}</div>
+                x <div class="price" data-price="{{ item.product_inventory.sale_price }}">{{ item.product_inventory.sale_price }}</div>
+                = <span class="items-total"></span>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="order__customer--data">
+          <strong>Customer Data:</strong>
+          <div>
+            <strong>Customer:</strong> {{ order.user }}
+          </div>
+          <div>
+            <strong>Name:</strong> {{ order.full_name }}
+          </div>
+          <div>
+            <strong>Email:</strong> {{ order.email }}
+          </div>
+          <div>
+            <strong>Phone:</strong> {{ order.phone }}
+          </div>
+          <div>
+            <strong>Zip:</strong> {{ order.zip_code }}
+          </div>
+          <div>
+            <strong>Country:</strong> {{ order.country }}
+          </div>
+          <div>
+            <strong>State:</strong> {{ order.county_region_state }}
+          </div>
+          <div>
+            <strong>City:</strong> {{ order.city }}
+          </div>
+          <div>
+            <strong>Address:</strong> {{ order.address1 }} {{ order.address2 }}
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="dashboard__main">
+        <h1>You are not authorized to access this page</h1>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+  <script>
+    $(document).ready(function() {
+      $('.order__item').each(function() {
+        let quantity = $(this).find('.quantity')
+        // get data-quantity from quantity div
+        let quantity_value = quantity.data('quantity')
+        let price = $(this).find('.price')
+        // get data-price from price div
+        let price_value = price.data('price')
+        let items_total = $(this).find('.items-total')
+        // multiply data-quantity and data-price and put it in items-total span
+        items_total.text(quantity_value * price_value)
+      });
+        
+    });
+  </script>
+{% endblock %}
