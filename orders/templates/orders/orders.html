@@ -13,25 +13,53 @@
           {% for order in orders %}
             <div class="data__main--order">
               <div>
-                <strong>Order ID:</strong> {{ order.id }}
+                <strong>Order ID: </strong> {{ order.id }}
               </div>
               <div>
-                <strong>Order Number:</strong> {{ order.order_number|truncatechars:15 }}
+                <strong>Order Number: </strong> {{ order.order_number|truncatechars:15 }}
               </div>
               <div>
-                <strong>Order Key:</strong> {{ order.order_key|truncatechars:15 }}
+                <strong>Order Key: </strong> {{ order.order_key|truncatechars:15 }}
               </div>
               <div>
-                <strong>Order Date:</strong> {{ order.created|date:"d.m.Y" }}
+                <strong>Order Date: </strong> {{ order.created|date:"d.m.Y" }}
               </div>
               <div>
-                <strong>Order Total:</strong> {{ order.total_paid }}
+                <strong>Order Total: </strong> {{ order.total_paid }}
               </div>
               <div>
-                <strong>Paid:</strong> {{ order.billing_status }}
+                <strong>Paid: </strong>
+                  <div>
+                    {% if order.billing_status %}
+                      <i class="fa fa-check-circle"></i>
+                    {% else %}
+                      <i class="fa fa-times-circle"></i>
+                    {% endif %}
+                </div>
               </div>
               <div>
-                <strong>Order Status:</strong> {{ order.status }}
+                <strong>Order Status: </strong>
+                {% if order.status == 'Pending' %}
+                  <div class="order__status" data-status="pending">
+                    PENDING
+                  </div>
+                {% elif order.status == 'Processing' %}
+                  <div class="order__status" data-status="processing">
+                    PROCESSING
+                  </div>
+                {% elif order.status == 'shipped' %}
+                  <div class="order__status" data-status="delivery">
+                    IN DELIVERY
+                  </div>
+                {% elif order.status == 'Refunded' %}
+                  <div class="order__status" data-status="refunded">
+                    REFUNDED
+                  </div>
+                {% else %}
+                  <div class="order__status" data-status="completed">
+                    COMPLITED
+                  </div>
+                {% endif %}
               </div>
             </div>
           {% endfor %}
