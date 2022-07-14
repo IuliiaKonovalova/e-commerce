@@ -4,6 +4,7 @@ from django.urls import reverse, resolve
 from orders.views import (
     OrdersView,
     OrderDetailsView,
+    UpdateOrderStatusAJAXView,
     AddOrderAJAXView,
     UserOrdersView,
     UserOrderDetailsView,
@@ -21,6 +22,14 @@ class TestUrls(SimpleTestCase):
         """Test order details url."""
         url = reverse('order_details', kwargs={'order_id': 1})
         self.assertEquals(resolve(url).func.view_class, OrderDetailsView)
+
+    def test_update_order_status_url(self):
+        """Test update order status url."""
+        url = reverse('update_order_status')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            UpdateOrderStatusAJAXView
+        )
 
     def test_add_order_url(self):
         """Test add order url."""
