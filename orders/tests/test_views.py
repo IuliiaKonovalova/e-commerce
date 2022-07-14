@@ -251,6 +251,10 @@ class TestOrdersViews(TestCase):
             'my_order_details',
             kwargs={'user': self.user, 'order_id': self.order1.id}
         )
+        self.order_details_url = reverse(
+            'order_details',
+            kwargs={'order_id': self.order1.id}
+        )
 
     def test_orders_view_user_logged_out(self):
         """Test orders view user logged out"""
@@ -441,3 +445,26 @@ class TestOrdersViews(TestCase):
         response = self.client.get(self.my_order_details_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_order_details_view_user_logged_out(self):
+        """Test my orders view user logged in"""
+        response = self.client.get(self.order_details_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_order_details_view_user_logged_logged_in_without_access(self):
+        """Test my orders view OTHER user logged in"""
+        self.client.force_login(self.user)
+        response = self.client.get(self.order_details_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_order_details_view_user_logged_with_access(self):
+        """Test my orders view user logged in"""
+        self.client.force_login(self.user2)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.order_details_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'orders/order_details.html')
