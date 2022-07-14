@@ -36,6 +36,10 @@ class TestOrdersViews(TestCase):
             name='Admin',
             description='Admin'
         )
+        self.role4 = Role.objects.create(
+            name='Logistic manager',
+            description='Logistic manager'
+        )
         self.user = User.objects.create_user(
             username='testuser',
             password='Password987',
@@ -51,6 +55,11 @@ class TestOrdersViews(TestCase):
             password='Password987',
             email='admin@gmail.com'
         )
+        self.user4 = User.objects.create_user(
+            username='testuser4',
+            password='Password987',
+            email='logistic@gmail.com'
+        )
         self.profile1 = Profile.objects.get(id=self.user.profile.id)
         self.profile2 = Profile.objects.get(id=self.user2.profile.id)
         self.profile2.role = self.role2
@@ -58,6 +67,9 @@ class TestOrdersViews(TestCase):
         self.profile3 = Profile.objects.get(id=self.user3.profile.id)
         self.profile3.role = self.role3
         self.profile3.save()
+        self.profile4 = Profile.objects.get(id=self.user4.profile.id)
+        self.profile4.role = self.role4
+        self.profile4.save()
         self.address1 = Address.objects.create(
             user=self.user,
             country='USA',
@@ -255,6 +267,8 @@ class TestOrdersViews(TestCase):
             'order_details',
             kwargs={'order_id': self.order1.id}
         )
+        self.update_order_status_url = reverse('update_order_status')
+
 
     def test_orders_view_user_logged_out(self):
         """Test orders view user logged out"""
@@ -468,3 +482,109 @@ class TestOrdersViews(TestCase):
         response = self.client.get(self.order_details_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'orders/order_details.html')
+
+    def test_update_order_status_ajax_view_user_logged_out(self):
+        """Test update order status ajax view user logged out"""
+        response = self.client.post(
+            self.update_order_status_url,
+            data={
+                'order_id': self.order1.id,
+                'order_status': 'Completed',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_update_order_status_ajax_view_user_logged_customer(self):
+        """Test update order status ajax view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.update_order_status_url,
+            data={
+                'order_id': self.order1.id,
+                'order_status': 'Completed',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_update_order_status_ajax_view_staff_logged_without_access(self):
+        """Test update order status ajax view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.update_order_status_url,
+            data={
+                'order_id': self.order1.id,
+                'order_status': 'Completed',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_update_order_status_ajax_view_admin_logged_with_access(self):
+        """Test update order status ajax view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        self.assertEqual(self.order1.status, 'Pending')
+        response = self.client.post(
+            self.update_order_status_url,
+            data={
+                'order_id': self.order1.id,
+                'order_status': 'Completed',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        # check if order status was updated
+        self.order1 = Order.objects.get(id=self.order1.id)
+        self.assertEqual(self.order1.status, 'Completed')
+
+    def test_update_order_status_ajax_view_logistic_manager_with_access(self):
+        """Test update order status ajax view user logged in with access"""
+        self.client.force_login(self.user4)
+        self.profile4 = Profile.objects.get(id=self.user4.profile.id)
+        self.profile4.role = self.role4
+        self.profile4.save()
+        self.assertEqual(self.order1.status, 'Pending')
+        response = self.client.post(
+            self.update_order_status_url,
+            data={
+                'order_id': self.order1.id,
+                'order_status': 'Completed',
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+        # check if order status was updated
+        self.order1 = Order.objects.get(id=self.order1.id)
+        self.assertEqual(self.order1.status, 'Completed')
+
+    def test_update_order_status_ajax_view_with_access_failed(self):
+        """Test update order status ajax view user logged in with access"""
+        self.client.force_login(self.user4)
+        self.profile4 = Profile.objects.get(id=self.user4.profile.id)
+        self.profile4.role = self.role4
+        self.profile4.save()
+        self.assertEqual(self.order1.status, 'Pending')
+        response = self.client.post(
+            self.update_order_status_url,
+            data={
+                'order_id': self.order1.id,
+                'order_status': 'Completed',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        # check if order status was updated
+        self.order1 = Order.objects.get(id=self.order1.id)
+        self.assertEqual(self.order1.status, 'Pending')
