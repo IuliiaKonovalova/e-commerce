@@ -34,6 +34,34 @@ class OrdersView(View):
             )
 
 
+class OrderDetailsView(View):
+    """View for order full page."""
+
+    def get(self, request, *args, **kwargs):
+        """Get method for order details page."""
+        if request.user.is_authenticated:
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                order_id = kwargs['order_id']
+                order = get_object_or_404(Order, id=order_id)
+                order_items = OrderItem.objects.filter(order=order)
+                context = {
+                    'order': order,
+                    'order_items': order_items,
+
+                }
+                return render(request, 'orders/order_details.html', context)
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
 class AddOrderAJAXView(View):
     """View for adding order AJAX."""
     def post(self, request, *args, **kwargs):
