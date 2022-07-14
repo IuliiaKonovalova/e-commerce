@@ -60,6 +60,12 @@
               COMPLITED
             </div>
           {% endif %}
+          {% if request.user.profile.role.id == 3 or request.user.profile.role.id == 4 %}
+            <button class="btn btn__edit" id="order-edit-status">
+              <i class="fas fa-edit"></i>
+              Edit
+            </button>
+          {% endif %}
         </div>
         <div class="order__details">
           <strong>Order Details:</strong>
