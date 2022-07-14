@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     OrdersView,
     OrderDetailsView,
+    UpdateOrderStatusAJAXView,
     AddOrderAJAXView,
     UserOrdersView,
     UserOrderDetailsView,
@@ -15,6 +16,11 @@ urlpatterns = [
         'order_details/<int:order_id>/',
         OrderDetailsView.as_view(),
         name='order_details'
+    ),
+    path(
+        'update_order_status/',
+        UpdateOrderStatusAJAXView.as_view(),
+        name='update_order_status'
     ),
     path(
         'add/',
