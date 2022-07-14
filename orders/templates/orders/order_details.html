@@ -6,7 +6,11 @@
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <h1 class="dashboard__main--name">Order ID {{ order.id }}</h1>
-
+      <a href="{% url 'orders' %}" aria-label="Back to all orders"
+          class="btn btn__redirect">
+        <i class="fas fa-arrow-circle-left"></i>
+        Back to orders
+      </a>
       <div class="data__main--order">
         <div>
           <strong>Order ID:</strong> {{ order.id }}
