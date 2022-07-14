@@ -8,10 +8,10 @@
       <div class="dashboard__main">
         <h1>All Orders</h1>
       </div>
-      <div class="data__main">
+      <div class="data__main--orders">
         {% if orders %}
           {% for order in orders %}
-            <div>
+            <div class="data__main--order">
               <div>
                 <strong>Order ID:</strong> {{ order.id }}
               </div>
@@ -22,7 +22,7 @@
                 <strong>Order Key:</strong> {{ order.order_key|truncatechars:15 }}
               </div>
               <div>
-                <strong>Order Date:</strong> {{ order.created }}
+                <strong>Order Date:</strong> {{ order.created|date:"d.m.Y" }}
               </div>
               <div>
                 <strong>Order Total:</strong> {{ order.total_paid }}
