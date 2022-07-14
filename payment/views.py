@@ -22,10 +22,6 @@ def BasketView(request):
         Profile,
         user=request.user
     )
-    primary_address = Address.objects.get(
-        user=request.user,
-        is_primary=True
-    )
     bag = bag_contents(request)
     # get total out of bag dict
     promo_price = bag['promo_price']
@@ -44,9 +40,26 @@ def BasketView(request):
         currency='usd',
         metadata={'userid': request.user.id}
     )
+    # check if user has addresses
+    if request.user.addresses.count() == 0:
+        pass
+    else:
+        # check if there is a primary address
+        if request.user.addresses.filter(is_primary=True).exists():
+            primary_address = Address.objects.get(
+                user=request.user,
+                is_primary=True
+            )
+            context = {
+                'my_profile': my_profile,
+                'primary_address': primary_address,
+                'total_sum': total_sum,
+                'client_secret': intent.client_secret,
+                'stripe_public_key': stripe_public_key,
+            }
+            return render(request, 'payment/payment.html', context)
     context = {
         'my_profile': my_profile,
-        'primary_address': primary_address,
         'total_sum': total_sum,
         'client_secret': intent.client_secret,
         'stripe_public_key': stripe_public_key,
