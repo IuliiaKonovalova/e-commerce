@@ -3,8 +3,7 @@
 
 {% block extra_css %}
   <style>
-    .account-form input,
-      {
+    .account-form input {
       border: 2px solid #ccc;
       height: calc(2em + .75rem + 2px);
     }
@@ -30,11 +29,11 @@
               <div id="payment-form" class="col-12 col-lg-6 mx-auto">
                 <h3 class="mb-3">Billing address</h3>
                 {% if not primary_address and not my_profile%}
-                  <p>To make purchases faster, consider setting up primary address and your full name in your profile.</p>
+                  <p class="alert alert-danger">To make purchases faster, consider setting up primary address and your full name in your profile.</p>
                 {% elif not my_profile and primary_address %}
-                  <p>To make purchases faster, consider to add your full name in your profile</p>
+                  <p class="alert alert-danger">To make purchases faster, consider to add your full name in your profile</p>
                 {% elif not primary_address and my_profile %}
-                  <p>To make purchases faster, consider setting up primary address in your profile.</p>
+                  <p class="alert alert-danger">To make purchases faster, consider setting up primary address in your profile.</p>
                 {% endif %}
                 <form id="payment-form">
                   <div class="row g-3">
