@@ -1539,8 +1539,36 @@ td {
   background-color: var(--clr-text--100);
 }
 
+.data__main--order div {
+  display: flex;
+}
 
+.order__status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
 
+.order__status[data-status="pending"] {
+  background-color: var(--clr-primary--500);
+}
+
+.order__status[data-status="processing"] {
+  background-color: var(--clr-primary--700);
+}
+
+.order__status[data-status="delivery"] {
+  background-color: var(--clr-primary--900);
+}
+
+.order__status[data-status="refunded"] {
+  background-color: var(--clr-primary--300);
+}
+
+.order__status[data-status="completed"] {
+  background-color: var(--clr-primary--200);
+}
 
 
 
