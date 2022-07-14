@@ -86,7 +86,7 @@
         $('.avatar').attr('src', URL.createObjectURL(file));
         // replacing edit button with save and cancel buttons
         let buttons = `<button id="save-avatar-btn btn btn__save">Save <i class="fas fa-check"></i></button>
-                            <button id="cancel-avatar-btn">Cancel <i class="fas fa-times"></i></button>`;
+                            <button id="cancel-avatar-btn btn btn__cancel">Cancel <i class="fas fa-times"></i></button>`;
         $('#edit-avatar-btn').after(buttons);
         $('#edit-avatar-btn').hide();
         $('#cancel-avatar-btn').on('click', () => {
