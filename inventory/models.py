@@ -397,6 +397,17 @@ class Product(models.Model):
         """Get all inventory of product"""
         return ProductInventory.objects.filter(product=self)
 
+    def get_average_rating(self):
+        """Get average rating of product"""
+        all_ratings = self.reviews.all()
+        total = 0
+        for rating in all_ratings:
+            total += int(rating.rating)
+        if len(all_ratings) > 0:
+            return total / len(all_ratings)
+        else:
+            return 0
+
 
 class ProductImage(models.Model):
     """Product image model"""
