@@ -14,7 +14,9 @@ from inventory.models import (
 )
 from orders.models import Order, OrderItem
 from profiles.models import Role
-from reviews.models import Review
+from reviews.models import Review, ReviewImage
+import cloudinary
+import cloudinary.uploader
 
 
 class TestReview(TestCase):
@@ -177,7 +179,31 @@ class TestReview(TestCase):
             rating=5,
             comment='Good product',
         )
+        # create review image
+        self.review_image1 = ReviewImage.objects.create(
+            review=self.review1,
+            image='',
+        )
 
     def test_review_model(self):
         """Tests for Review model str."""
         self.assertEqual(str(self.review1), 'testuser - Nike Skirt - 5')
+
+    def test_review_model_image(self):
+        """Tests for Review model image."""
+        self.assertEqual(str(self.review_image1), 'testuser - Nike Skirt')
+
+    def test_review_image_url(self):
+        """Tests for Review image url."""
+        image1 = ReviewImage.objects.get(id=1)
+        self.assertEqual(
+            image1.image_url,
+            False
+        )
+        image1.image = cloudinary.uploader.upload_image(
+            'static/images/test_product_image.png'
+        )
+        image1.save()
+        self.assertTrue(
+          'res.cloudinary.com' in image1.image_url
+        )
