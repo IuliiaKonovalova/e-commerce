@@ -13,6 +13,8 @@ from inventory.models import (
     ProductInventory,
 )
 from orders.models import Order, OrderItem
+from profiles.models import Role
+from reviews.models import Review
 
 
 class TestReview(TestCase):
@@ -21,6 +23,10 @@ class TestReview(TestCase):
     def setUp(self):
         """Set up for tests."""
         # create user
+        self.role1 = Role.objects.create(
+            name='Customer',
+            description='Customer'
+        )
         self.user = User.objects.create_user(
             username='testuser',
             password='Password987',
@@ -163,3 +169,15 @@ class TestReview(TestCase):
             product_inventory=self.product_inventory1,
             quantity=1,
         )
+        # create review
+        self.review1 = Review.objects.create(
+            user=self.user,
+            product=self.product1,
+            order=self.order1,
+            rating=5,
+            comment='Good product',
+        )
+
+    def test_review_model(self):
+        """Tests for Review model str."""
+        self.assertEqual(str(self.review1), 'testuser - Nike Skirt - 5')
