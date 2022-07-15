@@ -16,6 +16,7 @@ from inventory.models import (
     Stock,
 )
 from orders.models import Order, OrderItem
+from reviews.models import Review, ReviewImage
 
 
 class TestOrdersViews(TestCase):
@@ -436,6 +437,7 @@ class TestOrdersViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'orders/user_orders.html')
 
+
     def test_my_order_details_view_user_logged_logged_out(self):
         """Test my orders view user logged out"""
         response = self.client.get(self.my_order_details_url)
@@ -448,6 +450,33 @@ class TestOrdersViews(TestCase):
         response = self.client.get(self.my_order_details_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'orders/user_order_details.html')
+
+    def test_if_product_in_order_has_review(self):
+        """Test if product in order has review"""
+        self.client.force_login(self.user)
+        # create review
+        self.review1 = Review.objects.create(
+            user=self.user,
+            product=self.product1,
+            order=self.order1,
+            rating=5,
+            comment='Good product',
+        )
+        # create review image
+        self.review_image1 = ReviewImage.objects.create(
+            review=self.review1,
+            image='',
+        )
+        bag = self.client.session['bag']
+        self.assertEqual(bag['1'], 1)
+        self.assertEqual(Order.objects.count(), 1)
+        response = self.client.get(self.my_order_details_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'orders/user_order_details.html')
+        self.assertEqual(
+            response.context['products_in_reviews'],
+            [self.product1]
+        )
 
     def test_my_order_details_view_user_logged_logged_in_not_user(self):
         """Test my orders view OTHER user logged in"""
