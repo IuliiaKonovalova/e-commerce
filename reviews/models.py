@@ -50,3 +50,29 @@ class Review(models.Model):
         ordering = ['-created_at']
 
 
+class ReviewImage(models.Model):
+    """Review image model."""
+    review = models.ForeignKey(
+        Review,
+        on_delete=models.CASCADE,
+        related_name='images',
+    )
+    image =CloudinaryField(
+        'review_image',
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        """Return string representation of model."""
+        return f'{self.review.user.username} - {self.review.product.name}'
+
+    class Meta:
+        """Meta class."""
+        ordering = ['-id']
+
+    @property
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        return False
