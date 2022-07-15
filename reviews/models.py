@@ -8,11 +8,11 @@ from orders.models import Order
 class Review(models.Model):
     """Review model."""
     STAR_CHOICES = (
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-        (5, '5'),
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
     )
     user = models.ForeignKey(
         User,
@@ -30,7 +30,7 @@ class Review(models.Model):
         related_name='reviews',
     )
     rating = models.CharField(
-        max_length=1,
+        max_length=20,
         choices=STAR_CHOICES,
         default=1,
     )
