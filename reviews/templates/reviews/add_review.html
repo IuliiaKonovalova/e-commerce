@@ -1,6 +1,30 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block extra_css %}
+  <style>
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: start;
+    }
 
+    .btn-group label {
+      border-radius: 0.6rem !important;
+      margin-bottom: 0.5rem;
+      background-color: white;
+      color: #ffc419;
+      padding: 0.3em 1em;
+    }
+
+    .btn-check:active+.btn, .btn-check:checked+.btn, .btn.active, .btn.show, .btn:active {
+      background-color: #8100ff57 !important;
+      color: #e2ff00 !important;
+
+    }
+    
+  </style>
+{% endblock %}
 
 {% block content %}
 <div class="profile">
@@ -8,38 +32,44 @@
     <h1>Add review on {{ product.name }}</h1>
 
     <form method="post">
-        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check option" name="{{ rating }}" id="2" value="1" autocomplete="off">
-          <label class="btn btn-outline-primary" for="1">
-            <i class="fas fa-star"></i>
-          </label>
-          <input type="radio" class="btn-check option" name="{{ rating }}" id="2" value="2" autocomplete="off">
-          <label class="btn btn-outline-primary" for="2">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </label>
-          <input type="radio" class="btn-check option" name="{{ rating }}" id="3" value="3" autocomplete="off">
-          <label class="btn btn-outline-primary" for="3">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </label>
-          <input type="radio" class="btn-check option" name="{{ rating }}" id="4" value="4" autocomplete="off">
-          <label class="btn btn-outline-primary" for="4">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </label>
-          <input type="radio" class="btn-check option" name="{{ rating }}" id="5" value="5" autocomplete="off">
-          <label class="btn btn-outline-primary" for="5">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </label>
-        </div>
+      <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+
+        <input type="radio" class="btn-check" name="btnradio" id="5" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="5">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </label>
+        <input type="radio" class="btn-check" name="btnradio" id="4" autocomplete="off">
+        <label class="btn btn-outline-primary" for="4">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </label>
+      <input type="radio" class="btn-check" name="btnradio" id="3" autocomplete="off">
+      <label class="btn btn-outline-primary" for="3">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </label>
+      <input type="radio" class="btn-check" name="btnradio" id="2" autocomplete="off">
+      <label class="btn btn-outline-primary" for="2">
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </label>
+      <input type="radio" class="btn-check" name="btnradio" id="1" autocomplete="off">
+      <label class="btn btn-outline-primary" for="1">
+        <i class="fas fa-star"></i>
+      </label>
+
+
+
+    </div>
+
+
 
       <div class="form-group">
         <label for="review">Review</label>
