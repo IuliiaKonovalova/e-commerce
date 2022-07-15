@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="profile">
+  {% if request.user.is_authenticated %}
+    <h1>Add review on {{ product.name }}</h1>
+
+    <form method="post">
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check option" name="{{ rating }}" id="2" value="1" autocomplete="off">
+          <label class="btn btn-outline-primary" for="1">
+            <i class="fas fa-star"></i>
+          </label>
+          <input type="radio" class="btn-check option" name="{{ rating }}" id="2" value="2" autocomplete="off">
+          <label class="btn btn-outline-primary" for="2">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </label>
+          <input type="radio" class="btn-check option" name="{{ rating }}" id="3" value="3" autocomplete="off">
+          <label class="btn btn-outline-primary" for="3">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </label>
+          <input type="radio" class="btn-check option" name="{{ rating }}" id="4" value="4" autocomplete="off">
+          <label class="btn btn-outline-primary" for="4">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </label>
+          <input type="radio" class="btn-check option" name="{{ rating }}" id="5" value="5" autocomplete="off">
+          <label class="btn btn-outline-primary" for="5">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </label>
+        </div>
+
+      <div class="form-group">
+        <label for="review">Review</label>
+        <textarea class="form-control" id="review" name="review" rows="3">{{ review }}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+  {% endif %}
+</div>
+{% endblock %}
