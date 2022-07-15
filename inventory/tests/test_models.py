@@ -3,6 +3,7 @@ from django.test import TestCase
 from datetime import datetime, timedelta
 from django.core import mail
 from django.contrib.auth.models import User
+from orders.models import Order, OrderItem
 from profiles.models import Role, Profile
 from inventory.models import (
     Category,
@@ -21,6 +22,7 @@ from inventory.models import (
 from email_notifications.models import StockEmailNotification
 import cloudinary
 import cloudinary.uploader
+from reviews.models import Review, ReviewImage
 
 
 class TestModels(TestCase):
@@ -941,3 +943,46 @@ class TestModels(TestCase):
                 product_attribute=product_attribute,
                 product_type=product_type
             )
+
+    def test_get_average_rating(self):
+        """Test average rating for and image"""
+        self.assertEqual(self.product1.get_average_rating(), 0)
+        # create order
+        self.order1 = Order.objects.create(
+            user=self.user,
+            full_name='Test User',
+            email='test@gmail.com',
+            phone='1234567890',
+            address1='123 Main St',
+            address2='',
+            city='New York',
+            county_region_state='NY',
+            country='USA',
+            zip_code='10001',
+            total_paid=10.00,
+            order_number='',
+            order_key='4rguytrfdre454tgETreyhtgfgsd',
+            billing_status=False,
+            status='Pending',
+        )
+        self.order1.save()
+        self.get_order_number = Order.objects.get(id=1).order_number
+        self.order_item1 = OrderItem.objects.create(
+            order=self.order1,
+            product_inventory=self.product_inventory1,
+            quantity=1,
+        )
+        # create review
+        self.review1 = Review.objects.create(
+            user=self.user,
+            product=self.product1,
+            order=self.order1,
+            rating=5,
+            comment='Good product',
+        )
+        # create review image
+        self.review_image1 = ReviewImage.objects.create(
+            review=self.review1,
+            image='',
+        )
+        self.assertEqual(self.product1.get_average_rating(), 5)
