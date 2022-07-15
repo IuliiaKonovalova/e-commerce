@@ -3,6 +3,8 @@ from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+
+from reviews.models import Review
 from .models import Order, OrderItem
 from bag.contexts import bag_contents
 
@@ -77,7 +79,12 @@ class UpdateOrderStatusAJAXView(View):
                     order = get_object_or_404(Order, id=order_id)
                     order.status = request.POST.get('order_status')
                     order.save()
-                    return JsonResponse({'success': True})
+                    return JsonResponse(
+                        {
+                            'success': True,
+                            'order_status': order.status,
+                        },
+                    )
                 else:
                     return JsonResponse({'success': False})
             else:
@@ -178,10 +185,26 @@ class UserOrderDetailsView(View):
             print(order_items)
             all_items = Order.get_order_items(order)
             print(all_items)
+            # check if the order is completed
+            user_reviews_for_this_order = Review.objects.filter(
+                order=order,
+                user=request.user
+            )
+            # get which products are in these reviews
+            products_in_reviews = []
+            for review in user_reviews_for_this_order:
+                products_in_reviews.append(review.product)
+            context = {
+                'order': order,
+                'order_items': order_items,
+                'all_items': all_items,
+                'products_in_reviews': products_in_reviews,
+            }
             if order.user == request.user:
                 return render(
-                    request, 'orders/user_order_details.html',
-                    {'order': order, 'order_items': order_items}
+                    request,
+                    'orders/user_order_details.html',
+                    context,
                 )
             else:
                 return render(
