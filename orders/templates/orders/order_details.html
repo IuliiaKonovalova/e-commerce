@@ -92,44 +92,61 @@
           <strong>Order Details:</strong>
           <div class="order__details--units">
             {% for item in order_items %}
-            <div id="{{ item.id }}" class="order__item">
-              <div>
-                <strong>Item:</strong>
-                <a href="{% url 'product_detail_full' pk=item.product_inventory.product.id %}"
-                  aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link"> 
-                  {{ item.product_inventory.product.name }}
-                  <i class="fa fa-external-link" aria-hidden="true"></i>
-                  <div class="bag__item--image">
-                    {% if item.product_inventory.product.images.all %}
-                      <img src="{{ item.product_inventory.product.get_main_image }}"
-                        alt="Cover image for {{ item.product_inventory.product.name }}">
-                    {% else %}
-                      <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
-                    {% endif %}
+
+
+
+              <div id="{{ item.id }}" class="order__item">
+                {% if request.user.profile.role.id == 3 %}
+                  <div class="order__review--btns">
+                    <a href="#" aria-label="Edit item" class="btn btn__edit">
+                      <i class="fas fa-edit"></i>
+                      Edit
+                    </a>
+                    <a href="#" aria-label="Delete order" class="btn btn__delete">
+                      <i class="fas fa-trash-alt"></i>
+                      Delete
+                    </a>
                   </div>
-                </a>
-              </div>
-              <div>
-                {% if item.product_inventory.get_attribute_values %}
-                  <strong>Options:</strong>
-                  {% for value in item.product_inventory.get_attribute_values %}
-                    {{ value }}
-                  {% endfor %}
                 {% endif %}
-              </div>              
-              <div>
-                <strong>Qty:</strong> {{ item.quantity }}
+
+                <div>
+                  <a href="{% url 'product_detail_full' pk=item.product_inventory.product.id %}"
+                    aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link"> 
+                    {{ item.product_inventory.product.name }}
+                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                    <div class="bag__item--image">
+                      {% if item.product_inventory.product.images.all %}
+                        <img src="{{ item.product_inventory.product.get_main_image }}"
+                          alt="Cover image for {{ item.product_inventory.product.name }}">
+                      {% else %}
+                        <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+                      {% endif %}
+                    </div>
+                  </a>
+                </div>
+                <div class="order__item--details">
+                  <div>
+                    {% if item.product_inventory.get_attribute_values %}
+                      <strong>Options:</strong>
+                      {% for value in item.product_inventory.get_attribute_values %}
+                        {{ value }}
+                      {% endfor %}
+                    {% endif %}
+                  </div>              
+                  <div>
+                    <strong>Qty:</strong> {{ item.quantity }}
+                  </div>
+                  <div>
+                    <strong>Price:</strong> {{ item.product_inventory.sale_price }}
+                  </div>
+                  <div>
+                    <strong>Total:</strong>
+                    <div class="quantity" data-quantity="{{ item.quantity }}">{{ item.quantity }}</div>
+                    x <div class="price" data-price="{{ item.product_inventory.sale_price }}">{{ item.product_inventory.sale_price }}</div>
+                    = <span class="items-total"></span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <strong>Price:</strong> {{ item.product_inventory.sale_price }}
-              </div>
-              <div>
-                <strong>Total:</strong>
-                <div class="quantity" data-quantity="{{ item.quantity }}">{{ item.quantity }}</div>
-                x <div class="price" data-price="{{ item.product_inventory.sale_price }}">{{ item.product_inventory.sale_price }}</div>
-                = <span class="items-total"></span>
-              </div>
-            </div>
             {% endfor %}
           </div>
         </div>
