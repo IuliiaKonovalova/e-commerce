@@ -4,11 +4,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from inventory.models import ProductInventory
 
 from reviews.models import Review
 from .models import Order, OrderItem
 from bag.contexts import bag_contents
-from .forms import OrderForm
+from .forms import OrderForm, OrderItemForm
 
 
 class OrdersView(View):
@@ -241,6 +242,103 @@ class DeleteOrderView(View):
             )
 
 
+class EditOrderItemView(View):
+    """View to edit order item"""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.profile.role.id == 3:
+                order_item = get_object_or_404(
+                    OrderItem,
+                    id=kwargs['order_item_id']
+                )
+                # get product inventory
+                product_inventory = get_object_or_404(
+                    ProductInventory,
+                    id=order_item.product_inventory.id
+                )
+                # get sale_price
+                sale_price = product_inventory.sale_price
+                print(sale_price)
+                # origin quantity
+                origin_quantity = order_item.quantity
+                print(origin_quantity)
+                # multiply sale_price and origin quantity
+                total_price = sale_price * origin_quantity
+                print(total_price)
+                form = OrderItemForm(instance=order_item)
+                context = {
+                    'form': form,
+                    'order_item': order_item,
+                }
+                return render(request, 'orders/edit_order_item.html', context)
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.profile.role.id == 3:
+                order_item = get_object_or_404(
+                    OrderItem,
+                    id=kwargs['order_item_id']
+                )
+                # get product inventory
+                product_inventory = get_object_or_404(
+                    ProductInventory,
+                    id=order_item.product_inventory.id
+                )
+                # get sale_price
+                sale_price = product_inventory.sale_price
+                print(sale_price)
+                # origin quantity
+                origin_quantity = order_item.quantity
+                print(origin_quantity)
+                origin_spending = origin_quantity * sale_price
+                print('origin_spending', origin_spending)
+                # get quantity from form
+                form_quantity = request.POST.get('quantity')
+                print(form_quantity)
+                # get updated spending
+                new_spending = int(form_quantity) * sale_price
+                print('updated_spending', new_spending)
+
+                # get the order
+                order = order_item.order
+                # get order total paid
+                order_total_paid = order.total_paid
+                new_total = order_total_paid - origin_spending + new_spending
+                print('updated_total_paid', new_total)
+                # update order total paid
+                order.total_paid = new_total
+                order.save()
+                
+                form = OrderItemForm(request.POST, instance=order_item)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/orders/order_details/{}'.format(order_item.order.id)
+                    )
+                context = {
+                    'form': form,
+                    'order_item': order_item,
+                }
+                return render(request, 'orders/edit_order_item.html', context)
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
 
 
 def payment_confirmation(data):
