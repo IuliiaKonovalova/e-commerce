@@ -1,12 +1,14 @@
 """Views for orders app."""
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 
 from reviews.models import Review
 from .models import Order, OrderItem
 from bag.contexts import bag_contents
+from .forms import OrderForm
 
 
 class OrdersView(View):
@@ -150,6 +152,60 @@ class AddOrderAJAXView(View):
                 request,
                 'account/login.html',
             )
+
+
+class EditOrderView(View):
+    """View to edit order"""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.profile.role.id == 3:
+                order = get_object_or_404(Order, id=kwargs['order_id'])
+                form = OrderForm(instance=order)
+                context = {
+                    'form': form,
+                    'order': order,
+                }
+                return render(request, 'orders/edit_order.html', context)
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.profile.role.id == 3:
+                order = get_object_or_404(Order, id=kwargs['order_id'])
+                form = OrderForm(request.POST, instance=order)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/orders/order_details/{}'.format(order.id)
+                    )
+                context = {
+                    'form': form,
+                    'order': order,
+                }
+                return render(request, 'orders/edit_order.html', context)
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+
+
+
 
 
 def payment_confirmation(data):
