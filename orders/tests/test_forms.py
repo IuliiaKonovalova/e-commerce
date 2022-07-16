@@ -39,7 +39,7 @@ class OrderFormTest(TestCase):
             'zip_code': '12345',
             'total_paid': 10,
             'billing_status': True,
-            'status': 'Test Status',
+            'status': 'Completed',
         })
         self.assertTrue(form.is_valid())
 
