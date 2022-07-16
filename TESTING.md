@@ -51,11 +51,17 @@ The missing coverage is due to the fact that I was not able to test fully ```Ema
 
 
 
+**Inventory app:**
+
+![Django unit testing. Inventory. Coverage](documentation/testing/coverage/coverage_inventory.png)
+The missing coverage is unknown as I have been testing the code attentively. The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
+
 **Orders app:**
 
 ![Django unit testing. Orders. Coverage](documentation/testing/coverage/coverage_orders.png)
 
 ![Django unit testing. Orders. Coverage](documentation/testing/coverage/coverage_orders_missing_case.png)
+
 Missing case due to the use of the function to update payment status. The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
 
 **Payment app:**
