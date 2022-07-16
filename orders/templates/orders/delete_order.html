@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="dashboard">
+    {% comment %} Check that user is permitted to access this page {% endcomment %}
+    {% if request.user.profile.role.id == 3 %}
+      {% comment %} Delete Order form {% endcomment %}
+      <form class="dashboard__form" method="POST">
+        <h1 class="dashboard__main--name">
+          Delete Order {{ order.id }}
+        </h1>
+        {% comment %} add warning {% endcomment %}
+        <div class="dashboard__form--warning">
+          <p>
+            Are you sure you want to delete this order?
+          </p>
+          <p>
+            This action cannot be undone.
+          </p>
+        </div>
+        {% csrf_token %}
+        {{ form }}
+        <div class="form__btns">
+          <a href="{% url 'order_details' order_id=order.id %}" aria-label="Go to Order page" class="btn btn__cancel">
+            <i class="fas fa-arrow-circle-left"></i>
+            Cancel
+          </a>
+          <button type="submit" class="btn btn__delete">
+            <i class="fas fa-trash-alt"></i>
+            Delete Order
+          </button>
+        </div>
+      </form>
+    {% else %}
+      <h1 class="dashboard__main--name">
+        You are not authorized to access this page
+      </h1>
+    {% endif %}
+  </div>
+{% endblock %}
