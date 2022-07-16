@@ -12,11 +12,16 @@
         Back to orders
       </a>
       <div class="data__main--order" id="order-id" data-id="{{ order.id }}">
-        <a href="{% url 'edit' order_id=order.id %}" aria-label="Edit order" class="btn btn__edit">
-          <i class="fas fa-edit"></i>
-          Edit Order
-        </a>
-
+        {% if request.user.profile.role.id == 3 %}
+          <a href="{% url 'edit' order_id=order.id %}" aria-label="Edit order" class="btn btn__edit">
+            <i class="fas fa-edit"></i>
+            Edit Order
+          </a>
+          <a href="{% url 'delete' order_id=order.id %}" aria-label="Delete order" class="btn btn__delete">
+            <i class="fas fa-trash-alt"></i>
+            Delete Order
+          </a>
+        {% endif %}
         <div>
           <strong>Order ID:</strong> {{ order.id }}
         </div>
