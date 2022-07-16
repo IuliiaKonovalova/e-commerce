@@ -7,6 +7,7 @@ from .views import (
     AddOrderAJAXView,
     EditOrderView,
     DeleteOrderView,
+    EditOrderItemView,
     UserOrdersView,
     UserOrderDetailsView,
 )
@@ -38,6 +39,11 @@ urlpatterns = [
         'delete/<int:order_id>/',
         DeleteOrderView.as_view(),
         name='delete'
+    ),
+    path(
+        'edit_order_item/<int:order_item_id>/',
+        EditOrderItemView.as_view(),
+        name='edit_order_item'
     ),
     path(
         '<str:user>/my_orders/',
