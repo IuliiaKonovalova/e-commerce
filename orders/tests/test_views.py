@@ -273,7 +273,10 @@ class TestOrdersViews(TestCase):
             'edit',
             kwargs={'order_id': self.order1.id}
         )
-
+        self.delete_order_url = reverse(
+            'delete',
+            kwargs={'order_id': self.order1.id}
+        )
 
     def test_orders_view_user_logged_out(self):
         """Test orders view user logged out"""
@@ -730,3 +733,71 @@ class TestOrdersViews(TestCase):
         # check if order status was updated
         self.order1 = Order.objects.get(id=self.order1.id)
         self.assertEqual(self.order1.status, 'Completed')
+
+    def test_delete_order_get_view_user_logged_out(self):
+        """Test delete order get view user logged out"""
+        response = self.client.get(self.delete_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_order_get_view_user_logged_customer(self):
+        """Test delete order get view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.get(self.delete_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_delete_order_get_view_user_logged_staff_without_access(self):
+        """Test delete order get view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.delete_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_delete_order_get_view_user_logged_admin_with_access(self):
+        """Test delete order get view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(self.delete_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'orders/delete_order.html')
+
+    def test_delete_order_post_view_user_logged_out(self):
+        """Test delete order post view user logged out"""
+        response = self.client.post(self.delete_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_order_post_view_user_logged_customer(self):
+        """Test delete order post view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.post(self.delete_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_delete_order_post_view_user_logged_staff_without_access(self):
+        """Test delete order post view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(self.delete_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_delete_order_post_view_user_logged_admin_with_access(self):
+        """Test delete order post view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.post(self.delete_order_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/orders/')
+        # check if order was deleted
+        self.assertEqual(Order.objects.filter(id=self.order1.id).count(), 0)
