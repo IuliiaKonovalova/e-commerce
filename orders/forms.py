@@ -38,3 +38,18 @@ class OrderForm(forms.ModelForm):
             'status': forms.Select(attrs={'class': 'form-control'}),
         }
 
+
+class OrderItemForm(forms.ModelForm):
+    """Form for OrderItem Model"""
+    class Meta:
+        model = OrderItem
+        fields = [
+            'order',
+            'product_inventory',
+            'quantity',
+        ]
+        widgets = {
+            'order': forms.HiddenInput(),
+            'product_inventory': forms.HiddenInput(),
+            'quantity': forms.TextInput(attrs={'class': 'form-control'}),
+        }
