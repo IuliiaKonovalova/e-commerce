@@ -12,6 +12,11 @@
         Back to orders
       </a>
       <div class="data__main--order" id="order-id" data-id="{{ order.id }}">
+        <a href="{% url 'edit' order_id=order.id %}" aria-label="Edit order" class="btn btn__edit">
+          <i class="fas fa-edit"></i>
+          Edit Order
+        </a>
+
         <div>
           <strong>Order ID:</strong> {{ order.id }}
         </div>
