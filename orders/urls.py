@@ -5,6 +5,8 @@ from .views import (
     OrderDetailsView,
     UpdateOrderStatusAJAXView,
     AddOrderAJAXView,
+    EditOrderView,
+
     UserOrdersView,
     UserOrderDetailsView,
 )
@@ -27,6 +29,12 @@ urlpatterns = [
         AddOrderAJAXView.as_view(),
         name='add'
     ),
+    path(
+        'edit/<int:order_id>/',
+        EditOrderView.as_view(),
+        name='edit'
+    ),
+
     path(
         '<str:user>/my_orders/',
         UserOrdersView.as_view(),
