@@ -31,12 +31,6 @@ coverage html
 ```
 python3 -m http.server
 ```
-
-**Profiles app:**
-
-![Django unit testing. Profiles. Coverage](documentation/testing/coverage/coverage_profiles.png)
-The missing coverage is due to the fact that I was not able to test the edit profile view on the password form. The description of the view is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
-
 **Bag app:**
 
 ![Django unit testing. Bag. Coverage](documentation/testing/coverage/coverage_bag.png)
@@ -47,27 +41,57 @@ However, after implementing the promotion functionality, I was not been able to 
 
  The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
 
-**Wishlist app:**
-
-![Django unit testing. Wishlist. Coverage](documentation/testing/coverage/coverage_wishlist.png)
-
-**Promotions app:**
-
-![Django unit testing. Promotions. Coverage](documentation/testing/coverage/coverage_promotions.png)
-
-
 **Email_notification app:**
 
 ![Django unit testing. Email_notification. Coverage](documentation/testing/coverage/coverage_email_notification.png)
 The missing coverage is due to the fact that I was not able to test fully ```EmailStockNotificationFormAJAX```. The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
+
+**Home app:**
+
+
+
+
+**Orders app:**
+
+![Django unit testing. Orders. Coverage](documentation/testing/coverage/coverage_orders.png)
+
+![Django unit testing. Orders. Coverage](documentation/testing/coverage/coverage_orders_missing_case.png)
+Missing case due to the use of the function to update payment status. The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
 
 **Payment app:**
 
 ![Django unit testing. Payment. Coverage](documentation/testing/coverage/coverage_payment.png)
 The missing cases in the coverage is simply because I have no idea how test webhooks. The functionality is working well and described in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:** 
 
+
+**Personnel app:**
+
+
+
+
+
+**Profiles app:**
+
+![Django unit testing. Profiles. Coverage](documentation/testing/coverage/coverage_profiles.png)
+The missing coverage is due to the fact that I was not able to test the edit profile view on the password form. The description of the view is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
+
+
+**Promotions app:**
+
+![Django unit testing. Promotions. Coverage](documentation/testing/coverage/coverage_promotions.png)
+
 ![Django unit testing. Payment. Coverage. Missing cases](documentation/testing/coverage/coverage_payment_missing_cases.png)
 
+
+**Reviews app:**
+
+
+
+
+
+**Wishlist app:**
+
+![Django unit testing. Wishlist. Coverage](documentation/testing/coverage/coverage_wishlist.png)
 
 ### Django unit testing Issues
 
@@ -500,3 +524,7 @@ Ad categories data to template - > Add categories data to template
 5. ec5a9ae366c8cd077c2d3d45e9e308b912b49c5d
 
 Add view for adding brand functionality -> Add testing to test adding brand functionality
+
+6. 64d3e92baacd3f271da0a36bcaebcac2cf5be6e5
+
+Add edit_order_item_url -> Add tests for edit order item functionality
