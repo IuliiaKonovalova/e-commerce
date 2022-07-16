@@ -269,6 +269,10 @@ class TestOrdersViews(TestCase):
             kwargs={'order_id': self.order1.id}
         )
         self.update_order_status_url = reverse('update_order_status')
+        self.edit_order_url = reverse(
+            'edit',
+            kwargs={'order_id': self.order1.id}
+        )
 
 
     def test_orders_view_user_logged_out(self):
@@ -617,3 +621,112 @@ class TestOrdersViews(TestCase):
         # check if order status was updated
         self.order1 = Order.objects.get(id=self.order1.id)
         self.assertEqual(self.order1.status, 'Pending')
+
+    def test_edit_order_get_view_user_logged_out(self):
+        """Test edit order get view user logged out"""
+        response = self.client.get(self.edit_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_order_get_view_user_logged_customer(self):
+        """Test edit order get view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.get(self.edit_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_edit_order_get_view_user_logged_staff_without_access(self):
+        """Test edit order get view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.edit_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_edit_order_get_view_user_logged_admin_with_access(self):
+        """Test edit order get view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(self.edit_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'orders/edit_order.html')
+
+    def test_edit_order_post_view_user_logged_out(self):
+        """Test edit order post view user logged out"""
+        response = self.client.post(self.edit_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_order_post_view_user_logged_customer(self):
+        """Test edit order post view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.post(self.edit_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_edit_order_post_view_user_logged_staff_without_access(self):
+        """Test edit order post view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(self.edit_order_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_edit_order_post_view_user_logged_admin_with_access_invalid(self):
+        """Test edit order post view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.post(
+            self.edit_order_url,
+            data={
+                'order_id': self.order1.id,
+                'order_status': 'Completed',
+                'order_total': '100',
+                'order_date': '2020-01-01',
+                'order_customer': self.user3.id,
+                'order_staff': self.user3.id,
+                'order_products': [self.product1.id, self.product2.id],
+            }
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'orders/edit_order.html')
+
+    def test_edit_order_post_view_user_logged_admin_with_access_valid(self):
+        """Test edit order post view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        # check status of the order before update
+        self.assertEqual(self.order1.status, 'Pending')
+        response = self.client.post(
+            self.edit_order_url,
+            data={
+                'order_id': self.order1.id,
+                'full_name': 'Test User',
+                'email': 'test@mail.com',
+                'phone': '1234567890',
+                'address1': 'Test Address 1',
+                'address2': 'Test Address 2',
+                'city': 'Test City',
+                'county_region_state': 'Test County',
+                'country': 'Test Country',
+                'zip_code': '12345',
+                'total_paid': 10,
+                'billing_status': True,
+                'status': 'Completed',
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        # check if order status was updated
+        self.order1 = Order.objects.get(id=self.order1.id)
+        self.assertEqual(self.order1.status, 'Completed')
