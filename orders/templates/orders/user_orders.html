@@ -7,31 +7,82 @@
     {% if request.user.is_authenticated %}
       <h1>My orders</h1>
       <div class="orders__all">
-        {% for order in orders %}
-        <a class="" href="{% url 'my_order_details' user=request.user order_id=order.id %}">
-          <div>
-            <strong>Order ID:</strong> {{ order.id }}
+        {% if orders %}
+          {% for order in orders %}
+          <a class="" href="{% url 'my_order_details' user=request.user order_id=order.id %}">
+            <div>
+              <strong>Order ID:</strong> {{ order.id }}
+            </div>
+            <div>
+              <strong>Order Number:</strong> {{ order.order_number|truncatechars:15 }}
+            </div>
+            <div>
+              <strong>Order Key:</strong> {{ order.order_key|truncatechars:15 }}
+            </div>
+            <div>
+              <strong>Order Date:</strong> {{ order.created }}
+            </div>
+            <div>
+              <strong>Order Total:</strong> {{ order.total_paid }}
+            </div>
+            <div>
+              <strong>Paid:</strong> {{ order.billing_status }}
+            </div>
+            <div>
+              <strong>Order Status:</strong> {{ order.status }}
+            </div>
+          </a>
+          {% endfor %}
+          {% comment %} Control Pagination {% endcomment %}
+          {% if orders.paginator.num_pages %}
+            {% if not orders.paginator.num_pages == 1 %}
+              <div class="pagination">
+                <div class="pagination__navigation">
+                  {% if orders.has_previous and not orders.has_next %}
+                    <a href="?page={{ orders.previous_page_number }}" class="pagination__navigation--btn"
+                      aria-label="Go to previous page results">
+                      <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <div class="pagination__navigation--fake">
+                      <i class="fas fa-chevron-right"></i>
+                    </div>
+                  {% elif orders.has_next and not orders.has_previous %}
+                    <div class="pagination__navigation--fake">
+                      <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <a href="?page={{ orders.next_page_number }}" class="pagination__navigation--btn"
+                      aria-label="Go to next page results">
+                      <i class="fas fa-chevron-right"></i>
+                    </a>
+                  {% elif orders.has_next and orders.has_previous %}
+                    <a href="?page={{ orders.previous_page_number }}" class="pagination__navigation--btn"
+                      aria-label="Go to previous page results">
+                      <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <a href="?page={{ orders.next_page_number }}" class="pagination__navigation--btn"
+                      aria-label="Go to next page results">
+                      <i class="fas fa-chevron-right"></i>
+                    </a>
+                  {% else %}
+                    <div class="pagination__navigation--fake">
+                      <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="pagination__navigation--fake">
+                      <i class="fas fa-chevron-right"></i>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="pagination__location">
+                  Page <span>{{ orders.number }}</span> of {{ orders.paginator.num_pages }}
+                </div>
+              </div>
+            {% endif %}
+          {% endif %}
+        {% else %}
+          <div class="no-orders">
+            <p>You have no orders.</p>
           </div>
-          <div>
-            <strong>Order Number:</strong> {{ order.order_number|truncatechars:15 }}
-          </div>
-          <div>
-            <strong>Order Key:</strong> {{ order.order_key|truncatechars:15 }}
-          </div>
-          <div>
-            <strong>Order Date:</strong> {{ order.created }}
-          </div>
-          <div>
-            <strong>Order Total:</strong> {{ order.total_paid }}
-          </div>
-          <div>
-            <strong>Paid:</strong> {{ order.billing_status }}
-          </div>
-          <div>
-            <strong>Order Status:</strong> {{ order.status }}
-          </div>
-        </a>
-        {% endfor %}
+        {% endif %}
       </div>
     {% else %}
     <div class="">
