@@ -68,7 +68,7 @@
           <div id="{{ item.id }}" class="order__item">
             <div class="order__review--btns">
               {% if order.status == 'Completed' and item.product_inventory.product in products_in_reviews %}
-                <a href="#" aria-label="Edit my review this product" class="btn btn__edit">
+                <a href="" aria-label="Edit my review this product" class="btn btn__edit">
                   <i class="fas fa-edit"></i>
                   Edit review
                 </a>
@@ -77,7 +77,7 @@
                   Delete review
                 </a>
               {% elif order.status == 'Completed' and not item.product_inventory.product in products_in_reviews %}
-                <a href="#" aria-label="Add review for the item" class="btn btn__add">
+                <a href="{% url 'add_review' order_id=order.id product=item.product_inventory.product.id %}" aria-label="Add review for the item" class="btn btn__add">
                   <i class="fas fa-star"></i>
                   Add Review
                 </a>
@@ -148,7 +148,6 @@
         // multiply data-quantity and data-price and put it in items-total span
         items_total.text(quantity_value * price_value)
       });
-        
     });
   </script>
 {% endblock %}
