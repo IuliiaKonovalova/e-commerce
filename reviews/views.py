@@ -71,3 +71,58 @@ class AddReviewView(View):
             )
 
 
+class AddReviewWithImagesAJAXView(View):
+    """View for add review with images AJAX."""
+
+    def post(self, request, *args, **kwargs):
+        """Post method for add review with images AJAX."""
+        if request.user.is_authenticated:
+            if request.is_ajax():
+                order_id = request.POST.get('order_id')
+                print('order_id', order_id)
+                order = get_object_or_404(Order, id=order_id)
+                print('order', order)
+                product_id = request.POST.get('product_id')
+                print('product_id', product_id)
+                product = get_object_or_404(Product, id=product_id)
+                print('product', product)
+                user = request.user
+                print('user', user)
+                comment = request.POST.get('comment')
+                print('comment', comment)
+                rating = request.POST.get('rating')
+                print('rating', rating)
+                if Review.objects.filter(
+                    user=user,
+                    product=product,
+                    order=order,
+                ).exists():
+                    review_id = Review.objects.get(
+                        user=user,
+                        product=product,
+                        order=order,
+                    ).id
+                    return JsonResponse(
+                        {'success': False, 'review_id': review_id}
+                    )
+                else:
+                    review = Review.objects.create(
+                        order=order,
+                        product=product,
+                        user=user,
+                        comment=comment,
+                        rating=rating,
+                    )
+                    print('review', review)
+                    images = request.FILES.getlist('images')
+                    print('images', images)
+                    for image in request.FILES.getlist('images'):
+                        ReviewImage.objects.create(
+                            review=review,
+                            image=image,
+                        )
+                    return JsonResponse(
+                        {'success': True, 'review_id': review.id}
+                    )
+            else:
+                return JsonResponse({'success': False})
