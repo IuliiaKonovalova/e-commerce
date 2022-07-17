@@ -287,6 +287,10 @@ class TestOrdersViews(TestCase):
             'edit_order_item',
             kwargs={'order_item_id': self.order_item1}
         )
+        self.delete_order_item_url = reverse(
+            'delete_order_item',
+            kwargs={'order_item_id': self.order_item1}
+        )
 
     def test_orders_view_user_logged_out(self):
         """Test orders view user logged out"""
@@ -917,3 +921,80 @@ class TestOrdersViews(TestCase):
             Order.objects.get(id=self.order1.id).total_paid,
             Decimal('19.00')
         )
+
+    def test_delete_order_item_get_view_user_logged_out(self):
+        """Test delete order item get view user logged out"""
+        response = self.client.get(self.delete_order_item_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_order_item_get_view_user_logged_customer(self):
+        """Test delete order item get view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.get(self.delete_order_item_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_delete_order_item_get_view_staff_without_access(self):
+        """Test delete order item get view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.delete_order_item_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_delete_order_item_get_view_admin_with_access(self):
+        """Test delete order item get view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(self.delete_order_item_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'orders/delete_order_item.html')
+
+    def test_delete_order_item_post_view_user_logged_out(self):
+        """Test delete order item post view user logged out"""
+        response = self.client.post(self.delete_order_item_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_order_item_post_view_user_logged_customer(self):
+        """Test delete order item post view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.post(self.delete_order_item_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_delete_order_item_post_view_staff_without_access(self):
+        """Test delete order item post view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(self.delete_order_item_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+
+    def test_delete_order_item_post_view_admin_with_access(self):
+        """Test delete order item post view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.post(self.delete_order_item_url)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, '/orders/order_details/1')
+        # check if order item was deleted
+        self.assertEqual(
+            OrderItem.objects.filter(id=self.order_item1.id).count(),
+            0
+        )
+        # check if order was updated
+        self.assertEqual(
+            Order.objects.get(id=self.order1.id).total_paid,
+            Decimal('1.00')
+        )
+
