@@ -56,14 +56,14 @@
         <div class="gallery"></div>
       </div>
       <div class="form__btns">
-        <a href="{% url 'products_table' %}" aria-label="Go to Promotions page" class="btn btn-primary">
+        <a href="{% url 'products_table' %}" aria-label="Go to Promotions page" class="btn btn__cancel">
           <i class="fas fa-arrow-circle-left"></i>
           Cancel
         </a>
-        <button type="submit" class="btn btn-primary">
+        <a class="btn btn__add" id="review-submit">
           <i class="fas fa-save"></i>
           Save Review
-        </button>
+        </a>
       </div>
     </form>
 
@@ -75,11 +75,67 @@
 <script src="{% static 'js/multiple-image-video(MIV).js' %}"></script>
 <script>
     $(document).ready(function() {
+      let csrfToken = '{{ csrf_token }}';
+      $('.gallery').miv({
+        image:'.cam',
+        //video:'.vid'
+      });
+      // get the image files from the .gallery div
+      let images = $('.gallery');
 
-    $('.gallery').miv({
-      image:'.cam',
-      //video:'.vid'
-    });
+
+
+      $('#review-submit').on('click', function() {
+        console.log('clicked');
+        let rating = parseInt($('input[name=btnradio]:checked').attr('id'));
+        console.log(rating);
+        let review = $('#review').val();
+        console.log(review);
+        let images = $('.gallery');
+        let images_array = [];
+        $('input[type=file]').each(function() {
+          images_array.push($(this).prop('files')[0]);
+        });
+        /*
+        images.find('img').each(function() {
+          let fileInput = $(this).attr('src');
+          console.log(fileInput);
+          fileInput.type = 'file';
+          console.log(fileInput);
+          fileInput.accept = 'image/*';
+          console.log(fileInput);
+          images_array.push(fileInput);
+          //images_array.push($(this).attr('src'));
+        });
+        */
+        console.log(images_array);
+
+
+        // Create formData
+        let formData = new FormData();
+        formData.append('review', 'hui');
+        console.log(formData.values());
+
+        formData.append('user', {{ request.user.id }});
+
+        formData.append('product', {{ product.id }});
+        formData.append('order', {{ order.id }});
+        formData.append('rating', rating);
+        formData.append('comment', review);
+        images_array.forEach(function(image) {
+          formData.append('images', image);
+        });
+        //formData.append('images', images_array);
+        formData.append('csrfmiddlewaretoken', csrfToken);
+
+        for(let i of formData) {
+          console.log(i);
+        }
+        // formData to string
+        let formDataString = JSON.stringify(formData);
+        console.log(formDataString);
+
+      })
 
     });
   </script>
