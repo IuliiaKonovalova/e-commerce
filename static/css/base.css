@@ -175,7 +175,8 @@ button {
 
 /* -------- Profile -------------- */
 .profile,
-.payment {
+.payment,
+.review {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -186,7 +187,8 @@ button {
 }
 
 .profile h1,
-.payment h1 {
+.payment h1,
+.review h1 {
   font-size: 1.7rem;
   font-weight: 900;
   color: var(--clr-text--900);
@@ -1653,6 +1655,111 @@ div.data__main--order:hover {
 
 
 
+
+
+
+
+
+/* --------- REVIEWS ---------- */
+.review__details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--br);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  color: var(--clr-primary--500);
+  padding: 1em;
+  background-color: var(--clr-text--100);
+}
+
+.review__details--data.comment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.review__images {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  grid-gap: 1rem;
+  margin-top: 1em;
+}
+
+.review__image {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--br);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  color: var(--clr-primary--500);
+  padding: 1em;
+  background-color: var(--clr-text--100);
+}
+
+
+
+
+
+
+
+
+/* --------- Images FORMSSSSSSSSSSSSSSSSS ---------- */
+.form__review .btn-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+}
+
+.form__review .btn-group label {
+  border-radius: 0.6rem !important;
+  margin-bottom: 0.3em;
+  background-color: white;
+  color: #ffc419;
+  padding: 0.3em 1em;
+  font-size: 0.8rem !important;
+}
+
+.form__review .btn-check:active+.btn,
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:active {
+  background-color: #8100ff57 !important;
+  color: #e2ff00 !important;
+}
+
+
+.multiple__images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--br);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+  color: var(--clr-primary--500);
+  padding: 1em;
+  background-color: var(--clr-text--100);
+  margin-top: 1em;
+
+}
+
+.multiple__images a {
+  color: #7c57bd;
+  font-size: 3rem;
+}
+
+.multiple__images a:hover {
+  color: #5a3894;
+}
 
 /* --------- FORMSSSSSSSSSSSSSSSSS ---------- */
 .form-text.text-muted {
