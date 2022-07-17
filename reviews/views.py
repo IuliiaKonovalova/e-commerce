@@ -27,3 +27,47 @@ class ReviewDetailView(View):
         }
         return render(request, 'reviews/review_detail.html', context)
 
+
+class AddReviewView(View):
+    """View for add review page."""
+
+    def get(self, request, *args, **kwargs):
+        """Get method for add review page."""
+        if request.user.is_authenticated:
+            # check if the order.user is request.user
+            order_id = kwargs['order_id']
+            order = get_object_or_404(Order, id=order_id)
+            if order.user == request.user:
+                product_id = kwargs['product_id']
+                product = get_object_or_404(Product, id=product_id)
+                user = request.user
+                # check if this user has already reviewed this product
+                if Review.objects.filter(
+                    user=user,
+                    product=product,
+                    order=order,
+                ).exists():
+                    return render(
+                        request,
+                        'reviews/review_already_exists.html',
+                        {'product': product, 'order': order}
+                    )
+                else:
+                    context = {
+                        'order': order,
+                        'product': product,
+                        'user': user,
+                    }
+                    return render(request, 'reviews/add_review.html', context)
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
