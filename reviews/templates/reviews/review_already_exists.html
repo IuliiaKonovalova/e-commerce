@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+  <div class="profile">
+    {% if request.user.is_authenticated and request.user == order.user %}
+      <h1>You have already left a  review on {{ product.name }}</h1>
+      <div>
+        <a href="{% url 'review' order_id=order.id product_id=product.id %}"
+            aria-label="View your review for product" class="btn btn__redirect">
+          <i class="fas fa-eye"></i>
+          View your review
+        </a>
+      </div>
+    {% else %}
+      <h1>You need to be logged in to view this page</h1>
+    {% endif %}
+  </div>
+{% endblock %}
