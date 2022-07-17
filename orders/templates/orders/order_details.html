@@ -98,11 +98,11 @@
               <div id="{{ item.id }}" class="order__item">
                 {% if request.user.profile.role.id == 3 %}
                   <div class="order__review--btns">
-                    <a href="#" aria-label="Edit item" class="btn btn__edit">
+                    <a href="{% url 'edit_order_item' order_item_id=item.id %}" aria-label="Edit item" class="btn btn__edit">
                       <i class="fas fa-edit"></i>
                       Edit
                     </a>
-                    <a href="#" aria-label="Delete order" class="btn btn__delete">
+                    <a href="{% url 'delete_order_item' order_item_id=item.id %}" aria-label="Delete order" class="btn btn__delete">
                       <i class="fas fa-trash-alt"></i>
                       Delete
                     </a>
