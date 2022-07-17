@@ -96,21 +96,7 @@
         $('input[type=file]').each(function() {
           images_array.push($(this).prop('files')[0]);
         });
-        /*
-        images.find('img').each(function() {
-          let fileInput = $(this).attr('src');
-          console.log(fileInput);
-          fileInput.type = 'file';
-          console.log(fileInput);
-          fileInput.accept = 'image/*';
-          console.log(fileInput);
-          images_array.push(fileInput);
-          //images_array.push($(this).attr('src'));
-        });
-        */
         console.log(images_array);
-
-
         // Create formData
         let formData = new FormData();
         formData.append('review', 'hui');
@@ -118,8 +104,8 @@
 
         formData.append('user', {{ request.user.id }});
 
-        formData.append('product', {{ product.id }});
-        formData.append('order', {{ order.id }});
+        formData.append('product_id', {{ product.id }});
+        formData.append('order_id', {{ order.id }});
         formData.append('rating', rating);
         formData.append('comment', review);
         images_array.forEach(function(image) {
@@ -134,6 +120,28 @@
         // formData to string
         let formDataString = JSON.stringify(formData);
         console.log(formDataString);
+
+        // create AJAX request
+        $.ajax({
+          url: "{% url 'add_review_with_images_ajax' %}",
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(data) {
+            console.log(data);
+            if (data.success) {
+              console.log('success');
+              //window.location.href = "{% url 'products_table' %}";
+            } else {
+              console.log('Already reviewed');
+            }
+          },
+          error: function(data) {
+            console.log(data);
+            console.log('error');
+          }
+        });
 
       })
 
