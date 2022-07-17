@@ -4,7 +4,7 @@ from django.urls import reverse, resolve
 from reviews.views import (
     ReviewDetailView,
     AddReviewView,
-
+    AddReviewWithImagesAJAXView,
 )
 
 
@@ -22,8 +22,14 @@ class TestUrls(SimpleTestCase):
         """Test add review url"""
         url = reverse(
             'add_review',
-            kwargs={'order_id': 1, 'product': 1}
+            kwargs={'order_id': 1, 'product_id': 1}
         )
         self.assertEquals(resolve(url).func.view_class, AddReviewView)
 
+    def test_add_review_with_images_ajax_url(self):
+        """Test add review with images AJAX url"""
+        url = reverse('add_review_with_images_ajax')
+        self.assertEquals(
+            resolve(url).func.view_class, AddReviewWithImagesAJAXView
+        )
 
