@@ -341,6 +341,77 @@ class EditOrderItemView(View):
             )
 
 
+class DeleteOrderItemView(View):
+    """View to delete order item"""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.profile.role.id == 3:
+                order_item = get_object_or_404(
+                    OrderItem,
+                    id=kwargs['order_item_id']
+                )
+                context = {
+                    'order_item': order_item,
+                }
+                return render(
+                    request,
+                    'orders/delete_order_item.html',
+                    context
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.profile.role.id == 3:
+                order_item = get_object_or_404(
+                    OrderItem,
+                    id=kwargs['order_item_id']
+                )
+                product_inventory = get_object_or_404(
+                    ProductInventory,
+                    id=order_item.product_inventory.id
+                )
+                # get sale_price
+                sale_price = product_inventory.sale_price
+                print(sale_price)
+                # origin quantity
+                origin_quantity = order_item.quantity
+                print(origin_quantity)
+                origin_spending = origin_quantity * sale_price
+                print('origin_spending', origin_spending)
+                # get the order
+                order = order_item.order
+                # get order total paid
+                order_total_paid = order.total_paid
+                new_total = order_total_paid - origin_spending
+                print('updated_total_paid', new_total)
+                # update order total paid
+                order.total_paid = new_total
+                order.save()
+                order_item.delete()
+                return HttpResponseRedirect(
+                    '/orders/order_details/{}'.format(order.id)
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
 def payment_confirmation(data):
     Order.objects.filter(order_key=data).update(billing_status=True)
 
@@ -352,7 +423,7 @@ class UserOrdersView(View):
             user = request.user
             p = Paginator(Order.objects.filter(user=user).filter(
                 billing_status=True
-            ), 25)
+            ), 15)
             page = request.GET.get('page')
             orders = p.get_page(page)
             return render(
