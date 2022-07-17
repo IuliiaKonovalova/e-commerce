@@ -245,13 +245,13 @@ button {
 }
 
 .btn__cancel {
-  background-color: var(--clr-btn-edit--300) !important;
+  background-color: var(--clr-primary--300) !important;
   color: var(--clr-text--100) !important;
 }
 
 .btn__cancel:hover,
 .btn__cancel:focus {
-  background-color: var(--clr-btn-edit--400) !important;
+  background-color: var(--clr-primary--400) !important;
   color: var(--clr-text--100) !important;
 }
 
@@ -593,6 +593,7 @@ button {
 
 .btn {
   font-weight: 900;
+  --bs-btn-font-size: var(--fs) !important;
 }
 
 .btn-primary {
@@ -1623,7 +1624,7 @@ div.data__main--order:hover {
   width: 100%;
   position: relative;
   border-radius: var(--br);
-  padding: 0.7em 1.5em;
+  padding: 1em 1.5em;
   margin-bottom: 0.5em;
   border: 1px solid var(--clr-primary--500);
   display: grid !important;
@@ -1639,7 +1640,7 @@ div.data__main--order:hover {
 
 .order__review--btns a {
   margin-left: 0.3em;
-
+  font-size: 0.7rem;
 }
 
 .order__item--details {
@@ -1658,11 +1659,23 @@ div.data__main--order:hover {
   display: none;
 }
 
+.dashboard__form,
 .adding__promotion--form {
-  background-color: var(--clr-accent--100);
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%; */
+  border-radius: var(--br);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  color: var(--clr-primary--500);
+  padding: 1em;
+  background-color: var(--clr-text--100);
   padding: 1rem;
   border-radius: var(--br);
   width: 100%;
+  max-width: 50rem;
 }
 
 .adding__promotion--form textarea {
@@ -1690,6 +1703,11 @@ div.data__main--order:hover {
   font-family: sans-serif;
   overflow: hidden;
   word-break: keep-all;
+}
+
+.form__btns {
+  width: 100%;
+  margin-top: 1rem;
 }
 
 /* --------- Modal ----------- */
