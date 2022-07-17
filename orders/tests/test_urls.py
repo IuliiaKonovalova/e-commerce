@@ -9,6 +9,7 @@ from orders.views import (
     EditOrderView,
     DeleteOrderView,
     EditOrderItemView,
+    DeleteOrderItemView,
     UserOrdersView,
     UserOrderDetailsView,
 )
@@ -66,3 +67,8 @@ class TestUrls(SimpleTestCase):
         """Test edit order item url."""
         url = reverse('edit_order_item', kwargs={'order_item_id': 1})
         self.assertEquals(resolve(url).func.view_class, EditOrderItemView)
+
+    def test_delete_order_item_url(self):
+        """Test delete order item url."""
+        url = reverse('delete_order_item', kwargs={'order_item_id': 1})
+        self.assertEquals(resolve(url).func.view_class, DeleteOrderItemView)
