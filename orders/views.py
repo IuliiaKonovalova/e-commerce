@@ -77,7 +77,6 @@ class UpdateOrderStatusAJAXView(View):
             user_role = request.user.profile.role.id
             if user_role == 3 or user_role == 4:
                 if request.is_ajax():
-                    print(request.POST)
                     order_id =  request.POST.get('order_id')
                     order = get_object_or_404(Order, id=order_id)
                     order.status = request.POST.get('order_status')
@@ -107,7 +106,6 @@ class AddOrderAJAXView(View):
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if request.is_ajax():
-                print(request.POST)
                 user = request.user
                 full_name = request.POST.get('full_name')
                 email = request.POST.get('email')
@@ -139,7 +137,6 @@ class AddOrderAJAXView(View):
                         order_key=order_key,
                         total_paid=total_paid,
                     )
-                    print(order)
                     for item in bag_items:
                         item = OrderItem.objects.create(
                             order=order,
@@ -258,13 +255,10 @@ class EditOrderItemView(View):
                 )
                 # get sale_price
                 sale_price = product_inventory.sale_price
-                print(sale_price)
                 # origin quantity
                 origin_quantity = order_item.quantity
-                print(origin_quantity)
                 # multiply sale_price and origin quantity
                 total_price = sale_price * origin_quantity
-                print(total_price)
                 form = OrderItemForm(instance=order_item)
                 context = {
                     'form': form,
@@ -295,29 +289,21 @@ class EditOrderItemView(View):
                 )
                 # get sale_price
                 sale_price = product_inventory.sale_price
-                print(sale_price)
                 # origin quantity
                 origin_quantity = order_item.quantity
-                print(origin_quantity)
                 origin_spending = origin_quantity * sale_price
-                print('origin_spending', origin_spending)
                 # get quantity from form
                 form_quantity = request.POST.get('quantity')
-                print(form_quantity)
                 # get updated spending
                 new_spending = int(form_quantity) * sale_price
-                print('updated_spending', new_spending)
-
                 # get the order
                 order = order_item.order
                 # get order total paid
                 order_total_paid = order.total_paid
                 new_total = order_total_paid - origin_spending + new_spending
-                print('updated_total_paid', new_total)
                 # update order total paid
                 order.total_paid = new_total
                 order.save()
-                
                 form = OrderItemForm(request.POST, instance=order_item)
                 if form.is_valid():
                     form.save()
@@ -381,18 +367,14 @@ class DeleteOrderItemView(View):
                 )
                 # get sale_price
                 sale_price = product_inventory.sale_price
-                print(sale_price)
                 # origin quantity
                 origin_quantity = order_item.quantity
-                print(origin_quantity)
                 origin_spending = origin_quantity * sale_price
-                print('origin_spending', origin_spending)
                 # get the order
                 order = order_item.order
                 # get order total paid
                 order_total_paid = order.total_paid
                 new_total = order_total_paid - origin_spending
-                print('updated_total_paid', new_total)
                 # update order total paid
                 order.total_paid = new_total
                 order.save()
@@ -442,9 +424,7 @@ class UserOrderDetailsView(View):
             order = get_object_or_404(Order, id=kwargs['order_id'])
             # get order items
             order_items = OrderItem.objects.filter(order=order)
-            print(order_items)
             all_items = Order.get_order_items(order)
-            print(all_items)
             # check if the order is completed
             user_reviews_for_this_order = Review.objects.filter(
                 order=order,
