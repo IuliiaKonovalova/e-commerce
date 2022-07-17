@@ -274,6 +274,9 @@ class TestReviewsViews(TestCase):
             'add_review',
             kwargs={'order_id': 1, 'product_id': 2}
         )
+        self.add_review_with_images_ajax_url = reverse(
+            'add_review_with_images_ajax',
+        )
 
     def test_review_view(self):
         response = self.client.get(self.review_url)
@@ -312,3 +315,81 @@ class TestReviewsViews(TestCase):
             response,
             'profiles/access_denied.html'
         )
+
+    def test_add_review_with_images_ajax_view_user_logged_out(self):
+        """Test add review with images ajax view user logged out."""
+        response = self.client.get(self.add_review_with_images_ajax_url)
+        self.assertEqual(response.status_code, 405)
+
+    def test_add_review_with_images_ajax_view_logged_in_valid(self):
+        """Test add review with images ajax view user logged in valid."""
+        self.client.force_login(self.user)
+        image1 = open('static/images/test_product_image.png', 'rb')
+        image2 = open('static/images/sale.png', 'rb')
+        response = self.client.post(
+            self.add_review_with_images_ajax_url,
+            {
+                'order_id': 1,
+                'product_id': 2,
+                'comment': 'Good product',
+                'rating': 5,
+                # 'request.FILES.getlist('images')
+                'images': [image1, image2],
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+
+    def test_add_review_with_images_ajax_view_logged_no_images(self):
+        """Test add review with images ajax view user logged no images."""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.add_review_with_images_ajax_url,
+            {
+                'order_id': 1,
+                'product_id': 2,
+                'comment': 'Good product',
+                'rating': 5,
+                'images': [],
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], True)
+
+    def test_add_review_with_images_ajax_view_logged_review_before(self):
+        """
+        Test add review when user has already left a review for
+        the product before.
+        """
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.add_review_with_images_ajax_url,
+            {
+                'order_id': 1,
+                'product_id': 1,
+                'comment': 'Good product',
+                'rating': 5,
+                'images': [],
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+
+    def test_add_review_with_images_ajax_view_logged_failed(self):
+        """Test add review with images ajax view user logged in invalid."""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.add_review_with_images_ajax_url,
+            {
+                'order_id': 1,
+                'product_id': 2,
+                'comment': 'Good product',
+                'rating': 5,
+                'images': [],
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
