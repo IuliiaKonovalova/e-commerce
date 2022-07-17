@@ -249,13 +249,6 @@ class TestReviewsViews(TestCase):
             rating=5,
             comment='Good product',
         )
-        self.review2 = Review.objects.create(
-            user=self.user,
-            order=self.order1,
-            product=self.product2,
-            rating=4,
-            comment='Good product',
-        )
         # set reviewImage
         self.reviewImage1 = ReviewImage.objects.create(
             review=self.review1,
@@ -274,7 +267,12 @@ class TestReviewsViews(TestCase):
         )
         self.add_review_url = reverse(
             'add_review',
-            kwargs={'order_id': 1, 'product': 1}
+            kwargs={'order_id': 1, 'product_id': 1}
+        )
+
+        self.add_review2_url = reverse(
+            'add_review',
+            kwargs={'order_id': 1, 'product_id': 2}
         )
 
     def test_review_view(self):
@@ -282,3 +280,35 @@ class TestReviewsViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'reviews/review_detail.html')
 
+    def test_add_review_view_user_logged_out(self):
+        """Test add review view user logged out."""
+        response = self.client.get(self.add_review_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_add_review_view_user_logged_in_review_already_left(self):
+        """Test add review view user logged in and left the review before."""
+        self.client.force_login(self.user)
+        response = self.client.get(self.add_review_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'reviews/review_already_exists.html'
+        )
+
+    def test_add_review_view_user_logged_in_review(self):
+        """Test add review view user logged in."""
+        self.client.force_login(self.user)
+        response = self.client.get(self.add_review2_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reviews/add_review.html')
+
+    def test_add_review_view_user_logged_in_not_buyer(self):
+        """Test add review view user logged in not buyer."""
+        self.client.force_login(self.user2)
+        response = self.client.get(self.add_review_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'profiles/access_denied.html'
+        )
