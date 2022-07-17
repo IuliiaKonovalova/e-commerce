@@ -7,7 +7,17 @@
     {% comment %} Check that user is permitted to access this page {% endcomment %}
     {% if request.user.profile.role.id == 3 %}
     <form class="dashboard__form" method="POST">
-
+      <h1 class="dashboard__main--name">
+        Delete Order Item: {{ order_item.product_inventory.product.name }} {{ order_item.product_inventory.sku }}
+      </h1>
+      {% comment %} add warning {% endcomment %}
+      <div class="dashboard__form--warning">
+        <p>
+          Are you sure you want to delete this item from the order?
+        </p>
+        <p>
+          This action cannot be undone.
+        </p>
         </div>
       {% csrf_token %}
       {{ form }}
