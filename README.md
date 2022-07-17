@@ -213,6 +213,9 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 - [jQuery UI](https://jqueryui.com/): for providing varieties of tools to make standard HTML code look appealing.
 - [Postgresql](https://www.postgresql.org/): for providing a free database.
 - [geonames](https://www.geonames.org/): for providing a free database on countries, regions, cities.
+- [Multiple Video & Image Upload Plugin - jQuery Miv.js](https://www.jqueryscript.net/form/multi-video-image-upload.html)
+- [Very Academy Youtube Channel](https://www.youtube.com/c/veryacademy): for brilliant tutorials, which shed the light on the implementation of database with multi-values products, precise explanations of the stripe API, and many other things!
+- [Stripe](https://stripe.com/): for providing a free payment gateway.
 
 
 ---
