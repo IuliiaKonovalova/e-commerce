@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+{% if request.user == review.user %}
+                <a href="" aria-label="Edit my review this product" class="btn btn__edit">
+                  <i class="fas fa-edit"></i>
+                  Edit review
+                </a>
+                <a href="#" aria-label="Delete my review this product" class="btn btn__delete">
+                  <i class="fas fa-trash-alt"></i>
+                  Delete review
+                </a>
+{% endif %}
+
+review details
+
+{{ review.user }}
+{{ review.product.name }}
+{{ review.comment }}
+{{ review.rating }}
+{{ review.created_at }}
+
+{% for image in images %}
+  <div class="review__image">
+    <img src="{{ image.image_url }}" alt="Review image for {{ review.product.name }} left by {{ review.user }}">
+  </div>
+{% endfor %}
+
+{% endblock %}
