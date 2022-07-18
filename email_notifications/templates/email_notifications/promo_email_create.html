@@ -21,11 +21,11 @@
         {% csrf_token %}
         {{ form }}
         <div class="form__btns">
-          <a href="#" aria-label="Go to Tags page" class="btn btn-primary btn__cancel">
+          <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
-            Cancel
+            Go to promotions page
           </a>
-          <button type="submit" class="btn btn-primary btn__add">
+          <button type="submit" class="btn btn__add">
             <i class="fa fa-plus-circle"></i>
             Send Email
           </button>
