@@ -59,17 +59,30 @@
         </button>
       {% endif %}
     </div>
-    <button class="like btn" id="wishlist-control">
       {% if request.user.is_authenticated %}
         {% if product in request.user.wishlist.get_products %}
-          <i class="fas fa-heart"></i>
+          <div class="rating__title">
+            Remove from wishlist:
+          </div>
+          <button class="like btn" id="wishlist-control">
+            <i class="fas fa-heart"></i>
+          </button>
         {% else %}
-          <i class="far fa-heart"></i>
+          <div class="rating__title">
+            Add to wishlist:
+          </div>
+          <button class="like btn" id="wishlist-control">
+            <i class="far fa-heart"></i>
+          </button>
         {% endif %}
       {% else %}
-        <i class="far fa-heart"></i>
+        <div class="rating__title">
+          Login to add to your wishlist:
+        </div>
+        <button class="like btn" id="wishlist-control">
+          <i class="far fa-heart"></i>
+        </button>
       {% endif %}
-    </button>
     <div class="product__card--rating">
       <div class="rating__title">
         Rating
