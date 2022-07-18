@@ -3,6 +3,7 @@ from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from inventory.models import ProductInventory
 
@@ -396,6 +397,50 @@ class DeleteOrderItemView(View):
 
 def payment_confirmation(data):
     Order.objects.filter(order_key=data).update(billing_status=True)
+    # send email to the customer
+    order = Order.objects.get(order_key=data)
+    print(order)
+    # get this order
+    order_id = order.id
+    print(order_id)
+    # get order object
+    order_obj = Order.objects.get(id=order_id)
+    customer = order_obj.user
+    print(customer)
+    subject = 'Payment Confirmation'
+    # get the order total paid
+    order_total_paid = order_obj.total_paid
+    # get OrderItems
+    order_items = OrderItem.objects.filter(order=order_obj)
+
+    message = '<h1>Payment Confirmation</h1>'
+    message += '<p>Hi {},</p>'.format(customer.first_name)
+    message += '<p>Thank you for your payment of ${}.</p>'.format(order_total_paid)
+    message += '<p>Your order details:</p>'
+    message += '<table>'
+    message += '<tr>'
+    message += '<th>Product</th>'
+    message += '<th>Quantity</th>'
+    message += '<th>Price</th>'
+    message += '</tr>'
+    for order_item in order_items:
+        message += '<tr>'
+        message += '<td>{}</td>'.format(order_item.product_inventory.product.name)
+        message += '<td>{}</td>'.format(order_item.quantity)
+        message += '<td>${}</td>'.format(order_item.product_inventory.sale_price)
+        message += '</tr>'
+    message += '</table>'
+    message += '<p>Thank you for your order.</p>'
+    message += '<p>Best regards,</p>'
+    message += '<p>The Store Team</p>'
+    message += '<p>{}</p>'.format('yuliyakonovalova5@gmail.com')
+    send_mail(
+        subject,
+        message,
+        'yuliyakonovalova5@gmail.com',
+        [customer.email],
+        fail_silently=False,
+    )
 
 
 class UserOrdersView(View):
