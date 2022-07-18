@@ -410,30 +410,13 @@ def payment_confirmation(data):
     subject = 'Payment Confirmation'
     # get the order total paid
     order_total_paid = order_obj.total_paid
-    # get OrderItems
-    order_items = OrderItem.objects.filter(order=order_obj)
-
-    message = '<h1>Payment Confirmation</h1>'
-    message += '<p>Hi {},</p>'.format(customer.first_name)
-    message += '<p>Thank you for your payment of ${}.</p>'.format(order_total_paid)
-    message += '<p>Your order details:</p>'
-    message += '<table>'
-    message += '<tr>'
-    message += '<th>Product</th>'
-    message += '<th>Quantity</th>'
-    message += '<th>Price</th>'
-    message += '</tr>'
-    for order_item in order_items:
-        message += '<tr>'
-        message += '<td>{}</td>'.format(order_item.product_inventory.product.name)
-        message += '<td>{}</td>'.format(order_item.quantity)
-        message += '<td>${}</td>'.format(order_item.product_inventory.sale_price)
-        message += '</tr>'
-    message += '</table>'
-    message += '<p>Thank you for your order.</p>'
-    message += '<p>Best regards,</p>'
-    message += '<p>The Store Team</p>'
-    message += '<p>{}</p>'.format('yuliyakonovalova5@gmail.com')
+    message =  'Payment Confirmation\n' \
+                'Thank you for your payment of ' \
+                + str(order_total_paid) + '\n' \
+                'Your order details:\n' \
+                'Order ID: ' + str(order_obj.order_number) + '\n' \
+                'For more details please visit your profile page\n' \
+                'Thank you for shopping with us!\n' 
     send_mail(
         subject,
         message,
