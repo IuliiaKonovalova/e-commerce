@@ -342,3 +342,27 @@ class EmailStockNotificationFormAJAXTest(TestCase):
         self.assertTemplateUsed(response, 'promotions/promotions_list.html')
         self.client.logout()
 
+    def test_promo_email_create_post_view_user_with_access_failed(self):
+        """
+        Test promo email create post view user logged 
+        with access but failed to fill out the form.
+        """
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.add_promo_email_url,
+            data={
+                'email_name': '',
+                'content': 'test',
+            }
+
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'email_notifications/promo_email_create.html'
+        )
+        self.client.logout()
