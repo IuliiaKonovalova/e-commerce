@@ -60,21 +60,31 @@
             <a href="{% url 'account_login' %}" class="enter">Login</a>
           </li>
         {% endif %}
-        {% comment %} Links for school members {% endcomment %}
         {% if request.user.is_authenticated %}
+          {% comment %} Go to my profile {% endcomment %}
           <li class="navbar__item">
             <a href="{% url 'my_profile' user=request.user %}" aria-label="Go to Profile page" class="account__option">
-              Profile
+              <div class="profile__avatar--navbar">
+                {% if user.profile.avatar %}
+                  <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
+                {% else %}
+                  <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
+                {% endif %}
+              </div>
+              <span>Profile</span>
             </a>
           </li>
+          {% comment %} logout {% endcomment %}
           <li class="navbar__item">
             <a href="{% url 'account_logout' %}" aria-label="Logout" class="">
-              Logout
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
             </a>
           </li>
           <li class="navbar__item">
             <a href="{% url 'wishlist_display' %}" aria-label="Go to Wishlist page" class="account__option">
-              Wishlist
+              <i class="fas fa-heart"></i>
+              <span>Wishlist</span>
             </a>
           </li>
         {% comment %} Links accessable to every member {% endcomment %}
@@ -84,14 +94,16 @@
           </li>
         {% endif %}
         <li class="navbar__item">
+        {% comment %} Product in Store {% endcomment %}
           <a href="{% url 'products_list' %}" aria-label="Go to Products page" class="account__option">
+            <i class="fas fa-store"></i>
             Products
           </a>
         </li>
         <li class="navbar__item">
           <a href="{% url 'bag_display' %}" aria-label="Go to Bag page" class="account__option">
-            Bag
             <i class="fas fa-shopping-bag"></i><span id="shopping-bag-count">{{ product_count }}</span>
+            Bag
           </a>
         </li>
       </ul>
