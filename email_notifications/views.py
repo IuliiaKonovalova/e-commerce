@@ -3,6 +3,7 @@ import json
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from email_notifications.forms import EmailNewsNotificationForm
 from inventory.models import (
     Product,
     ProductAttribute,
@@ -11,7 +12,7 @@ from inventory.models import (
     Stock,
 )
 from email_notifications.models import (
-    StockEmailNotification
+    StockEmailNotification,
 )
 
 
@@ -106,6 +107,61 @@ class EmailStockNotificationFormAJAX(View):
             else:
                 return JsonResponse({'success': False})
 
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+class PromoEmailCreateView(View):
+    """Send email to the user for promotion or news"""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = EmailNewsNotificationForm()
+                return render(
+                    request,
+                    'email_notifications/promo_email_create.html',
+                    {
+                        'form': form,
+                    }
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = EmailNewsNotificationForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    return render(
+                        request,
+                        # to promotions page
+                        'promotions/promotions_list.html',
+                    )
+                else:
+                    return render(
+                        request,
+                        'email_notifications/promo_email_create.html',
+                        {
+                            'form': form,
+                            'success': False,
+                        }
+                    )
         else:
             return render(
                 request,
