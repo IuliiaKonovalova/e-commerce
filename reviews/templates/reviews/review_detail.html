@@ -45,7 +45,11 @@
       <div class="review__details--data comment">
         <strong>Comment: </strong>
         <p class="review__details--data--comment">
-          {{ review.comment }}
+          {% if review.comment %}
+            {{ review.comment }}
+          {% else %}
+            No comment left.
+          {% endif %}
         </p>
       </div>
       <div class="review__details--data">
