@@ -132,14 +132,23 @@
             console.log(data);
             if (data.success) {
               console.log('success');
-              //window.location.href = "{% url 'products_table' %}";
+              window.location.href = "{% url 'my_order_details' user=request.user order_id=order.id %}";
             } else {
               console.log('Already reviewed');
+              window.location.href = "{% url 'my_order_details' user=request.user order_id=order.id %}";
             }
           },
           error: function(data) {
-            console.log(data);
-            console.log('error');
+            $('#messages-notes').remove();
+            $('.bag').before('<div class="message-container" id="messages-notes">' +
+              '<div class="message-container__message">' +
+              '<p class="message-container__message--text">Something went wrong</p>' +
+              '</div>' +
+              '</div>');
+            // remove the message block after 3 seconds
+            setTimeout(() => {
+              $('#messages-notes').remove();
+            }, 3000);
           }
         });
 
