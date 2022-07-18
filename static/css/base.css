@@ -129,7 +129,41 @@ button {
   width: 100%;
   max-width: 120rem;
   margin: 0 auto;
-  padding: 1em;
+  padding: 0.2em 1em;
+
+}
+
+.navbar__item a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.profile__avatar--navbar {
+  max-width: 2.5rem;
+  padding: 0.09em;
+  border-radius: 50%;
+  border: 1px solid var(--clr-text--100);
+  margin-right: 0.5em;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.profile__avatar--navbar img {
+  width: 100%;
+  height: 100%;
+  object-position: center;
+  object-fit: cover !important;
+  border-radius: 50%;
+}
+
+.navbar__item a i {
+  margin-right: 0.5em;
 }
 
 .subnavbar__items {
