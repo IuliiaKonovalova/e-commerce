@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block extra_css %}
-  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
@@ -53,7 +53,7 @@
     {% comment %} Delete Profile Form {% endcomment %}
     <div class="profile__delete--form">
       <a class="btn__delete btn" id="btn-delete-profile">
-      <i class="fas fa-trash-alt"></i>
+        <i class="fas fa-trash-alt"></i>
         Delete account
       </a>
       <div class="profile__delete--dropdown hidden" id="delete-dropwdown">
@@ -85,8 +85,8 @@
         let editBtnBackup = $('#edit-avatar-btn');
         $('.avatar').attr('src', URL.createObjectURL(file));
         // replacing edit button with save and cancel buttons
-        let buttons = `<button id="save-avatar-btn btn btn__save">Save <i class="fas fa-check"></i></button>
-                            <button id="cancel-avatar-btn btn btn__cancel">Cancel <i class="fas fa-times"></i></button>`;
+        let buttons = `<button id="save-avatar-btn" class="btn btn__save">Save <i class="fas fa-check"></i></button>
+                            <button id="cancel-avatar-btn" class="btn btn__cancel">Cancel <i class="fas fa-times"></i></button>`;
         $('#edit-avatar-btn').after(buttons);
         $('#edit-avatar-btn').hide();
         $('#cancel-avatar-btn').on('click', () => {
@@ -113,6 +113,7 @@
             cache: false,
             data: formData,
             success: function (data) {
+              console.log('success');
               $('.avatar').attr('src', data.avatar_url);
               $('#edit-avatar-btn').show();
               $('#save-avatar-btn').remove();
@@ -124,6 +125,7 @@
               }, 3000);
             },
             error: function (data) {
+              console.log('error');
               $('.avatar').attr('src', currentAvatarUrl);
               $('#edit-avatar-btn').show();
               $('#save-avatar-btn').remove();
