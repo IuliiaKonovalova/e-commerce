@@ -166,6 +166,34 @@ button {
   margin-right: 0.5em;
 }
 
+.account__option--bag {
+  position: relative;
+}
+
+.account__option--bag i {
+  margin-right: 1em !important;
+}
+
+.account__option--bag span {
+  position: absolute;
+  bottom: -0.7em;
+  left: 0.5em;
+  background-color: var(--clr-primary--400);
+  /* color: var(--clr-text--900); */
+  font-size: 0.8em;
+  width: 1.9rem;
+  padding: 0.2em 0.5em;
+  border-radius: 50%;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8em;
+  border: 1px solid var(--clr-primary--900);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.317);
+}
+
+
 .subnavbar__items {
   background-color: var(--clr-primary--300);
 
