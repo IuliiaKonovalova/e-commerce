@@ -1,6 +1,8 @@
 # E-commerce website
 
 ## About
+This is a e-commerce website that allows to sell various types of products. It has a login system, a shopping cart, a checkout system, and a payment system. Loyal customers can get discounts on their purchases by using the coupon system. This website has an notification system that allows users to be notified when a product is available if they left a request for it.
+In addition, the website has a personnel functionality which allows admin, manager, logistics, and other personnel to manage the website. The decision to implement multiple personnel roles was made due to the desire to make the project as scalable as possible as well as reusable in a real world.
 
 
 ---
@@ -10,6 +12,8 @@
 ### Strategy
 
 ### Target Audience
+
+
 
 ### User Stories
 
@@ -119,12 +123,10 @@
 **PDF version**
 [PDF version](documentation/user_stories/user_stories.pdf)
 
-#### **First Time Visitor Goals**
-
-
 ---
 
 ## Technologies used
+
 
 
 ---
