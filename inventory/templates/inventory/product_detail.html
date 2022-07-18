@@ -70,6 +70,18 @@
         <i class="far fa-heart"></i>
       {% endif %}
     </button>
+    <div class="product__card--rating">
+      <div class="rating__title">
+        Rating
+      </div>
+      {% if product.get_average_rating %}
+        <i class="fas fa-star"></i>
+        {{ product.get_average_rating }}
+      {% else %}
+        <i class="far fa-star"></i>
+        No rating yet
+      {% endif %}
+    </div>
   </div>
   <div class="product__main--info">
     <div data-id="{{ product.id }}" id="product">
