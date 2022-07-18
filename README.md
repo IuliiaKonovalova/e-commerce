@@ -13,7 +13,7 @@ In addition, the website has a personnel functionality which allows admin, manag
 
 ### Target Audience
 
-
+This website is intended for people who are interested in purchasing products online, starting from bread and finishing electronics, such as TV, or smartphones, or other products. It was also aimed to lure people to use this website in their daily lives, which was achieved by implementing a discount system for all customers, additional discounts for loyal customers, and a notification system that allows users to be notified when a product is available.
 
 ### User Stories
 
