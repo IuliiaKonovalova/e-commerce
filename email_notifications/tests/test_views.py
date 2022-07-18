@@ -201,6 +201,9 @@ class EmailStockNotificationFormAJAXTest(TestCase):
         self.stock_notification_url = reverse(
             'add_to_stock_email_notification'
         )
+        self.add_promo_email_url = reverse(
+            'add_promo_email'
+        )
 
     def test_email_stock_notification_form_ajax_user_logged_out(self):
         """Test email stock notification form AJAX user logged out."""
@@ -272,3 +275,70 @@ class EmailStockNotificationFormAJAXTest(TestCase):
         )
         self.assertEquals(response.status_code, 200)
         self.assertEqual(response.json()['success'], True)
+
+    def test_promo_email_create_get_view_user_logged_out(self):
+        """Test promo email create post view user logged out."""
+        response = self.client.get(self.add_promo_email_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_promo_email_create_get_view_user_logged_no_access(self):
+        """Test promo email create post view user logged no access."""
+        self.client.force_login(self.user)
+        # check a role
+        self.assertEqual(self.user.profile.role.id, 1)
+        response = self.client.get(self.add_promo_email_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_promo_email_create_get_view_user_logged_with_access(self):
+        """Test promo email create post view user logged with access."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.add_promo_email_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'email_notifications/promo_email_create.html'
+        )
+        self.client.logout()
+
+    def test_promo_email_create_post_view_user_logged_out(self):
+        """Test promo email create post view user logged out."""
+        response = self.client.post(self.add_promo_email_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_promo_email_create_post_view_user_logged_no_access(self):
+        """Test promo email create post view user logged no access."""
+        self.client.force_login(self.user)
+        # check a role
+        self.assertEqual(self.user.profile.role.id, 1)
+        response = self.client.post(self.add_promo_email_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_promo_email_create_post_view_user_logged_with_access(self):
+        """Test promo email create post view user logged with access."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.add_promo_email_url,
+            data={
+                'email_name': 'test',
+                'content': 'test',
+            }
+
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'promotions/promotions_list.html')
+        self.client.logout()
+
