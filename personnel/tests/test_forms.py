@@ -340,7 +340,6 @@ class TestForms(TestCase):
         form = ProductTypeForm()
         expected = [
             'name',
-            'slug',
             'product_type_attributes',
             'description',
         ]
@@ -352,7 +351,6 @@ class TestForms(TestCase):
         form = ProductTypeForm(
             data={
                 'name': 'Test Product Type',
-                'slug': 'test-product-type',
                 'product_type_attributes': [self.product_attribute1.id],
                 'description': 'Test Product Type Description',
             }
@@ -363,10 +361,9 @@ class TestForms(TestCase):
         """Test the product type form is invalid."""
         form = ProductTypeForm(
             data={
-                'name': 'Test Product Type',
-                'slug': '',
+                'name': '',
                 'product_type_attributes': self.product_attribute1.id,
-                'description': 'Test Product Type Description',
+                'description': '',
             }
         )
         self.assertFalse(form.is_valid())

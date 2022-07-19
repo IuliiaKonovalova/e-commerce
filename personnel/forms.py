@@ -193,7 +193,6 @@ class ProductTypeForm(forms.ModelForm):
         model = ProductType
         fields = [
             'name',
-            'slug',
             'product_type_attributes',
             'description',
         ]
@@ -203,13 +202,6 @@ class ProductTypeForm(forms.ModelForm):
                     'class': 'form-control',
                     'title': 'max_length=50',
                     'placeholder': 'Product Type Name',
-                }
-            ),
-            'slug': forms.TextInput(
-                attrs={
-                    'class': 'form-control',
-                    'title': 'max_length=50',
-                    'placeholder': 'Product Type Slug Name',
                 }
             ),
             'product_type_attributes': forms.SelectMultiple(
