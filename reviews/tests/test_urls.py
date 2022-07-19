@@ -5,7 +5,7 @@ from reviews.views import (
     ReviewDetailView,
     AddReviewView,
     AddReviewWithImagesAJAXView,
-    ViewUsersReviews,
+    ViewUsersReviewsView,
 )
 
 
@@ -38,5 +38,5 @@ class TestUrls(SimpleTestCase):
         """Test view users reviews url"""
         url = reverse('view_users_reviews')
         self.assertEquals(
-            resolve(url).func.view_class, ViewUsersReviews
+            resolve(url).func.view_class, ViewUsersReviewsView
         )

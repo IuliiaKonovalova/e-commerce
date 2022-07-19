@@ -277,6 +277,7 @@ class TestReviewsViews(TestCase):
         self.add_review_with_images_ajax_url = reverse(
             'add_review_with_images_ajax',
         )
+        self.view_users_reviews_url = reverse('view_users_reviews')
 
     def test_review_view(self):
         response = self.client.get(self.review_url)
@@ -393,3 +394,16 @@ class TestReviewsViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['success'], False)
+
+    def test_view_users_reviews_view_user_logged_out(self):
+        """Test view users reviews view user logged out."""
+        response = self.client.get(self.view_users_reviews_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_view_users_reviews_view_user_logged_in(self):
+        """Test view users reviews view user logged in."""
+        self.client.force_login(self.user)
+        response = self.client.get(self.view_users_reviews_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reviews/user_reviews.html')
