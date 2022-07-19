@@ -126,3 +126,25 @@ class AddReviewWithImagesAJAXView(View):
                     )
             else:
                 return JsonResponse({'success': False})
+
+
+class ViewUsersReviewsView(View):
+    """View for users reviews."""
+
+    def get(self, request, *args, **kwargs):
+        """Get method for users reviews."""
+        if request.user.is_authenticated:
+            user = request.user
+            reviews = Review.objects.filter(user=user)
+            paginator = Paginator(reviews, 10)
+            page = request.GET.get('page')
+            reviews = paginator.get_page(page)
+            context = {
+                'reviews': reviews,
+            }
+            return render(request, 'reviews/user_reviews.html', context)
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
