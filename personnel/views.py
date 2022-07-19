@@ -1875,3 +1875,31 @@ class DeleteStockView(View):
                 request,
                 'account/login.html',
             )
+
+
+class ProductTypesListView(View):
+    """View for the product types list page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                product_types = ProductType.objects.all()
+                context = {
+                    'product_types': product_types,
+                }
+                return render(
+                    request,
+                    'personnel/product_types_list.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
