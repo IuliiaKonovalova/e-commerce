@@ -172,12 +172,13 @@ button {
 
 .account__option--bag i {
   margin-right: 1em !important;
+  font-size: 1.5rem;
 }
 
 .account__option--bag span {
   position: absolute;
-  bottom: -0.7em;
-  left: 0.5em;
+  bottom: -0.9em;
+  left: 0.7em;
   background-color: var(--clr-primary--400);
   /* color: var(--clr-text--900); */
   font-size: 0.8em;
@@ -332,7 +333,8 @@ button {
 
 /* Address cards, My orders cards */
 .addresses__all,
-.orders__all {
+.orders__all,
+.reviews__all {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
@@ -341,7 +343,8 @@ button {
 }
 
 .addresses__all>div,
-.orders__all>a {
+.orders__all>a,
+.reviews__all>a {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -356,7 +359,8 @@ button {
   background-color: var(--clr-text--100);
 }
 
-.orders__all>a:hover {
+.orders__all>a:hover,
+.reviews__all>a:hover {
   background-color: var(--clr-primary--100)
 }
 
@@ -594,6 +598,16 @@ button {
   left: 0.5rem;
 }
 
+.product__card--rating {
+  color: var(--clr-accent--100)
+}
+
+.rating__title {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--clr-accent--100);
+}
+
 .product__main--info {
   padding: 2em;
   background-color: #bab6ec;
@@ -717,9 +731,9 @@ button:active {
 }
 
 .btn-outline-primary {
-  color: var(--clr-primary--400);
+  color: var(--clr-primary--900);
   border: 2px solid var(--clr-primary--300);
-  background-color: var(--clr-primary--200);
+  background-color: var(--clr-primary--100) !important;
   box-shadow: var(--box-shadow-buttons);
   --bs-btn-focus-shadow-rgb: unset;
   --bs-btn-hover-bg: var(--clr-primary--200);
@@ -732,6 +746,31 @@ button:active {
   border: 2px solid var(--clr-accent--200);
   opacity: 0.5 !important;
   box-shadow: var(--box-shadow-disabled) !important;
+}
+
+.product__main .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product__main .btn-group label {
+
+  flex-grow: 0 !important;
+  margin-bottom: 0.3em;
+}
+
+.btn-group>.btn-group:not(:last-child)>.btn,
+.btn-group>.btn.dropdown-toggle-split:first-child,
+.btn-group>.btn:not(:last-child):not(.dropdown-toggle) {
+  border-top-right-radius: 0.375rem;
+  border-bottom-right-radius: 0.375rem;
+}
+
+.btn-group>.btn-group:not(:first-child)>.btn,
+.btn-group>.btn:nth-child(n+3),
+.btn-group>:not(.btn-check)+.btn {
+  border-top-left-radius: 0.375rem;
+  border-bottom-left-radius: 0.375rem;
 }
 
 .option[name="Color"]+label.disabled {
