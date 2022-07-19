@@ -101,15 +101,15 @@
           </a>
         </li>
         <li class="navbar__item">
+          {% comment %} Bag {% endcomment %}
           <a href="{% url 'bag_display' %}" aria-label="Go to Bag page" class="account__option account__option--bag">
             <i class="fas fa-shopping-bag"></i><span id="shopping-bag-count">{{ product_count }}</span>
-            {% comment %} Bag {% endcomment %}
           </a>
         </li>
       </ul>
     </nav>
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-
+      {% comment %} Show navbar for store personnel {% endcomment %}
       <nav class="navbar navbar-expand-lg navbar__items--admin">
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -150,6 +150,13 @@
                     <a href="{% url 'tags_table' %}" aria-label="Go to Tags page" class="account__option">
                       <i class="fas fa-tag"></i>
                       Tags
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'product_types_table' %}" aria-label="Go to Product Types page" class="account__option">
+                      {% comment %} Icon for product types {% endcomment %}
+                      <i class="fas fa-boxes"></i>
+                      Product Types
                     </a>
                   </li>
                   <li class="navbar__item--admin">
