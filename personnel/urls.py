@@ -38,6 +38,7 @@ from .views import (
     ProductTypesListView,
     AddProductTypeView,
     UpdateProductTypeView,
+    DeleteProductTypeView,
 )
 
 
@@ -232,5 +233,10 @@ urlpatterns = [
         'product_type/<int:pk>/edit/',
         UpdateProductTypeView.as_view(),
         name='edit_product_type'
+    ),
+    path(
+        'product_type/<int:pk>/delete/',
+        DeleteProductTypeView.as_view(),
+        name='delete_product_type'
     ),
 ]
