@@ -1907,7 +1907,7 @@ div.data__main--order:hover {
 .btn.active,
 .btn.show,
 .btn:active {
-  background-color: #8100ff57 !important;
+  background-color: #8100ff57;
   color: #e2ff00 !important;
 }
 
