@@ -31,8 +31,13 @@
             <div class="type__buttons">
               <a href="{% url 'edit_product_type' pk=type.id %}"
                   aria-label="Edit product attribute page" class="btn btn__edit">
-                <i class="fas fa-star"></i>
+                <i class="fas fa-edit"></i>
                 Edit
+              </a>
+              <a href="{% url 'delete_product_type' pk=type.id %}"
+                  aria-label="Edit product attribute page" class="btn btn__delete">
+                <i class="fas fa-trash-alt"></i>
+                delete
               </a>
             </div>
           </div>
