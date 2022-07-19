@@ -771,7 +771,7 @@ button:active {
 .btn-outline-primary {
   color: var(--clr-primary--900);
   border: 2px solid var(--clr-primary--300);
-  background-color: var(--clr-primary--100) !important;
+  background-color: var(--clr-primary--100);
   box-shadow: var(--box-shadow-buttons);
   --bs-btn-focus-shadow-rgb: unset;
   --bs-btn-hover-bg: var(--clr-primary--200);
