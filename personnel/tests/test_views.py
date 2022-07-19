@@ -302,6 +302,10 @@ class TestViews(TestCase):
             'edit_product_type',
             kwargs={'pk': 1}
         )
+        self.delete_product_type_url = reverse(
+            'delete_product_type',
+            kwargs={'pk': 1}
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -3126,4 +3130,36 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/edit_product_type.html')
         self.assertEqual(ProductType.objects.count(), 2)
+        self.client.logout()
+
+    def test_delete_product_type_get_view_user_logged_out(self):
+        """Test delete product type get view user logged out"""
+        response = self.client.get(
+            self.delete_product_type_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_delete_product_type_get_view_user_logged_in_without_access(self):
+        """Test delete product type get view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.delete_product_type_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_delete_product_type_get_view_user_logged_in_with_access(self):
+        """Test delete product type get view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(
+            self.delete_product_type_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/delete_product_type.html')
         self.client.logout()
