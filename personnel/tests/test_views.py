@@ -296,6 +296,7 @@ class TestViews(TestCase):
             'delete_stock',
             kwargs={'pk': 1, 'inventory_pk': 1, 'stock_pk': 1}
         )
+        self.product_types_table_url = reverse('product_types_table')
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -2862,4 +2863,36 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Stock.objects.count(), 0)
+        self.client.logout()
+
+    def test_product_types_table_view_user_logged_out(self):
+        """Test product types table view user logged out"""
+        response = self.client.get(
+            self.product_types_table_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_product_types_table_view_user_logged_in_without_access(self):
+        """Test product types table view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.product_types_table_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_product_types_table_view_user_logged_in_with_access(self):
+        """Test product types table view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.product_types_table_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/product_types_list.html')
         self.client.logout()
