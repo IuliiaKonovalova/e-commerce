@@ -2036,3 +2036,36 @@ class UpdateProductTypeView(View):
                 request,
                 'account/login.html',
             )
+
+
+class DeleteProductTypeView(View):
+    """View for the delete product type page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is aan admin
+            if request.user.profile.role.id == 3:
+                pk = kwargs['pk']
+                product_type = get_object_or_404(
+                    ProductType,
+                    id=pk
+                )
+                context = {
+                    'pk': pk,
+                    'product_type': product_type,
+                }
+                return render(
+                    request,
+                    'personnel/delete_product_type.html',
+                    context,
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
