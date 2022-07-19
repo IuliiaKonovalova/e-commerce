@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  {% comment %} User's profile page {% endcomment %}
+  <div class="profile">
+    <h1>My Reviews</h1>
+    <div class="reviews__all">
+      {% for review in reviews %}
+        <a href="{% url 'review' order_id=review.order.id product_id=review.product.id %}" aria-label="Go to full review page" class="review__details">
+          <strong>{{ review.product }}</strong>
+          <div class="review__details--data">
+            <span class="review__details--data--rating">
+              {% if review.rating == '1' %}
+                <i class="fas fa-star"></i>
+              {% elif review.rating == '2' %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              {% elif review.rating == '3' %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              {% elif review.rating == '4' %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              {% elif review.rating == '5' %}
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              {% endif %}
+            </span>
+          </div>
+          <div class="review__details--data">
+            <strong>Date: </strong>
+            <span class="review__details--data--date">
+              {{ review.created_at|date }}
+            </span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
