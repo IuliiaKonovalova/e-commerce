@@ -1963,3 +1963,76 @@ class AddProductTypeView(View):
                 request,
                 'account/login.html',
             )
+
+
+class UpdateProductTypeView(View):
+    """View for the update product type page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                pk = kwargs['pk']
+                product_type = get_object_or_404(
+                    ProductType,
+                    id=pk
+                )
+                form = ProductTypeForm(instance=product_type)
+                context = {
+                    'form': form,
+                    'pk': pk,
+                    'product_type': product_type,
+                }
+                return render(
+                    request,
+                    'personnel/edit_product_type.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                pk = kwargs['pk']
+                product_type = get_object_or_404(
+                    ProductType,
+                    id=pk
+                )
+                form = ProductTypeForm(request.POST, instance=product_type)
+                context = {
+                    'form': form,
+                    'pk': pk,
+                    'product_type': product_type,
+                }
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/product_types/'
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/edit_product_type.html',
+                        context,
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
