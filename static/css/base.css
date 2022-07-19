@@ -217,9 +217,6 @@ button.navbar-toggler:focus {
   display: flex;
 }
 
-.navbar__item--admin a {
-  width: 100%;
-}
 
 .navbar__item--admin:not(:last-child) {
   padding: 0.8em 0.2em 0.8em 0.2em;
@@ -228,6 +225,14 @@ button.navbar-toggler:focus {
 
 .navbar__item--admin:last-child {
   padding: 0.8em 0.2em 0.4em 0.2em;
+}
+
+.navbar__item--admin a {
+  width: 100%;
+}
+
+.navbar__item--admin a i {
+  margin-right: 0.5em;
 }
 
 /* ------------ content__container ----------- */
@@ -304,7 +309,8 @@ button.navbar-toggler:focus {
 }
 
 .btn__delete {
-  background-color: var(--clr-btn-delete--500);
+  background-color: var(--clr-btn-delete--500) !important;
+  border: 1px solid var(--clr-btn-delete--900) !important;
   color: var(--clr-text--100);
 }
 
@@ -364,7 +370,8 @@ button.navbar-toggler:focus {
 /* Address cards, My orders cards */
 .addresses__all,
 .orders__all,
-.reviews__all {
+.reviews__all,
+.types__all {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
@@ -374,7 +381,8 @@ button.navbar-toggler:focus {
 
 .addresses__all>div,
 .orders__all>a,
-.reviews__all>a {
+.reviews__all>a,
+.types__all>div {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1554,7 +1562,21 @@ td {
 }
 
 
+/* ---------- Warning messages -------------- */
+.warning__msg {
+  text-align: center;
+}
 
+.warning__msg--request {
+  font-weight: 900;
+  color: var(--clr-btn-delete--900);
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.dashboard__main a {
+  margin-top: 1em;
+}
 
 
 /* --------------- Payment ---------------- */
@@ -1775,7 +1797,14 @@ div.data__main--order:hover {
   right: 0.4rem;
 }
 
-.order__review--btns a {
+.type__buttons {
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: space-around;
+}
+
+.order__review--btns a,
+.type__buttons a {
   margin-left: 0.3em;
   font-size: 0.7rem;
 }
@@ -1795,12 +1824,14 @@ div.data__main--order:hover {
 
 
 
-/* --------- REVIEWS ---------- */
-.review__details {
+/* --------- REVIEWS, ProductTypes ---------- */
+.review__details,
+.type__details {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center;
   width: 100%;
   height: 100%;
   border-radius: var(--br);
@@ -1811,7 +1842,13 @@ div.data__main--order:hover {
   background-color: var(--clr-text--100);
 }
 
-.review__details--data.comment {
+.type__details strong {
+  text-transform: capitalize;
+  padding: 0.5em;
+}
+
+.review__details--data.comment,
+.type_attributes {
   display: flex;
   flex-direction: column;
   align-items: center;
