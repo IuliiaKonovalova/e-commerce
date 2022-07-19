@@ -19,27 +19,15 @@
       <div class="review__details--data">
         <strong>Rating: </strong>
         <span class="review__details--data--rating">
-          {% if review.rating == '1' %}
-            <i class="fas fa-star"></i>
-          {% elif review.rating == '2' %}
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          {% elif review.rating == '3' %}
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          {% elif review.rating == '4' %}
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          {% elif review.rating == '5' %}
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          {% endif %}
+          {% spaceless %}
+            {% for star in "12345"|make_list %}
+              {% if forloop.counter <= review.rating|add:"0" %}
+                <i class="fas fa-star"></i>
+              {% else %}
+                <i class="far fa-star"></i>
+              {% endif %}
+            {% endfor %}
+          {% endspaceless %}
         </span>
       </div>
       <div class="review__details--data comment">
