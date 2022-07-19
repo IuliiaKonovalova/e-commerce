@@ -6,7 +6,7 @@
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
-        <h1>Edit Product Type</h1>
+        <h1 class="dashboard__main--name">Edit Product Type</h1>
       </div>
       <form method="POST" class="form">
         {% csrf_token %}
