@@ -432,7 +432,7 @@ def payment_confirmation(data):
         '/my_orders/' + order_num + '/'
     )
     subject, from_email, to = (
-        'Payment Confirmation', 'wow@der.com', [customer.email]
+        'Payment Confirmation', 'wow@der.com', str(customer.email)
     )
     text_content = 'Payment Confirmation\n' \
                 'Thank you for your payment of ' \
