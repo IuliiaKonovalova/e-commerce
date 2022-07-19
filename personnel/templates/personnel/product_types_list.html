@@ -28,6 +28,13 @@
                 <span>No attributes</span>
               {% endif %}
             </div>
+            <div class="type__buttons">
+              <a href="{% url 'edit_product_type' pk=type.id %}"
+                  aria-label="Edit product attribute page" class="btn btn__edit">
+                <i class="fas fa-star"></i>
+                Edit
+              </a>
+            </div>
           </div>
         {% endfor %}
       </div>
