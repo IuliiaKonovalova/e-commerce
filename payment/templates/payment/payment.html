@@ -39,7 +39,7 @@
                   <div class="row g-3">
                     <div class="col-sm-7">
                       <label for="customer-name" class="form-label">Customer Name</label>
-                      {% if not my_profile.first_name == None and not my_profile.last_name %}
+                      {% if not my_profile.first_name == None and not my_profile.last_name == None %}
                         <input type="text" value="{{ my_profile.first_name }} {{ my_profile.last_name }}" class="form-control" id="customer-name" placeholder="" required>
                       {% elif not my_profile.first_name == None and my_profile.last_name == None %}
                         <input type="text" value="{{ my_profile.first_name }}" class="form-control" id="customer-name" placeholder="" required>
