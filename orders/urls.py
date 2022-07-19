@@ -57,7 +57,7 @@ urlpatterns = [
         name='my_orders'
     ),
     path(
-        '<str:user>/my_orders/<int:order_id>/',
+        '<str:user>/my_orders/<str:order_number>/',
         UserOrderDetailsView.as_view(),
         name='my_order_details'
     ),

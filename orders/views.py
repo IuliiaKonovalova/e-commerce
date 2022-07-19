@@ -3,7 +3,8 @@ from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
-from django.core.mail import send_mail
+# from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import Paginator
 from inventory.models import ProductInventory
 
@@ -410,20 +411,41 @@ def payment_confirmation(data):
     subject = 'Payment Confirmation'
     # get the order total paid
     order_total_paid = order_obj.total_paid
-    message =  'Payment Confirmation\n' \
+    # message =  'Payment Confirmation\n' \
+    #             'Thank you for your payment of ' \
+    #             + str(order_total_paid) + '\n' \
+    #             'Your order details:\n' \
+    #             'Order ID: ' + str(order_obj.order_number) + '\n' \
+    #             'For more details please visit your profile page\n' \
+    #             'Thank you for shopping with us!\n' 
+    # send_mail(
+    #     subject,
+    # https://wowder.herokuapp.com/orders/yemema5233/my_orders/15/
+    #     message,
+    #     'yuliyakonovalova5@gmail.com',
+    #     [customer.email],
+    #     fail_silently=False,
+    # )
+    order_num = str(order_obj.order_number)
+    link = (
+        'https://wowder.herokuapp.com/orders/' + str(customer.username) +
+        '/my_orders/' + order_num + '/'
+    )
+    subject, from_email, to = (
+        'Payment Confirmation', 'wow@der.com', [customer.email]
+    )
+    text_content = 'Payment Confirmation\n' \
                 'Thank you for your payment of ' \
                 + str(order_total_paid) + '\n' \
                 'Your order details:\n' \
                 'Order ID: ' + str(order_obj.order_number) + '\n' \
-                'For more details please visit your profile page\n' \
-                'Thank you for shopping with us!\n' 
-    send_mail(
-        subject,
-        message,
-        'yuliyakonovalova5@gmail.com',
-        [customer.email],
-        fail_silently=False,
-    )
+                'For more details please visit your profile page\n'
+
+    html_content = '<a href=' + link + '>Order ID: ' + order_num + \
+                    '</a><br><p>Thank you for shopping with us!</p>'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send(fail_silently=False)
 
 
 class UserOrdersView(View):
@@ -449,7 +471,10 @@ class UserOrderDetailsView(View):
     """View for user order details page."""
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            order = get_object_or_404(Order, id=kwargs['order_id'])
+            order = get_object_or_404(
+                Order,
+                order_number=kwargs['order_number']
+            )
             # get order items
             order_items = OrderItem.objects.filter(order=order)
             all_items = Order.get_order_items(order)
