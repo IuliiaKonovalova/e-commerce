@@ -36,6 +36,7 @@ from .views import (
     UpdateStockView,
     DeleteStockView,
     ProductTypesListView,
+    AddProductTypeView,
 )
 
 
@@ -220,5 +221,10 @@ urlpatterns = [
         'product_types_table/',
         ProductTypesListView.as_view(),
         name='product_types_table'
+    ),
+    path(
+        'product_type/add/',
+        AddProductTypeView.as_view(),
+        name='add_product_type'
     ),
 ]
