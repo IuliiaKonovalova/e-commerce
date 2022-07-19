@@ -121,8 +121,7 @@ button {
   margin: 0 auto;
 }
 
-.navbar__items,
-.subnavbar__items {
+.navbar__items {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -195,9 +194,40 @@ button {
 }
 
 
-.subnavbar__items {
+.navbar__items--admin,
+.dropdown__items--admin {
   background-color: var(--clr-primary--300);
+  color: var(--clr-text--100)
+}
 
+.navbar__items--admin .dropdown-toggle {
+  color: var(--clr-text--100)
+}
+
+button.navbar-toggler:focus {
+  outline: none !important;
+}
+
+.dropdown__items--admin {
+  padding: 1em;
+}
+
+.navbar__item--admin {
+  width: 100%;
+  display: flex;
+}
+
+.navbar__item--admin a {
+  width: 100%;
+}
+
+.navbar__item--admin:not(:last-child) {
+  padding: 0.8em 0.2em 0.8em 0.2em;
+  border-bottom: 1px solid var(--clr-accent--100) !important;
+}
+
+.navbar__item--admin:last-child {
+  padding: 0.8em 0.2em 0.4em 0.2em;
 }
 
 /* ------------ content__container ----------- */
