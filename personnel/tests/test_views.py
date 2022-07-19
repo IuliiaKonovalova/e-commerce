@@ -297,6 +297,7 @@ class TestViews(TestCase):
             kwargs={'pk': 1, 'inventory_pk': 1, 'stock_pk': 1}
         )
         self.product_types_table_url = reverse('product_types_table')
+        self.add_product_type_url = reverse('add_product_type')
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -2895,4 +2896,119 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/product_types_list.html')
+        self.client.logout()
+
+    def test_add_product_type_get_view_user_logged_out(self):
+        """Test add product type get view user logged out"""
+        response = self.client.get(
+            self.add_product_type_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_add_product_type_get_view_user_logged_in_without_access(self):
+        """Test add product type get view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.add_product_type_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_add_product_type_get_view_user_logged_in_with_access(self):
+        """Test add product type get view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.add_product_type_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/add_product_type.html')
+        self.client.logout()
+
+    def test_add_product_type_post_view_user_logged_out(self):
+        """Test add product type post view user logged out"""
+        self.assertEqual(ProductType.objects.count(), 2)
+        response = self.client.post(
+            self.add_product_type_url,
+            {
+                'name': 'Test product type',
+                'product_type_attributes': [
+                    self.product_attribute1.id,
+                    self.product_attribute2.id,
+                ],
+                'description': 'Test description',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_add_product_type_post_view_user_logged_in_without_access(self):
+        """Test add product type post view user logged in without access"""
+        self.client.force_login(self.user)
+        self.assertEqual(ProductType.objects.count(), 2)
+        response = self.client.post(
+            self.add_product_type_url,
+            {
+                'name': 'Test product type',
+                'product_type_attributes': [
+                    self.product_attribute1.id,
+                    self.product_attribute2.id,
+                ],
+                'description': 'Test description',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_add_product_type_post_view_user_logged_in_with_access(self):
+        """Test add product type post view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        self.assertEqual(ProductType.objects.count(), 2)
+        response = self.client.post(
+            self.add_product_type_url,
+            {
+                'name': 'Test product type',
+                'product_type_attributes': [
+                    self.product_attribute1.id,
+                    self.product_attribute2.id,
+                ],
+                'description': 'Test description',
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(ProductType.objects.count(), 3)
+        self.client.logout()
+
+    def test_add_product_type_post_view_user_with_access_failed(self):
+        """Test add product type post view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        self.assertEqual(ProductType.objects.count(), 2)
+        response = self.client.post(
+            self.add_product_type_url,
+            {
+                'name': '',
+                'product_type_attributes': [
+                    self.product_attribute1.id,
+                    self.product_attribute2.id,
+                ],
+                'description': '',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/add_product_type.html')
+        self.assertEqual(ProductType.objects.count(), 2)
         self.client.logout()
