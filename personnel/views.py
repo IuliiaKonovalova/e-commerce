@@ -27,6 +27,7 @@ from .forms import (
     BrandForm,
     TagForm,
     StockForm,
+    ProductTypeForm,
 )
 
 
@@ -1898,6 +1899,65 @@ class ProductTypesListView(View):
                     'personnel/product_types_list.html',
                     context,
                 )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+class AddProductTypeView(View):
+    """View for the add product type page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = ProductTypeForm()
+                context = {
+                    'form': form,
+                }
+                return render(
+                    request,
+                    'personnel/add_product_type.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = ProductTypeForm(request.POST)
+                context = {
+                    'form': form,
+                }
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/product_types/'
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/add_product_type.html',
+                        context,
+                    )
         else:
             return render(
                 request,
