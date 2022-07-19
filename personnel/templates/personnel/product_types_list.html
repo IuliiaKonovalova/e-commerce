@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <section class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          Product types
+        </h1>
+        <a href="#" aria-label="Go to add new product Type" class="btn btn__add">
+          <i class="fas fa-plus-circle"></i>
+          Add New Product Type
+        </a>
+      </section>
+      <div class="types__all">
+        {% for type in product_types %}
+          <div class="type__details">
+            <strong>{{ type.name }}</strong>
+            {{ type.description }}
+            <strong>Attributes: </strong>
+            <div class="type_attributes">
+              {% if type.product_type_attributes.all %}
+                {% for attribute in type.product_type_attributes.all %}
+                  <span>{{ attribute.name }}</span>
+                {% endfor %}
+              {% else %}
+                <span>No attributes</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <h1>You are not authorized to view this page</h1>
+    {% endif %}
+  </div>
+{% endblock %}
