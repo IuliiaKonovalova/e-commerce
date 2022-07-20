@@ -41,6 +41,7 @@ from personnel.views import (
     UpdateProductTypeView,
     DeleteProductTypeView,
     AttributesListView,
+    AddAttributeView,
 )
 
 
@@ -372,4 +373,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             AttributesListView
+        )
+
+    def test_add_attribute_url(self):
+        """Test the add attribute url."""
+        url = reverse('add_attribute')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            AddAttributeView
         )
