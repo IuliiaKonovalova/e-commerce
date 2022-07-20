@@ -38,32 +38,32 @@
         {% endfor %}
       </div>
       {% comment %} Control Pagination {% endcomment %}
-      {% if brands.paginator.num_pages %}
-        {% if not brands.paginator.num_pages == 1 %}
+      {% if tags.paginator.num_pages %}
+        {% if not tags.paginator.num_pages == 1 %}
           <div class="pagination">
             <div class="pagination__navigation">
-              {% if brands.has_previous and not brands.has_next %}
-                <a href="?page={{ brands.previous_page_number }}" class="pagination__navigation--btn"
+              {% if tags.has_previous and not tags.has_next %}
+                <a href="?page={{ tags.previous_page_number }}" class="pagination__navigation--btn"
                   aria-label="Go to previous page results">
                   <i class="fas fa-chevron-left"></i>
                 </a>
                 <div class="pagination__navigation--fake">
                   <i class="fas fa-chevron-right"></i>
                 </div>
-              {% elif brands.has_next and not brands.has_previous %}
+              {% elif tags.has_next and not tags.has_previous %}
                 <div class="pagination__navigation--fake">
                   <i class="fas fa-chevron-left"></i>
                 </div>
-                <a href="?page={{ brands.next_page_number }}" class="pagination__navigation--btn"
+                <a href="?page={{ tags.next_page_number }}" class="pagination__navigation--btn"
                   aria-label="Go to next page results">
                   <i class="fas fa-chevron-right"></i>
                 </a>
-              {% elif brands.has_next and brands.has_previous %}
-                <a href="?page={{ brands.previous_page_number }}" class="pagination__navigation--btn"
+              {% elif tags.has_next and tags.has_previous %}
+                <a href="?page={{ tags.previous_page_number }}" class="pagination__navigation--btn"
                   aria-label="Go to previous page results">
                   <i class="fas fa-chevron-left"></i>
                 </a>
-                <a href="?page={{ brands.next_page_number }}" class="pagination__navigation--btn"
+                <a href="?page={{ tags.next_page_number }}" class="pagination__navigation--btn"
                   aria-label="Go to next page results">
                   <i class="fas fa-chevron-right"></i>
                 </a>
@@ -77,7 +77,7 @@
               {% endif %}
             </div>
             <div class="pagination__location">
-              Page <span>{{ brands.number }}</span> of {{ brands.paginator.num_pages }}
+              Page <span>{{ tags.number }}</span> of {{ tags.paginator.num_pages }}
             </div>
           </div>
         {% endif %}
