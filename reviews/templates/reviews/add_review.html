@@ -56,7 +56,7 @@
         <div class="gallery"></div>
       </div>
       <div class="form__btns">
-        <a href="{% url 'products_table' %}" aria-label="Go to Promotions page" class="btn btn__cancel">
+        <a href="{% url 'my_order_details' order_number=order.order_number user=user %}" aria-label="Go to my order details page" class="btn btn__cancel">
           <i class="fas fa-arrow-circle-left"></i>
           Cancel
         </a>
@@ -132,10 +132,10 @@
             console.log(data);
             if (data.success) {
               console.log('success');
-              window.location.href = "{% url 'my_order_details' user=request.user order_id=order.id %}";
+              window.location.href = "{% url 'my_order_details' user=request.user order_number=order.order_number %}";
             } else {
               console.log('Already reviewed');
-              window.location.href = "{% url 'my_order_details' user=request.user order_id=order.id %}";
+              window.location.href = "{% url 'my_order_details' user=request.user order_number=order.order_number %}";
             }
           },
           error: function(data) {
