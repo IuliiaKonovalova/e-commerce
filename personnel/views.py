@@ -22,6 +22,7 @@ from inventory.models import (
 )
 from promotions.models import Promotion
 from .forms import (
+    ProductAttributeForm,
     ProductForm,
     CategoryForm,
     BrandForm,
@@ -2092,6 +2093,138 @@ class AttributesListView(View):
                     'personnel/attributes_list.html',
                     context,
                 )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+class AddAttributeView(View):
+    """View for the add attribute page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = ProductAttributeForm()
+                context = {
+                    'form': form,
+                }
+                return render(
+                    request,
+                    'personnel/add_attribute.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                form = ProductAttributeForm(request.POST)
+                context = {
+                    'form': form,
+                }
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/attributes/'
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/add_attribute.html',
+                        context,
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+class EditAttributeView(View):
+    """View for the edit attribute page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                pk = kwargs['pk']
+                attribute = get_object_or_404(
+                    ProductAttribute,
+                    id=pk
+                )
+                form = ProductAttributeForm(instance=attribute)
+                context = {
+                    'form': form,
+                    'pk': pk,
+                    'attribute': attribute,
+                }
+                return render(
+                    request,
+                    'personnel/edit_attribute.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                pk = kwargs['pk']
+                attribute = get_object_or_404(
+                    ProductAttribute,
+                    id=pk
+                )
+                form = ProductAttributeForm(request.POST, instance=attribute)
+                context = {
+                    'form': form,
+                    'pk': pk,
+                    'attribute': attribute,
+                }
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/attributes/'
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/edit_attribute.html',
+                        context,
+                    )
         else:
             return render(
                 request,
