@@ -59,41 +59,49 @@
         </button>
       {% endif %}
     </div>
-      {% if request.user.is_authenticated %}
-        {% if product in request.user.wishlist.get_products %}
-          <div class="rating__title">
-            Remove from wishlist:
-          </div>
-          <button class="like btn" id="wishlist-control">
-            <i class="fas fa-heart"></i>
-          </button>
+    <div class="product__main--rating--wishlist">
+      <div class="product__card--wishlist">
+        {% if request.user.is_authenticated %}
+          {% if product in request.user.wishlist.get_products %}
+            <div class="rating__title">
+              Remove from wishlist:
+            </div>
+            <button class="like btn" id="wishlist-control">
+              <i class="fas fa-heart"></i>
+            </button>
+          {% else %}
+            <div class="rating__title">
+              Add to wishlist:
+            </div>
+            <button class="like btn" id="wishlist-control">
+              <i class="far fa-heart"></i>
+            </button>
+          {% endif %}
         {% else %}
           <div class="rating__title">
-            Add to wishlist:
+            Login to add to your wishlist:
           </div>
           <button class="like btn" id="wishlist-control">
             <i class="far fa-heart"></i>
           </button>
         {% endif %}
-      {% else %}
-        <div class="rating__title">
-          Login to add to your wishlist:
-        </div>
-        <button class="like btn" id="wishlist-control">
-          <i class="far fa-heart"></i>
-        </button>
-      {% endif %}
-    <div class="product__card--rating">
-      <div class="rating__title">
-        Rating
       </div>
-      {% if product.get_average_rating %}
-        <i class="fas fa-star"></i>
-        {{ product.get_average_rating }}
-      {% else %}
-        <i class="far fa-star"></i>
-        No rating yet
-      {% endif %}
+      <div class="product__card--rating">
+        <div class="rating__title">
+          Rating:
+        </div>
+        {% if product.get_average_rating %}
+          <div class="rating__data">
+            <i class="fas fa-star"></i>
+            <div>{{ product.get_average_rating }}</div>
+          </div>
+        {% else %}
+          <div class="rating__data">
+            <i class="far fa-star"></i>
+            No rating yet
+          </div>
+        {% endif %}
+      </div>
     </div>
   </div>
   <div class="product__main--info">
@@ -106,7 +114,8 @@
       <p>{{ product.description }}</p>
     </div>
     {% if not product.get_out_of_stock %}
-    <button class="btn btn-secondary" id="reset-button" type="button" data-attributevalue="reset">
+    <button class="btn btn-secondary btn__reset" id="reset-button" type="button" data-attributevalue="reset">
+      <i class="fas fa-undo"></i>
       Reset
     </button>
     {% endif %}
