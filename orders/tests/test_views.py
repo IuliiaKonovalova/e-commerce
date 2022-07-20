@@ -232,6 +232,10 @@ class TestOrdersViews(TestCase):
             total_paid=10.00,
             order_key='1111111sdgsrz67terte4n89',
         )
+        self.order1_num = self.order1.order_number
+        # change order1_num to F78F78B9B3DF4F7886F22F38DF241FB2
+        self.order1.order_number = 'F78F78B9B3DF4F7886F22F38DF241FB2'
+        self.order1.save()
         # urls
         self.client = Client()
         # set bag
@@ -263,7 +267,10 @@ class TestOrdersViews(TestCase):
         self.my_orders_url = reverse('my_orders', kwargs={'user': self.user})
         self.my_order_details_url = reverse(
             'my_order_details',
-            kwargs={'user': self.user, 'order_id': self.order1.id}
+            kwargs={
+                'user': self.user,
+                'order_number': 'F78F78B9B3DF4F7886F22F38DF241FB2'
+            }
         )
         self.order_details_url = reverse(
             'order_details',
