@@ -306,6 +306,9 @@ class TestViews(TestCase):
             'delete_product_type',
             kwargs={'pk': 1}
         )
+        self.product_type_attributes_url = reverse(
+            'product_type_attributes'
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -3162,4 +3165,39 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/delete_product_type.html')
+        self.client.logout()
+
+    def test_product_type_attributes_get_view_user_logged_out(self):
+        """Test product type attributes get view user logged out"""
+        response = self.client.get(
+            self.product_type_attributes_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_product_type_attributes_get_view_user_without_access(self):
+        """
+        Test product type attributes get view user
+        logged in without access
+        """
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.product_type_attributes_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_product_type_attributes_get_view_in_with_access(self):
+        """Test product type attributes get view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.product_type_attributes_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/attributes_list.html')
         self.client.logout()
