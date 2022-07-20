@@ -500,8 +500,53 @@ I created product_inventory_id variable outside of the functions and reassigned 
     });
 ```
 
+8. When I was trying to implement sending email on successful payment with url link functionality, I was receiving only content_html in the email without the content_text.
+
+![Payment confirmation email bug](documentation/bugs/payment_confirmation_bug.png)
+
+  *Solution:* Move the email content into email content template.
+
+![Payment confirmation email bug solution](documentation/bugs/payment_confirmation_email_solution.png)
 
 
+```python
+from django.core.mail import EmailMultiAlternatives
+
+
+def payment_confirmation(data):
+    Order.objects.filter(order_key=data).update(billing_status=True)
+    # send email to the customer
+    order = Order.objects.get(order_key=data)
+    # get this order
+    order_id = order.id   
+    order_obj = Order.objects.get(id=order_id)
+    customer = order_obj.user
+    subject = 'Payment Confirmation'
+    # get the order total paid
+    order_total_paid = order_obj.total_paid
+    order_num = str(order_obj.order_number)
+    link = (
+        'https://wowder.herokuapp.com/orders/' + str(customer.username) +
+        '/my_orders/' + order_num + '/'
+    )
+    subject, from_email, to = (
+        'Payment Confirmation', 'wow@der.com', str(customer.email)
+    )
+    text_content = ''
+    html_content = '<h1>Payment Confirmation</h2>' \
+                '<p>Your payment of ' + str(order_total_paid) \
+                + ' has been confirmed.</p>' \
+                '<p>You can view your order details by ' \
+                'clicking on your your order information link below:</p>' \
+                '<strong>Order ID: </strong>' \
+                '<a href=' + link + '>' + order_num + \
+                '</a><br><p>Thank you for shopping with us!</p>' \
+                '<em>WoWder shop</em>'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send(fail_silently=False)
+
+```
 
 
 
