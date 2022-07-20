@@ -2069,3 +2069,31 @@ class DeleteProductTypeView(View):
                 request,
                 'account/login.html',
             )
+
+
+class AttributesListView(View):
+    """View for the attributes list page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                attributes = ProductAttribute.objects.all()
+                context = {
+                    'attributes': attributes,
+                }
+                return render(
+                    request,
+                    'personnel/attributes_list.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
