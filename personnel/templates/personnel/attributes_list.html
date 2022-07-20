@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <section class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          Product Attributes
+        </h1>
+        <a href="#" aria-label="Go to add new product attribute" class="btn btn__add">
+          <i class="fas fa-plus-circle"></i>
+          Add New Product Attribute
+        </a>
+      </section>
+      <div class="types__all">
+        {% for attribute in attributes %}
+          <div class="type__details attributes">
+            <strong>{{ attribute.name }}</strong>
+            {{ attribute.description }}
+            <strong>Attributes: </strong>
+            <div class="type_attributes">
+              {% if attribute.product_attribute.all %}
+                {% for value in attribute.product_attribute.all %}
+                  {{ value.attribute_value }}, 
+                {% endfor %}
+              {% else %}
+                <span>No attributes</span>
+              {% endif %}
+            </div>
+            <div class="type__buttons">
+              <a href="#"
+                  aria-label="Edit product attribute page" class="btn btn__edit">
+                <i class="fas fa-edit"></i>
+                Edit
+              </a>
+              <a href="#"
+                  aria-label="Edit product attribute page" class="btn btn__delete">
+                <i class="fas fa-trash-alt"></i>
+                Delete
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <h1>You are not authorized to view this page</h1>
+    {% endif %}
+  </div>
+{% endblock %}
