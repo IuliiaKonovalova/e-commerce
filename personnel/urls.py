@@ -40,6 +40,7 @@ from .views import (
     UpdateProductTypeView,
     DeleteProductTypeView,
     AttributesListView,
+    AddAttributeView,
 )
 
 
@@ -244,5 +245,10 @@ urlpatterns = [
         'attributes/',
         AttributesListView.as_view(),
         name='product_type_attributes'
+    ),
+    path(
+        'attribute/add/',
+        AddAttributeView.as_view(),
+        name='add_attribute'
     ),
 ]
