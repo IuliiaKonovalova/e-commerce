@@ -2230,3 +2230,36 @@ class EditAttributeView(View):
                 request,
                 'account/login.html',
             )
+
+
+class DeleteAttributeView(View):
+    """View for the delete attribute page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 3:
+                pk = kwargs['pk']
+                attribute = get_object_or_404(
+                    ProductAttribute,
+                    id=pk
+                )
+                context = {
+                    'pk': pk,
+                    'attribute': attribute,
+                }
+                return render(
+                    request,
+                    'personnel/delete_attribute.html',
+                    context,
+                )
+            else:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
