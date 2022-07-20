@@ -3,7 +3,6 @@ from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
-# from django.core.mail import send_mail
 from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import Paginator
 from inventory.models import ProductInventory
@@ -400,32 +399,13 @@ def payment_confirmation(data):
     Order.objects.filter(order_key=data).update(billing_status=True)
     # send email to the customer
     order = Order.objects.get(order_key=data)
-    print(order)
     # get this order
     order_id = order.id
-    print(order_id)
-    # get order object
     order_obj = Order.objects.get(id=order_id)
     customer = order_obj.user
-    print(customer)
     subject = 'Payment Confirmation'
     # get the order total paid
     order_total_paid = order_obj.total_paid
-    # message =  'Payment Confirmation\n' \
-    #             'Thank you for your payment of ' \
-    #             + str(order_total_paid) + '\n' \
-    #             'Your order details:\n' \
-    #             'Order ID: ' + str(order_obj.order_number) + '\n' \
-    #             'For more details please visit your profile page\n' \
-    #             'Thank you for shopping with us!\n' 
-    # send_mail(
-    #     subject,
-    # https://wowder.herokuapp.com/orders/yemema5233/my_orders/15/
-    #     message,
-    #     'yuliyakonovalova5@gmail.com',
-    #     [customer.email],
-    #     fail_silently=False,
-    # )
     order_num = str(order_obj.order_number)
     link = (
         'https://wowder.herokuapp.com/orders/' + str(customer.username) +
@@ -435,12 +415,6 @@ def payment_confirmation(data):
         'Payment Confirmation', 'wow@der.com', str(customer.email)
     )
     text_content = ''
-                # 'Payment Confirmation\n' \
-                # 'Thank you for your payment of ' \
-                # + str(order_total_paid) + '\n' \
-                # 'Your order details:\n' \
-                # 'Order ID: ' + str(order_obj.order_number) + '\n' \
-                # 'For more details please visit your profile page\n'
     html_content = '<h1>Payment Confirmation</h2>' \
                 '<p>Your payment of ' + str(order_total_paid) \
                 + ' has been confirmed.</p>' \
