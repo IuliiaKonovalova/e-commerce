@@ -49,7 +49,7 @@ class TestUrls(SimpleTestCase):
         """Test user order details url."""
         url = reverse(
             'my_order_details',
-            kwargs={'user': 'test', 'order_id': 1}
+            kwargs={'user': 'test', 'order_number': 1}
         )
         self.assertEquals(resolve(url).func.view_class, UserOrderDetailsView)
 
