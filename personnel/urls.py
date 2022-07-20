@@ -41,6 +41,7 @@ from .views import (
     DeleteProductTypeView,
     AttributesListView,
     AddAttributeView,
+    EditAttributeView,
 )
 
 
@@ -250,5 +251,10 @@ urlpatterns = [
         'attribute/add/',
         AddAttributeView.as_view(),
         name='add_attribute'
+    ),
+    path(
+        'attribute/<int:pk>/edit/',
+        EditAttributeView.as_view(),
+        name='edit_attribute'
     ),
 ]
