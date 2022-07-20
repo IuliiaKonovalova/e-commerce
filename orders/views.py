@@ -434,15 +434,22 @@ def payment_confirmation(data):
     subject, from_email, to = (
         'Payment Confirmation', 'wow@der.com', str(customer.email)
     )
-    text_content = 'Payment Confirmation\n' \
-                'Thank you for your payment of ' \
-                + str(order_total_paid) + '\n' \
-                'Your order details:\n' \
-                'Order ID: ' + str(order_obj.order_number) + '\n' \
-                'For more details please visit your profile page\n'
-
-    html_content = '<a href=' + link + '>Order ID: ' + order_num + \
-                    '</a><br><p>Thank you for shopping with us!</p>'
+    text_content = ''
+                # 'Payment Confirmation\n' \
+                # 'Thank you for your payment of ' \
+                # + str(order_total_paid) + '\n' \
+                # 'Your order details:\n' \
+                # 'Order ID: ' + str(order_obj.order_number) + '\n' \
+                # 'For more details please visit your profile page\n'
+    html_content = '<h1>Payment Confirmation</h2>' \
+                '<p>Your payment of ' + str(order_total_paid) \
+                + ' has been confirmed.</p>' \
+                '<p>You can view your order details by ' \
+                'clicking on your your order information link below:</p>' \
+                '<strong>Order ID: </strong>' \
+                '<a href=' + link + '>' + order_num + \
+                '</a><br><p>Thank you for shopping with us!</p>' \
+                '<em>WoWder shop</em>'
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send(fail_silently=False)
