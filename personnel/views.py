@@ -1951,7 +1951,7 @@ class AddProductTypeView(View):
                 if form.is_valid():
                     form.save()
                     return HttpResponseRedirect(
-                        '/personnel/product_types/'
+                        '/personnel/product_types_table/'
                     )
                 else:
                     return render(
