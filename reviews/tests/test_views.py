@@ -19,6 +19,7 @@ from inventory.models import (
 from orders.models import Order, OrderItem
 from reviews.models import Review, ReviewImage
 
+
 class TestReviewsViews(TestCase):
     """Tests for reviews views."""
     def setUp(self):
@@ -254,11 +255,6 @@ class TestReviewsViews(TestCase):
             review=self.review1,
             image=''
         )
-        # image = open('static/images/test_product_image.png', 'rb')
-        # self.reviewImage2 = ReviewImage.objects.create(
-        #     review=self.review2,
-        #     image=image
-        # )
         # urls
         self.client = Client()
         self.review_url = reverse(
