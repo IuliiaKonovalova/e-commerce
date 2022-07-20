@@ -310,6 +310,10 @@ class TestViews(TestCase):
             'product_type_attributes'
         )
         self.add_attribute_url = reverse('add_attribute')
+        self.edit_attribute_url = reverse(
+            'edit_attribute',
+            kwargs={'pk': 1}
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -3299,4 +3303,100 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'personnel/add_attribute.html')
         self.client.logout()
 
-    # def test_edit_attribute_get_view_user_logged_out(self):
+    def test_edit_attribute_get_view_user_logged_out(self):
+        """Test edit attribute get view user logged out"""
+        response = self.client.get(
+            self.edit_attribute_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_attribute_get_view_user_without_access(self):
+        """Test edit attribute get view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.edit_attribute_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_attribute_get_view_user_with_access(self):
+        """Test edit attribute get view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.edit_attribute_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/edit_attribute.html')
+        self.client.logout()
+
+    def test_edit_attribute_post_view_user_logged_out(self):
+        """Test edit attribute post view user logged out"""
+        response = self.client.post(
+            self.edit_attribute_url,
+            {
+                'name': '',
+                'description': '',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_edit_attribute_post_view_user_without_access(self):
+        """Test edit attribute post view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.edit_attribute_url,
+            {
+                'name': '',
+                'description': '',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_edit_attribute_post_view_user_with_access(self):
+        """Test edit attribute post view user logged in with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        self.assertEqual(ProductAttribute.objects.count(), 2)
+        response = self.client.post(
+            self.edit_attribute_url,
+            {
+                'name': 'taste',
+                'description': 'banana',
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        # check count
+        self.assertEqual(ProductAttribute.objects.count(), 2)
+        self.client.logout()
+
+    def test_edit_attribute_post_view_user_with_access_failed(self):
+        """Test edit attribute post view user logged in with access failed"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.post(
+            self.edit_attribute_url,
+            {
+                'name': '',
+                'description': '',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/edit_attribute.html')
+        self.client.logout()
+
+        
