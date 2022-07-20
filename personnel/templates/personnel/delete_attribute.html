@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and request.user.profile.role.id == 3 %}
+      <div class="dashboard__main">
+        <h1 class="dashboard__main--name">Delete product attribute</h1>
+        <div class="warning__msg">
+          <p>If you delete this product attribute, all products attributes values of this type will be deleted. Are you sure you want to delete this product attribute?</p>
+          {% if attribute.product_attribute.all %}
+            <strong>
+              Please, note! The following product attribute assigned to {{ attribute.product_attribute.count }} different product values !
+            </strong>
+          {% else %}
+            <p>This product attribute is not assigned to any unit.</p>
+          {% endif %}
+        </div>
+        <strong class="warning__msg--request">Deletion is forbidden!</strong>
+        <p>If you want to delete this product attribute, please, contact with administrator.</p>
+          <a href="{% url 'product_type_attributes' %}" aria-label="Go to Product Attributes page" class="btn btn__cancel">
+            <i class="fas fa-arrow-circle-left"></i>
+            Cancel
+          </a>
+        <div>
+      </div>
+    {% else %}
+      <div class="dashboard__main">
+        <h1>You are not authorized to access this page</h1>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
