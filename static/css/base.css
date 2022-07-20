@@ -229,6 +229,7 @@ button.navbar-toggler:focus {
 
 .navbar__item--admin a {
   width: 100%;
+  min-width: 15rem;
 }
 
 .navbar__item--admin a i {
