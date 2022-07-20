@@ -6,14 +6,10 @@
   <div class="review">
     <h1>Review on {{ review.product.name }}</h1> 
     {% if request.user == review.user %}
-      <a href="" aria-label="Edit my review this product" class="btn btn__edit">
-        <i class="fas fa-edit"></i>
-        Edit review
-      </a>
-      <a href="#" aria-label="Delete my review this product" class="btn btn__delete">
-        <i class="fas fa-trash-alt"></i>
-        Delete review
-      </a>
+      <div class="warning__msg">
+        Your review is recorded, if you want to render your review, you will need to contact our support service.
+        It is important to provide the best service and the best experience for our users.
+      </div>
     {% endif %}
     <div class="review__details">
       <div class="review__details--data">
