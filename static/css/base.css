@@ -1855,6 +1855,13 @@ div.data__main--order:hover {
   align-items: center;
 }
 
+.type__details.attributes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around !important;
+}
+
 .review__images {
   width: 100%;
   display: grid;
