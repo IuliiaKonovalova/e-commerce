@@ -44,6 +44,7 @@ from .views import (
     EditAttributeView,
     DeleteAttributeView,
     AttributeValuesListView,
+    AddAttributeValueView,
 )
 
 
@@ -268,5 +269,10 @@ urlpatterns = [
         'values/',
         AttributeValuesListView.as_view(),
         name='attribute_values'
+    ),
+    path(
+        'value/add/',
+        AddAttributeValueView.as_view(),
+        name='add_attribute_value'
     ),
 ]
