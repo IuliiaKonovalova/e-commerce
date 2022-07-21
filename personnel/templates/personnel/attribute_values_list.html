@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="dashboard">
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <section class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          Product Attributes
+        </h1>
+        <a href="#" aria-label="Go to add new attribute value" class="btn btn__add">
+          <i class="fas fa-plus-circle"></i>
+          Add New Attribute Value
+        </a>
+      </section>
+      <div class="types__all">
+        {% for value in attribute_values %}
+          <div class="type__details attributes">
+            <strong>{{ value.attribute_value }} ({{ value.product_attribute }})</strong>
+            <div class="type_attributes">
+              {{ value.attributevalues.count }} units with this attribute value
+            </div>
+            <div class="type__buttons">
+              <a href="#"
+                  aria-label="Edit attribute value page" class="btn btn__edit">
+                <i class="fas fa-edit"></i>
+                Edit
+              </a>
+              {% if request.user.profile.role.id == 3 %}
+                <a href="#"
+                    aria-label="Delete attribute value page" class="btn btn__delete">
+                  <i class="fas fa-trash-alt"></i>
+                  Delete
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <h1>You are not authorized to view this page</h1>
+    {% endif %}
+  </div>
+{% endblock %}
