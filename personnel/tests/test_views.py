@@ -318,6 +318,9 @@ class TestViews(TestCase):
             'delete_attribute',
             kwargs={'pk': 1}
         )
+        self.attribute_values_url = reverse(
+            'attribute_values'
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -3431,3 +3434,35 @@ class TestViews(TestCase):
         response = self.client.get(self.delete_attribute_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/delete_attribute.html')
+
+    def test_attribute_values_get_view_user_logged_out(self):
+        """Test attribute values get view user logged out"""
+        response = self.client.get(
+            self.attribute_values_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_attribute_values_get_view_user_without_access(self):
+        """Test attribute values get view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.attribute_values_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_attribute_values_get_view_user_with_access(self):
+        """Test attribute values get view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(self.attribute_values_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'personnel/attribute_values_list.html'
+        )
