@@ -321,6 +321,9 @@ class TestViews(TestCase):
         self.attribute_values_url = reverse(
             'attribute_values'
         )
+        self.add_attribute_value_url = reverse(
+            'add_attribute_value'
+        )
 
     def test_products_table_view_user_logged_out(self):
         """Test products table view user logged out."""
@@ -3466,3 +3469,99 @@ class TestViews(TestCase):
             response,
             'personnel/attribute_values_list.html'
         )
+
+    def test_add_attribute_value_get_view_user_logged_out(self):
+        """Test add attribute value get view user logged out"""
+        response = self.client.get(
+            self.add_attribute_value_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_add_attribute_value_get_view_user_without_access(self):
+        """Test add attribute value get view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.get(
+            self.add_attribute_value_url,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_add_attribute_value_get_view_user_with_access(self):
+        """Test add attribute value get view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(self.add_attribute_value_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'personnel/add_attribute_value.html'
+        )
+
+    def test_add_attribute_value_post_view_user_logged_out(self):
+        """Test add attribute value post view user logged out"""
+        response = self.client.post(
+            self.add_attribute_value_url,
+            {
+                'product_attribute': self.product_attribute1.id,
+                'attribute_value': 'banana',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_add_attribute_value_post_view_user_without_access(self):
+        """Test add attribute value post view user logged in without access"""
+        self.client.force_login(self.user)
+        response = self.client.post(
+            self.add_attribute_value_url,
+            {
+                'product_attribute': self.product_attribute1.id,
+                'attribute_value': 'banana',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_add_attribute_value_post_view_user_with_access(self):
+        """Test add attribute value post view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        # count the number of attribute values before adding
+        self.assertTrue(ProductAttributeValue.objects.count() == 2)
+        response = self.client.post(
+            self.add_attribute_value_url,
+            {
+                'product_attribute': self.product_attribute1.id,
+                'attribute_value': 'banana',
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(ProductAttributeValue.objects.count() == 3)
+
+    def test_add_attribute_value_post_view_user_with_access_failed(self):
+        """Test add attribute value post view user logged in with access"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        # count the number of attribute values before adding
+        self.assertTrue(ProductAttributeValue.objects.count() == 2)
+        response = self.client.post(
+            self.add_attribute_value_url,
+            {
+                'product_attribute': '',
+                'attribute_value': 'banana',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(ProductAttributeValue.objects.count() == 2)
