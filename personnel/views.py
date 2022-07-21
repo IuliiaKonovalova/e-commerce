@@ -2353,3 +2353,76 @@ class AddAttributeValueView(View):
                 request,
                 'account/login.html',
             )
+
+
+class EditAttributeValueView(View):
+    """View for the edit attribute value page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                pk = kwargs['pk']
+                attribute_value = get_object_or_404(
+                    ProductAttributeValue,
+                    id=pk
+                )
+                form = ProductAttributeValueForm(instance=attribute_value)
+                context = {
+                    'form': form,
+                    'pk': pk,
+                    'attribute_value': attribute_value,
+                }
+                return render(
+                    request,
+                    'personnel/edit_attribute_value.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+    def post(self, request, *args, **kwargs):
+        """Handle POST requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                pk = kwargs['pk']
+                attribute_value = get_object_or_404(
+                    ProductAttributeValue,
+                    id=pk
+                )
+                form = ProductAttributeValueForm(request.POST, instance=attribute_value)
+                context = {
+                    'form': form,
+                    'pk': pk,
+                    'attribute_value': attribute_value,
+                }
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(
+                        '/personnel/values/'
+                    )
+                else:
+                    return render(
+                        request,
+                        'personnel/edit_attribute_value.html',
+                        context,
+                    )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
