@@ -1,22 +1,13 @@
 """Views for inventory app."""
 from django.views import View
-from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse, HttpResponseRedirect
+from django.shortcuts import render
 from .models import (
-    Category,
-    Tag,
-    Brand,
     Product,
     ProductImage,
-    ProductType,
-    ProductAttribute,
     ProductAttributeValue,
     ProductInventory,
     Stock,
-    ProductAttributeValues,
-    ProductTypeAttribute,
 )
-from django.contrib.auth.decorators import login_required
 
 
 class ProductsListView(View):
@@ -95,9 +86,7 @@ class ProductDetailView(View):
                     )
                     for s_v in selected_value:
                         for attribute in attribute_testing_set_list:
-                            # Check if the attribute is in the attribute set list
-                            print(str(attribute))
-                            print(str(s_v.product_attribute))
+                            # Check if the attribute is in the attr set list
                             if str(attribute) == str(
                                 s_v.product_attribute
                             ):
@@ -112,8 +101,9 @@ class ProductDetailView(View):
                     'Quantity'
                 ] = product_inventory_active_stock_units
                 #  get sale price for the active product
-                product_inventory_active_sale_price = product_inventory_active.\
-                    sale_price
+                product_inventory_active_sale_price = (
+                    product_inventory_active.sale_price
+                )
                 # convert decimal to string
                 product_inventory_active_sale_price = str(
                     product_inventory_active_sale_price
