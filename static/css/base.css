@@ -121,6 +121,11 @@ button {
   margin: 0 auto;
 }
 
+
+.navbar.navbar__items--admin {
+  max-width: 100%;
+}
+
 .navbar__items {
   display: flex;
   align-items: center;
