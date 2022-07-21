@@ -242,7 +242,7 @@
           <div class="form__section form__section--quantity modal__quantity">
             <div class="product__options--title">Quantity:</div>
             <div class="product__options--quantity-input">
-              <input type="number" name="required-quantity" value="1" min="1" max="150" id="">
+              <input type="number" name="required-quantity" value="1" min="1" max="150">
             </div>
           </div>
         </div>
@@ -262,35 +262,15 @@
       let itemQuantity = 1
       let quantityFinal = 0;
       let is_match = false;
-      console.log('product_inventory_id: ' + product_inventory_id)
-      console.log('itemQuantity: ' + itemQuantity)
       let product_id = $('#product').data('id');
       let options = $('.option')
-      console.log(product_id);
       let values_list = JSON.stringify({{ values_list|safe }});
-      console.log(values_list);
       // convert to array
       let values_list_array = JSON.parse(values_list);
-      console.log(values_list_array.length);
-      console.log(values_list_array);
       let valuesSetActive = {{ values_set_active_list|safe }};
-      console.log(valuesSetActive);
-
-
-
-
-
-
-
-
-
 
       // check if the product is out of stock
       if (product_inventory_id == 0) {
-
-
-
-
       }
 
       // Reset options:
@@ -306,23 +286,17 @@
         // check if product value is valuesSetActive
         $('.btn-check').each(function() {
           let value = $(this).val();
-          console.log('show value: ' + value);
-          console.log(value);
           // disable if value is not in valuesSetActive
           if (!valuesSetActive.includes(value)) {
-            console.log('not in valuesSetActive');
             let label = $('label[for="' + value + '"]');
             $(label).addClass('disable');
             label.css('opacity', '0.5');
-            console.log(label);
             let label_value = label.text();
-            console.log(label_value);
             $(label).addClass('disabled');
             $(label).addClass('btn-outline-primary');
             $(this).attr('disabled', true);
           }
           $('#item-price').html(`
-          
             <div class="">
               {% if product.get_out_of_stock %}
                 <div class="product__card--price price__sale">
@@ -358,18 +332,14 @@
             </div>
           `);
         });
-        console.log('reset');
       }
+      // Call reset on click
       $('#reset-button').click(reset);
-
-
-
       // IF PRODUCT HAS ATTRIBUTES AND VALUES
       if (valuesSetActive.length > 0) {
         let availableAll;
         // get all inputs with the name 'Color'
         let inputs = $(' input[name="Color"]');
-        console.log('Print all colors' + inputs);
         // loop through all inputs
         inputs.each(function() {
           // get the value of the input
@@ -386,7 +356,7 @@
             console.log('has class disabled');
             availableAll = false;
             if (availableAll == false) {
-              $('.product__main').before('<div class="message-container" id="messages-notes">' +
+              $('#add-to-bag-button').after('<div class="" id="messages-notes">' +
                 '<div class="message-container__message">' +
                   '<p>Order notification about stock updates</p>' +
                     '<div class="message-container__buttons">' +
@@ -453,7 +423,7 @@
                   console.log(availableAll + ' availableAll should be FALSE');
                   if (availableAll == false && $('#suggestions-message').length == 0) {
                     $('#messages-notes').remove();
-                    $('.product__main').before('<div class="message-container" id="messages-notes">' +
+                    $('#add-to-bag-button').after('<div class="" id="messages-notes">' +
                       '<div class="message-container__message">' +
                         '<p>Order notification about stock updates</p>' +
                           '<div class="message-container__buttons">' +
@@ -716,7 +686,7 @@
           $('.product__options--title').remove();
           availableAll = false;
           if (availableAll == false) {
-            $('.product__main').before('<div class="message-container" id="messages-notes">' +
+            $('#add-to-bag-button').after('<div class="" id="messages-notes">' +
               '<div class="message-container__message">' +
                 '<p>Order notification about stock updates</p>' +
                   '<div class="message-container__buttons">' +
