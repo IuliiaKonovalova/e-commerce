@@ -760,9 +760,17 @@ button.navbar-toggler:focus {
   margin-right: 0.3em;
 }
 
+.request__stock--email {
+  display: flex;
+  /* align-items: center; */
+  /* justify-content: center; */
+  margin-top: 1.3em;
+}
+
 /* Options */
 
-.product__options--title {
+.product__options--title,
+.request__stock--email p {
   font-size: 1.2rem;
   font-weight: 900;
   color: var(--clr-text--900);
@@ -1647,7 +1655,11 @@ td {
 
 /* --------- message-container ---------- */
 .message-container {
-  background-color: var(--clr-accent--200);
+  background-color: var(--clr-primary--300);
+  border-radius: var(--br);
+  color: var(--clr-text--100);
+  border: 1px solid var(--clr-text--100);
+  box-shadow: var(--box-shadow-card);
   position: absolute;
   top: 0;
   right: 0;
