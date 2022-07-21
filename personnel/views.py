@@ -2278,7 +2278,9 @@ class AttributeValuesListView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                attribute_values = ProductAttributeValue.objects.all()
+                p = Paginator(ProductAttributeValue.objects.all(), 30)
+                page = request.GET.get('page')
+                attribute_values = p.get_page(page)
                 context = {
                     'attribute_values': attribute_values,
                 }
