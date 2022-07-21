@@ -89,18 +89,22 @@ class ProductDetailView(View):
                     values_set_active_list.add(
                         value.attributevalues.attribute_value
                     )
-                    selected_value = ProductAttributeValue.objects.get(
+                    selected_value = ProductAttributeValue.objects.filter(
                         attribute_value = value.attributevalues
                     )
                     attribute_testing_set_list = list(attribute_testing_set)
-                    for attribute in attribute_testing_set_list:
-                        # Check if the attribute is in the attribute set list
-                        if str(attribute) == str(
-                            selected_value.product_attribute
-                        ):
-                            product_inventory_active_values[
-                                attribute
-                            ] = selected_value.attribute_value
+                    # loop through
+                    for selected_value_item in selected_value:
+                        value_name = selected_value_item.attribute_value
+
+                        for attribute in attribute_testing_set_list:
+                            # Check if the attribute is in the attribute set list
+                            if str(attribute) == str(
+                                value_name
+                            ):
+                                product_inventory_active_values[
+                                    attribute
+                                ] = value_name
                 # Get stock for the active product
                 product_inventory_active_stock_units = Stock.objects.get(
                     product_inventory=product_inventory_active
