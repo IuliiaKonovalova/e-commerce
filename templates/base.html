@@ -158,7 +158,6 @@
                 <li class="navbar__item--admin">
                   <a href="{% url 'product_types_table' %}" aria-label="Go to Product Types page"
                     class="account__option">
-                    {% comment %} Icon for product types {% endcomment %}
                     <i class="fas fa-boxes"></i>
                     Product Types
                   </a>
@@ -168,6 +167,13 @@
                     class="account__option">
                     <i class="fas fa-boxes"></i>
                     Product Attributes
+                  </a>
+                </li>
+                <li class="navbar__item--admin">
+                  <a href="{% url 'attribute_values' %}" aria-label="Go to Product Attributes Values page"
+                    class="account__option">
+                    <i class="fas fa-boxes"></i>
+                    Attributes Values
                   </a>
                 </li>
                 <!--  -->
