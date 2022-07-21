@@ -44,6 +44,7 @@ from personnel.views import (
     AddAttributeView,
     EditAttributeView,
     DeleteAttributeView,
+    AttributeValuesListView,
 )
 
 
@@ -399,4 +400,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             DeleteAttributeView
+        )
+
+    def test_attribute_values_url(self):
+        """Test the attribute values table url."""
+        url = reverse('attribute_values')
+        self.assertEquals(
+            resolve(url).func.view_class,
+            AttributeValuesListView
         )
