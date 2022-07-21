@@ -2263,3 +2263,31 @@ class DeleteAttributeView(View):
                 request,
                 'account/login.html',
             )
+
+
+class AttributeValuesListView(View):
+    """View for the attribute values list page."""
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests."""
+        if request.user.is_authenticated:
+            # Check if user is a customer
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                attribute_values = ProductAttributeValue.objects.all()
+                context = {
+                    'attribute_values': attribute_values,
+                }
+                return render(
+                    request,
+                    'personnel/attribute_values_list.html',
+                    context,
+                )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
