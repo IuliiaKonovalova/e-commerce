@@ -82,7 +82,7 @@ class ProductDetailView(View):
                     )
                     attribute_testing_set_list = list(attribute_testing_set)
                     selected_value = ProductAttributeValue.objects.filter(
-                        attribute_value = value.attributevalues
+                        attribute_value=value.attributevalues
                     )
                     for s_v in selected_value:
                         for attribute in attribute_testing_set_list:
