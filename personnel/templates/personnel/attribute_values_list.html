@@ -21,7 +21,7 @@
               {{ value.attributevalues.count }} units with this attribute value
             </div>
             <div class="type__buttons">
-              <a href="#"
+              <a href="{% url 'edit_attribute_value' pk=value.id %}"
                   aria-label="Edit attribute value page" class="btn btn__edit">
                 <i class="fas fa-edit"></i>
                 Edit
