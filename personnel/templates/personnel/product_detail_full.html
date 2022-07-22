@@ -83,15 +83,15 @@
                     {% else %}
                       <div>Inactive</div>
                     {% endif %}
-                    <a href="#" aria-label="Go to edit image modal" class="data__main--link image__settings" data-id="{{ image.id }}">
+                    <a href="#" aria-label="Go to edit image modal" class="data__main--link image__settings btn__edit" data-id="{{ image.id }}">
                       edit
                     </a>
-                    <a href="#" aria-label="Go to delete image modal" class="data__main--link image__delete" data-id="{{ image.id }}">
+                    <a href="#" aria-label="Go to delete image modal" class="data__main--link image__delete btn__delete" data-id="{{ image.id }}">
                       delete
                     </a>
                   </div>
                   <div class="image__container">
-                    <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="" data-id="{{ image.id }}" data-default="{{ image.default_image }}" data-active="{{ image.is_active }}">
+                    <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" data-id="{{ image.id }}" data-default="{{ image.default_image }}" data-active="{{ image.is_active }}">
                   </div>
                 </div>
             {% endfor %}
@@ -374,6 +374,7 @@
               let aSettings = $('<a></a>');
               aSettings.addClass('data__main--link');
               aSettings.addClass('image__settings');
+              aSettings.addClass('btn__edit');
               aSettings.attr('href', '#');
               aSettings.attr('data-id', data.new_image_pk);
               //add text settings to a
@@ -384,6 +385,7 @@
               let aDelete = $('<a></a>');
               aDelete.addClass('data__main--link');
               aDelete.addClass('image__delete');
+              aDelete.addClass('btn__delete');
               aDelete.attr('href', '#');
               aDelete.attr('data-id', data.new_image_pk);
               aDelete.text('delete');
