@@ -534,6 +534,10 @@ button.navbar-toggler:focus {
   box-shadow: var(--box-shadow-buttons);
 }
 
+.product__main .product__card--new {
+  left: -1.5rem;
+}
+
 .product__card--content,
 .wishlist__item--content {
   position: relative;
