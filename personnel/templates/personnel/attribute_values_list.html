@@ -27,7 +27,7 @@
                 Edit
               </a>
               {% if request.user.profile.role.id == 3 %}
-                <a href="#"
+                <a href="{% url 'delete_attribute_value' pk=value.id %}"
                     aria-label="Delete attribute value page" class="btn btn__delete">
                   <i class="fas fa-trash-alt"></i>
                   Delete
