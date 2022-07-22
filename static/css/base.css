@@ -1921,6 +1921,16 @@ div.data__main--order:hover {
 
 
 /* --------- REVIEWS, ProductTypes ---------- */
+.data__main--details {
+  width: 100%;
+  max-width: 50rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 1em 0.5em;
+  justify-content: start;
+}
+
 .review__details,
 .type__details {
   display: flex;
@@ -1938,9 +1948,41 @@ div.data__main--order:hover {
   background-color: var(--clr-text--100);
 }
 
+.review__details.review__details--product {
+  justify-content: start;
+  align-items: flex-start !important;
+  margin-bottom: 0.4em;
+}
+
+
+.review__details--customer {
+  font-weight: 900;
+  padding: 0.4em;
+  display: flex;
+  align-items: center;
+}
+
+.review__details--stars {
+  padding: 0.6em 0.6em;
+}
+
+.review__details--date {
+  margin-top: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: 100%;
+  color: var(--clr-text--500);
+  font-style: italic;
+}
+
 .type__details strong {
   text-transform: capitalize;
   padding: 0.5em;
+}
+
+.review__details--data {
+  padding: 1em 0;
 }
 
 .review__details--data.comment,
