@@ -307,8 +307,6 @@
       const addImage = function () {
                 // change title of the modal
         $('.modal-title').text('Add new image');
-        //change button text
-        
         // check if the #image-url is not empty and #image-alt-text is not empty
         if ($('#image-url').val() != '' && $('#image-alt-text').val() != '') {
           // disable modal button
@@ -364,13 +362,13 @@
               divImageTitle.addClass('card__image--title');
               let divImageTitleText = $('<div></div>');
               // add text to div
-              if (data.new_image_is_active && data.new_image_default) {
+              if (data.new_image_is_active && data.new_image_default_image) {
                 divImageTitleText.text('Default and active image');
-              } else if (data.new_image_is_active && !data.new_image_default) {
+              } else if (data.new_image_is_active && !data.new_image_default_image) {
                 divImageTitleText.text('Active');
-              } else if (!data.new_image_is_active && data.new_image_default) {
+              } else if (!data.new_image_is_active && data.new_image_default_image) {
                 divImageTitleText.text('Default and not active image');
-              } else if (!data.new_image_is_active && !data.new_image_default) {
+              } else if (!data.new_image_is_active && !data.new_image_default_image) {
                 divImageTitleText.text('Inactive');
               }
               let aSettings = $('<a></a>');
@@ -433,7 +431,17 @@
               $('#exampleModal').modal('hide');
             },
             error: function(data) {
-              console.log('error');
+              $('.fa-spinner').remove();
+              $('#messages-notes').remove();
+              $('.bag').before('<div class="message-container" id="messages-notes">' +
+                '<div class="message-container__message">' +
+                '<p class="message-container__message--text">Something went wrong</p>' +
+                '</div>' +
+                '</div>');
+              // remove the message block after 3 seconds
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
             }
           });
         } else {
@@ -516,7 +524,6 @@
           $('#image-url').css('border', 'none');
         });
         // change id for this button:
-        // <button type="button" class="btn btn-outline-primary btn__add" id="modal-form">Save changes</button>
         // check if any other #modal-form exist
         if ($('#modal-form').length > 0) {
           $('#modal-form').off('click');
@@ -593,11 +600,7 @@
                 } else {
                   $('img[data-id="' + imageId + '"]').attr('data-active', 'False');
                 }
-
-                //
                 divImageTitleText = $('img[data-id="' + imageId + '"]').parent().prev().find('div')
-
-
                 if (data.update_is_active && data.update_default_image) {
                   divImageTitleText.text('Default and active image');
                 } else if (data.update_is_active && !data.update_default_image) {
@@ -607,17 +610,23 @@
                 } else if (!data.update_is_active && !data.update_default_image) {
                   divImageTitleText.text('Inactive');
                 }
-
                 $('#image-url').on('change', imagePreview);
-
-
                 // close the modal
                 $('#exampleModal').modal('hide');
                 // reload the page
-                //location.reload();
               },
               error: function(data) {
-                console.log('error');
+                $('.fa-spinner').remove();
+                $('#messages-notes').remove();
+                $('.bag').before('<div class="message-container" id="messages-notes">' +
+                  '<div class="message-container__message">' +
+                  '<p class="message-container__message--text">Something went wrong</p>' +
+                  '</div>' +
+                  '</div>');
+                // remove the message block after 3 seconds
+                setTimeout(() => {
+                  $('#messages-notes').remove();
+                }, 3000);
               }
             });
             console.log($('#image-url').val())
@@ -651,7 +660,6 @@
               'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             success: function(data) {
-              console.log(data);
               // remove the image from the page
               $('img[data-id="' + imageId + '"]').parent().parent().remove();
               //Remove -1 from the image count
@@ -659,7 +667,17 @@
               $('#images-count').text(imageCount-1);
             },
             error: function(data) {
-              console.log('error');
+              $('.fa-spinner').remove();
+              $('#messages-notes').remove();
+              $('.bag').before('<div class="message-container" id="messages-notes">' +
+                '<div class="message-container__message">' +
+                '<p class="message-container__message--text">Something went wrong</p>' +
+                '</div>' +
+                '</div>');
+              // remove the message block after 3 seconds
+              setTimeout(() => {
+                $('#messages-notes').remove();
+              }, 3000);
             }
           });
         }
