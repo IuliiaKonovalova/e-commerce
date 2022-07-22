@@ -320,7 +320,7 @@ button.navbar-toggler:focus {
 .btn__delete {
   background-color: var(--clr-btn-delete--500) !important;
   border: 1px solid var(--clr-btn-delete--900) !important;
-  color: var(--clr-text--100);
+  color: var(--clr-text--100) !important;
 }
 
 .btn__delete:hover,
@@ -331,8 +331,8 @@ button.navbar-toggler:focus {
 
 .btn__edit,
 .btn__settings {
-  background-color: var(--clr-btn-edit--500);
-  color: var(--clr-text--100);
+  background-color: var(--clr-btn-edit--500) !important;
+  color: var(--clr-text--100) !important;
 }
 
 .btn__edit:hover,
@@ -720,6 +720,10 @@ button.navbar-toggler:focus {
   color: var(--clr-accent--900);
   font-size: 2rem;
   margin-right: 0.5em;
+}
+
+.rating__data--reviews {
+  margin-top: 0.8em;
 }
 
 .product__main--info {
@@ -1531,6 +1535,7 @@ a.brand__table--row:hover {
 .data__main--link {
   background-color: var(--clr-primary--100);
   color: var(--clr-text--900);
+  font-weight: 900;
   padding: 0.1em 0.6em 0.15em 0.6em;
   border: 1px solid var(--clr-primary--900);
   box-shadow: var(--box-shadow-buttons);
@@ -1557,9 +1562,15 @@ a.brand__table--row:hover {
   width: 100%;
   display: grid;
   grid-template-rows: 0.2fr 1fr;
+  gap: 1rem;
+  background-color: var(--clr-text--100);
 }
 
-.card__image.image__container {
+.data__main--link.card__image:hover {
+  background-color: var(--clr-text--100);
+}
+
+.card__image .image__container {
   display: flex;
   flex-direction: column;
   align-items: center;
