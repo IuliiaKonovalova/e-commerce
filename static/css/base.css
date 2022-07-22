@@ -1545,7 +1545,9 @@ a.brand__table--row:hover {
   font-weight: 900;
   text-transform: capitalize;
   padding: 0.5em;
-
+  max-width: 30rem;
+  margin: 0 auto;
+  text-align: center;
 }
 
 /* Tags */
@@ -1708,7 +1710,7 @@ td {
 }
 
 .dashboard__main a {
-  margin-top: 1em;
+  top: -1.7rem;
 }
 
 
