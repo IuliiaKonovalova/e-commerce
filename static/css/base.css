@@ -681,11 +681,17 @@ button.navbar-toggler:focus {
   left: 0.5rem;
 }
 
-.products__all .fa-spinner {
+.products__all .fa-spinner,
+.product__main .fa-spinner {
   position: absolute;
   top: 1rem;
   left: 1rem;
   z-index: 99999999999999;
+}
+
+.product__main .fa-spinner {
+  top: -0.8rem;
+  left: -0.5rem;
 }
 
 .product__card--rating {
