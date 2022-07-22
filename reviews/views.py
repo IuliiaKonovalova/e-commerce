@@ -148,3 +148,19 @@ class ViewUsersReviewsView(View):
                 request,
                 'account/login.html',
             )
+
+
+class ViewAllProductsReviewsView(View):
+    """View for all products reviews."""
+
+    def get(self, request, *args, **kwargs):
+        """Get method for all products reviews."""
+        product = get_object_or_404(Product, id=self.kwargs['product_id'])
+        p = Paginator(Review.objects.filter(product=product), 20)
+        page = request.GET.get('page')
+        reviews = p.get_page(page)
+        context = {
+            'product': product,
+            'reviews': reviews,
+        }
+        return render(request, 'reviews/product_reviews.html', context)
