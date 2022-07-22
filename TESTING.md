@@ -548,8 +548,25 @@ def payment_confirmation(data):
 
 ```
 
+9. After adding values for men and women sizing, I got an error of returning more than 1 object on get method. I t was due to the same values for sizing, like L size for men clothing and L size for women clothing
 
+*Solution:* Change get method on filter and adding for loop to go through all received objects:
 
+```python
+    attribute_testing_set_list = list(attribute_testing_set)
+    selected_value = ProductAttributeValue.objects.filter(
+        attribute_value=value.attributevalues
+    )
+    for s_v in selected_value:
+        for attribute in attribute_testing_set_list:
+            # Check if the attribute is in the attr set list
+            if str(attribute) == str(
+                s_v.product_attribute
+            ):
+                product_inventory_active_values[
+                    attribute
+                ] = s_v.attribute_value
+```
 
 
 #### Errors:
