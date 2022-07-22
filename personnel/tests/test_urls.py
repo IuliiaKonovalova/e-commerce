@@ -47,6 +47,7 @@ from personnel.views import (
     AttributeValuesListView,
     AddAttributeValueView,
     EditAttributeValueView,
+    DeleteAttributeValueView,
 )
 
 
@@ -426,4 +427,12 @@ class TestUrls(SimpleTestCase):
         self.assertEquals(
             resolve(url).func.view_class,
             EditAttributeValueView
+        )
+
+    def test_delete_attribute_value_url(self):
+        """Test the delete attribute value url."""
+        url = reverse('delete_attribute_value', kwargs={'pk': 1})
+        self.assertEquals(
+            resolve(url).func.view_class,
+            DeleteAttributeValueView
         )
