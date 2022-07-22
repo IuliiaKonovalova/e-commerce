@@ -96,6 +96,10 @@
             <i class="fas fa-star"></i>
             <div>{{ product.get_average_rating }}</div>
           </div>
+          <a href="{% url 'view_all_products_reviews' product_id=product.id %}"
+              aria-label="Go to view reviews details on th poduct" class="rating__data--reviews btn btn__redirect">
+            View reviews
+          </a>
         {% else %}
           <div class="rating__data">
             <i class="far fa-star"></i>
