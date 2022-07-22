@@ -518,7 +518,7 @@ button.navbar-toggler:focus {
 
 .product__card--new {
   position: absolute;
-  top: 1.2rem;
+  top: 1rem;
   left: -0.4rem;
   height: 3rem;
   width: 5rem;
@@ -529,6 +529,9 @@ button.navbar-toggler:focus {
   align-items: center;
   justify-content: center;
   z-index: 999;
+  border-bottom-left-radius: 0.3em;
+  border-top-left-radius: 0.3em;
+  box-shadow: var(--box-shadow-buttons);
 }
 
 .product__card--content,
