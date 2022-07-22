@@ -1491,6 +1491,18 @@ a.brand__table--row:hover {
   position: relative;
 }
 
+.product__admin--btns {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.product__admin--btns .btn__delete {
+  margin-left: 0.5em;
+}
+
 .btn__link {
   position: absolute;
   top: -0.7rem;
@@ -1522,6 +1534,11 @@ a.brand__table--row:hover {
   padding: 0.2em 1em;
 }
 
+.data__main--section strong {
+  font-size: 1.2rem;
+  margin: 0.5em 0;
+}
+
 /* Name */
 .dashboard__main--name {
   font-size: 1.7rem;
@@ -1540,6 +1557,10 @@ a.brand__table--row:hover {
   border: 1px solid var(--clr-primary--900);
   box-shadow: var(--box-shadow-buttons);
   border-radius: var(--br--links);
+}
+
+.cursor {
+  cursor: pointer !important;
 }
 
 .data__main--link:not(:last-child) {
