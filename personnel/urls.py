@@ -46,6 +46,7 @@ from .views import (
     AttributeValuesListView,
     AddAttributeValueView,
     EditAttributeValueView,
+    DeleteAttributeValueView,
 )
 
 
@@ -280,5 +281,10 @@ urlpatterns = [
         'value/<int:pk>/edit/',
         EditAttributeValueView.as_view(),
         name='edit_attribute_value'
+    ),
+    path(
+        'value/<int:pk>/delete/',
+        DeleteAttributeValueView.as_view(),
+        name='delete_attribute_value'
     ),
 ]
