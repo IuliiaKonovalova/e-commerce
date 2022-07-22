@@ -681,6 +681,13 @@ button.navbar-toggler:focus {
   left: 0.5rem;
 }
 
+.products__all .fa-spinner {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 99999999999999;
+}
+
 .product__card--rating {
   margin-right: 0.5em;
 }
