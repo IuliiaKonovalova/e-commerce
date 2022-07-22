@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="dashboard">
+    <div class="dashboard__main">
+      <h1 class="dashboard__main--name">{{ product.name }} reviews</h1>
+    </div>
+    <div class="data__main--details">
+      {% if reviews %}
+        {% for review in reviews %}
+          <a href="{% url 'order_details' order_id=review.order.id %}"
+              aria-label="View order details" class="review__details review__details--product">
+            <div class="review__details--customer">
+              <div class="profile__avatar--navbar">
+                {% if review.user.profile.avatar %}
+                  <img src="{{ review.user.profile.avatar.url }}" alt="avatar" class="avatar">
+                {% else %}
+                  <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
+                {% endif %}
+              </div>
+              {{ review.user.username }}
+            </div>
+            <div class="review__details--stars">
+                {% spaceless %}
+                  {% for star in "12345"|make_list %}
+                    {% if forloop.counter <= review.rating|add:"0" %}
+                      <i class="fas fa-star"></i>
+                    {% else %}
+                      <i class="far fa-star"></i>
+                    {% endif %}
+                  {% endfor %}
+                {% endspaceless %}
+            </div>
+            <div class="review__details--data comment">
+              <p class="review__details--comment">
+                {% if review.comment %}
+                  {{ review.comment }}
+                {% else %}
+                  No comment left.
+                {% endif %}
+              </p>
+            </div>
+
+            <div class="review__images">
+              {% for image in review.images.all %}
+                <div class="review__image">
+                  <img src="{{ image.image_url }}" alt="Review image for {{ review.product.name }} left by {{ review.user }}">
+                </div>
+              {% endfor %}
+            </div>
+            <div class="review__details--date">
+              {{ review.created_at|date }}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+
+        {% comment %} Control Pagination {% endcomment %}
+        {% if reviews.paginator.num_pages %}
+          {% if not reviews.paginator.num_pages == 1 %}
+            <div class="pagination">
+              <div class="pagination__navigation">
+                {% if reviews.has_previous and not reviews.has_next %}
+                  <a href="?page={{ reviews.previous_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to previous page results">
+                    <i class="fas fa-chevron-left"></i>
+                  </a>
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-right"></i>
+                  </div>
+                {% elif reviews.has_next and not reviews.has_previous %}
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-left"></i>
+                  </div>
+                  <a href="?page={{ reviews.next_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to next page results">
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                {% elif reviews.has_next and reviews.has_previous %}
+                  <a href="?page={{ reviews.previous_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to previous page results">
+                    <i class="fas fa-chevron-left"></i>
+                  </a>
+                  <a href="?page={{ reviews.next_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to next page results">
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                {% else %}
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-left"></i>
+                  </div>
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-right"></i>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="pagination__location">
+                Page <span>{{ reviews.number }}</span> of {{ reviews.paginator.num_pages }}
+              </div>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% else %}
+        <p>No reviews found.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+{% endblock %}
