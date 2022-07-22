@@ -27,14 +27,16 @@
           <i class="fa fa-external-link"></i>
           View in store
         </a>
-        <a class="btn btn-primary btn__edit" href="{% url 'edit_product' pk=product.pk %}">
-          <i class="fa fa-pencil"></i>
-          Edit product
-        </a>
-        <a class="btn btn-primary btn__delete" href="{% url 'delete_product' pk=product.pk %}">
-          <i class="fa fa-trash"></i>
-          Delete product
-        </a>
+        <div class="product__admin--btns">
+          <a class="btn btn__edit" href="{% url 'edit_product' pk=product.pk %}">
+            <i class="fa fa-pencil"></i>
+            Edit product
+          </a>
+          <a class="btn btn__delete" href="{% url 'delete_product' pk=product.pk %}">
+            <i class="fa fa-trash"></i>
+            Delete product
+          </a>
+        </div>
       </div>
       <div class="data__main">
         <div class="data__main--section">
@@ -43,13 +45,13 @@
         </div>
         <div class="data__main--section">
           <strong>Category: </strong>
-          <a href="{% url 'categories_table' %}" aria-label=" Go to categories page" class="data__main--link">
+          <a href="{% url 'categories_table' %}" aria-label=" Go to categories page" class="data__main--link cursor">
             {{ product.category.name }}
           </a>
         </div>
         <div class="data__main--section">
           <strong>Brand: </strong>
-          <a href="{% url 'brand_detail' brand_pk=product.brand.id %}" aria-label=" Go to {{ product.brand }} page" class="data__main--link">
+          <a href="{% url 'brand_detail' brand_pk=product.brand.id %}" aria-label=" Go to {{ product.brand }} page" class="data__main--link cursor">
             {{ product.brand }}
           </a>
         </div>
@@ -57,7 +59,7 @@
           <strong>Tags: {{ product.get_tags.count }}</strong>
           <div>
             {% for tag in product.get_tags %}
-              <a href="{% url 'tag_detail' tag_pk=tag.id %}" aria-label=" Go to {{ tag.name }} page" class="data__main--link">
+              <a href="{% url 'tag_detail' tag_pk=tag.id %}" aria-label=" Go to {{ tag.name }} page" class="data__main--link cursor">
                 {{ tag.name }}
               </a>
             {% endfor %}
