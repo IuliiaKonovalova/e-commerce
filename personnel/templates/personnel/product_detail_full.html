@@ -4,8 +4,10 @@
 
 {% block content %}
   <div class="dashboard">
+  {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
+        {% comment %} Product name {% endcomment %}
         <h1 class="dashboard__main--name">
           {{ product.name }}
           {% if product.get_recently_created %}
@@ -14,6 +16,7 @@
             </span>
           {% endif %}
         </h1>
+        {% comment %} Product data {% endcomment %}
         <div>
           <strong>ID: </strong>{{ product.id }}
           {% if product.is_active %}
@@ -22,11 +25,13 @@
             <i class="fa fa-times-circle"></i> (Inactive)
           {% endif %}
         </div>
+        {% comment %} Link to check how the product presented in store {% endcomment %}
         <a href="{% url 'product_detail' pk=product.pk %}" aria-label="Go to {{ product.name }} in the shop" target="_blank"
           class="btn btn__link">
           <i class="fa fa-external-link"></i>
           View in store
         </a>
+        {% comment %} Render product buttons {% endcomment %}
         <div class="product__admin--btns">
           <a class="btn btn__edit" href="{% url 'edit_product' pk=product.pk %}">
             <i class="fa fa-pencil"></i>
@@ -65,6 +70,7 @@
             {% endfor %}
           </div>
         </div>
+        {% comment %} Images section {% endcomment %}
         <div class="data__main--section">
           <strong>Images: <span  id="images-count">{{ get_all_images.count }}</span></strong>
           <a class="btn btn-primary btn__add" data-id="{% url 'product_detail' pk=product.pk %}" data-bs-toggle="modal"
@@ -99,6 +105,7 @@
             {% endfor %}
           </div>
         </div>
+        {% comment %} Units section {% endcomment %}
         <div class="data__main--section">
           <strong>Product inventories: {{ product.get_all_inventory.count }}</strong>
           <a class="btn btn-primary btn__add" href="{% url 'add_product_inventory_details' pk=product.pk %}">
@@ -107,7 +114,7 @@
           </a>
           <div class="data__main--inventories">
             {% for inventory in product.get_all_inventory %}
-              <a href="{% url 'product_inventory_details' pk=product.pk inventory_pk=inventory.id %}" aria-label="Go to product inventories details" class="data__main--inventory data__main--link">
+              <a href="{% url 'product_inventory_details' pk=product.pk inventory_pk=inventory.id %}" aria-label="Go to product inventories details" class="data__main--inventory data__main--link cursor">
                 <span>
                   {% if inventory.is_active %}
                   <i class="fa fa-check-circle"></i> (Active)
@@ -191,7 +198,6 @@
         </div>
       </div>
     </div>
-
     {% comment %} Modal {% endcomment %}
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -237,7 +243,6 @@
       </div>
     {% endif %}
   </div>
-
 {% endblock %}
 
 {% block postloadjs_extra %}
@@ -250,7 +255,6 @@
       const imagePreview = (e) => {
         // temporarily disable the event handler
         e.preventDefault();
-        //$('#image-url').off('change');
         // take the image from the file input and show it in the preview
         file = e.target.files[0];
         imgUrl = URL.createObjectURL(file);
