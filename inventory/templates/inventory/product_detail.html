@@ -348,13 +348,10 @@
           let thisLabel = $('label[for="' + value + '"]');
           // check if the value is in the values_list_array
           //get label with disabled class
-          console.log(this);
           thisLabel.css('background-color', value);
           thisLabel.text('');
           if ($(thisLabel).hasClass('disabled') == true) {
             thisLabel.css('opacity', '0.5');
-            //thisLabel.append('<i class="fas fa-minus-circle"></i>');
-            console.log('has class disabled');
             availableAll = false;
             if (availableAll == false) {
               $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-notes">' +
@@ -368,7 +365,6 @@
                 '</div>' +
               '</div>');
               $('.btn__no').click(function() {
-                console.log('no button clicked');
                 $('#messages-notes').remove();
               });
             }
@@ -384,7 +380,6 @@
         // if color is checked, we need to update the size-shoes group to check what sizes are available for that color
         // if size-shoes is checked, we need to update the color group to check what colors are available for that size
         $('.product__options').on('change', 'input', function() {
-          console.log('change in input and no modal');
           let attribute_value = $(this).val();
           let attribute_name = $(this).get(0).name;
           let availableAttrsFromOtherGroups = [];
@@ -400,7 +395,6 @@
               }
             }
           }
-          console.log(availableAttrsFromOtherGroups);
           // now go through other groups and disable/enable buttons
           for (let group of $('.product__options--input .btn-group')) {
             let groupName = $(group).data('group-name');
@@ -418,10 +412,8 @@
                   let buttonId = $(button).attr('id');
                   let buttonLabel = $('label[for="' + buttonId + '"]');
                   $(buttonLabel).addClass('disabled');
-                  console.log('has class disabled');
                   // SHOW SUGGESTIONS MESSAGE "BE NOTIFIED WHEN THIS PRODUCT IS BACK IN STOCK"
                   availableAll = false;
-                  console.log(availableAll + ' availableAll should be FALSE');
                   if (availableAll == false && $('#suggestions-message').length == 0) {
                     $('#messages-notes').remove();
                     $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-notes">' +
@@ -435,7 +427,6 @@
                       '</div>' +
                     '</div>');
                     $('.btn__no').click(function() {
-                      console.log('no button clicked');
                       $('#messages-notes').remove();
                     });
                   }
@@ -449,7 +440,6 @@
             let groupValue = $(group).children(':checked').val();
             chosenAttributes[groupName] = groupValue;
           }
-          console.log(chosenAttributes);
           findPriceAndQuantity(values_list_array, chosenAttributes);
           checkReadyToPurchase(values_list_array, chosenAttributes);
           // on click outside of the groups, we need to enable all the buttons that are disabled
@@ -519,9 +509,6 @@
             if (is_match) {
               price = stockOption["Price"];
               quantity = stockOption["Quantity"];
-              console.log('CHECK AGAIN')
-              console.log(price);
-              console.log(quantity);
             }
           }
           if (price !== 0) {
@@ -541,7 +528,6 @@
           let quantityCheck = $('input[name="quantity"]').val();
           if (quantityCheck > 1) {
             $('input[name="quantity"]').val(parseInt(quantityCheck) - 1);
-            console.log('First input of the quantity ' + quantityCheck);
             $('#minus-button').removeClass('disabled');
             $('#plus-button').removeClass('disabled');
           } else {
@@ -551,7 +537,6 @@
         // Control the plus button
         $('#plus-button').on('click', function(e) {
           e.preventDefault();
-          console.log('Check plus button' + $('input[name="quantity"]').val());
           // check if input with name="quantity" max is not reached
           let quantityCheck = $('input[name="quantity"]').val();
           if (quantityCheck < itemQuantity) {
@@ -588,22 +573,11 @@
                 // enable '#add-to-bag-button'
                 $('#add-to-bag-button').removeClass('disabled');
                 let quantityCheck = $('input[name="quantity"]').val();
-                console.log('Second input of the quantity ' + quantityCheck);
                 id = stockOption["id"];
-                console.log('IDDDDDDDDDDDD ' + id);
-                //product_inventory_id = id;
-                console.log('product_inventory_id ' + product_inventory_id);
                 //check type of id
-                console.log(typeof id);
-                console.log('quantityFinal ' + quantityFinal);
                 quantityFinal = $('input[name="quantity"]').val();
                 //convert to int
                 quantityFinal = parseInt(quantityFinal);
-                // check typeof quantityFinal
-                console.log('typeof quantityFinal ' + typeof quantityFinal);
-                console.log('quantityFinal ' + quantityFinal);
-                console.log('product_inventory_id ' + product_inventory_id);
-                console.log(is_match);
                 // STOCK WARNING MESSAGE
                 //get max value in the input with the name quantity
                 let quantityMax = $('input[name="quantity"]').attr('max');
@@ -619,25 +593,17 @@
         }
       } else if (valuesSetActive.length == 0 && values_list_array.length == 1) {
         //let quantityFinal = 0;
-        console.log(values_list);
-        console.log(values_list_array);
-        console.log('HUY');
         //get id of the product from [{"Quantity":100,"Price":"7.00","id":9}]
         //let quantityForSingle;
         let idForSingle;
         for (let stockOption of values_list_array) {
-          console.log(stockOption);
           for (let key in stockOption) {
             if (key == "Quantity") {
-              console.log(key);
               //let quantityForSingle = stockOption[key];
               itemQuantity = stockOption[key];
-              console.log('itemQuantity ' + itemQuantity);
               $('input[name="quantity"]').attr('max', itemQuantity);
             } else if (key == "id") {
-              console.log(key);
               idForSingle = stockOption[key];
-              console.log('idForSingle ' + idForSingle);
               product_inventory_id = idForSingle;
             }
           }
@@ -646,11 +612,8 @@
         $('#minus-button').on('click', function(e) {
           e.preventDefault();
           let quantityCheck = $('input[name="quantity"]').val();
-          console.log('HUY');
-          console.log(quantityCheck);
           if (quantityCheck > 1) {
             $('input[name="quantity"]').val(parseInt(quantityCheck) - 1);
-            console.log('First input of the quantity ' + quantityCheck);
             $('#minus-button').removeClass('disabled');
             $('#plus-button').removeClass('disabled');
           } else {
@@ -663,19 +626,15 @@
           // check if input with name="quantity" max is not reached
           let quantityCheck = $('input[name="quantity"]').val();
           if (quantityCheck < itemQuantity) {
-            console.log('quantityCheck < itemQuantity');
             $('#plus-button').removeClass('disabled');
             $('input[name="quantity"]').val(parseInt(quantityCheck) + 1);
           } else {
-            console.log('quantityCheck >= itemQuantity');
             $('#plus-button').addClass('disabled');
             // STOCK WARNING MESSAGE
             $('#quantity-warning').removeClass('hidden');
             $('#quantity-warning-message').text('Only ' + itemQuantity + ' items available');
           }
         });
-        console.log(product_inventory_id);
-        console.log(itemQuantity);
         quantityFinal = $('input[name="quantity"]').val();
         //convert to int
         quantityFinal = parseInt(quantityFinal);
@@ -698,7 +657,6 @@
               '</div>' +
             '</div>');
             $('.btn__no').click(function() {
-              console.log('no button clicked');
               $('#messages-notes').remove();
             });
           }
@@ -706,20 +664,11 @@
       }
       $('#add-to-bag-button').on('click', function(e) {
         e.preventDefault();
-        console.log('quantityFinal ' + quantityFinal);
         quantityFinal = $('input[name="quantity"]').val();
         $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
-        //product_inventory_id
-        //convert to int
-        console.log('product_inventory_id!!!!!!!!!!!!!!! ' + product_inventory_id);
-        //console.log('product_inventory_id ' + product_inventory_id);
-        // check typeof quantityFinal
-        console.log('typeof quantityFinal ' + typeof quantityFinal);
         $('label.disabled').removeClass('disabled');
         $('input.btn-check').prop('checked', false);
         reset(e);
-        console.log('Reseted');
-        console.log(is_match)
         // AJAX request to add item to the bag
         $.ajax({
           url: "{% url 'add_to_bag' %}",
@@ -731,7 +680,6 @@
           },
           success: function(data) {
             $('.fa-spinner').remove();
-            console.log(data);
             // update shopping bag in navbar
             $('#shopping-bag-count').text(data.product_count);
             // disable button after the click
@@ -842,22 +790,13 @@
           $('.btn-group.in_modal').each(function() {
             let group_name = $(this).attr('data-group-name');
             let group_value = $(this).find('input:checked').val();
-            console.log('group_name ' + group_name);
-            console.log('group_value ' + group_value);
             productRequestOptions.options[group_name] = group_value;
           });
           let optionAmount = $('.options__request').length;
           let optionChecked = $('.modal .btn-check:checked').length;
           let quantity = $('.modal-body input[name="required-quantity"]').val();
-          console.log('quantity ' + quantity);
           productRequestOptions['quantity'] = quantity;
-          //let notes = $('.modal-body textarea[name="note"]').val();
-          //console.log('notes ' + notes);
-          //productRequestOptions['notes'] = notes;
-          console.log('All dictionary' + productRequestOptions);
-          console.log(productRequestOptions)
           let data = JSON.stringify(productRequestOptions);
-          console.log('data ' + data);
           //AJAX request to add item to the StockEmailNotification table
           if (optionAmount === optionChecked) {
           // close the modal
@@ -870,8 +809,6 @@
                 'csrfmiddlewaretoken': '{{ csrf_token }}'
               },
               success: function(data) {
-                console.log(data);
-                console.log('success');
                 if (data.alert_message) {
                   $('#messages-notes').remove();
                   $('.product__main').before('<div class="message-container" id="messages-notes">' +
@@ -885,7 +822,6 @@
                 }, 3000);
               },
               error: function(data) {
-                console.log('error');
                 if (data.alert_message) {
                   $('#messages-notes').remove();
                   $('.product__main').before('<div class="message-container" id="messages-notes">' +
