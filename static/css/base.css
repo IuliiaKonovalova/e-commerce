@@ -1545,6 +1545,7 @@ a.brand__table--row:hover {
   font-weight: 900;
   text-transform: capitalize;
   padding: 0.5em;
+
 }
 
 /* Tags */
@@ -1585,6 +1586,7 @@ a.brand__table--row:hover {
   grid-template-rows: 0.2fr 1fr;
   gap: 1rem;
   background-color: var(--clr-text--100);
+  margin-top: 0.5em;
 }
 
 .data__main--link.card__image:hover {
@@ -1613,11 +1615,17 @@ a.brand__table--row:hover {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
   gap: 0.5em;
+  margin-top: 0.5em;
 }
 
-.data__main--inventory {
+.data__main--link.data__main--inventory {
   padding: 0.5em;
   position: relative;
+  background-color: var(--clr-text--100);
+}
+
+.data__main--link.data__main--inventory:hover {
+  background-color: #f6f0ff;
 }
 
 .data__main--inventory.data__main--link {
@@ -1654,27 +1662,28 @@ td {
 .data__accent--sale {
   background-color: var(--clr-btn-delete--500);
   color: var(--clr-text--100);
+  padding: 0 0.4em;
 }
 
 .data__accent--yellow {
-  background-color: yellow;
+  background-color: #ffff5c;
 
 }
 
 .data__accent--orange {
-  background-color: orange;
+  background-color: #ffbb3e;
 }
 
 .data__accent--redish {
-  background-color: rgb(255, 81, 0);
+  background-color: #ff7d5d;
 }
 
 .data__accent--red {
-  background-color: red;
+  background-color: #ff5151;
 }
 
 .data__accent--green {
-  background-color: green;
+  background-color: #7fff7f;
 }
 
 
