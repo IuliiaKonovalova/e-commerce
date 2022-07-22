@@ -5,6 +5,7 @@ from .views import (
     AddReviewView,
     AddReviewWithImagesAJAXView,
     ViewUsersReviewsView,
+    ViewAllProductsReviewsView,
 )
 
 
@@ -28,5 +29,10 @@ urlpatterns = [
         'view_users_reviews/',
         ViewUsersReviewsView.as_view(),
         name='view_users_reviews'
+    ),
+    path(
+        'product_reviews/<int:product_id>/',
+        ViewAllProductsReviewsView.as_view(),
+        name='view_all_products_reviews'
     ),
 ]
