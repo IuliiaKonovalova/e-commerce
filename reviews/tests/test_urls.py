@@ -6,6 +6,7 @@ from reviews.views import (
     AddReviewView,
     AddReviewWithImagesAJAXView,
     ViewUsersReviewsView,
+    ViewAllProductsReviewsView,
 )
 
 
@@ -39,4 +40,11 @@ class TestUrls(SimpleTestCase):
         url = reverse('view_users_reviews')
         self.assertEquals(
             resolve(url).func.view_class, ViewUsersReviewsView
+        )
+
+    def test_view_all_products_reviews_url(self):
+        """Test view all products reviews url"""
+        url = reverse('view_all_products_reviews', kwargs={'product_id': 1})
+        self.assertEquals(
+            resolve(url).func.view_class, ViewAllProductsReviewsView
         )
