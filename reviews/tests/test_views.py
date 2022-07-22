@@ -274,6 +274,10 @@ class TestReviewsViews(TestCase):
             'add_review_with_images_ajax',
         )
         self.view_users_reviews_url = reverse('view_users_reviews')
+        self.view_all_products_reviews_url = reverse(
+            'view_all_products_reviews',
+            kwargs={'product_id': 1}
+        )
 
     def test_review_view(self):
         response = self.client.get(self.review_url)
@@ -403,3 +407,9 @@ class TestReviewsViews(TestCase):
         response = self.client.get(self.view_users_reviews_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'reviews/user_reviews.html')
+
+    def test_view_all_products_reviews_all_users(self):
+        """Test view all products reviews all users."""
+        response = self.client.get(self.view_all_products_reviews_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reviews/product_reviews.html')
