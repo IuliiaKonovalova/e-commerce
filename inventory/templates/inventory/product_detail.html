@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block content %}
 <div class="product__main">
   <div class="product__main--image">
@@ -356,12 +357,12 @@
             console.log('has class disabled');
             availableAll = false;
             if (availableAll == false) {
-              $('#add-to-bag-button').after('<div class="" id="messages-notes">' +
+              $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-notes">' +
                 '<div class="message-container__message">' +
                   '<p>Order notification about stock updates</p>' +
                     '<div class="message-container__buttons">' +
-                      '<button class="btn btn-primary" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
-                      '<button class="btn btn-primary btn__no" id="no-button">No</button>' +
+                      '<button class="btn btn__add" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
+                      '<button class="btn btn__cancel btn__no" id="no-button">No</button>' +
                     '</div>' +
                   '</div>' +
                 '</div>' +
@@ -423,12 +424,12 @@
                   console.log(availableAll + ' availableAll should be FALSE');
                   if (availableAll == false && $('#suggestions-message').length == 0) {
                     $('#messages-notes').remove();
-                    $('#add-to-bag-button').after('<div class="" id="messages-notes">' +
+                    $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-notes">' +
                       '<div class="message-container__message">' +
                         '<p>Order notification about stock updates</p>' +
                           '<div class="message-container__buttons">' +
-                            '<button class="btn btn-primary" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
-                            '<button class="btn btn-primary btn__no" id="no-button">No</button>' +
+                            '<button class="btn btn__add" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
+                            '<button class="btn btn__cancel btn__no" id="no-button">No</button>' +
                           '</div>' +
                         '</div>' +
                       '</div>' +
@@ -686,12 +687,12 @@
           $('.product__options--title').remove();
           availableAll = false;
           if (availableAll == false) {
-            $('#add-to-bag-button').after('<div class="" id="messages-notes">' +
+            $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-notes">' +
               '<div class="message-container__message">' +
                 '<p>Order notification about stock updates</p>' +
                   '<div class="message-container__buttons">' +
-                    '<button class="btn btn-primary" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
-                    '<button class="btn btn-primary btn__no" id="no-button">No</button>' +
+                    '<button class="btn btn__add" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
+                    '<button class="btn btn__cancel btn__no" id="no-button">No</button>' +
                   '</div>' +
                 '</div>' +
               '</div>' +
