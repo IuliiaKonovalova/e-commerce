@@ -3,14 +3,17 @@
 
 
 {% block content %}
-  <div class="wishlist" id="wishlist">
+  <div class="wishlist profile" id="wishlist">
+  {% comment %} Wish list of the user {% endcomment %}
     {% if request.user.is_authenticated %}
-      <div>Hello! Here is your wishlist!</div>
+      <h1>Your Wish List</h1>
+      {% comment %} If there are any products {% endcomment %}
       {% if products %}
         <div class="wishlist__table" id="wishlist-table">
           {% comment %} Clean Wishlist fully {% endcomment %}
           <div class="wishlist__clean">
             <div class="btn btn__delete wishlist__items--clean" id="wishlist-clean">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
               Empty wishlist
             </div>
             <div class="wishlist__clean--dropdown hidden" id="wishlist__clean--dropdown">
@@ -89,12 +92,58 @@
             {% endfor %}
           </div>
         </div>
+  {% comment %} Control Pagination {% endcomment %}
+  {% if products.paginator.num_pages %}
+    {% if not products.paginator.num_pages == 1 %}
+      <div class="pagination">
+        <div class="pagination__navigation">
+          {% if products.has_previous and not products.has_next %}
+            <a href="?page={{ products.previous_page_number }}" class="pagination__navigation--btn"
+              aria-label="Go to previous page results">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+            <div class="pagination__navigation--fake">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          {% elif products.has_next and not products.has_previous %}
+            <div class="pagination__navigation--fake">
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <a href="?page={{ products.next_page_number }}" class="pagination__navigation--btn"
+              aria-label="Go to next page results">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          {% elif products.has_next and products.has_previous %}
+            <a href="?page={{ products.previous_page_number }}" class="pagination__navigation--btn"
+              aria-label="Go to previous page results">
+              <i class="fas fa-chevron-left"></i>
+            </a>
+            <a href="?page={{ products.next_page_number }}" class="pagination__navigation--btn"
+              aria-label="Go to next page results">
+              <i class="fas fa-chevron-right"></i>
+            </a>
+          {% else %}
+            <div class="pagination__navigation--fake">
+              <i class="fas fa-chevron-left"></i>
+            </div>
+            <div class="pagination__navigation--fake">
+              <i class="fas fa-chevron-right"></i>
+            </div>
+          {% endif %}
+        </div>
+        <div class="pagination__location">
+          Page <span>{{ products.number }}</span> of {{ products.paginator.num_pages }}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
       {% else %}
         <div class="wishlist__empty">
           <p>You have no items in your wishlist.</p>
         </div>
       {% endif %}
     {% else %}
+    {% comment %} If user logged out, show a message to login {% endcomment %}
       <div class="wishlist__empty">
         <p>You have to be logged in to see your wishlist.</p>
       </div>
