@@ -5,8 +5,9 @@
   <style>
     .bag__promotion {
       display: flex !important;
-      padding: 1em 0;
+      padding-bottom: 0.5em;
     }
+
     input.bag__promotion--input {
       border: 2px solid #ccc;
       font-size: 1.2rem !important;
@@ -26,6 +27,10 @@
   {% comment %} Bag Template {% endcomment %}
   <div class="bag" id="bag">
     {% comment %} add alret message at the top about loyalty program {% endcomment %}
+    <a href="#bag-summary" aria-label="Go to summary" class="bag__title">
+      <i class="fas fa-chevron-down"></i>
+      Ready to purchase!?
+    </a>
     <div class="alert alert-success">
       {% if user.is_authenticated %}
         {% if request.user.profile.subscription %}
@@ -37,31 +42,14 @@
         <p>If you want to be our member of loyalty programm, you need to login and sign up for subscription.</p>
       {% endif %}
     </div>
-    {% if user.is_authenticated and request.user.profile.subscription %}
-      <div class="alert alert-danger">
-        <p>Remember to reenter the coupon code if you update your bag.</p>
-      </div>
-    {% endif %}
-    {% if not request.user.is_authenticated %}
-      <h1>Please, log in to add items to your bag</h1>
-      <div>
-        <a href="{% url 'account_signup' %}" class="btn bag__account">SignUp</a>
-        <a href="{% url 'account_login' %}" class="btn bag__account">Login</a>
-      </div>
-    {% else %}
-      <h1>Hello! This is a bag!</div>
+    {% if request.user.is_authenticated %}
       {% if bag_items %}
-        {% comment %} Clean bag fully {% endcomment %}
-        <div class="bag__clean">
-          <div class="btn bag__items--clean" id="bag-clean" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            clear the bag
-          </div>
-        </div>
         <div id="bag-table">
           <div class="bag__items">
             {% comment %} Table header {% endcomment %}
             <div class="bag__items--titles">
-              <div class="bag__items--title bag__items--title--product">Product</div>
+              <div class="bag__items--title">Image</div>
+              <div class="bag__items--title">Product</div>
               <div class="bag__items--title">Price</div>
               <div class="bag__items--title">Quantity</div>
               <div class="bag__items--title">Total</div>
@@ -73,18 +61,20 @@
             {% comment %} One item {% endcomment %}
               <div class="bag__item" data-attr="{{ item.product_inventory.pk }}" data-stock="{{ item.units }}">
                 {% comment %} Product's image {% endcomment %}
+                <div class="bag__item--image">
+                  {% if item.product_inventory.product.images.all %}
+                    <img src="{{ item.product_inventory.product.get_main_image }}"
+                      alt="Cover image for {{ item.product_inventory.product.name }}">
+                  {% else %}
+                    <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+                  {% endif %}
+                </div>
                 <a href="{% url 'product_detail' pk=item.product_inventory.product.id %}"
                   aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link">
                   {% comment %} Product's name {% endcomment %}
-                  {{ item.product_inventory.product.name|truncatechars:25 }}
-                  <i class="fa fa-external-link" aria-hidden="true"></i>
-                  <div class="bag__item--image">
-                    {% if item.product_inventory.product.images.all %}
-                      <img src="{{ item.product_inventory.product.get_main_image }}"
-                        alt="Cover image for {{ item.product_inventory.product.name }}">
-                    {% else %}
-                      <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
-                    {% endif %}
+                  <div class="bag__product--name">
+                    {{ item.product_inventory.product.name|truncatechars:25 }}
+                    <i class="fa fa-external-link" aria-hidden="true"></i>
                   </div>
                   {% comment %} Product's values {% endcomment %}
                   <div class="bag__item--values">
@@ -124,16 +114,27 @@
             {% endfor %}
           </div>
           {% comment %} Bag's summary {% endcomment %}
-          <div class="bag__summary" >
+          <div class="bag__summary" id="bag-summary">
+            {% comment %} Clean bag fully {% endcomment %}
+            <div class="bag__clean">
+              <div class="btn btn__delete" id="bag-clean" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                Empty bag
+              </div>
+            </div>
             <div>
-              Total sum:
+              <strong>Total sum:</strong>
               <div class="bag__items--costs">{{ total }}</div>
             </div>
             <div>
-              Total items: 
+              <strong>Products number:</strong>
               <div class="bag__items--count">{{ product_count }}</div>
             </div>
-
+            {% if user.is_authenticated and request.user.profile.subscription %}
+              <div class="alert alert-danger">
+                <p>Remember to reenter the coupon code if you update your bag.</p>
+              </div>
+            {% endif %}
               {% comment %} add input to add promotions code + button {% endcomment %}
             <form class="bag__promotion col-md-6">
               <input type="text" class="bag__promotion--input form-control" placeholder="Promotion code" required>
@@ -142,7 +143,10 @@
               </button>
             </form>
             {% comment %} Checkout button {% endcomment %}
-            <a href="{% url 'payment' %}" class="btn btn__add">Checkout</a>
+            <a href="{% url 'payment' %}" class="btn btn__add">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              Checkout
+            </a>
           </div>
         </div>
 
@@ -166,12 +170,23 @@
             </div>
           </div>
         </div>
+      
+      
+      
+      
+      
       {% else %}
         {% comment %} If bag is empty {% endcomment %}
         <div class="bag__items--empty">
           <p class="bag__items--empty--text">Your bag is empty</p>
         </div>
       {% endif %}
+    {% else %}
+      <h1>Please, log in to add items to your bag</h1>
+      <div>
+        <a href="{% url 'account_signup' %}" class="btn bag__account">SignUp</a>
+        <a href="{% url 'account_login' %}" class="btn bag__account">Login</a>
+      </div>
     {% endif %}
   </div>
 {% endblock %}
