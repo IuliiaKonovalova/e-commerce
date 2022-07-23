@@ -8,7 +8,6 @@ from .views import (
     RemoveAllItemUnitsFromBagAJAXView,
     RemoveAllBagAJAXView,
     PromoCodeAJAXView,
-
 )
 
 
