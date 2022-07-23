@@ -2271,3 +2271,21 @@ div.data__main--order:hover {
 .blink {
   background-color: red;
 }
+
+
+
+
+
+
+
+
+
+/* ------------- MEDIA -------------- */
+@media all and (max-width: 431px) {
+
+  th,
+  td {
+    padding: 0.2em;
+    text-align: center;
+  }
+}
