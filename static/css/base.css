@@ -1491,6 +1491,11 @@ a.brand__table--row:hover {
   position: relative;
 }
 
+.dashboard__main .btn_go--back {
+  position: absolute;
+  left: 0;
+}
+
 .product__admin--btns {
   display: flex;
   width: 100%;
@@ -1522,6 +1527,13 @@ a.brand__table--row:hover {
   align-items: start;
   justify-content: start;
   position: relative;
+}
+
+.data__main.unit {
+  background-color: var(--clr-text--100);
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: var(--br);
 }
 
 .data__main--section {
