@@ -4,7 +4,9 @@
 
 {% block content %}
   <div class="dashboard">
+  {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+    {% comment %} Unit page Header {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           {{ product.name }}
@@ -30,6 +32,7 @@
           Delete Unit
         </a>
       </div>
+      {% comment %} Unit data {% endcomment %}
       <div class="data__main unit">
         <span>
           {% if inventory.is_active %}
@@ -58,6 +61,7 @@
             <i class="fa fa-times-circle"></i> (Not in Promo)
           {% endif %}
         </div>
+        {% comment %} Price table {% endcomment %}
         <div>
           <strong>Price: </strong>
           <table>
@@ -79,6 +83,7 @@
             </tr>
           </table>
         </div>
+        {% comment %} Stock table {% endcomment %}
         <div class="unit__stock">
           <strong>Stock: </strong>
           {% if inventory.stock %}
@@ -140,8 +145,12 @@
                   Delete Stock
             </a>
           {% else %}
-            <div class="data__accent--red">
-              <strong>Stock not found</strong>
+          {% comment %} If there is no stock yet {% endcomment %}
+            <div>
+              <strong class="data__accent--red unit">
+                <i class="fa fa-exclamation-triangle"></i>
+                Stock not found
+              </strong>
               {% comment %} Check if user is admin {% endcomment %}
               {% if request.user.profile.role.id == 3 %}
                 <a href="{% url 'add_stock' pk=product.id inventory_pk=inventory.pk %}"
