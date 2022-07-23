@@ -1176,8 +1176,8 @@ input[name=quantity] {
   color: var(--clr-primary--500);
   padding: 1em;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0.5rem;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
   position: relative;
   background-color: var(--clr-text--100);
 }
@@ -1189,7 +1189,11 @@ input[name=quantity] {
 .wishlist .wishlist__item:hover {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
   border-radius: var(--br);
+}
 
+.wishlist__items .wishlist__item--discount {
+  top: -1rem;
+  right: -1rem;
 }
 
 .wishlist__item--image {
@@ -1198,6 +1202,15 @@ input[name=quantity] {
 
 .wishlist__item--name {
   font-size: 1.2rem;
+  justify-self: flex-start;
+  margin-bottom: 2rem;
+}
+
+.wishlist__item--content {
+  position: absolute;
+  bottom: 0.4rem;
+  right: 0.2rem;
+  width: 100%;
 }
 
 .wishlist__item--prices {
