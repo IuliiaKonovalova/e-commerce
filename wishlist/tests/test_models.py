@@ -92,7 +92,7 @@ class WishlistTestCase(TestCase):
             Wishlist.objects.get(user=self.user2).user,
             self.user2
         )
-    
+
     def test_wishlist_add_product(self):
         """Test wishlist add product."""
         # add products to wishlist
@@ -117,7 +117,7 @@ class WishlistTestCase(TestCase):
             str(Wishlist.objects.get(user=self.user)),
             'testuser\'s wishlist'
         )
-    
+
     def test_wishlist_add_product_product_is_already_in_wishlist(self):
         """Test wishlist add product product is already in wishlist."""
         # add product to wishlist

@@ -91,7 +91,6 @@ class WishlistTestCase(TestCase):
             'empty_wishlist_ajax',
         )
 
-
     def test_wishlist_display_view(self):
         """Test wishlist display view."""
         self.client.force_login(self.user)
