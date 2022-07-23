@@ -1,6 +1,7 @@
 """Views for inventory app."""
 from django.views import View
 from django.shortcuts import render
+from django.core.paginator import Paginator
 from .models import (
     Product,
     ProductImage,
@@ -14,7 +15,9 @@ class ProductsListView(View):
     """View for the home page."""
     def get(self, request, *args, **kwargs):
         """Handle GET requests."""
-        products = Product.objects.all()
+        p = Paginator(Product.objects.all(), 7)
+        page = request.GET.get('page')
+        products = p.get_page(page)
         context = {
             'products': products,
         }
