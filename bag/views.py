@@ -8,7 +8,6 @@ from promotions.models import Promotion
 from .contexts import bag_contents
 
 
-
 class BagDisplayView(View):
     """View for the bag display page."""
     def get(self, request, *args, **kwargs):
@@ -99,7 +98,6 @@ class RemoveUnitFromBagAJAXView(View):
                     message_alert = (
                         f'{product_inventory.product.name} UPDATED.'
                     )
-                    
                 else:
                     bag.pop(product_inventory_id)
                     message_alert = (
