@@ -61,10 +61,7 @@
           <div class="bag__items">
             {% comment %} Table header {% endcomment %}
             <div class="bag__items--titles">
-              <div class="bag__items--title">sku</div>
-              <div class="bag__items--title">Image</div>
-              <div class="bag__items--title">Product</div>
-              <div class="bag__items--title">Options</div>
+              <div class="bag__items--title bag__items--title--product">Product</div>
               <div class="bag__items--title">Price</div>
               <div class="bag__items--title">Quantity</div>
               <div class="bag__items--title">Total</div>
@@ -75,36 +72,35 @@
             {% for item in bag_items %}
             {% comment %} One item {% endcomment %}
               <div class="bag__item" data-attr="{{ item.product_inventory.pk }}" data-stock="{{ item.units }}">
-                <div>{{ item.product_inventory.sku }}</div>
                 {% comment %} Product's image {% endcomment %}
-                <div class="bag__item--image">
-                  {% if item.product_inventory.product.images.all %}
-                    <img src="{{ item.product_inventory.product.get_main_image }}"
-                      alt="Cover image for {{ item.product_inventory.product.name }}">
-                  {% else %}
-                    <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
-                  {% endif %}
-                </div>
-                {% comment %} Product's name {% endcomment %}
                 <a href="{% url 'product_detail' pk=item.product_inventory.product.id %}"
                   aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link">
+                  {% comment %} Product's name {% endcomment %}
                   {{ item.product_inventory.product.name|truncatechars:25 }}
                   <i class="fa fa-external-link" aria-hidden="true"></i>
+                  <div class="bag__item--image">
+                    {% if item.product_inventory.product.images.all %}
+                      <img src="{{ item.product_inventory.product.get_main_image }}"
+                        alt="Cover image for {{ item.product_inventory.product.name }}">
+                    {% else %}
+                      <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+                    {% endif %}
+                  </div>
+                  {% comment %} Product's values {% endcomment %}
+                  <div class="bag__item--values">
+                    {% if item.product_inventory.get_attribute_values.all == 1 %}
+                      {% comment %} Only one value is listed {% endcomment %}
+                      {% for value in item.product_inventory.get_attribute_values %}
+                        <div>{{ value.attribute_value }}</div>
+                      {% endfor %}
+                    {% else %}
+                      {% comment %} More than 1 values are listed {% endcomment %}
+                      {% for value in item.product_inventory.get_attribute_values %}
+                        <div class="bag__item--value">{{ value.attribute_value }}</div>
+                      {% endfor %}
+                    {% endif %}
+                  </div>
                 </a>
-                {% comment %} Product's values {% endcomment %}
-                <div class="bag__item--values">
-                  {% if item.product_inventory.get_attribute_values.all == 1 %}
-                    {% comment %} Only one value is listed {% endcomment %}
-                    {% for value in item.product_inventory.get_attribute_values %}
-                      <div>{{ value.attribute_value }}</div>
-                    {% endfor %}
-                  {% else %}
-                    {% comment %} More than 1 values are listed {% endcomment %}
-                    {% for value in item.product_inventory.get_attribute_values %}
-                      <div class="bag__item--value">{{ value.attribute_value }}</div>
-                    {% endfor %}
-                  {% endif %}
-                </div>
                 {% comment %} Product's price {% endcomment %}
                 <div>${{ item.product_inventory.sale_price }}</div>
                 {% comment %} Quantity control {% endcomment %}
