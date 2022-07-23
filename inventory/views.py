@@ -15,7 +15,7 @@ class ProductsListView(View):
     """View for the home page."""
     def get(self, request, *args, **kwargs):
         """Handle GET requests."""
-        p = Paginator(Product.objects.all(), 7)
+        p = Paginator(Product.objects.all(), 30)
         page = request.GET.get('page')
         products = p.get_page(page)
         context = {
