@@ -1696,6 +1696,14 @@ td {
   background-color: #ff5151;
 }
 
+.data__accent--red.unit {
+  padding: 0.55em;
+  padding-bottom: 0.65em;
+  border-radius: var(--br);
+  color: var(--clr-text--100);
+  margin-right: 0.5em;
+}
+
 .data__accent--green {
   background-color: #7fff7f;
 }
@@ -2286,6 +2294,5 @@ div.data__main--order:hover {
   th,
   td {
     padding: 0.2em;
-    text-align: center;
   }
 }
