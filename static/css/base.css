@@ -1138,8 +1138,6 @@ input[name=quantity] {
 
 /* ----- Wishlist ----- */
 .wishlist {
-  background-color: var(--clr-accent--100);
-  padding: 2vh 2vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1156,6 +1154,7 @@ input[name=quantity] {
 }
 
 .wishlist__items {
+  margin-top: 0.7em;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(30rem, 100%), 1fr));
@@ -1183,9 +1182,14 @@ input[name=quantity] {
   background-color: var(--clr-text--100);
 }
 
+.wishlist__item--card:hover {
+  color: var(--clr-text--900);
+}
+
 .wishlist .wishlist__item:hover {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
   border-radius: var(--br);
+
 }
 
 .wishlist__item--image {
@@ -1212,6 +1216,30 @@ input[name=quantity] {
   z-index: 999;
 }
 
+/* Empty wish list */
+.wishlist__clean {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wishlist__items--clean {
+  box-shadow: var(--box-shadow-buttons)
+}
+
+.wishlist__clean--dropdown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 1rem;
+  background-color: var(--clr-text--100);
+  padding: 0.5em 1em 1em 1em;
+  border-radius: var(--br);
+  box-shadow: var(--box-shadow-card);
+}
 
 
 
