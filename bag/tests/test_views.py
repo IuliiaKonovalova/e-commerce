@@ -107,12 +107,12 @@ class TestBagViews(TestCase):
             self.product_attribute2
         )
         self.product_attr_value1 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute1,
-            attribute_value = 'red'
+            product_attribute=self.product_attribute1,
+            attribute_value='red'
         )
         self.product_attr_value2 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute2,
-            attribute_value = 'xs'
+            product_attribute=self.product_attribute2,
+            attribute_value='xs'
         )
         self.product_inventory1 = ProductInventory.objects.create(
             sku='11111',
@@ -197,7 +197,7 @@ class TestBagViews(TestCase):
         self.assertTrue(self.client.session['bag'], {})
         # get data from the bag
         bag = self.client.session['bag']
-        # check that it isinstance of dict: if isinstance(item_data, int): 
+        # check that it isinstance of dict: if isinstance(item_data, int):
         self.assertTrue(isinstance(bag, dict))
         # get product inventory by product_inventory_id from the dict
         product_inventory = ProductInventory.objects.get(id=bag['1'])
@@ -209,7 +209,6 @@ class TestBagViews(TestCase):
         product_item_total = product_inventory.sale_price * bag['1']
         # count the total
         total = product_inventory.sale_price * bag['1']
-        # add product_inventory_id, quantity, product_item_total, total to bag_items
         bag_items.append({
             'product_inventory': product_inventory,
             'product_item_total': product_item_total,
@@ -240,7 +239,6 @@ class TestBagViews(TestCase):
             {'product_inventory_id': 1, 'quantity': 1},
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
-        
         # check if product_inventory_id 1 is in bag
         self.assertEqual(self.client.session['bag'], {'1': 2})
         self.assertEqual(response.json()['success'], True)
@@ -279,7 +277,7 @@ class TestBagViews(TestCase):
             response.json()['message_alert'],
             'Not enough units in stock. Only 3 added.'
         )
-        
+
     def test_add_to_bag_ajax_view_failed(self):
         """Test initialize bag clean session."""
         response = self.client.post(
