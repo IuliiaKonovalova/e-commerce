@@ -4,11 +4,13 @@
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Only accessable to admin {% endcomment %}
     {% if request.user.profile.role.id == 3 %}
       <form method="POST" class="adding__promotion--form">
         <h1 class="dashboard__main--name">
           Delete Category
         </h1>
+        {% comment %} If there are any assosiated products {% endcomment %}
         {% if category.products.all %}
           <strong>Please, note! The following products will be deleted as well!</strong>
           <ul class="dashboard__main--list">
@@ -22,6 +24,7 @@
         {% endif %}
         {% csrf_token %}
         {{ form }}
+        {% comment %} Form buttons {% endcomment %}
         <div class="form__btns accent">
           <a href="{% url 'categories_table' %}" aria-label="Go to Categories page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
@@ -41,8 +44,4 @@
       </div>
     {% endif %}
   </div>
-{% endblock %}
-
-{% block postloadjs_extra %}
-
 {% endblock %}
