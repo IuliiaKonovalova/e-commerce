@@ -2433,6 +2433,19 @@ div.data__main--order:hover {
   margin-top: 2em;
 }
 
+.dashboard__main--list--item {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+  max-width: 50rem;
+  margin-top: 1em;
+}
+
+.dashboard__main--list--item i {
+  margin-right: 0.3em;
+}
+
 /* Select True/False */
 .ui-state-default,
 .ui-widget-content .ui-state-default,
