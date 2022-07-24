@@ -3,6 +3,14 @@
 
 {% block extra_css %}
   <style>
+    label {
+      font-weight:900;
+    }
+    .form-label {
+    margin-bottom: 0.2em !important;
+    margin-top:0.5rem !important;
+    }
+
     .account-form input {
       border: 2px solid #ccc;
       height: calc(2em + .75rem + 2px);
@@ -16,18 +24,32 @@
       border-color: #1497ff;
       box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0.075), 0 0 0px rgba(255, 0, 0, 0.6);
     }
+
+    .payment__form {
+      background-color: #ffffff !important;
+      padding: 1.2em !important;
+      border-radius:  0.5em;
+      box-shadow: 0 0.5rem 1rem rgba(37, 37, 37, 0.637);
+    }
+
+    .payment__form--title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
   </style>
 {% endblock %}
 
 {% block content %}
   <div class="container-fluid">
     <div class="row no-gutter">
-      <div class="col-md-12">
-        <div class="login d-flex align-items-center py-5">
+      <div class="col-md-12 form">
+        <div class="login d-flex align-items-center">
           <div class="container">
             <div class="row">
-              <div id="payment-form" class="col-12 col-lg-6 mx-auto">
-                <h3 class="mb-3">Billing address</h3>
+              <div id="payment-form-container" class="col-12 col-lg-6 mx-auto payment__form">
+                <h1 class="payment__form--title">Billing address</h1>
                 {% if not primary_address and not my_profile%}
                   <p class="alert alert-danger">To make purchases faster, consider setting up primary address and your full name in your profile.</p>
                 {% elif not my_profile and primary_address %}
@@ -52,6 +74,7 @@
                         Valid first name is required.
                       </div>
                     </div>
+                  </div>
                     <div class="col-12">
                       <label for="customer-email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
                       <input type="email" value="{{ my_profile.user.email }}" class="form-control" id="customer-email" placeholder="you@example.com">
@@ -59,13 +82,13 @@
                         Please enter a valid email address for shipping updates.
                       </div>
                     </div>
-                    {% comment %} Add phone {% endcomment %}
                     <div class="col-12">
                       <label for="customer-phone" class="form-label">Phone <span class="text-muted">(Optional)</span></label>
-                      <input type="text" value="{{ primary_address.phone_number }}" class="form-control" id="customer-phone" placeholder="">
+                      <input type="text" value="{{ primary_address.phone_number }}" class="form-control" id="customer-phone" placeholder="___ ___ ___">
                       <div class="invalid-feedback">
                         Please enter a valid phone number.
                       </div>
+                    </div>
                     <div class="col-12">
                       <label for="customer-address" class="form-label">Address</label>
                       <input type="text" value="{{ primary_address.address_line }}" class="form-control" id="customer-address" placeholder="1234 Main St" required>
@@ -92,16 +115,15 @@
                         Please provide a valid region/county/state.
                       </div>
                     </div>
-                    {% comment %} add for city {% endcomment %}
                     <div class="col-12">
-                      <label for="cicustomer-cityty" class="form-label">City</label>
+                      <label for="customer-city" class="form-label">City</label>
                       <input type="text" value="{{ primary_address.city }}" class="form-control" id="customer-city" placeholder="City" required>
                       <div class="invalid-feedback">
                         Please provide a valid city.
                       </div>
                     <div class="col-12">
                       <label for="post-code" class="form-label">Postcode</label>
-                      <input type="text" value="{{ primary_address.zip_code }}" class="form-control" id="post-code" placeholder="" required>
+                      <input type="text" value="{{ primary_address.zip_code }}" class="form-control" id="post-code" placeholder="Postcode" required>
                       <div class="invalid-feedback">
                         Zip code required.
                       </div>
