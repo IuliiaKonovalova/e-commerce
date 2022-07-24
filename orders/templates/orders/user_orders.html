@@ -3,12 +3,14 @@
 
 
 {% block content %}
+  {% comment %} User's orders {% endcomment %}
   <div class="profile">
     {% if request.user.is_authenticated %}
       <h1>My orders</h1>
       <div class="orders__all">
-        {% if orders %}
-          {% for order in orders %}
+      {% if orders %}
+        {% for order in orders %}
+          {% comment %} Order block {% endcomment %}
           <a class="" href="{% url 'my_order_details' user=request.user order_number=order.order_number %}">
             <div>
               <strong>Order ID:</strong> {{ order.id }}
@@ -25,69 +27,98 @@
             <div>
               <strong>Order Total:</strong> {{ order.total_paid }}
             </div>
+            {% comment %} Paid status {% endcomment %}
             <div>
-              <strong>Paid:</strong> {{ order.billing_status }}
+              <strong>Paid:</strong>
+              {% if order.billing_status %}
+                <i class="fa fa-check-circle"></i>
+              {% else %}
+                <i class="fa fa-times-circle"></i>
+              {% endif %}
             </div>
+            {% comment %} Order status {% endcomment %}
             <div>
-              <strong>Order Status:</strong> {{ order.status }}
+              {% if order.status == 'Pending' %}
+                <div class="order__status" data-status="pending">
+                  PENDING
+                </div>
+              {% elif order.status == 'Processing' %}
+                <div class="order__status" data-status="processing">
+                  PROCESSING
+                </div>
+              {% elif order.status == 'shipped' %}
+                <div class="order__status" data-status="delivery">
+                  IN DELIVERY
+                </div>
+              {% elif order.status == 'Refunded' %}
+                <div class="order__status" data-status="refunded">
+                  REFUNDED
+                </div>
+              {% else %}
+                <div class="order__status" data-status="completed">
+                  COMPLETED
+                </div>
+              {% endif %}
             </div>
           </a>
-          {% endfor %}
-          {% comment %} Control Pagination {% endcomment %}
-          {% if orders.paginator.num_pages %}
-            {% if not orders.paginator.num_pages == 1 %}
-              <div class="pagination">
-                <div class="pagination__navigation">
-                  {% if orders.has_previous and not orders.has_next %}
-                    <a href="?page={{ orders.previous_page_number }}" class="pagination__navigation--btn"
-                      aria-label="Go to previous page results">
-                      <i class="fas fa-chevron-left"></i>
-                    </a>
-                    <div class="pagination__navigation--fake">
-                      <i class="fas fa-chevron-right"></i>
-                    </div>
-                  {% elif orders.has_next and not orders.has_previous %}
-                    <div class="pagination__navigation--fake">
-                      <i class="fas fa-chevron-left"></i>
-                    </div>
-                    <a href="?page={{ orders.next_page_number }}" class="pagination__navigation--btn"
-                      aria-label="Go to next page results">
-                      <i class="fas fa-chevron-right"></i>
-                    </a>
-                  {% elif orders.has_next and orders.has_previous %}
-                    <a href="?page={{ orders.previous_page_number }}" class="pagination__navigation--btn"
-                      aria-label="Go to previous page results">
-                      <i class="fas fa-chevron-left"></i>
-                    </a>
-                    <a href="?page={{ orders.next_page_number }}" class="pagination__navigation--btn"
-                      aria-label="Go to next page results">
-                      <i class="fas fa-chevron-right"></i>
-                    </a>
-                  {% else %}
-                    <div class="pagination__navigation--fake">
-                      <i class="fas fa-chevron-left"></i>
-                    </div>
-                    <div class="pagination__navigation--fake">
-                      <i class="fas fa-chevron-right"></i>
-                    </div>
-                  {% endif %}
+        {% endfor %}
+      {% else %}
+        <div class="no-orders">
+          You have no orders yet.
+        </div>
+      {% endif %}
+      {% comment %} Control Pagination {% endcomment %}
+      {% if orders.paginator.num_pages %}
+        {% if not orders.paginator.num_pages == 1 %}
+          <div class="pagination">
+            <div class="pagination__navigation">
+              {% if orders.has_previous and not orders.has_next %}
+                <a href="?page={{ orders.previous_page_number }}" class="pagination__navigation--btn"
+                  aria-label="Go to previous page results">
+                  <i class="fas fa-chevron-left"></i>
+                </a>
+                <div class="pagination__navigation--fake">
+                  <i class="fas fa-chevron-right"></i>
                 </div>
-                <div class="pagination__location">
-                  Page <span>{{ orders.number }}</span> of {{ orders.paginator.num_pages }}
+              {% elif orders.has_next and not orders.has_previous %}
+                <div class="pagination__navigation--fake">
+                  <i class="fas fa-chevron-left"></i>
                 </div>
-              </div>
-            {% endif %}
-          {% endif %}
-        {% else %}
-          <div class="no-orders">
-            <p>You have no orders.</p>
+                <a href="?page={{ orders.next_page_number }}" class="pagination__navigation--btn"
+                  aria-label="Go to next page results">
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              {% elif orders.has_next and orders.has_previous %}
+                <a href="?page={{ orders.previous_page_number }}" class="pagination__navigation--btn"
+                  aria-label="Go to previous page results">
+                  <i class="fas fa-chevron-left"></i>
+                </a>
+                <a href="?page={{ orders.next_page_number }}" class="pagination__navigation--btn"
+                  aria-label="Go to next page results">
+                  <i class="fas fa-chevron-right"></i>
+                </a>
+              {% else %}
+                <div class="pagination__navigation--fake">
+                  <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="pagination__navigation--fake">
+                  <i class="fas fa-chevron-right"></i>
+                </div>
+              {% endif %}
+            </div>
+            <div class="pagination__location">
+              Page <span>{{ orders.number }}</span> of {{ orders.paginator.num_pages }}
+            </div>
           </div>
         {% endif %}
+      {% else %}
+      <div class="no-orders">
+        <p>You have no orders.</p>
       </div>
-    {% else %}
-    <div class="">
-      <h1>Please, login to see your orders</h1>
+      {% endif %}
     </div>
+    {% else %}
+        <h1>Please, login to see your orders</h1>
     {% endif %}
   </div>
 {% endblock %}
