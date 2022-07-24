@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
@@ -31,12 +30,12 @@
               </div>
               <div>
                 <strong>Paid: </strong>
-                  <div>
-                    {% if order.billing_status %}
-                      <i class="fa fa-check-circle"></i>
-                    {% else %}
-                      <i class="fa fa-times-circle"></i>
-                    {% endif %}
+                <div>
+                  {% if order.billing_status %}
+                    <i class="fa fa-check-circle"></i>
+                  {% else %}
+                    <i class="fa fa-times-circle"></i>
+                  {% endif %}
                 </div>
               </div>
               {% comment %} Order status section {% endcomment %}
