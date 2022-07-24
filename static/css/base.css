@@ -155,7 +155,7 @@ button {
   width: 100%;
   max-width: 120rem;
   margin: 0 auto;
-  padding: 0.2em 1em;
+
 }
 
 .navbar__item:not(:first-child) {
@@ -199,6 +199,7 @@ button {
 
 .navbar__item a i {
   margin-right: 0.3em;
+  font-size: 1.5rem;
 }
 
 .account__option--bag {
@@ -2553,6 +2554,62 @@ a.ui-button:active,
 
 
 /* ------------- MEDIA -------------- */
+@media all and (max-width: 1075px) {
+  .navbar__customer .navbar__item a .navbar__item--name {
+    display: none;
+  }
+
+  /* 
+  .navbar__customer .navbar__item a i {
+    font-size: 1.3rem;
+  } */
+
+  .profile__avatar--navbar {
+    max-width: 1.7rem;
+    padding: 0.09em;
+    border-radius: 50%;
+    border: 1px solid #f4edff;
+    margin-right: 0.5em;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+}
+
+@media all and (max-width: 510px) {
+  .navbar__customer {
+    flex-direction: column !important;
+  }
+
+  .navbar__customer .navbar__items {
+    justify-content: center;
+    padding: 1em;
+  }
+
+  .bag__item,
+  .bag__items--titles,
+  .promotion,
+  .promotions__table--titles,
+  .products__table--row,
+  .brand__table--row {
+    gap: 0.5rem;
+    padding: 0.5em 0.5em;
+  }
+
+  .bag__item,
+  .bag__items--titles {
+    grid-template-columns: 3fr 1fr 1.5fr 1fr 0.5fr;
+  }
+
+  .bag__items--title.image,
+  .bag__item--image.image {
+    display: none;
+  }
+}
+
 @media all and (max-width: 431px) {
 
   th,
