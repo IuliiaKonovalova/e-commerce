@@ -12,43 +12,44 @@
 
 {% block content %}
   <div class="dashboard">
-    {% comment %} Check that user is permitted to access this page {% endcomment %}
+    {% comment %} Accessed only by admin {% endcomment %}
     {% if request.user.profile.role.id == 3 %}
-    <form class="dashboard__form" method="POST">
+      {% comment %} Form to edit order {% endcomment %}
+      <form class="dashboard__form" method="POST">
+        <h1 class="dashboard__main--name">
+          Edit Order {{ order.id }}
+        </h1>
+        {% csrf_token %}
+        {{ form }}
+        {% comment %} Form buttons {% endcomment %}
+        <div class="form__btns">
+          <a href="{% url 'order_details' order_id=order.id %}" aria-label="Go to Order page" class="btn btn__cancel">
+            <i class="fas fa-arrow-circle-left"></i>
+            Cancel
+          </a>
+          <button type="submit" class="btn btn__add">
+            <i class="fas fa-save"></i>
+            Edit Order
+          </button>
+        </div>
+      </form>
+      {% else %}
       <h1 class="dashboard__main--name">
-        Edit Order {{ order.id }}
+        You are not authorized to access this page
       </h1>
-      {% csrf_token %}
-      {{ form }}
-      <div class="form__btns">
-        <a href="{% url 'order_details' order_id=order.id %}" aria-label="Go to Order page" class="btn btn__cancel">
-          <i class="fas fa-arrow-circle-left"></i>
-          Cancel
-        </a>
-        <button type="submit" class="btn btn__add">
-          <i class="fas fa-save"></i>
-          Edit Order
-        </button>
-      </div>
-    </form>
-    {% else %}
-    <h1 class="dashboard__main--name">
-      You are not authorized to access this page
-    </h1>
     {% endif %}
   </div>
 {% endblock %}
 
 {% block postloadjs_extra %}
-
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-  $(document).ready(function () {
-    $(function () {
-      $("#id_billing_status").checkboxradio();
-      // add <br> after input
-      $('label[for="id_status"]').before('<br>');
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(function () {
+        $("#id_billing_status").checkboxradio();
+        // add <br> after input
+        $('label[for="id_status"]').before('<br>');
+      });
     });
-  });
-</script>
+  </script>
 {% endblock %}
