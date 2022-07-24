@@ -9,8 +9,6 @@
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
-      </div>
       <form method="POST" class="dashboard__form">
         <h1 class="dashboard__main--name">Add Category</h1>
         {% csrf_token %}
