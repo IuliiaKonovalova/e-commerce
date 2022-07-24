@@ -29,8 +29,8 @@
   --br: 0.5em;
   --br--links: 0.2em;
   --br-buttons: 0.2em;
-  --box-shadow-card: 0 0.5rem 1rem rgba(122, 122, 122, 0.2);
-  --box-shadow-buttons: 0 1px 2px rgba(0, 0, 0, 0.317);
+  --box-shadow-card: 0 0.5rem 1rem rgba(37, 37, 37, 0.637);
+  --box-shadow-buttons: 1px 2px 3px rgba(0, 0, 0, 0.317);
   --box-shadow-disabled: rgba(50, 50, 93, 0.719) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
@@ -241,6 +241,14 @@ button.navbar-toggler:focus {
   margin-right: 0.5em;
 }
 
+/* -----MAIN ---- */
+main {
+  background-image: url('/static/images/bg1.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 /* ------------ content__container ----------- */
 .content__container {
   display: flex;
@@ -252,7 +260,8 @@ button.navbar-toggler:focus {
   position: relative;
   max-width: 100rem;
   margin: 0 auto;
-  padding: 1em;
+  padding: 5vh 1em;
+
 }
 
 
@@ -668,11 +677,22 @@ button.navbar-toggler:focus {
 
 .like {
   font-weight: 900;
-  font-size: 3rem;
-  width: 4rem !important;
-  height: 4rem !important;
+  font-size: 2.5rem;
+  width: 3.5rem !important;
+  height: 3.5rem !important;
   position: relative;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: var(--box-shadow-buttons);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none !important;
   color: var(--clr-accent--900) !important;
+  --bs-btn-active-color: var(--clr-accent--900) !important;
+  --bs-btn-hover-color: var(--clr-text--900) !important;
+  --bs-btn-hover-bg: var(--clr-accent--100) !important;
+  background-color: var(--clr-accent--100) !important;
 }
 
 .like i {
@@ -810,6 +830,7 @@ button.navbar-toggler:focus {
 .btn {
   font-weight: 900;
   --bs-btn-font-size: var(--fs) !important;
+  box-shadow: var(--box-shadow-buttons) !important;
 }
 
 .btn-primary {
@@ -983,7 +1004,6 @@ input[name=quantity] {
 .bag,
 .promotions,
 .dashboard {
-  padding: 2vh 2vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1136,8 +1156,7 @@ input[name=quantity] {
 /* Minus, Plus, Remove, Like buttons */
 .bag__item--remove,
 .bag__item--quantity--minus,
-.bag__item--quantity--plus,
-.like {
+.bag__item--quantity--plus {
   width: 2rem;
   height: 2rem;
   border-radius: 50%;
@@ -2006,7 +2025,6 @@ td {
 
 .data__main--order:hover {
   background-color: var(--clr-primary--100);
-  border: 1px solid var(--clr-primary--900);
   color: var(--clr-text--900) !important;
 }
 
@@ -2239,6 +2257,43 @@ div.data__main--order:hover {
 }
 
 
+/* --------- Category -------- */
+.categories {
+  margin-top: 1em;
+  width: 100%;
+  max-width: 50rem;
+}
+
+.category {
+  width: 100%;
+  /* max-width: 50rem; */
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 1em 1.5em;
+  justify-content: start;
+  background-color: var(--clr-text--100);
+  border-radius: var(--br);
+  box-shadow: var(--box-shadow-card);
+  position: relative;
+  margin-bottom: 0.3em;
+}
+
+.category strong {
+  text-transform: capitalize;
+}
+
+.category__status {
+  display: flex;
+  align-items: center;
+  padding: 0.5em 0;
+}
+
+.category__status i {
+  margin-right: 0.5em;
+}
+
+.category__assigned--products {}
 
 
 
