@@ -2001,13 +2001,17 @@ td {
 
 .order__num,
 .order__key {
-  /* break words */
   word-break: break-all;
 }
 
 .data__main--order:hover {
   background-color: var(--clr-primary--100);
+  border: 1px solid var(--clr-primary--900);
   color: var(--clr-text--900) !important;
+}
+
+.data__main--order.list {
+  margin-top: 0;
 }
 
 div.data__main--order:hover {
