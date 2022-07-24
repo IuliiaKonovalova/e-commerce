@@ -67,14 +67,14 @@
             <div class="rating__title">
               Remove from wishlist:
             </div>
-            <button class="like btn" id="wishlist-control">
+            <button class="like btn" id="wishlist-control" type="button" aria-label="unlike button">
               <i class="fas fa-heart"></i>
             </button>
           {% else %}
             <div class="rating__title">
               Add to wishlist:
             </div>
-            <button class="like btn" id="wishlist-control">
+            <button class="like btn" id="wishlist-control" type="button" aria-label="like button">
               <i class="far fa-heart"></i>
             </button>
           {% endif %}
@@ -82,7 +82,7 @@
           <div class="rating__title">
             Login to add to your wishlist:
           </div>
-          <button class="like btn" id="wishlist-control">
+          <button class="like btn" id="wishlist-control" type="button" aria-label="like button">
             <i class="far fa-heart"></i>
           </button>
         {% endif %}
@@ -192,7 +192,8 @@
                 -
               </button>
               <div class="product__options--quantity-input">
-                <input type="number" name="quantity" value="1" min="1" max="15" id="quantity">
+                <label for="quantity"></label>
+                <input type="number" name="quantity" value="1" min="1" max="15" id="quantity"  aria-label="enter number">
               </div>
               <button class="btn btn-secondary btn-quantity disable" id="plus-button" type="button" data-attributevalue="plus">
                 +
@@ -247,7 +248,8 @@
           <div class="form__section form__section--quantity modal__quantity">
             <div class="product__options--title">Quantity:</div>
             <div class="product__options--quantity-input">
-              <input type="number" name="required-quantity" value="1" min="1" max="150">
+              <label for="quantity-in-modal"></label>
+              <input type="number" name="required-quantity" value="1" min="1" max="150" id="quantity-in-modal" aria-label="enter number">
             </div>
           </div>
         </div>
