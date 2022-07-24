@@ -1,33 +1,54 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    #id_total_paid {
+      margin-bottom: 0.5em;
+    }
+    </style>
+{% endblock %}
 
 {% block content %}
-
-<div class="dashboard">
-  {% comment %} Check that user is permitted to access this page {% endcomment %}
-  {% if request.user.profile.role.id == 3 %}
-  <form class="dashboard__form" method="POST">
+  <div class="dashboard">
+    {% comment %} Check that user is permitted to access this page {% endcomment %}
+    {% if request.user.profile.role.id == 3 %}
+    <form class="dashboard__form" method="POST">
+      <h1 class="dashboard__main--name">
+        Edit Order {{ order.id }}
+      </h1>
+      {% csrf_token %}
+      {{ form }}
+      <div class="form__btns">
+        <a href="{% url 'order_details' order_id=order.id %}" aria-label="Go to Order page" class="btn btn__cancel">
+          <i class="fas fa-arrow-circle-left"></i>
+          Cancel
+        </a>
+        <button type="submit" class="btn btn__add">
+          <i class="fas fa-save"></i>
+          Edit Order
+        </button>
+      </div>
+    </form>
+    {% else %}
     <h1 class="dashboard__main--name">
-      Edit Order {{ order.id }}
+      You are not authorized to access this page
     </h1>
-    {% csrf_token %}
-    {{ form }}
-    <div class="form__btns">
-      <a href="{% url 'order_details' order_id=order.id %}" aria-label="Go to Order page" class="btn btn__cancel">
-        <i class="fas fa-arrow-circle-left"></i>
-        Cancel
-      </a>
-      <button type="submit" class="btn btn__add">
-        <i class="fas fa-save"></i>
-        Edit Order
-      </button>
-    </div>
-  </form>
-  {% else %}
-  <h1 class="dashboard__main--name">
-    You are not authorized to access this page
-  </h1>
-  {% endif %}
-</div>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(function () {
+      $("#id_billing_status").checkboxradio();
+      // add <br> after input
+      $('label[for="id_status"]').before('<br>');
+    });
+  });
+</script>
 {% endblock %}
