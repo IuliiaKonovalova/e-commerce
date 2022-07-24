@@ -3,133 +3,139 @@
 
 
 {% block content %}
-<div class="profile">
-  {% if request.user.is_authenticated %}
-    <h1>Order {{ order.id }}</h1>
-    <a href="{% url 'my_orders' user=request.user %}" aria-label="Back to my orders"
-        class="btn btn__redirect">
-      <i class="fas fa-arrow-circle-left"></i>
-      Back to my orders
-    </a>
-    <div class="data__main--order">
-      <div>
-        <strong>Order ID:</strong> {{ order.id }}
-      </div>
-      <div>
-        <strong>Order Number:</strong> {{ order.order_number|truncatechars:15 }}
-      </div>
-      <div>
-        <strong>Order Key:</strong> {{ order.order_key|truncatechars:15 }}
-      </div>
-      <div>
-        <strong>Order Date:</strong> {{ order.created }}
-      </div>
-      <div>
-        <strong>Order Total:</strong> {{ order.total_paid }}
-      </div>
-      <div>
-        <strong>Paid: </strong>
-          <div>
-            {% if order.billing_status %}
-              <i class="fa fa-check-circle"></i>
-            {% else %}
-              <i class="fa fa-times-circle"></i>
-            {% endif %}
-        </div>
-      </div>
-      <div>
-        <strong>Order Status: </strong>
-        {% if order.status == 'Pending' %}
-          <div class="order__status" data-status="pending">
-            PENDING
-          </div>
-        {% elif order.status == 'Processing' %}
-          <div class="order__status" data-status="processing">
-            PROCESSING
-          </div>
-        {% elif order.status == 'shipped' %}
-          <div class="order__status" data-status="delivery">
-            IN DELIVERY
-          </div>
-        {% elif order.status == 'Refunded' %}
-          <div class="order__status" data-status="refunded">
-            REFUNDED
-          </div>
-        {% else %}
-          <div class="order__status" data-status="completed">
-            COMPLETED
-          </div>
-        {% endif %}
-      </div>
-      <div class="order__details">
-        <strong>Order Details:</strong>
-        <div class="order__details--units">
-          {% for item in order_items %}
-          <div id="{{ item.id }}" class="order__item">
-            <div class="order__review--btns">
-              {% if order.status == 'Completed' and item.product_inventory.product in products_in_reviews %}
-                <a href="{% url 'review' order_id=order.id product_id=item.product_inventory.product.id %}"
-                    aria-label="View your review for product" class="btn btn__redirect">
-                  <i class="fas fa-eye"></i>
-                  View your review
-                </a>
-              {% elif order.status == 'Completed' and not item.product_inventory.product in products_in_reviews %}
-                <a href="{% url 'add_review' order_id=order.id product_id=item.product_inventory.product.id %}"
-                    aria-label="Add review for the item" class="btn btn__add">
-                  <i class="fas fa-star"></i>
-                  Add Review
-                </a>
-              {% endif %}
-            </div>
-            <div class="order__details--unit">
-              <a href="{% url 'product_detail' pk=item.product_inventory.product.id %}"
-                aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link"> 
-                {{ item.product_inventory.product.name }}
-                <i class="fa fa-external-link" aria-hidden="true"></i>
-                <div class="bag__item--image">
-                  {% if item.product_inventory.product.images.all %}
-                    <img src="{{ item.product_inventory.product.get_main_image }}"
-                      alt="Cover image for {{ item.product_inventory.product.name }}">
-                  {% else %}
-                    <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
-                  {% endif %}
-                </div>
-              </a>
-            </div>
-            <div class="order__item--details">
-              <div>
-                {% if item.product_inventory.get_attribute_values %}
-                  <strong>Options:</strong>
-                  {% for value in item.product_inventory.get_attribute_values %}
-                    {{ value }}
-                  {% endfor %}
-                {% endif %}
-              </div>              
-              <div>
-                <strong>Qty:</strong> {{ item.quantity }}
-              </div>
-              <div>
-                <strong>Price:</strong> {{ item.product_inventory.sale_price }}
-              </div>
-              <div>
-                <strong>Total:</strong>
-                <div class="quantity" data-quantity="{{ item.quantity }}">{{ item.quantity }}</div>
-                x <div class="price" data-price="{{ item.product_inventory.sale_price }}">{{ item.product_inventory.sale_price }}</div>
-                = <span class="items-total"></span>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </div>
-  {% else %}
   <div class="profile">
-    <h1>Please, login to see your order</h1>
+    {% comment %} User's order details {% endcomment %}
+    {% if request.user.is_authenticated %}
+      {% comment %} Order full data {% endcomment %}
+      <h1>Order {{ order.id }}</h1>
+      <a href="{% url 'my_orders' user=request.user %}" aria-label="Back to my orders"
+          class="btn btn__redirect">
+        <i class="fas fa-arrow-circle-left"></i>
+        Back to my orders
+      </a>
+      <div class="data__main--order">
+        <div>
+          <strong>Order ID:</strong> {{ order.id }}
+        </div>
+        <div>
+          <strong>Order Number:</strong> {{ order.order_number|truncatechars:15 }}
+        </div>
+        <div>
+          <strong>Order Key:</strong> {{ order.order_key|truncatechars:15 }}
+        </div>
+        <div>
+          <strong>Order Date:</strong> {{ order.created }}
+        </div>
+        <div>
+          <strong>Order Total:</strong> {{ order.total_paid }}
+        </div>
+        {% comment %} Paid status {% endcomment %}
+        <div>
+          <strong>Paid: </strong>
+            <div>
+              {% if order.billing_status %}
+                <i class="fa fa-check-circle"></i>
+              {% else %}
+                <i class="fa fa-times-circle"></i>
+              {% endif %}
+          </div>
+        </div>
+        {% comment %} Order status {% endcomment %}
+        <div>
+          <strong>Order Status: </strong>
+          {% if order.status == 'Pending' %}
+            <div class="order__status" data-status="pending">
+              PENDING
+            </div>
+          {% elif order.status == 'Processing' %}
+            <div class="order__status" data-status="processing">
+              PROCESSING
+            </div>
+          {% elif order.status == 'shipped' %}
+            <div class="order__status" data-status="delivery">
+              IN DELIVERY
+            </div>
+          {% elif order.status == 'Refunded' %}
+            <div class="order__status" data-status="refunded">
+              REFUNDED
+            </div>
+          {% else %}
+            <div class="order__status" data-status="completed">
+              COMPLETED
+            </div>
+          {% endif %}
+        </div>
+        {% comment %} Order items {% endcomment %}
+        <div class="order__details">
+          <strong>Order Details:</strong>
+          <div class="order__details--units">
+            {% for item in order_items %}
+            <div id="{{ item.id }}" class="order__item">
+            {% comment %} Review buttons {% endcomment %}
+              <div class="order__review--btns">
+                {% if order.status == 'Completed' and item.product_inventory.product in products_in_reviews %}
+                  <a href="{% url 'review' order_id=order.id product_id=item.product_inventory.product.id %}"
+                      aria-label="View your review for product" class="btn btn__redirect">
+                    <i class="fas fa-eye"></i>
+                    View your review
+                  </a>
+                {% elif order.status == 'Completed' and not item.product_inventory.product in products_in_reviews %}
+                  <a href="{% url 'add_review' order_id=order.id product_id=item.product_inventory.product.id %}"
+                      aria-label="Add review for the item" class="btn btn__add">
+                    <i class="fas fa-plus-circle"></i>
+                    Add Review
+                  </a>
+                {% endif %}
+              </div>
+              <div class="order__details--unit">
+                <a href="{% url 'product_detail' pk=item.product_inventory.product.id %}"
+                  aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link"> 
+                  {{ item.product_inventory.product.name }}
+                  <i class="fa fa-external-link" aria-hidden="true"></i>
+                  <div class="bag__item--image">
+                    {% if item.product_inventory.product.images.all %}
+                      <img src="{{ item.product_inventory.product.get_main_image }}"
+                        alt="Cover image for {{ item.product_inventory.product.name }}">
+                    {% else %}
+                      <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+                    {% endif %}
+                  </div>
+                </a>
+              </div>
+              {% comment %} Order item data {% endcomment %}
+              <div class="order__item--details">
+                <div>
+                  {% if item.product_inventory.get_attribute_values %}
+                    <strong>Options:</strong>
+                    {% for value in item.product_inventory.get_attribute_values %}
+                      {{ value }}
+                    {% endfor %}
+                  {% endif %}
+                </div>              
+                <div>
+                  <strong>Qty:</strong> {{ item.quantity }}
+                </div>
+                <div>
+                  <strong>Price:</strong> {{ item.product_inventory.sale_price }}
+                </div>
+                <div>
+                  <strong>Total:</strong>
+                  <div class="quantity" data-quantity="{{ item.quantity }}">{{ item.quantity }}</div>
+                  x <div class="price" data-price="{{ item.product_inventory.sale_price }}">{{ item.product_inventory.sale_price }}</div>
+                  = <span class="items-total"></span>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="profile">
+        <h1>Please, login to see your order</h1>
+      </div>
+    {% endif %}
   </div>
-  {% endif %}
-</div>
 {% endblock %}
 
 {% block postloadjs_extra %}
