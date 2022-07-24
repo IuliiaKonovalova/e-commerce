@@ -50,7 +50,7 @@ class Order(models.Model):
 
     class Meta:
         ordering = ('-created',)
-    
+
     def __str__(self):
         return str(self.order_number)
 
@@ -86,4 +86,3 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return str(self.id)
-
