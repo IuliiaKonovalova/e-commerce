@@ -5,36 +5,39 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <h1 class="dashboard__main--name">Order ID {{ order.id }}</h1>
-      <a href="{% url 'orders' %}" aria-label="Back to all orders"
-          class="btn btn__redirect">
-        <i class="fas fa-arrow-circle-left"></i>
-        Back to orders
-      </a>
+      <div class="dashboard__main">
+        <a href="{% url 'orders' %}" aria-label="Back to all orders"
+            class="btn btn__redirect btn_go--back">
+          <i class="fas fa-arrow-circle-left"></i>
+          Back to orders
+        </a>
+      </div>
       <div class="data__main--order" id="order-id" data-id="{{ order.id }}">
+        <h1 class="dashboard__main--name">Order ID {{ order.id }}</h1>
         {% if request.user.profile.role.id == 3 %}
-          <a href="{% url 'edit' order_id=order.id %}" aria-label="Edit order" class="btn btn__edit">
-            <i class="fas fa-edit"></i>
-            Edit Order
-          </a>
-          <a href="{% url 'delete' order_id=order.id %}" aria-label="Delete order" class="btn btn__delete">
-            <i class="fas fa-trash-alt"></i>
-            Delete Order
-          </a>
+          <div class="order__review--btns">
+            <a href="{% url 'edit' order_id=order.id %}" aria-label="Edit order" class="btn btn__edit">
+              <i class="fas fa-edit"></i>
+              Edit Order
+            </a>
+            <a href="{% url 'delete' order_id=order.id %}" aria-label="Delete order" class="btn btn__delete">
+              <i class="fas fa-trash-alt"></i>
+              Delete Order
+            </a>
+          </div>
         {% endif %}
-        <div>
-          <strong>Order ID:</strong> {{ order.id }}
+        <div class="order__num__key">
+          <strong>Order Number:</strong>
+          <div class="order__num">{{ order.order_number }}</div>
         </div>
-        <div>
-          <strong>Order Number:</strong> {{ order.order_number }}
+        <div class="order__num__key">
+          <strong>Order Key:</strong>
+          <div class="order__key">{{ order.order_key }}</div>
         </div>
-        <div>
-          <strong>Order Key:</strong> {{ order.order_key }}
-        </div>
-        <div>
+        <div class="order__num__key">
           <strong>Order Date:</strong> {{ order.created }}
         </div>
-        <div>
+        <div class="order__num__key">
           <strong>Order Total:</strong> {{ order.total_paid }}
         </div>
         <div>
@@ -47,7 +50,7 @@
               {% endif %}
           </div>
         </div>
-        <div >
+        <div class="order__status--edit">
           <strong>Order Status: </strong>
           {% if order.status == 'Pending' %}
             <div class="order__status order__status--pending" data-status="pending">
