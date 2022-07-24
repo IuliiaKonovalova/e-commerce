@@ -48,7 +48,7 @@
           <div class="bag__items">
             {% comment %} Table header {% endcomment %}
             <div class="bag__items--titles">
-              <div class="bag__items--title">Image</div>
+              <div class="bag__items--title image">Image</div>
               <div class="bag__items--title">Product</div>
               <div class="bag__items--title">Price</div>
               <div class="bag__items--title">Quantity</div>
@@ -61,7 +61,7 @@
             {% comment %} One item {% endcomment %}
               <div class="bag__item" data-attr="{{ item.product_inventory.pk }}" data-stock="{{ item.units }}">
                 {% comment %} Product's image {% endcomment %}
-                <div class="bag__item--image">
+                <div class="bag__item--image image">
                   {% if item.product_inventory.product.images.all %}
                     <img src="{{ item.product_inventory.product.get_main_image }}"
                       alt="Cover image for {{ item.product_inventory.product.name }}">
@@ -95,12 +95,12 @@
                 <div>${{ item.product_inventory.sale_price }}</div>
                 {% comment %} Quantity control {% endcomment %}
                 <div class="bag__item--quantity">
-                  <button class="btn btn-outline-primary bag__item--quantity--minus" data-id="{{ item.product_inventory.pk }}">
+                  <button class="btn btn-outline-primary bag__item--quantity--minus" data-id="{{ item.product_inventory.pk }}" aria-label="Reduce item quantity">
                     <i class="fas fa-minus"></i>
                   </button>
                   {% comment %} Product's current quantity {% endcomment %}
                   <div class="bag__item--quantity--main">{{ item.quantity }}</div>
-                  <button class="btn btn-outline-primary bag__item--quantity--plus" data-id="{{ item.product_inventory.pk }}">
+                  <button class="btn btn-outline-primary bag__item--quantity--plus" data-id="{{ item.product_inventory.pk }}" aria-label="Add item quantity">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
