@@ -48,12 +48,12 @@
 <body>
   <header class="header">
     {% comment %} Navbar {% endcomment %}
-    <nav class="navbar">
+    <nav class="navbar navbar__customer">
       {% comment %} Logo container {% endcomment %}
-      <div class="logo__container">
-
-      </div>
       {% comment %} Navbar content {% endcomment %}
+      <div class="logo__container">
+        <span>WoW</span>der!
+      </div>
       <ul class="navbar__items">
         {% if not request.user.is_authenticated %}
         <li class="navbar__item">
@@ -64,22 +64,22 @@
         {% if request.user.is_authenticated %}
         {% comment %} Go to my profile {% endcomment %}
         <li class="navbar__item">
+          {% comment %} Product in Store {% endcomment %}
+          <a href="{% url 'products_list' %}" aria-label="Go to Products page" class="account__option">
+            <i class="fas fa-store"></i>
+            Store
+          </a>
+        </li>
+        <li class="navbar__item">
           <a href="{% url 'my_profile' user=request.user %}" aria-label="Go to Profile page" class="account__option">
             <div class="profile__avatar--navbar">
               {% if user.profile.avatar %}
-              <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
+                <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
               {% else %}
-              <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
+                <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
               {% endif %}
             </div>
             <span>Profile</span>
-          </a>
-        </li>
-        {% comment %} logout {% endcomment %}
-        <li class="navbar__item">
-          <a href="{% url 'account_logout' %}" aria-label="Logout" class="">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
           </a>
         </li>
         <li class="navbar__item">
@@ -95,16 +95,17 @@
         </li>
         {% endif %}
         <li class="navbar__item">
-          {% comment %} Product in Store {% endcomment %}
-          <a href="{% url 'products_list' %}" aria-label="Go to Products page" class="account__option">
-            <i class="fas fa-store"></i>
-            Products
-          </a>
-        </li>
-        <li class="navbar__item">
           {% comment %} Bag {% endcomment %}
           <a href="{% url 'bag_display' %}" aria-label="Go to Bag page" class="account__option account__option--bag">
             <i class="fas fa-shopping-bag"></i><span id="shopping-bag-count">{{ product_count }}</span>
+            Bag
+          </a>
+        </li>
+        {% comment %} logout {% endcomment %}
+        <li class="navbar__item">
+          <a href="{% url 'account_logout' %}" aria-label="Logout" class="">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
           </a>
         </li>
       </ul>
