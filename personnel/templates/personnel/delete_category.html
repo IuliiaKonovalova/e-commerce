@@ -5,28 +5,29 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.profile.role.id == 3 %}
-      <div class="dashboard__main">
+      <form method="POST" class="adding__promotion--form">
         <h1 class="dashboard__main--name">
           Delete Category
         </h1>
         {% if category.products.all %}
           <strong>Please, note! The following products will be deleted as well!</strong>
-          {% for product in category.products.all %}
-              <em>
+          <ul class="dashboard__main--list">
+            {% for product in category.products.all %}
+              <li class="dashboard__main--list--item">
+                <i class="fa fa-times" aria-hidden="true"></i>
                 {{ product.name }}
-              </em>
-          {% endfor %}
+              </li>
+            {% endfor %}
+          </ul>
         {% endif %}
-      </div>
-      <form method="POST" class="adding__promotion--form">
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
-          <a href="{% url 'categories_table' %}" aria-label="Go to Categories page" class="btn btn-primary btn__cancel">
+        <div class="form__btns accent">
+          <a href="{% url 'categories_table' %}" aria-label="Go to Categories page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn__delete">
             <i class="fas fa-trash-alt"></i>
             Delete
           </button>
