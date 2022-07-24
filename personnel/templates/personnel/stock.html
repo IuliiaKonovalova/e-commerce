@@ -4,102 +4,109 @@
 
 {% block content %}
   <div class="dashboard">
+  {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
           <h1 class="dashboard__main--name">Stock</h1>
       </div>
+      {% comment %} Summary of units without stock {% endcomment %}
       <div class="data__main--stock">
         <div class="products__stock--no">
           <div class="products__stock--no--title">
             You have <strong>{{ products_without_stock.count }}</strong> Units without stock
           </div>
-          {% comment %} add button show {% endcomment %}
+          {% comment %} show-hide button for units without stock {% endcomment %}
           {% if products_without_stock.count > 0 %}
             <button id="without-stock" class="btn btn__add">
               <i class="fas fa-chevron-down"></i>
               Show
             </button>
+            {% comment %} dropdown table for produccts without stock {% endcomment %}
             <div class="hidden nostock__units" id="without-stock-table">
               {% for unit in products_without_stock %}
                 <a class="nostock__unit" href="{% url 'product_inventory_details' pk=unit.product.pk inventory_pk=unit.id %}" aria-label="Go to product inventories details">
-                  <div class="products__stock--no--unit--name">{{ unit.sku }}</div>
-                  <div class="products__stock--no--unit--price">{{ unit.product.name }}</div>
+                  <div class="products__stock--no--unit--sku">
+                    {{ unit.sku }}
+                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                  </div>
+                  <div class="products__stock--no--unit--name">{{ unit.product.name }}</div>
                 </a>
               {% endfor %}
             </div>
           {% endif %}
           </div>
         </div>
-        <table class="stock__table">
-          <tr>
-            <th>SKU</th>
-            <th>Alert</th>
-            <th>Left</th>
-            <th>Bought</th>
-            <th>Sold</th>
-            <th>Checked</th>
-            <th>Inconcistency</th>
-          </tr>
-          {% for stock in all_stock %}
-          {% if stock in  stocks_without_units %}
-            <tr style="background-color: #ffc0cb;">
-          {% else %}
+        {% comment %} Stock table data {% endcomment %}
+        <div class="stock__table--container">
+          <table class="stock__table">
             <tr>
-          {% endif %}
-            <td class="stock__sku">
-              {% if stock.product_inventory.sku %}
-              <a class="stock__item--link" aria-label="Go to product inventories details"
-                  href="{% url 'product_inventory_details' pk=stock.product_inventory.product.pk inventory_pk=stock.product_inventory.id %}">
-                    {{ stock.product_inventory.sku }}
-                    <i class="fa fa-external-link" aria-hidden="true"></i>
-              </a>
-              {% else %}
-                No SKU
-              {% endif %}
-            </td>
-            <td>
-              {% if stock.units < 50 and stock.units >= 25 %}
-                <div class="data__accent--yellow">
-                  <i class="fa fa-exclamation-triangle"></i>
-                </div>
-              {% elif stock.units < 25 and stock.units >= 10 %}
-                <div class="data__accent--orange">
-                  <i class="fa fa-exclamation-triangle"></i>
-                </div>
-              {% elif stock.units < 10 and stock.units >= 0 %}
-                <div class="data__accent--redish">
-                  <i class="fa fa-exclamation-triangle"></i>
-                </div>
-              {% elif stock.units == 0 %}
-                <div class="data__accent--red">
-                  <i class="fa fa-exclamation-triangle"></i>
-                </div>
-              {% else %}
-                <div class="data__accent--green">
-                  <i class="fa fa-exclamation-triangle"></i>
-                </div>
-              {% endif %}
-            </td>
-            <td>{{ stock.units }}</td>
-            <td>{{ stock.units_variable }}</td>
-            <td>{{ stock.units_sold }}</td>
-            <td>{{ stock.last_checked }}</td>
-            <td>
-              {% if stock in stock_inconsistency %}
-                <div class="data__accent--red">
-                  <i class="fa fa-exclamation-triangle"></i>
-                </div>
-              {% else %}
-                <div class="data__accent--green">
-                  <i class="fa fa-exclamation-triangle"></i>
-                </div>
-              {% endif %}
-            </td>
-          {% endfor %}
-        </table>
+              <th>SKU</th>
+              <th>Alert</th>
+              <th>Left</th>
+              <th>Bought</th>
+              <th>Sold</th>
+              <th>Checked</th>
+              <th>Inconcistency</th>
+            </tr>
+            {% for stock in all_stock %}
+            {% if stock in  stocks_without_units %}
+              <tr style="background-color: #ffc0cb;">
+            {% else %}
+              <tr>
+            {% endif %}
+              <td class="stock__sku">
+                {% if stock.product_inventory.sku %}
+                <a class="stock__item--link" aria-label="Go to product inventories details"
+                    href="{% url 'product_inventory_details' pk=stock.product_inventory.product.pk inventory_pk=stock.product_inventory.id %}">
+                      {{ stock.product_inventory.sku }}
+                      <i class="fa fa-external-link" aria-hidden="true"></i>
+                </a>
+                {% else %}
+                  No SKU
+                {% endif %}
+              </td>
+              <td>
+                {% if stock.units < 50 and stock.units >= 25 %}
+                  <div class="data__accent--yellow">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% elif stock.units < 25 and stock.units >= 10 %}
+                  <div class="data__accent--orange">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% elif stock.units < 10 and stock.units >= 0 %}
+                  <div class="data__accent--redish">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% elif stock.units == 0 %}
+                  <div class="data__accent--red">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% else %}
+                  <div class="data__accent--green">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% endif %}
+              </td>
+              <td>{{ stock.units }}</td>
+              <td>{{ stock.units_variable }}</td>
+              <td>{{ stock.units_sold }}</td>
+              <td>{{ stock.last_checked }}</td>
+              <td>
+                {% if stock in stock_inconsistency %}
+                  <div class="data__accent--red">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% else %}
+                  <div class="data__accent--green">
+                    <i class="fa fa-exclamation-triangle"></i>
+                  </div>
+                {% endif %}
+              </td>
+            {% endfor %}
+          </table>
+        </div>
       </div>
-
-
       {% comment %} Control Pagination {% endcomment %}
       {% if all_stock.paginator.num_pages %}
         {% if not all_stock.paginator.num_pages == 1 %}
