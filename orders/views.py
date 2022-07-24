@@ -78,7 +78,7 @@ class UpdateOrderStatusAJAXView(View):
             user_role = request.user.profile.role.id
             if user_role == 3 or user_role == 4:
                 if request.is_ajax():
-                    order_id =  request.POST.get('order_id')
+                    order_id = request.POST.get('order_id')
                     order = get_object_or_404(Order, id=order_id)
                     order.status = request.POST.get('order_status')
                     order.save()
@@ -175,6 +175,7 @@ class EditOrderView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if request.user.profile.role.id == 3:
@@ -222,6 +223,7 @@ class DeleteOrderView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if request.user.profile.role.id == 3:
@@ -276,6 +278,7 @@ class EditOrderItemView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if request.user.profile.role.id == 3:
@@ -355,6 +358,7 @@ class DeleteOrderItemView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if request.user.profile.role.id == 3:
@@ -416,14 +420,14 @@ def payment_confirmation(data):
     )
     text_content = ''
     html_content = '<h1>Payment Confirmation</h2>' \
-                '<p>Your payment of ' + str(order_total_paid) \
-                + ' has been confirmed.</p>' \
-                '<p>You can view your order details by ' \
-                'clicking on your your order information link below:</p>' \
-                '<strong>Order ID: </strong>' \
-                '<a href=' + link + '>' + order_num + \
-                '</a><br><p>Thank you for shopping with us!</p>' \
-                '<em>WoWder shop</em>'
+        '<p>Your payment of ' + str(order_total_paid) \
+        + ' has been confirmed.</p>' \
+        '<p>You can view your order details by ' \
+        'clicking on your your order information link below:</p>' \
+        '<strong>Order ID: </strong>' \
+        '<a href=' + link + '>' + order_num + \
+        '</a><br><p>Thank you for shopping with us!</p>' \
+        '<em>WoWder shop</em>'
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     msg.send(fail_silently=False)
