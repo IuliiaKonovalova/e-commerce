@@ -3,6 +3,7 @@
 
 {% block content %}
   <div class="dashboard">
+  {% comment %} limit access for the customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <section class="dashboard__main">
         <h1 class="dashboard__main--name">
@@ -13,26 +14,34 @@
           Add New Category
         </a>
       </section>
-      <div>
+      <div class="categories">
         {% for category in categories %}
-          <div>
-          {{ category.name }}
-            {% if category.is_active %}
-              <i class="fa fa-check-circle"></i> (Active)
-            {% else %}
-              <i class="fa fa-times-circle"></i> (Inactive)
-            {% endif %}
-            {{ category.products.count }} products
-            <a class="btn btn-primary btn__edit" href="{% url 'edit_category' category_pk=category.pk %}">
-              <i class="fa fa-pencil"></i>
-              Edit Category
-            </a>
-            {% if request.user.profile.role.id == 3 %}
-              <a class="btn btn-primary btn__delete" href="{% url 'delete_category' category_pk=category.pk %}">
-                <i class="fa fa-trash"></i>
-                Delete product
+          <div class="category">
+            <strong>
+              {{ category.name }}
+            </strong>
+            <div class="category__status">
+              {% if category.is_active %}
+                <i class="fa fa-check-circle"></i> (Active)
+              {% else %}
+                <i class="fa fa-times-circle"></i> (Inactive)
+              {% endif %}
+            </div>
+            <div class="category__assigned--products">
+              <strong>{{ category.products.count }}</strong> products in this category
+            </div>
+            <div class="order__review--btns">
+              <a class="btn btn__edit" href="{% url 'edit_category' category_pk=category.pk %}">
+                <i class="fa fa-pencil"></i>
+                Edit Category
               </a>
-            {% endif %}
+              {% if request.user.profile.role.id == 3 %}
+                <a class="btn btn__delete" href="{% url 'delete_category' category_pk=category.pk %}">
+                  <i class="fa fa-trash"></i>
+                  Delete product
+                </a>
+              {% endif %}
+            </div>
           </div>
         {% endfor %}
       </div>
