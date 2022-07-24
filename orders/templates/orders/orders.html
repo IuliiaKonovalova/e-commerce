@@ -13,7 +13,7 @@
       <div class="data__main--orders">
         {% if orders %}
           {% for order in orders %}
-            <a href="{% url 'order_details' order_id=order.id %}" aria-label="View order details" class="data__main--order">
+            <a href="{% url 'order_details' order_id=order.id %}" aria-label="View order details" class="data__main--order list">
               <div>
                 <strong>Order ID: </strong> {{ order.id }}
               </div>
