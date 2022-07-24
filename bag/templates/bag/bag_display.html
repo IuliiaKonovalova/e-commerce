@@ -170,11 +170,6 @@
             </div>
           </div>
         </div>
-      
-      
-      
-      
-      
       {% else %}
         {% comment %} If bag is empty {% endcomment %}
         <div class="bag__items--empty">
@@ -356,7 +351,6 @@
           })
         });
       });
-
       // remove item from bag
       $('.bag__item--remove').each(function () {
         // if .data__promo--total exists -> remove it
@@ -413,21 +407,6 @@
           })
         });
       });
-
-      {% comment %} $('#bag-clean').on('click', (e) => {
-        e.preventDefault();
-        // add hidden class to the clean bag dropdown
-        $('#bag__clean--dropdown').toggleClass('hidden');
-        $('html, body').animate({
-          scrollTop: $(document).height()
-        }, 'slow');
-      });
-      // cancel clean bag
-      $('#clean-cancel').on('click', (e) => {
-        e.preventDefault();
-        $('.bag__clean--dropdown').addClass('hidden');
-      }); {% endcomment %}
-
       // remove all items from bag
       $('#clean-confirm').on('click', (e) => {
         e.preventDefault();
@@ -485,13 +464,11 @@
           }
         })
       });
-
       // promo:
       $('#bag-promotion').on('click', (e) => {
         e.preventDefault();
         // get the value from input bag__promotion--input
         let promoCode = $('.bag__promotion--input').val();
-        console.log(promoCode);
         // create AJAX call
         $.ajax({
           url: "{% url 'apply_promo_code' %}",
@@ -501,7 +478,6 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'
           },
           success: function (data) {
-            console.log('success');
             // emty the input
             $('.bag__promotion--input').val('');
             // check if .data__promo--total exists:
@@ -514,7 +490,6 @@
               );
             }
           }
-
         })
       });
     });
