@@ -119,10 +119,10 @@
       <p>{{ product.description }}</p>
     </div>
     {% if not product.get_out_of_stock %}
-    <button class="btn btn-secondary btn__reset" id="reset-button" type="button" data-attributevalue="reset">
-      <i class="fas fa-undo"></i>
-      Reset
-    </button>
+      <button class="btn btn-secondary btn__reset" id="reset-button" type="button" data-attributevalue="reset" aria-label="Reset chosen options">
+        <i class="fas fa-undo"></i>
+        Reset
+      </button>
     {% endif %}
     <form class="product__variants form" action="#"  id="form">
       {% for k,v in attribute_values_dict.items %}
@@ -133,10 +133,10 @@
               {% for item in v %}
                 {% if item in values_set %}
                   {% if item in values_set_active %}
-                    <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}">
+                    <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" aria-label="Choose value">
                     <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
                   {% else %}
-                    <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}">
+                    <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" aria-label="Choose value">
                     <label class="btn btn-outline-primary disabled" style="background-color: {{ item }}" for="{{ item }}">{{ item }}</label>
                   {% endif %}
                 {% endif %}
