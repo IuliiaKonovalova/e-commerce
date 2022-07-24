@@ -1148,6 +1148,7 @@ input[name=quantity] {
   justify-content: start;
   margin-top: 1em;
   position: relative;
+  margin-left: 0.5em;
 }
 
 .bag__items--count {
@@ -2371,7 +2372,9 @@ div.data__main--order:hover {
 }
 
 /* --------- FORMSSSSSSSSSSSSSSSSS ---------- */
-.form-text.text-muted {
+.form-text.text-muted,
+.helptext,
+.errorlist {
   display: none;
 }
 
@@ -2388,7 +2391,7 @@ div.data__main--order:hover {
   color: var(--clr-primary--500);
   padding: 1em;
   background-color: var(--clr-text--100);
-  padding: 1rem;
+  padding: 1.5em 1em;
   border-radius: var(--br);
   width: 100%;
   max-width: 50rem;
@@ -2423,10 +2426,12 @@ div.data__main--order:hover {
 
 .form__btns {
   width: 100%;
-  margin-top: 1rem;
+  margin: 1em 0;
 }
 
-
+.form__btns.accent {
+  margin-top: 2em;
+}
 
 /* Select True/False */
 .ui-state-default,
