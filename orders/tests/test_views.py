@@ -416,7 +416,6 @@ class TestOrdersViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json()['success'], False)
 
-
     def test_add_order_ajax_view_order_exist(self):
         """Test add order ajax view"""
         self.client.force_login(self.user)
@@ -464,7 +463,6 @@ class TestOrdersViews(TestCase):
         response = self.client.get(self.my_orders_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'orders/user_orders.html')
-
 
     def test_my_order_details_view_user_logged_logged_out(self):
         """Test my orders view user logged out"""
@@ -1004,4 +1002,3 @@ class TestOrdersViews(TestCase):
             Order.objects.get(id=self.order1.id).total_paid,
             Decimal('1.00')
         )
-

@@ -154,6 +154,7 @@ class OrderFormTest(TestCase):
             total_paid=10.00,
             order_key='1111111sdgsrz67terte4n89',
         )
+
     def test_order_has_fields(self):
         """Test order form has expected fields."""
         expected = [
