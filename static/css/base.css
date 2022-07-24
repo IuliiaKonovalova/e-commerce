@@ -114,13 +114,35 @@ button {
 .navbar {
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   width: 100%;
   max-width: 120rem;
   margin: 0 auto;
 }
 
+.navbar__customer {
+  display: flex;
+  align-items: center;
+  flex-direction: row !important;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 120rem;
+  margin: 0 auto;
+  flex-wrap: unset;
+  padding: 0.7em 1.5em 0.8em 2em;
+}
+
+.logo__container {
+  font-weight: 900;
+  color: #f4edff;
+  font-size: 1.5rem;
+}
+
+.logo__container span {
+  color: var(--clr-accent--500);
+  font-size: 2rem;
+}
 
 .navbar.navbar__items--admin {
   max-width: 100%;
@@ -129,12 +151,15 @@ button {
 .navbar__items {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
   width: 100%;
   max-width: 120rem;
   margin: 0 auto;
   padding: 0.2em 1em;
+}
 
+.navbar__item:not(:first-child) {
+  margin-left: 5vw;
 }
 
 .navbar__item a {
@@ -143,15 +168,18 @@ button {
   justify-content: center;
   width: 100%;
   font-weight: 700;
-  /* color: var(--clr-primary--100); */
   color: #f4edff;
+}
+
+.navbar__item a:hover {
+  color: var(--clr-primary--200);
 }
 
 .profile__avatar--navbar {
   max-width: 2.5rem;
   padding: 0.09em;
   border-radius: 50%;
-  border: 1px solid var(--clr-text--100);
+  border: 1px solid #f4edff;
   margin-right: 0.5em;
   width: 2.5rem;
   height: 2.5rem;
@@ -170,7 +198,7 @@ button {
 }
 
 .navbar__item a i {
-  margin-right: 0.5em;
+  margin-right: 0.3em;
 }
 
 .account__option--bag {
@@ -187,7 +215,6 @@ button {
   bottom: -0.9em;
   left: 0.7em;
   background-color: var(--clr-primary--400);
-  /* color: var(--clr-text--900); */
   font-size: 0.8em;
   width: 1.9rem;
   padding: 0.2em 0.5em;
