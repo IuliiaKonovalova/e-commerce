@@ -1980,6 +1980,11 @@ td {
   background-color: var(--clr-text--100);
 }
 
+.order__num .order__key {
+  /* break words */
+  word-break: break-word;
+}
+
 .data__main--order:hover {
   background-color: var(--clr-primary--100);
   color: var(--clr-text--900) !important;
@@ -2014,27 +2019,27 @@ div.data__main--order:hover {
   padding: 0.4em 1.5em;
   margin-right: 0.5em;
   text-transform: uppercase;
-  background-color: orange;
+  background-color: rgb(255, 144, 40);
 }
 
-.order__status--pending {
-  background-color: var(--clr-primary--500);
+.order__status[data-status="pending"] {
+  background-color: #ae8cff;
 }
 
 .order__status[data-status="processing"] {
-  background-color: var(--clr-primary--700);
+  background-color: #f650dd;
 }
 
 .order__status[data-status="delivery"] {
-  background-color: var(--clr-primary--900);
+  background-color: #7102d0;
 }
 
 .order__status[data-status="refunded"] {
-  background-color: var(--clr-primary--300);
+  background-color: var(--clr-btn-delete--900)
 }
 
 .order__status[data-status="completed"] {
-  background-color: var(--clr-primary--200);
+  background-color: #009300;
 }
 
 .order__details,
