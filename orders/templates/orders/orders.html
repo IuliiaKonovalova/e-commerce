@@ -4,10 +4,12 @@
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
-        <h1>All Orders</h1>
+        <h1 class="dashboard__main--name">All Orders</h1>
       </div>
+      {% comment %} All orders {% endcomment %}
       <div class="data__main--orders">
         {% if orders %}
           {% for order in orders %}
@@ -37,6 +39,7 @@
                     {% endif %}
                 </div>
               </div>
+              {% comment %} Order status section {% endcomment %}
               <div>
                 <strong>Order Status: </strong>
                 {% if order.status == 'Pending' %}
@@ -63,7 +66,6 @@
               </div>
             </a>
           {% endfor %}
-
           {% comment %} Control Pagination {% endcomment %}
           {% if orders.paginator.num_pages %}
             {% if not orders.paginator.num_pages == 1 %}
