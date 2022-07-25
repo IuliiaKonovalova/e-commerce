@@ -4,36 +4,51 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
+      <div class="dashboard__main dashboard__form">
         <h1 class="dashboard__main--name">
           {{ brand.name }}
         </h1>
-        <a class="btn btn-primary btn__edit" href="{% url 'edit_brand' brand_pk=brand.pk %}" aria-label="Go to edit brand form">
-          <i class="fa fa-pencil"></i>
-          Edit Brand
-        </a>
-        {% if request.user.profile.role.id == 3 %}
-          <a class="btn btn-primary btn__delete" href="{% url 'delete_brand' brand_pk=brand.pk %}"  aria-label="Go to delete brand form">
-            <i class="fa fa-trash"></i>
-            Delete product
-          </a>
-        {% endif %}
+        <div class="status__activity">
           {% if brand.is_active %}
             <i class="fa fa-check-circle"></i> (Active)
           {% else %}
             <i class="fa fa-times-circle"></i> (Inactive)
           {% endif %}
+        </div>
         <div class="dashboard__main--info">
-          <div>
-            <strong>Product with this brand: {{ brand.products.count }}</strong>
-          <div>
-          <div>
-            <strong>Description: </strong>
+          {% if brand.products.all %}
             <div>
-              {{ brand.description }}
+              Product with this brand: <strong>{{ brand.products.count }}</strong>
+            <div>
+            <div class="dashboard__main--list">
+              {% for product in brand.products.all %}
+                <a class="dashboard__main--list--item" href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to product detail page">
+                  <i class="fa fa-times" aria-hidden="true"></i>
+                  {{ product.name }}
+                  <i class="fa fa-external-link" aria-hidden="true"></i>
+                </a>
+              {% endfor %}
+            </div>
+          {% endif %}
+            <div>
+              <strong>Description: </strong>
+              <div>
+                {{ brand.description }}
+              </div>
             </div>
           </div>
         </div>
+      <div class="form__btns accent">
+        <a class="btn btn__edit" href="{% url 'edit_brand' brand_pk=brand.pk %}" aria-label="Go to edit brand form">
+          <i class="fa fa-pencil"></i>
+          Edit Brand
+        </a>
+        {% if request.user.profile.role.id == 3 %}
+          <a class="btn  btn__delete" href="{% url 'delete_brand' brand_pk=brand.pk %}"  aria-label="Go to delete brand form">
+            <i class="fa fa-trash"></i>
+            Delete Brand
+          </a>
+        {% endif %}
       </div>
     {% else %}
       <div class="dashboard__main">
