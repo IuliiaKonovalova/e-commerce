@@ -10,6 +10,9 @@
         <h1 class="dashboard__main--name">
           Delete Category
         </h1>
+        <h2 class="dashboard__main--subtitle">
+          Are you sure you want to delete <strong>{{ category.name }}</strong> category?
+        </h2>
         {% comment %} If there are any assosiated products {% endcomment %}
         {% if category.products.all %}
           <strong>Please, note! The following products will be deleted as well!</strong>
