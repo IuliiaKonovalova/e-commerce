@@ -2395,12 +2395,6 @@ div.data__main--order:hover {
 
 .dashboard__form,
 .adding__promotion--form {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%; */
   border-radius: var(--br);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   color: var(--clr-primary--500);
@@ -2410,6 +2404,14 @@ div.data__main--order:hover {
   border-radius: var(--br);
   width: 100%;
   max-width: 50rem;
+}
+
+.dashboard__form.form__delete {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .adding__promotion--form textarea {
@@ -2446,6 +2448,18 @@ div.data__main--order:hover {
 
 .form__btns.accent {
   margin-top: 2em;
+}
+
+.form__btns.accent.form__delete {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1.5em;
+}
+
+.form__btns.accent.form__delete a {
+  margin-right: 0.5em;
 }
 
 .dashboard__main--list--item {
