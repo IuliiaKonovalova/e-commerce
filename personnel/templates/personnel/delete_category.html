@@ -6,7 +6,7 @@
   <div class="dashboard">
     {% comment %} Only accessable to admin {% endcomment %}
     {% if request.user.profile.role.id == 3 %}
-      <form method="POST" class="adding__promotion--form">
+      <form method="POST" class="dashboard__form form__delete">
         <h1 class="dashboard__main--name">
           Delete Category
         </h1>
@@ -25,7 +25,7 @@
         {% csrf_token %}
         {{ form }}
         {% comment %} Form buttons {% endcomment %}
-        <div class="form__btns accent">
+        <div class="form__btns accent form__delete">
           <a href="{% url 'categories_table' %}" aria-label="Go to Categories page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
