@@ -2462,9 +2462,6 @@ div.data__main--order:hover {
 
 .form__btns.accent {
   margin-top: 2em;
-}
-
-.form__btns.accent.form__delete {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -2472,7 +2469,7 @@ div.data__main--order:hover {
   margin-top: 1.5em;
 }
 
-.form__btns.accent.form__delete a {
+.form__btns.accent a {
   margin-right: 0.5em;
 }
 
