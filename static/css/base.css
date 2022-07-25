@@ -1083,6 +1083,18 @@ input[name=quantity] {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
   gap: 1rem;
   padding: 0.5em 1em;
+
+}
+
+.bag__item,
+.bag__items--titles,
+.promotion,
+.promotions__table--titles,
+.products__table--row {
+  border-bottom: 1px solid var(--clr-text--300);
+}
+
+.brand__table--row:not(:last-child) {
   border-bottom: 1px solid var(--clr-text--300);
 }
 
@@ -1562,7 +1574,7 @@ input[name=quantity] {
 .products__table--row,
 .brand__table--row {
   grid-template-columns: 0.1fr 0.7fr 0.5fr 0.8fr 0.4fr 0.4fr 0.2fr 0.2fr 0.1fr;
-  background-color: var(--clr-primary--100);
+  /* background-color: var(--clr-primary--100); */
   color: var(--clr-text--900);
   padding: 0;
   /* gap: 0.1em; */
@@ -1853,7 +1865,9 @@ td {
 
 
 /* ---------- Brands Table -------------- */
-
+.brand__table {
+  max-width: 50rem;
+}
 
 .brand__table--row {
   grid-template-columns: 1fr 0.2fr 0.7fr;
@@ -2310,7 +2324,7 @@ div.data__main--order:hover {
   border-radius: var(--br);
   box-shadow: var(--box-shadow-card);
   position: relative;
-  margin-bottom: 0.3em;
+  margin-bottom: 0.5em;
 }
 
 .category strong {
@@ -2473,6 +2487,7 @@ div.data__main--order:hover {
 
 .dashboard__main--list--item i {
   margin-right: 0.3em;
+  margin-top: 0.2em;
 }
 
 /* Select True/False */
