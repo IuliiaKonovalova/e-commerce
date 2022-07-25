@@ -5,23 +5,29 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.profile.role.id == 3 %}
-      <div class="dashboard__main">
+      <form method="POST" class="dashboard__form form__delete">
         <h1 class="dashboard__main--name">
           Delete Brand
         </h1>
+        <h2 class="dashboard__main--subtitle">
+          Are you sure you want to delete <strong>{{ brand.name }}</strong> category?
+        </h2>
+        {% comment %} Show products assosiated with this brand {% endcomment %}
         {% if brand.products.all %}
           <strong>Please, note! The following products will be deleted as well!</strong>
-          {% for product in brand.products.all %}
-              <em>
+          <ul class="dashboard__main--list">
+            {% for product in brand.products.all %}
+              <li class="dashboard__main--list--item">
+                <i class="fa fa-times" aria-hidden="true"></i>
                 {{ product.name }}
-              </em>
-          {% endfor %}
+              </li>
+            {% endfor %}
+          </ul>
         {% endif %}
-      </div>
-      <form method="POST" class="adding__promotion--form">
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
+        {% comment %} form control buttons {% endcomment %}
+        <div class="form__btns accent">
           <a href="{% url 'brand_detail' brand_pk=brand.id %}" aria-label="Go to Brand detail page" class="btn btn-primary btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
@@ -40,8 +46,4 @@
       </div>
     {% endif %}
   </div>
-{% endblock %}
-
-{% block postloadjs_extra %}
-
 {% endblock %}
