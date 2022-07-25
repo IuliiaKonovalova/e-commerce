@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class TechSupportConfig(AppConfig):
+class SearchConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'tech_support'
+    name = 'search'
