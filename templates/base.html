@@ -67,28 +67,17 @@
           {% comment %} Product in Store {% endcomment %}
           <a href="{% url 'products_list' %}" aria-label="Go to Products page" class="account__option">
             <i class="fas fa-store"></i>
-            Store
-          </a>
-        </li>
-        <li class="navbar__item">
-          <a href="{% url 'my_profile' user=request.user %}" aria-label="Go to Profile page" class="account__option">
-            <div class="profile__avatar--navbar">
-              {% if user.profile.avatar %}
-                <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
-              {% else %}
-                <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
-              {% endif %}
-            </div>
-            <span>Profile</span>
+            <span class="navbar__item--name">Store</span>
           </a>
         </li>
         <li class="navbar__item">
           <a href="{% url 'wishlist_display' %}" aria-label="Go to Wishlist page" class="account__option">
             <i class="fas fa-heart"></i>
-            <span>Wishlist</span>
+            <span class="navbar__item--name">Wishlist</span>
           </a>
         </li>
         {% comment %} Links accessable to every member {% endcomment %}
+
         {% else %}
         <li class="navbar__item ">
 
@@ -98,16 +87,30 @@
           {% comment %} Bag {% endcomment %}
           <a href="{% url 'bag_display' %}" aria-label="Go to Bag page" class="account__option account__option--bag">
             <i class="fas fa-shopping-bag"></i><span id="shopping-bag-count">{{ product_count }}</span>
-            Bag
+            <div class="navbar__item--name">Bag</div>
+          </a>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="navbar__item">
+          <a href="{% url 'my_profile' user=request.user %}" aria-label="Go to Profile page" class="account__option">
+            <div class="profile__avatar--navbar">
+              {% if user.profile.avatar %}
+                <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
+              {% else %}
+                <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
+              {% endif %}
+            </div>
+            <span class="navbar__item--name">Profile</span>
           </a>
         </li>
         {% comment %} logout {% endcomment %}
         <li class="navbar__item">
           <a href="{% url 'account_logout' %}" aria-label="Logout" class="">
             <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
+            <span class="navbar__item--name">Logout</span>
           </a>
         </li>
+        {% endif %}
       </ul>
     </nav>
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
@@ -233,6 +236,7 @@
   </main>
   {% comment %} Footer {% endcomment %}
   <footer class="footer">
+  This is a footer
 
   </footer>
   {% block postloadjs %}
