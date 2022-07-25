@@ -3,22 +3,26 @@
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           All Brands
         </h1>
-        <a href="{% url 'add_brand' %}" aria-label="Go to add new brand page" class="btn btn-primary btn__add">
+        {% comment %} Add new brand button {% endcomment %}
+        <a href="{% url 'add_brand' %}" aria-label="Go to add new brand page" class="btn btn__add">
           <i class="fas fa-plus-circle"></i>
           Add New Brand
         </a>
       </div>
+      {% comment %} Brands table {% endcomment %}
       <div class="brand__table">
         <div class="brand__table--row table__titles">
           <div class="brand__table--cell">Name</div>
           <div class="brand__table--cell">Active</div>
           <div class="brand__table--cell">Products</div>
         </div>
+        {% comment %} All brands {% endcomment %}
         {% for brand in brands %}
           <a class="brand__table--row brand__table--link"  href="{% url 'brand_detail' brand_pk=brand.id %}" aria-label="Go to Brand detail page">
             <div class="brand__table--cell">
