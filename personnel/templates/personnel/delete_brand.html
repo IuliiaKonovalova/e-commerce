@@ -15,24 +15,25 @@
         {% comment %} Show products assosiated with this brand {% endcomment %}
         {% if brand.products.all %}
           <strong>Please, note! The following products will be deleted as well!</strong>
-          <ul class="dashboard__main--list">
+          <div class="dashboard__main--list">
             {% for product in brand.products.all %}
-              <li class="dashboard__main--list--item">
+              <a class="dashboard__main--list--item" href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to product detail page">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 {{ product.name }}
-              </li>
+                <i class="fa fa-external-link" aria-hidden="true"></i>
+              </a>
             {% endfor %}
-          </ul>
+          </div>
         {% endif %}
         {% csrf_token %}
         {{ form }}
         {% comment %} form control buttons {% endcomment %}
         <div class="form__btns accent">
-          <a href="{% url 'brand_detail' brand_pk=brand.id %}" aria-label="Go to Brand detail page" class="btn btn-primary btn__cancel">
+          <a href="{% url 'brand_detail' brand_pk=brand.id %}" aria-label="Go to Brand detail page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn__delete">
             <i class="fas fa-trash-alt"></i>
             Delete
           </button>
