@@ -16,14 +16,15 @@
         {% comment %} If there are any assosiated products {% endcomment %}
         {% if category.products.all %}
           <strong>Please, note! The following products will be deleted as well!</strong>
-          <ul class="dashboard__main--list">
+          <div class="dashboard__main--list">
             {% for product in category.products.all %}
-              <li class="dashboard__main--list--item">
+              <a class="dashboard__main--list--item" href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to product detail page">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 {{ product.name }}
-              </li>
+                <i class="fa fa-external-link" aria-hidden="true"></i>
+              </a>
             {% endfor %}
-          </ul>
+          </div>
         {% endif %}
         {% csrf_token %}
         {{ form }}
