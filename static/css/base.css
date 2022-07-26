@@ -1645,6 +1645,15 @@ a.brand__table--row:hover {
   position: relative;
 }
 
+.dashboard__main--info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .dashboard__main .btn_go--back {
   position: absolute;
   left: 0;
