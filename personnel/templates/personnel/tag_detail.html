@@ -15,39 +15,43 @@
             <i class="fa fa-times-circle"></i> (Inactive)
           {% endif %}
         </div>
-      <div class="">
-        {% if tag_products.count %}
-          <div class="">
-            {{ tag_products.count }} products
-          </div>
-          {% for product in tag_products %}
-            <a class="data__main--link" href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to product detail page">
-              {{ product }}
-              {% if product.is_active %}
-                <i class="fa fa-check-circle"></i>
-              {% else %}
-                <i class="fa fa-times-circle"></i>
-              {% endif %}
-            </a>
-          {% endfor %}
-        {% else %}
-          <div class="">
-            No products found
-          </div>
-        {% endif %}
-      </div>
-      <div class="form__btns accent">
-        <a class="btn btn__edit" href="{% url 'edit_tag' tag_pk=tag.pk %}" aria-label="Go to edit tag form">
-          <i class="fa fa-pencil"></i>
-          Edit Tag
-        </a>
-        <a class="btn btn__delete" href="{% url 'delete_tag' tag_pk=tag.pk %}"  aria-label="Go to delete tag form">
-          <i class="fa fa-trash"></i>
-          Delete Tag
-        </a>
-      </div>
+        <div class="dashboard__main--info">
+          {% if tag_products.count %}
+            <div class="">
+              {{ tag_products.count }} products
+            </div>
+            <div class="dashboard__main--list">
+              {% for product in tag_products %}
+                <a class="dashboard__main--list--item" href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to product detail page">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    {{ product.name }}
+                  {% if product.is_active %}
+                    <i class="fa fa-check-circle"></i>
+                  {% else %}
+                    <i class="fa fa-times-circle"></i>
+                  {% endif %}
+                    <i class="fa fa-external-link" aria-hidden="true"></i>
+                </a>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="">
+              No products found
+            </div>
+          {% endif %}
+        </div>
+        <div class="form__btns accent">
+          <a class="btn btn__edit" href="{% url 'edit_tag' tag_pk=tag.pk %}" aria-label="Go to edit tag form">
+            <i class="fa fa-pencil"></i>
+            Edit Tag
+          </a>
+          <a class="btn btn__delete" href="{% url 'delete_tag' tag_pk=tag.pk %}"  aria-label="Go to delete tag form">
+            <i class="fa fa-trash"></i>
+            Delete Tag
+          </a>
+        </div>
 
-</div>
+      </div>
     {% else %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
