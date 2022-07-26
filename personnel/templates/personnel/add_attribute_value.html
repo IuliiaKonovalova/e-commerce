@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
 
 {% block content %}
   <div class="dashboard">
@@ -8,7 +11,7 @@
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">Add Attribute Vlaue</h1>
       </div>
-      <form method="POST" class="form">
+      <form method="POST" class="dashboard__form">
         {% csrf_token %}
         {{ form }}
         <div class="form__btns">
@@ -28,4 +31,19 @@
       </div>
     {% endif %}
   </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#id_product_attribute').select2(
+        {
+          placeholder: "Select product attribute",
+          allowClear: true,
+        }
+      );
+      $('#id_product_attribute').css('width', '100%');
+    });
+  </script>
 {% endblock %}
