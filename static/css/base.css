@@ -2512,13 +2512,21 @@ a.dashboard__main--list--item:hover {
   margin: 0.1em 0.3em;
 }
 
-/* Select container */
+/* Select single element styling */
+.select2-container--default .select2-selection--single {
+  border-radius: 6px !important;
+  height: 2.2rem !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Select container styling*/
 .select2-container {
   max-width: 100%;
 }
 
 
-/* Select True/False */
+/* Select True/False styling*/
 .ui-state-default,
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default,
