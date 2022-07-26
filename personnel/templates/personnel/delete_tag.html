@@ -4,24 +4,23 @@
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Accessable only to admin {% endcomment %}
     {% if request.user.profile.role.id == 3 %}
-      <div class="dashboard__main">
+      <form method="POST" class="dashboard__form form__delete">
         <h1 class="dashboard__main--name">
           Delete Tag
         </h1>
         {% if tag.products.count %}
           <strong>Please, note! The following tag is assigned to {{ tag.products.count }} product!</strong>
         {% endif %}
-      </div>
-      <form method="POST" class="adding__promotion--form">
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
-          <a href="{% url 'tag_detail' tag_pk=tag.id %}" aria-label="Go to Tag detail page" class="btn btn-primary btn__cancel">
+        <div class="form__btns accent">
+          <a href="{% url 'tag_detail' tag_pk=tag.id %}" aria-label="Go to Tag detail page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn brn__delete">
             <i class="fas fa-trash-alt"></i>
             Delete
           </button>
