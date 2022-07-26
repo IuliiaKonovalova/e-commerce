@@ -2512,6 +2512,12 @@ a.dashboard__main--list--item:hover {
   margin: 0.1em 0.3em;
 }
 
+/* Select container */
+.select2-container {
+  max-width: 100%;
+}
+
+
 /* Select True/False */
 .ui-state-default,
 .ui-widget-content .ui-state-default,
