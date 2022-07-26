@@ -9,14 +9,12 @@
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
-        <h1>Edit Tag</h1>
-      </div>
-      <form method="POST" class="form">
+      <form method="POST" class="dashboard__form">
+        <h1 class="dashboard__main--name">Edit Tag</h1>
         {% csrf_token %}
         {{ form }}
         {% comment %} Form control buttons {% endcomment %}
-        <div class="form__btns">
+        <div class="form__btns accent">
           <a href="{% url 'tags_table' %}" aria-label="Go to Tags page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
