@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">Edit Product Type</h1>
@@ -28,4 +32,18 @@
       </div>
     {% endif %}
   </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#id_product_type_attributes').select2(
+        {
+          placeholder: "Select a sku",
+          allowClear: true,
+        }
+      );
+    });
+  </script>
 {% endblock %}
