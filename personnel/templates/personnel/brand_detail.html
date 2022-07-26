@@ -24,7 +24,11 @@
               {% for product in brand.products.all %}
                 <a class="dashboard__main--list--item" href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to product detail page">
                   <i class="fa fa-times" aria-hidden="true"></i>
-                  {{ product.name }}
+                  {% if product.is_active %}
+                    <i class="fa fa-check-circle"></i>
+                  {% else %}
+                    <i class="fa fa-times-circle"></i>
+                  {% endif %}
                   <i class="fa fa-external-link" aria-hidden="true"></i>
                 </a>
               {% endfor %}
