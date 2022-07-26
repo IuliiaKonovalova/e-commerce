@@ -17,13 +17,14 @@
         {{ form }}
         {% comment %} Form control buttons {% endcomment %}
         <div class="form__btns">
-          <a href="{% url 'tags_table' %}" aria-label="Go to Tags page" class="btn btn-primary btn__cancel">
+          <a href="{% url 'tags_table' %}" aria-label="Go to Tags page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn-primary btn__add">
-            <i class="fa fa-plus-circle"></i>
-            Edit Tag
+          <button type="submit" class="btn btn__add">
+            {% comment %} save icon {% endcomment %}
+            <i class="fas fa-save"></i>
+            Save changes
           </button>
         </div>
       </form>
