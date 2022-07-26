@@ -4,9 +4,11 @@
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Accessable only to admin {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
+      <div class="dashboard__main dashboard__form">
         <h1 class="dashboard__main--name">Delete Product Type</h1>
+        {% comment %} Warning messages {% endcomment %}
         <div class="warning__msg">
           <p>If you delete this product type, all products of this type will be deleted. Are you sure you want to delete this product type?</p>
           {% if product_type.inventory.all %}
@@ -26,10 +28,12 @@
         </div>
         <strong class="warning__msg--request">Deletion is forbidden!</strong>
         <p>If you want to delete this product type, please, contact with administrator.</p>
-        <a href="{% url 'product_types_table' %}" aria-label="Go to Product Type page" class="btn btn__cancel">
-          <i class="fas fa-arrow-circle-left"></i>
-          Cancel
-        </a>
+        {% comment %} Form control button {% endcomment %}
+        <div class="form__btns accent">
+          <a href="{% url 'product_types_table' %}" aria-label="Go to Product Type page" class="btn btn__cancel">
+            <i class="fas fa-arrow-circle-left"></i>
+            Cancel
+          </a>
         <div>
       </div>
     {% else %}
