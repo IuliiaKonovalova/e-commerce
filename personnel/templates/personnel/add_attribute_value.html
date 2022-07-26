@@ -7,21 +7,20 @@
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Lemet access for all customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
-        <h1 class="dashboard__main--name">Add Attribute Vlaue</h1>
-      </div>
       <form method="POST" class="dashboard__form">
+        <h1 class="dashboard__main--name">Add Attribute Vlaue</h1>
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
+        <div class="form__btns accent">
           <a href="{% url 'attribute_values' %}" aria-label="Go to Product Attributes page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
           <button type="submit" class="btn btn__add">
             <i class="fa fa-plus-circle"></i>
-            Add Attribute
+            Add Value
           </button>
         </div>
       </form>
