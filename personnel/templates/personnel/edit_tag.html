@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
         <h1>Edit Tag</h1>
@@ -11,6 +15,7 @@
       <form method="POST" class="form">
         {% csrf_token %}
         {{ form }}
+        {% comment %} Form control buttons {% endcomment %}
         <div class="form__btns">
           <a href="{% url 'tags_table' %}" aria-label="Go to Tags page" class="btn btn-primary btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
@@ -28,4 +33,15 @@
       </div>
     {% endif %}
   </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(function () {
+        $('#id_is_active').checkboxradio();
+      });
+    });
+  </script>
 {% endblock %}
