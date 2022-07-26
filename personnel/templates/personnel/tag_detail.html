@@ -4,7 +4,7 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
+      <div class="dashboard__main dashboard__form">
         <h1 class="dashboard__main--name">
           {{ tag.name }}
         </h1>
@@ -15,16 +15,6 @@
             <i class="fa fa-times-circle"></i> (Inactive)
           {% endif %}
         </div>
-        <a class="btn btn-primary btn__edit" href="{% url 'edit_tag' tag_pk=tag.pk %}" aria-label="Go to edit tag form">
-          <i class="fa fa-pencil"></i>
-          Edit Tag
-        </a>
-        <a class="btn btn-primary btn__delete" href="{% url 'delete_tag' tag_pk=tag.pk %}"  aria-label="Go to delete tag form">
-          <i class="fa fa-trash"></i>
-          Delete Tag
-        </a>
-      </div>
-
       <div class="">
         {% if tag_products.count %}
           <div class="">
@@ -46,6 +36,18 @@
           </div>
         {% endif %}
       </div>
+      <div class="form__btns accent">
+        <a class="btn btn__edit" href="{% url 'edit_tag' tag_pk=tag.pk %}" aria-label="Go to edit tag form">
+          <i class="fa fa-pencil"></i>
+          Edit Tag
+        </a>
+        <a class="btn btn__delete" href="{% url 'delete_tag' tag_pk=tag.pk %}"  aria-label="Go to delete tag form">
+          <i class="fa fa-trash"></i>
+          Delete Tag
+        </a>
+      </div>
+
+</div>
     {% else %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
