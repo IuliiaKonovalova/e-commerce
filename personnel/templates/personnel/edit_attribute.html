@@ -4,21 +4,21 @@
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
+      <form method="POST" class="dashboard__form">
         <h1 class="dashboard__main--name">Edit Product Attribute</h1>
-      </div>
-      <form method="POST" class="form">
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
+        {% comment %} Form control buttons {% endcomment %}
+        <div class="form__btns accent">
           <a href="{% url 'product_type_attributes' %}" aria-label="Go to Product Attributes page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
           <button type="submit" class="btn btn__add">
             <i class="fas fa-save"></i>
-            Edit
+            Save Changes
           </button>
         </div>
       </form>
