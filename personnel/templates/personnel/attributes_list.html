@@ -13,40 +13,55 @@
           Add New Product Attribute
         </a>
       </section>
-      <div class="types__all">
-        {% for attribute in attributes %}
-          <div class="type__details attributes">
-            <strong>{{ attribute.name }}</strong>
-            {{ attribute.description }}
-            <strong>Attributes: </strong>
-            <div class="type_attributes">
-              {% if attribute.product_attribute.all %}
-                {% for value in attribute.product_attribute.all %}
-                  {{ value.attribute_value }}, 
-                {% endfor %}
-              {% else %}
-                <span>No attributes</span>
-              {% endif %}
-            </div>
-            <div class="type__buttons">
-              <a href="{% url 'edit_attribute' pk=attribute.id %}"
-                  aria-label="Edit product attribute page" class="btn btn__edit">
-                <i class="fas fa-edit"></i>
-                Edit
-              </a>
-              {% if request.user.profile.role.id == 3 %}
-                <a href="{% url 'delete_attribute' pk=attribute.id %}"
-                    aria-label="Delete product attribute page" class="btn btn__delete">
-                  <i class="fas fa-trash-alt"></i>
-                  Delete
+      {% if attributes %}
+        <div class="search-input-container">
+          <input type="text" name="search_query" placeholder="Search..." class="search-input">
+          <i class="fa fa-search search-icon"></i>
+        </div>
+        <div class="types__all">
+          {% for attribute in attributes %}
+            <div class="type__details attributes">
+              <strong>{{ attribute.name }}</strong>
+              {{ attribute.description }}
+              <strong>Values: </strong>
+              <div class="type_attributes">
+                {% if attribute.product_attribute.all %}
+                  {% for value in attribute.product_attribute.all %}
+                    {{ value.attribute_value }}, 
+                  {% endfor %}
+                {% else %}
+                  <span>No attributes</span>
+                {% endif %}
+              </div>
+              <div class="type__buttons">
+                <a href="{% url 'edit_attribute' pk=attribute.id %}"
+                    aria-label="Edit product attribute page" class="btn btn__edit">
+                  <i class="fas fa-edit"></i>
+                  Edit
                 </a>
-              {% endif %}
+                {% if request.user.profile.role.id == 3 %}
+                  <a href="{% url 'delete_attribute' pk=attribute.id %}"
+                      aria-label="Delete product attribute page" class="btn btn__delete">
+                    <i class="fas fa-trash-alt"></i>
+                    Delete
+                  </a>
+                {% endif %}
+              </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        {% else %}
+          <p>No attributes yet</p>
       </div>
+      {% endif %}
     {% else %}
       <h1>You are not authorized to view this page</h1>
     {% endif %}
   </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+    <script>
+      $(document).ready(function() {
+      });
+    </script>
 {% endblock %}
