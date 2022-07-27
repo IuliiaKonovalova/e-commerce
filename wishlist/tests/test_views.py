@@ -8,6 +8,7 @@ from inventory.models import (
     Product,
 )
 from profiles.models import Role, User
+from wishlist.models import Wishlist
 
 
 class WishlistTestCase(TestCase):
@@ -100,8 +101,12 @@ class WishlistTestCase(TestCase):
             response,
             'wishlist/wishlist_display.html',
         )
-        # check the wishlist is empty
-        self.assertEqual(response.context['products'].count(), 0)
+        # get wishlist of self.user
+        wishlist = Wishlist.objects.get(user=self.user)
+        self.assertEqual(
+            wishlist.products.count(),
+            0,
+        )
         # add product to wishlist
         self.client.post(
             self.add_remove_product_wishlist_ajax_url,
@@ -118,7 +123,11 @@ class WishlistTestCase(TestCase):
             'wishlist/wishlist_display.html',
         )
         # check the wishlist is not empty
-        self.assertEqual(response.context['products'].count(), 1)
+        wishlist = Wishlist.objects.get(user=self.user)
+        self.assertEqual(
+            wishlist.products.count(),
+            1,
+        )
         self.client.logout()
         response = self.client.get(self.wishlist_display_url)
         self.assertEquals(response.status_code, 200)
@@ -253,7 +262,18 @@ class WishlistTestCase(TestCase):
             response,
             'wishlist/wishlist_display.html',
         )
-        self.assertEqual(response.context['products'].count(), 0)
+        response = self.client.get(self.wishlist_display_url + '?page=1')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'wishlist/wishlist_display.html',
+        )
+        wishlist = Wishlist.objects.get(user=self.user)
+        self.assertEqual(
+            wishlist.products.count(),
+            0,
+        )
+
         self.client.logout()
         response = self.client.get(self.wishlist_display_url)
         self.assertEquals(response.status_code, 200)
@@ -287,10 +307,9 @@ class WishlistTestCase(TestCase):
             response,
             'wishlist/wishlist_display.html',
         )
-        self.assertEqual(response.context['products'].count(), 1)
         self.client.logout()
-        response = self.client.get(self.wishlist_display_url)
-        self.assertEquals(response.status_code, 200)
+        response = self.client.get(self.wishlist_display_url + '?page=1')
+        self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'account/login.html')
 
     def test_empty_wishlist_ajax_view_user_logout(self):
