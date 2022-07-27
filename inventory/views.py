@@ -2,7 +2,9 @@
 from django.views import View
 from django.shortcuts import render
 from django.core.paginator import Paginator
+from django.db.models import Q
 from .models import (
+    Category,
     Product,
     ProductImage,
     ProductAttributeValue,
@@ -18,9 +20,57 @@ class ProductsListView(View):
         p = Paginator(Product.objects.all(), 30)
         page = request.GET.get('page')
         products = p.get_page(page)
+        categories = Category.objects.all()
         context = {
             'products': products,
+            'categories': categories,
         }
+        # return render(request, 'inventory/products_list.html', context)
+
+
+        # """Handle POST requests for search."""
+        categories = Category.objects.all()
+        query = request.POST.get('search_query')
+        # category_query = request.POST.get('category')
+        print(request.POST)
+        if 'search_query' in request.GET:
+            query = request.GET.get('search_query')
+            if query == '' or query == 'All':
+                p = Paginator(Product.objects.all(), 30)
+                page = request.GET.get('page')
+                products = p.get_page(page)
+                context = {
+                    'products': products,
+                    'categories': categories,
+                }
+                return render(request, 'inventory/products_list.html', context)
+            products = Product.objects.filter(
+                Q(name__icontains=query) |
+                Q(description__icontains=query) |
+                Q(category__name__icontains=query) |
+                Q(brand__name__icontains=query) |
+                Q(tags__name__icontains=query)
+            )
+            p = Paginator(products, 30)
+            page = request.GET.get('page')
+            products = p.get_page(page)
+            context = {
+                'products': products,
+                'categories': categories,
+            }
+            return render(request, 'inventory/products_list.html', context)
+
+        # if category_query:
+        #     products = Product.objects.filter(category__name=category_query)
+        #     p = Paginator(products, 30)
+        #     page = request.GET.get('page')
+        #     products = p.get_page(page)
+        #     context = {
+        #         'products': products,
+        #         'categories': categories,
+        #     }
+        #     return render(request, 'inventory/products_list.html', context)
+
         return render(request, 'inventory/products_list.html', context)
 
 
