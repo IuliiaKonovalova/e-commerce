@@ -3,6 +3,30 @@
 
 {% block content %}
   {% comment %} All products in the shop {% endcomment %}
+      <form  id="search-all">
+        {% csrf_token %}
+        
+        <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
+        <button type="submit" id="search-btn" aria-label="Search" class="btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+      {% comment %} create form to click on category {% endcomment %}
+      <form id="search-category">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select class="form-control" id="category" name="search_query">
+            <option value="">All</option>
+            {% for category in categories %}
+              <option value="{{ category.name }}">{{ category.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" id="category-btn" aria-label="Search" class="btn">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
   <div class="products__all">
     {% for product in products %}
       {% if product.is_active %}
@@ -193,6 +217,7 @@
         });
       });
     });
+
   </script>
 
 {% endblock %}
