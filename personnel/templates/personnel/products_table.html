@@ -18,7 +18,6 @@
         <div class="products__table--row table__titles">
           <div class="products__table--cell">ID</div>
           <div class="products__table--cell">Name</div>
-          <div class="products__table--cell">Description</div>
           <div class="products__table--cell">Category</div>
           <div class="products__table--cell">Tags</div>
           <div class="products__table--cell">Brand</div>
@@ -48,12 +47,9 @@
                 </div>
               {% endif %}
             </div>
-            <div class="products__table--cell">{{ product.description|truncatechars:25 }}</div>
-            <div class="products__table--cell">{{ product.category.name }}</div>
+            <div class="products__table--cell">{{ product.category.name|truncatechars:20 }}</div>
             <div class="products__table--cell">
-              {% for tag in product.get_tags %}
-                <div>{{ tag.name }}</div>
-              {% endfor %}
+              {{ product.tags.count }}
             </div>
             <div class="products__table--cell">{{ product.brand }}</div>
             <div class="products__table--cell">
