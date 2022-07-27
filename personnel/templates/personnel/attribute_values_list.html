@@ -6,7 +6,7 @@
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <section class="dashboard__main">
         <h1 class="dashboard__main--name">
-          Product Attributes
+          Product Attributes Value
         </h1>
         <a href="{% url 'add_attribute_value' %}" aria-label="Go to add new attribute value" class="btn btn__add">
           <i class="fas fa-plus-circle"></i>
