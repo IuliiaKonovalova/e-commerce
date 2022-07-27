@@ -17,8 +17,6 @@ from inventory.models import (
     ProductAttributeValue,
     ProductInventory,
     Stock,
-    ProductAttributeValues,
-    ProductTypeAttribute,
 )
 from promotions.models import Promotion
 from .forms import (
