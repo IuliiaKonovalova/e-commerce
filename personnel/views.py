@@ -43,7 +43,7 @@ class ProductsTableView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                p = Paginator(Product.objects.all(), 3)
+                p = Paginator(Product.objects.all(), 25)
                 page = request.GET.get('page')
                 products = p.get_page(page)
                 promotions = Promotion.objects.all().filter(active=True)
