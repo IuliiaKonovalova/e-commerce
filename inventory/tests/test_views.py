@@ -18,7 +18,7 @@ from inventory.models import (
 
 
 class TestUrls(TestCase):
-    """Test Inventory URLs."""
+    """Test Inventory Views."""
 
     def setUp(self):
         """Set up the test."""
@@ -153,7 +153,30 @@ class TestUrls(TestCase):
         """Test product list url."""
         response = self.client.get(self.products_list_url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['products'].count(), 2)
+        self.assertEqual(response.context['categories'].count(), 2)
+        self.assertTemplateUsed(response, 'inventory/products_list.html')
+
+    def test_product_list_search_query(self):
+        """Test product list search query."""
+        response = self.client.get(
+            self.products_list_url,
+            {'search_query': 'nike'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['products'][0], self.product1)
+        self.assertTemplateUsed(response, 'inventory/products_list.html')
+
+    def test_product_list_empty_query(self):
+        """Test product list empty query."""
+        response = self.client.get(
+            self.products_list_url,
+            {'search_query': ''}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.context['products'][0],
+            self.product2
+        )
         self.assertTemplateUsed(response, 'inventory/products_list.html')
 
     def test_product_detail_url(self):
