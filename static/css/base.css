@@ -1573,10 +1573,10 @@ input[name=quantity] {
 
 .products__table--row,
 .brand__table--row {
-  grid-template-columns: 0.1fr 0.7fr 0.5fr 0.8fr 0.4fr 0.4fr 0.2fr 0.2fr 0.1fr;
-  /* background-color: var(--clr-primary--100); */
+  grid-template-columns: 0.1fr 0.7fr 0.8fr 0.4fr 0.4fr 0.2fr 0.2fr 0.1fr;
+
   color: var(--clr-text--900);
-  padding: 0;
+  padding: 0.5em 0.2em;
   /* gap: 0.1em; */
   gap: 0;
 }
