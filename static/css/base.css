@@ -1082,19 +1082,19 @@ input[name=quantity] {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
   gap: 1rem;
-  padding: 0.5em 1em;
+  padding: 1em;
 
 }
 
 .bag__item,
 .bag__items--titles,
 .promotion,
-.promotions__table--titles,
-.products__table--row {
+.promotions__table--titles {
   border-bottom: 1px solid var(--clr-text--300);
 }
 
-.brand__table--row:not(:last-child) {
+.brand__table--row:not(:last-child),
+.products__table--row:not(:last-child) {
   border-bottom: 1px solid var(--clr-text--300);
 }
 
