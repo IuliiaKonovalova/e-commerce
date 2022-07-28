@@ -1,18 +1,30 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .content__container {
+      flex-direction: column;
+      justify-content: start !important;
+      align-items: flex-start !important;
+      flex: 1 0 auto !important;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
-  {% comment %} All products in the shop {% endcomment %}
-      <form  id="search-all">
+  <div class="store__products">
+    {% comment %} All products in the shop {% endcomment %}
+    <div class="search__container">
+      <form class="search__input" id="search-all">
         {% csrf_token %}
-        
         <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
         <button type="submit" id="search-btn" aria-label="Search" class="btn">
           <i class="fas fa-search"></i>
         </button>
       </form>
       {% comment %} create form to click on category {% endcomment %}
-      <form id="search-category">
+      <form  class="search__select" id="search-category">
         {% csrf_token %}
         <div class="form-group">
           <label for="category">Category</label>
@@ -27,134 +39,136 @@
           <i class="fas fa-search"></i>
         </button>
       </form>
-  <div class="products__all">
-    {% for product in products %}
-      {% if product.is_active %}
-        <div class="wishlist__item" data-attr="{{ product.id }}">
-          {% comment %} product card {% endcomment %}
-          <a class="product__card" href="{% url 'product_detail' pk=product.pk %}" aria-label="Go to {{ product.name }}">
-            {% comment %} Sale label {% endcomment %}
-            {% if product.get_sale_price_is_lower_than_store_price %}
-              <div class="product__card--discount">
-                <img src="{% static 'images/sale.png' %}" alt="sale Image">
-              </div>
-            {% endif %}
-            {% comment %} New label {% endcomment %}
-            {% if product.get_recently_created %}
-              <div class="product__card--new">
-                New !
-              </div>
-            {% endif %}
-            {% comment %} product image {% endcomment %}
-            <div class="product__card--image">
-              {% if product.images.all %}
-                <img src="{{ product.get_main_image }}" alt="Cover image for {{ product.name }}">
-              {% else %}
-                <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
+    </div>
+    <div class="products__all">
+      {% for product in products %}
+        {% if product.is_active %}
+          <div class="wishlist__item" data-attr="{{ product.id }}">
+            {% comment %} product card {% endcomment %}
+            <a class="product__card" href="{% url 'product_detail' pk=product.pk %}" aria-label="Go to {{ product.name }}">
+              {% comment %} Sale label {% endcomment %}
+              {% if product.get_sale_price_is_lower_than_store_price %}
+                <div class="product__card--discount">
+                  <img src="{% static 'images/sale.png' %}" alt="sale Image">
+                </div>
               {% endif %}
-            </div>
-            {% comment %} product name {% endcomment %}
-            <div class="product__card--name">
-              {{ product.name|truncatechars:20 }}
-            </div>
-            {% comment %} product price {% endcomment %}
-            <div class="product__card--content">
-              <div class="product__card--prices">
-                {% if product.get_out_of_stock %}
-                  <div class="product__card--price price__sale">
-                    <p>Out of stock</p>
-                  </div>
-                {% elif product.get_same_sale_price %}
-                  {% if product.get_sale_price_is_lower_than_store_price %}
-                    <div class="product__card--price price__regular">
-                      $ {{ product.get_lowest_store_price }}
-                    </div>
-                    <div class="product__card--price price__sale">
-                      $ {{ product.get_lowest_price }}
-                    </div>
-                  {% else %}
-                    <div class="product__card--price">
-                      $ {{ product.get_lowest_price }}
-                    </div>
-                  {% endif %}
+              {% comment %} New label {% endcomment %}
+              {% if product.get_recently_created %}
+                <div class="product__card--new">
+                  New !
+                </div>
+              {% endif %}
+              {% comment %} product image {% endcomment %}
+              <div class="product__card--image">
+                {% if product.images.all %}
+                  <img src="{{ product.get_main_image }}" alt="Cover image for {{ product.name }}">
                 {% else %}
-                  {% if product.get_sale_price_is_lower_than_store_price %}
-                    <div class="product__card--price price__regular">
-                      $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
-                    </div>
-                    <div class="product__card--price price__sale">
-                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
-                    </div>
-                  {% else %}
-                    <div class="product__card--price">
-                      $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
-                    </div>
-                  {% endif %}
+                  <img src="{% static 'images/default_product_image.png' %}" alt="default product Image">
                 {% endif %}
               </div>
-            </div>
-          </a>
-          {% comment %} Like button to add to wishlist {% endcomment %}
-          <button class="like btn wishlist__control" data-id="{{ product.id }}">
-            {% if request.user.is_authenticated %}
-              {% if product in request.user.wishlist.get_products %}
-                <i class="fas fa-heart"></i>
+              {% comment %} product name {% endcomment %}
+              <div class="product__card--name">
+                {{ product.name|truncatechars:20 }}
+              </div>
+              {% comment %} product price {% endcomment %}
+              <div class="product__card--content">
+                <div class="product__card--prices">
+                  {% if product.get_out_of_stock %}
+                    <div class="product__card--price price__sale">
+                      <p>Out of stock</p>
+                    </div>
+                  {% elif product.get_same_sale_price %}
+                    {% if product.get_sale_price_is_lower_than_store_price %}
+                      <div class="product__card--price price__regular">
+                        $ {{ product.get_lowest_store_price }}
+                      </div>
+                      <div class="product__card--price price__sale">
+                        $ {{ product.get_lowest_price }}
+                      </div>
+                    {% else %}
+                      <div class="product__card--price">
+                        $ {{ product.get_lowest_price }}
+                      </div>
+                    {% endif %}
+                  {% else %}
+                    {% if product.get_sale_price_is_lower_than_store_price %}
+                      <div class="product__card--price price__regular">
+                        $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                      </div>
+                      <div class="product__card--price price__sale">
+                        $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                      </div>
+                    {% else %}
+                      <div class="product__card--price">
+                        $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+            {% comment %} Like button to add to wishlist {% endcomment %}
+            <button class="like btn wishlist__control" data-id="{{ product.id }}">
+              {% if request.user.is_authenticated %}
+                {% if product in request.user.wishlist.get_products %}
+                  <i class="fas fa-heart"></i>
+                {% else %}
+                  <i class="far fa-heart"></i>
+                {% endif %}
               {% else %}
                 <i class="far fa-heart"></i>
               {% endif %}
+            </button>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+    {% comment %} Control Pagination {% endcomment %}
+    {% if products.paginator.num_pages %}
+      {% if not products.paginator.num_pages == 1 %}
+        <div class="pagination">
+          <div class="pagination__navigation">
+            {% if products.has_previous and not products.has_next %}
+              <a href="?page={{ products.previous_page_number }}" class="pagination__navigation--btn"
+                aria-label="Go to previous page results">
+                <i class="fas fa-chevron-left"></i>
+              </a>
+              <div class="pagination__navigation--fake">
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            {% elif products.has_next and not products.has_previous %}
+              <div class="pagination__navigation--fake">
+                <i class="fas fa-chevron-left"></i>
+              </div>
+              <a href="?page={{ products.next_page_number }}" class="pagination__navigation--btn"
+                aria-label="Go to next page results">
+                <i class="fas fa-chevron-right"></i>
+              </a>
+            {% elif products.has_next and products.has_previous %}
+              <a href="?page={{ products.previous_page_number }}" class="pagination__navigation--btn"
+                aria-label="Go to previous page results">
+                <i class="fas fa-chevron-left"></i>
+              </a>
+              <a href="?page={{ products.next_page_number }}" class="pagination__navigation--btn"
+                aria-label="Go to next page results">
+                <i class="fas fa-chevron-right"></i>
+              </a>
             {% else %}
-              <i class="far fa-heart"></i>
+              <div class="pagination__navigation--fake">
+                <i class="fas fa-chevron-left"></i>
+              </div>
+              <div class="pagination__navigation--fake">
+                <i class="fas fa-chevron-right"></i>
+              </div>
             {% endif %}
-          </button>
+          </div>
+          <div class="pagination__location">
+            Page <span>{{ products.number }}</span> of {{ products.paginator.num_pages }}
+          </div>
         </div>
       {% endif %}
-    {% endfor %}
-  </div>
-  {% comment %} Control Pagination {% endcomment %}
-  {% if products.paginator.num_pages %}
-    {% if not products.paginator.num_pages == 1 %}
-      <div class="pagination">
-        <div class="pagination__navigation">
-          {% if products.has_previous and not products.has_next %}
-            <a href="?page={{ products.previous_page_number }}" class="pagination__navigation--btn"
-              aria-label="Go to previous page results">
-              <i class="fas fa-chevron-left"></i>
-            </a>
-            <div class="pagination__navigation--fake">
-              <i class="fas fa-chevron-right"></i>
-            </div>
-          {% elif products.has_next and not products.has_previous %}
-            <div class="pagination__navigation--fake">
-              <i class="fas fa-chevron-left"></i>
-            </div>
-            <a href="?page={{ products.next_page_number }}" class="pagination__navigation--btn"
-              aria-label="Go to next page results">
-              <i class="fas fa-chevron-right"></i>
-            </a>
-          {% elif products.has_next and products.has_previous %}
-            <a href="?page={{ products.previous_page_number }}" class="pagination__navigation--btn"
-              aria-label="Go to previous page results">
-              <i class="fas fa-chevron-left"></i>
-            </a>
-            <a href="?page={{ products.next_page_number }}" class="pagination__navigation--btn"
-              aria-label="Go to next page results">
-              <i class="fas fa-chevron-right"></i>
-            </a>
-          {% else %}
-            <div class="pagination__navigation--fake">
-              <i class="fas fa-chevron-left"></i>
-            </div>
-            <div class="pagination__navigation--fake">
-              <i class="fas fa-chevron-right"></i>
-            </div>
-          {% endif %}
-        </div>
-        <div class="pagination__location">
-          Page <span>{{ products.number }}</span> of {{ products.paginator.num_pages }}
-        </div>
-      </div>
     {% endif %}
-  {% endif %}
+  </div>
 {% endblock %}
 
 {% block postloadjs_extra %}
