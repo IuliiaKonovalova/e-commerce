@@ -8,6 +8,8 @@
       justify-content: start !important;
       align-items: flex-start !important;
       flex: 1 0 auto !important;
+      padding: 0 !important;
+      max-width: 100%;
     }
   </style>
 {% endblock %}
@@ -15,30 +17,32 @@
 {% block content %}
   <div class="store__products">
     {% comment %} All products in the shop {% endcomment %}
-    <div class="search__container">
-      <form class="search__input" id="search-all">
-        {% csrf_token %}
-        <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
-        <button type="submit" id="search-btn" aria-label="Search" class="btn">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
-      {% comment %} create form to click on category {% endcomment %}
-      <form  class="search__select" id="search-category">
-        {% csrf_token %}
-        <div class="form-group">
-          <label for="category">Category</label>
-          <select class="form-control" id="category" name="search_query">
-            <option value="">All</option>
-            {% for category in categories %}
-              <option value="{{ category.name }}">{{ category.name }}</option>
-            {% endfor %}
-          </select>
-        </div>
-        <button type="submit" id="category-btn" aria-label="Search" class="btn">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
+    <div class="search__navbar">
+      <div class="search__container">
+        <form class="search__input" id="search-all">
+          {% csrf_token %}
+          <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
+          <button type="submit" id="search-btn" aria-label="Search" class="btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+        {% comment %} create form to click on category {% endcomment %}
+        <form  class="search__select" id="search-category">
+          {% csrf_token %}
+          {% comment %} <div class="form-group"> {% endcomment %}
+            <label for="category"></label>
+            <select class="form-control" id="category" name="search_query">
+              <option value="">All</option>
+              {% for category in categories %}
+                <option value="{{ category.name }}">{{ category.name }}</option>
+              {% endfor %}
+            </select>
+          {% comment %} </div> {% endcomment %}
+          <button type="submit" id="category-btn" aria-label="Search" class="btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
     </div>
     <div class="products__all">
       {% for product in products %}
