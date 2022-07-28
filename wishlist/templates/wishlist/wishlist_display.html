@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .content__container {
+      justify-content: start !important;
+      align-items: flex-start !important;
+      flex: 1 0 auto !important;
+    }
+  </style>
+{% endblock %}
 
 {% block content %}
   <div class="wishlist profile" id="wishlist">
