@@ -596,3 +596,7 @@ Add view for adding brand functionality -> Add testing to test adding brand func
 6. 64d3e92baacd3f271da0a36bcaebcac2cf5be6e5
 
 Add edit_order_item_url -> Add tests for edit order item functionality
+
+7. bd39e0881a6734c017728011b0020f32ba46ce60
+
+Add custom stylings for search buttons -> Change if condition to show all categories products
