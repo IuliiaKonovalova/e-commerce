@@ -558,9 +558,18 @@ main {
   display: flex;
   padding: 0.8em 1em;
   border-radius: var(--br);
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
   color: var(--clr-text--100);
-  transition: all 0.3s ease-in-out;
+}
+
+.btn__search {
+  --bs-btn-padding-x: 1rem !important;
+  --bs-btn-padding-y: 0.4rem !important;
+  background-color: var(--clr-primary--900) !important;
+}
+
+.btn__search:hover {
+  color: var(--clr-accent--200) !important;
 }
 
 .search__input {
@@ -573,8 +582,9 @@ main {
   outline: none;
   background-color: var(--clr-text--100);
   color: var(--clr-primary--500);
-  font-size: 1.2rem;
-  padding: 0.5em;
+  /* font-size: 1.2rem; */
+  padding: 0.1em 1em;
+  border-radius: 0.3em;
 }
 
 .search__select {
