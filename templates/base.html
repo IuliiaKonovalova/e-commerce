@@ -115,102 +115,104 @@
     </nav>
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
     {% comment %} Show navbar for store personnel {% endcomment %}
-    <nav class="navbar navbar-expand-lg navbar__items--admin">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Personnel dashboard
-              </a>
-              <ul class="dropdown-menu dropdown__items--admin" aria-labelledby="navbarDropdownMenuLink">
-                <li class="navbar__item--admin">
-                  <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="account__option">
-                    <i class="fas fa-gift"></i>
-                    Promo
-                  </a>
-                </li>
-                <li class="navbar__item--admin">
-                  <a href="{% url 'add_promo_email' %}" aria-label="Go to Promotions page" class="account__option">
-                    <i class="fas fa-envelope"></i>
-                    Email
-                  </a>
-                </li>
-                <li class="navbar__item--admin">
-                  <a href="{% url 'categories_table' %}" aria-label="Go to Categories page" class="account__option">
-                    <i class="fas fa-list-ul"></i>
-                    Categories
-                  </a>
-                </li>
-                <li class="navbar__item--admin">
-                  <a href="{% url 'brands_table' %}" aria-label="Go to Brands page" class="account__option">
-                    <i class="fas fa-layer-group"></i>
-                    Brands
-                  </a>
-                </li>
-                <li class="navbar__item--admin">
-                  <a href="{% url 'tags_table' %}" aria-label="Go to Tags page" class="account__option">
-                    <i class="fas fa-tag"></i>
-                    Tags
-                  </a>
-                </li>
-                <li class="navbar__item--admin">
-                  <a href="{% url 'product_types_table' %}" aria-label="Go to Product Types page"
-                    class="account__option">
-                    <i class="fas fa-boxes"></i>
-                    Product Types
-                  </a>
-                </li>
-                <li class="navbar__item--admin">
-                  <a href="{% url 'product_type_attributes' %}" aria-label="Go to Product Attributes page"
-                    class="account__option">
-                    <i class="fas fa-boxes"></i>
-                    Product Attributes
-                  </a>
-                </li>
-                <li class="navbar__item--admin">
-                  <a href="{% url 'attribute_values' %}" aria-label="Go to Product Attributes Values page"
-                    class="account__option">
-                    <i class="fas fa-boxes"></i>
-                    Attributes Values
-                  </a>
-                </li>
-                <!--  -->
-                <li class="navbar__item--admin">
-                  <a href="{% url 'products_table' %}" aria-label="Go to Products page" class="account__option">
-                    <i class="fas fa-table"></i>
-                    Products
-                  </a>
-                </li>
-                <li class="navbar__item--admin">
-                  <a href="{% url 'product_inventories_table' %}" aria-label="Go to Units page" class="account__option">
-                    <i class="far fa-folder"></i>
-                    Units
-                  </a>
-                </li>
-                <li class="navbar__item--admin">
-                  <a href="{% url 'stock' %}" aria-label="Go to stock page" class="account__option">
-                    <i class="fas fa-warehouse"></i>
-                    Stock
-                  </a>
-                </li>
-                <li class="navbar__item--admin">
-                  <a href="{% url 'orders' %}" aria-label="Go to Orders page" class="account__option">
-                    <i class="fas fa-truck"></i>
-                    Orders
-                  </a>
-                </li>
-              </ul>
-            </li>
-          </ul>
+    <div class="navbar__admin">
+      <nav class="navbar navbar-expand-lg navbar__items--admin">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Personnel dashboard
+                </a>
+                <ul class="dropdown-menu dropdown__items--admin" aria-labelledby="navbarDropdownMenuLink">
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="account__option">
+                      <i class="fas fa-gift"></i>
+                      Promo
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'add_promo_email' %}" aria-label="Go to Promotions page" class="account__option">
+                      <i class="fas fa-envelope"></i>
+                      Email
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'categories_table' %}" aria-label="Go to Categories page" class="account__option">
+                      <i class="fas fa-list-ul"></i>
+                      Categories
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'brands_table' %}" aria-label="Go to Brands page" class="account__option">
+                      <i class="fas fa-layer-group"></i>
+                      Brands
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'tags_table' %}" aria-label="Go to Tags page" class="account__option">
+                      <i class="fas fa-tag"></i>
+                      Tags
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'product_types_table' %}" aria-label="Go to Product Types page"
+                      class="account__option">
+                      <i class="fas fa-boxes"></i>
+                      Product Types
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'product_type_attributes' %}" aria-label="Go to Product Attributes page"
+                      class="account__option">
+                      <i class="fas fa-boxes"></i>
+                      Product Attributes
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'attribute_values' %}" aria-label="Go to Product Attributes Values page"
+                      class="account__option">
+                      <i class="fas fa-boxes"></i>
+                      Attributes Values
+                    </a>
+                  </li>
+                  <!--  -->
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'products_table' %}" aria-label="Go to Products page" class="account__option">
+                      <i class="fas fa-table"></i>
+                      Products
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'product_inventories_table' %}" aria-label="Go to Units page" class="account__option">
+                      <i class="far fa-folder"></i>
+                      Units
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'stock' %}" aria-label="Go to stock page" class="account__option">
+                      <i class="fas fa-warehouse"></i>
+                      Stock
+                    </a>
+                  </li>
+                  <li class="navbar__item--admin">
+                    <a href="{% url 'orders' %}" aria-label="Go to Orders page" class="account__option">
+                      <i class="fas fa-truck"></i>
+                      Orders
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </div>
     {% endif %}
   </header>
   {% comment %} Main content container {% endcomment %}
