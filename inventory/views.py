@@ -29,7 +29,7 @@ class ProductsListView(View):
         query = request.POST.get('search_query')
         if 'search_query' in request.GET:
             query = request.GET.get('search_query')
-            if query == '' or query == 'All':
+            if query == '' or query == 'All Categories':
                 p = Paginator(Product.objects.all(), 30)
                 page = request.GET.get('page')
                 products = p.get_page(page)
