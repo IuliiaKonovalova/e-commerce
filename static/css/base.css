@@ -1609,19 +1609,21 @@ a.brand__table--row:hover {
 
 .circle {
   border-radius: 50%;
-  width: 1.5em;
-  height: 1.5em;
+  width: 3rem;
+  height: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--clr-text--100);
+  font-weight: 900;
 }
 
 .green {
-  border: 3px solid green;
+  background-color: green;
 }
 
 .red {
-  border: 3px solid var(--clr-btn-delete--500)
+  background-color: var(--clr-btn-delete--500);
 }
 
 
