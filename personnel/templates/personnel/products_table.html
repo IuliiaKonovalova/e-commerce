@@ -4,16 +4,19 @@
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <section class="dashboard__main">
         <h1 class="dashboard__main--name">
           All products table
         </h1>
+        {% comment %} Add new product button {% endcomment %}
         <a href="{% url 'add_product' %}" aria-label="Go to add new product page" class="btn btn-primary btn__add">
           <i class="fas fa-plus-circle"></i>
           Add new product
         </a>
       </section>
+      {% comment %} Products' table for personnel {% endcomment %}
       <div class="products__table">
         <div class="products__table--row table__titles">
           <div class="products__table--cell">ID</div>
@@ -21,14 +24,15 @@
           <div class="products__table--cell">Category</div>
           <div class="products__table--cell">Tags</div>
           <div class="products__table--cell">Brand</div>
-          {% comment %} <div class="products__table--cell">($) Price<br> Range</div> {% endcomment %}
           <div class="products__table--cell">Img</div>
           <div class="products__table--cell">Sale</div>
           <div class="products__table--cell">PI</div>
         </div>
+        {% comment %} All products table {% endcomment %}
         {% for product in products %}
           <a class="products__table--row" href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to product detail page">
             <div class="products__table--cell">
+              {% comment %} product id and active status {% endcomment %}
               {% if product.is_active %}
                 <div class="circle green">
                   {{ product.id }}
@@ -40,6 +44,7 @@
               {% endif %}
             </div>
             <div class="products__table--cell">
+              {% comment %} Product name {% endcomment %}
               {{ product.name }}
               {% if product.get_recently_created %}
                 <div class="new">
@@ -47,20 +52,23 @@
                 </div>
               {% endif %}
             </div>
+            {% comment %} Product category {% endcomment %}
             <div class="products__table--cell">{{ product.category.name|truncatechars:20 }}</div>
+            {% comment %} Product tags count {% endcomment %}
             <div class="products__table--cell">
               {{ product.tags.count }}
             </div>
+            {% comment %} Product brand {% endcomment %}
             <div class="products__table--cell">{{ product.brand }}</div>
+            {% comment %} Product img count {% endcomment %}
             <div class="products__table--cell">
               {% if product.get_all_active_images %}
                 {{ product.get_all_active_images }}
               {% else %}
                 <i class="fa fa-times-circle"></i>
               {% endif %}
-
             </div>
-
+            {% comment %} If product on sale {% endcomment %}
             <div class="products__table--cell">
               {% if product.get_sale_price_is_lower_than_store_price %}
                 <i class="fa fa-check-circle"></i>
@@ -68,6 +76,7 @@
                 <i class="fa fa-times-circle"></i>
               {% endif %}
             </div>
+            {% comment %} Products units variations count {% endcomment %}
             <div class="products__table--cell">
               {{ product.get_all_inventory.count }}
             </div>
