@@ -22,7 +22,7 @@
         <form class="search__input" id="search-all">
           {% csrf_token %}
           <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
-          <button type="submit" id="search-btn" aria-label="Search" class="btn">
+          <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
             <i class="fas fa-search"></i>
           </button>
         </form>
@@ -32,13 +32,13 @@
           {% comment %} <div class="form-group"> {% endcomment %}
             <label for="category"></label>
             <select class="form-control" id="category" name="search_query">
-              <option value="">All</option>
+              <option value="">All Categories</option>
               {% for category in categories %}
                 <option value="{{ category.name }}">{{ category.name }}</option>
               {% endfor %}
             </select>
           {% comment %} </div> {% endcomment %}
-          <button type="submit" id="category-btn" aria-label="Search" class="btn">
+          <button type="submit" id="category-btn" aria-label="Search" class="btn btn__search">
             <i class="fas fa-search"></i>
           </button>
         </form>
