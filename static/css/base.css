@@ -536,6 +536,7 @@ main {
   justify-content: center;
 }
 
+/* --- Search --- */
 .search__navbar {
   width: 100%;
   background-color: var(--clr-primary--300);
@@ -543,13 +544,11 @@ main {
 
 .search__container {
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: space-between;
   width: 100%;
   max-width: 120rem;
   margin: 0 auto;
-  /* background-color: var(--clr-primary--300); */
 }
 
 .search__input,
@@ -558,8 +557,11 @@ main {
   display: flex;
   padding: 0.8em 1em;
   border-radius: var(--br);
-  /* font-size: 1.2rem; */
   color: var(--clr-text--100);
+}
+
+.search__select:focus {
+  outline: none;
 }
 
 .btn__search {
