@@ -515,11 +515,68 @@ main {
   background-color: var(--clr-accent--200);
 }
 
+/* ------- Products List ------- */
+.store__products {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.search__navbar {
+  width: 100%;
+  background-color: var(--clr-primary--300);
+}
+
+.search__container {
+  display: flex;
+  /* flex-direction: column; */
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 120rem;
+  margin: 0 auto;
+  /* background-color: var(--clr-primary--300); */
+}
+
+.search__input,
+.search__select {
+  width: 50%;
+  display: flex;
+  padding: 0.8em 1em;
+  border-radius: var(--br);
+  font-size: 1.2rem;
+  color: var(--clr-text--100);
+  transition: all 0.3s ease-in-out;
+}
+
+.search__input {
+  width: 50%;
+}
+
+.search__input input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: var(--clr-text--100);
+  color: var(--clr-primary--500);
+  font-size: 1.2rem;
+  padding: 0.5em;
+}
+
+.search__select {
+  width: 30%;
+}
+
 .products__all {
   width: 100%;
+  max-width: 120rem;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));
   grid-gap: 1rem;
+  padding: 1.5em 1em;
 }
 
 .product__card {
