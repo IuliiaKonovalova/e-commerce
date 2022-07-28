@@ -575,7 +575,9 @@ def payment_confirmation(data):
 
 - No errors were found when the code was passed through Valentin Bryukhanov's [online validation tool](http://pep8online.com/). According to the reports, the code is [Pep 8-compliant](https://legacy.python.org/dev/peps/pep-0008/). This checking was done manually by copying python code and pasting it into the validator.
 
+#### Wishlist app
 
+[Wishlist. Validation report](documentation/validation/wishlist_validation_report.pdf)
 
 #### Errors:
 
