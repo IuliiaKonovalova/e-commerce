@@ -3,6 +3,16 @@
 
 {% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    label[for="id_active"] {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    #id_active {
+      margin-bottom: 0.5em;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
@@ -40,8 +50,10 @@
       $(function () {
         $('#id_active').checkboxradio();
       });
-      //id_start_date
-      //id_end_date
+      // add break before label for="is_active"
+      $('label[for="id_active"]').before('<br>');
+      //add bread after input="is_active"
+      $('#id_active').after('<br>');
       $('#id_start_date').datepicker({
         changeMonth: true,
         changeYear: true,
