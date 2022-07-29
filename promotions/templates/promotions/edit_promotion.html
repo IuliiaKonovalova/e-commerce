@@ -3,23 +3,58 @@
 
 {% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    label[for="id_active"] {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+    }
+
+    #id_promotion_reduction {
+      padding: 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: #fff;
+      background-clip: padding-box;
+      border: 1px solid #ced4da;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      border-radius: 0.375rem;
+    }
+
+    textarea {
+      max-height: 5rem;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
-  <div class="adding__promotion">
-    <div class="adding__promotion__title">
-      <h1>Edit Promotion</h1>
-    </div>
-    <form method="POST" class="adding__promotion--form">
-      {% csrf_token %}
-      {{ form }}
-      <div class="form__btns">
-        <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="btn btn-primary">
-          Cancel
-        </a>
-        <button type="submit" class="btn btn-primary">Save</button>
+  <div class="dashboard">
+    {% comment %} Limit access for customers {% endcomment %}
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      <form method="POST" class="dashboard__form">
+        <h1 class="dashboard__main--name">Edit Promotion</h1>
+        {% csrf_token %}
+        {{ form }}
+        {% comment %} Form buttons {% endcomment %}
+        <div class="form__btns accent">
+          <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="btn btn__cancel">
+            <i class="fas fa-arrow-circle-left"></i>
+            Cancel
+          </a>
+        <button type="submit" class="btn btn__add">
+          <i class="fas fa-save"></i>
+          Save Changes
+        </button>
       </div>
     </form>
+    {% else %}
+      <div class="dashboard__main">
+        <h1>You are not authorized to access this page</h1>
+      </div>
+    {% endif %}
   </div>
 {% endblock %}
 
@@ -30,8 +65,12 @@
       $(function () {
         $('#id_active').checkboxradio();
       });
-      //id_start_date
-      //id_end_date
+      // add break before label for="is_active"
+      $('label[for="id_active"]').before('<br>');
+      //add bread after input="is_active"
+      $('#id_active').after('<br>');
+      //remove form control from input "is_active" to prevent overflow
+      $('#id_active').removeClass('form-control');
       $('#id_start_date').datepicker({
         changeMonth: true,
         changeYear: true,
