@@ -8,6 +8,36 @@
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">All Orders</h1>
       </div>
+      <div class="search__navbar">
+        <div class="search__container">
+          <form class="search__input" id="search-all">
+            {% csrf_token %}
+            <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
+            <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+          {% comment %} create form to click on category {% endcomment %}
+          <form  class="search__select" id="search-status">
+            {% csrf_token %}
+            {% comment %} <div class="form-group"> {% endcomment %}
+              <label for="status"></label>
+              <select class="form-control" id="status" name="search_query">
+                <option value="">Order Status</option>
+                <option value="Pending">Pending</option>
+                <option value="Processing">Processing</option>
+                <option value="shipped">Shipped</option>
+                <option value="Completed">Completed</option>
+                <option value="Refunded">Refunded</option>
+
+              </select>
+            {% comment %} </div> {% endcomment %}
+            <button type="submit" id="category-btn" aria-label="Search" class="btn btn__search">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
+      </div>
       {% comment %} All orders {% endcomment %}
       <div class="data__main--orders">
         {% if orders %}
