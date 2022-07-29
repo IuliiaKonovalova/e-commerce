@@ -2531,20 +2531,8 @@ div.data__main--order:hover {
 }
 
 .select2-container .select2-search--inline .select2-search__field {
-  box-sizing: border-box;
-  border: none;
-  font-size: 100%;
-  margin-top: 5px;
-  margin-left: 7px;
-  padding: 0;
-  max-width: 100%;
-  resize: none;
-  /* height: 18px; */
   height: 70px !important;
-  vertical-align: bottom;
-  font-family: sans-serif;
-  overflow: hidden;
-  word-break: keep-all;
+  width: 100% !important;
 }
 
 .form__btns {
