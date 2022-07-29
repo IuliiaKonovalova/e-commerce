@@ -15,10 +15,14 @@
         {{ form }}
         {% comment %} Form buttons {% endcomment %}
         <div class="form__btns accent">
-          <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="btn btn-primary">
+          <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="btn btn__cancel">
+            <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="submit" class="btn btn__add">
+            <i class="fa fa-plus-circle"></i>
+            Add Promotion
+          </button>
         </div>
       </form>
     {% else %}
