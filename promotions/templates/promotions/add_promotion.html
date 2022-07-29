@@ -65,6 +65,8 @@
       $('label[for="id_active"]').before('<br>');
       //add bread after input="is_active"
       $('#id_active').after('<br>');
+      //remove form control from input "is_active" to prevent overflow
+      $('#id_active').removeClass('form-control');
       $('#id_start_date').datepicker({
         changeMonth: true,
         changeYear: true,
