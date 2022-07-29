@@ -323,6 +323,37 @@ class TestOrdersViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'orders/orders.html')
 
+    def test_orders_view_search_query(self):
+        """Test orders view search query"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.order_url,
+            {'search_query': 'F78F78B9B3DF4F7886F22F38DF241FB2'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'orders/orders.html')
+        self.assertEqual(len(response.context['orders']), 1)
+        self.assertEqual(
+            response.context['orders'][0].order_number,
+            'F78F78B9B3DF4F7886F22F38DF241FB2'
+        )
+
+    def test_orders_view_search_query_no_results(self):
+        """Test orders view search query no results"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.order_url, {'search_query': ''})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'orders/orders.html')
+        self.assertEqual(len(response.context['orders']), 0)
+
     def test_add_order_ajax_view_user_logged_out(self):
         """Test add order ajax view user logged out"""
         response = self.client.post(
