@@ -1632,6 +1632,14 @@ input[name=quantity] {
   position: relative;
 }
 
+.promotions .modal-body {
+  text-align: center;
+}
+
+.promotions .modal-footer {
+  margin-top: 0 !important;
+}
+
 /* ----------------- STOCK ----------------- */
 .dashboard {
   width: 100%;
