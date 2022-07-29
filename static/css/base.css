@@ -1007,8 +1007,6 @@ button:active {
 
 .btn[type="submit"] {
   background-color: var(--clr-accent--700);
-  border-color: var(--clr-accent--900);
-  box-shadow: var(--box-shadow-buttons);
   color: var(--clr-accent--100);
 }
 
@@ -1481,10 +1479,6 @@ input[name=quantity] {
   border-color: var(--clr-accent--700);
   color: var(--clr-text--100);
   box-shadow: var(--box-shadow-buttons);
-  --bs-btn-hover-bg: var(--clr-accent--900);
-  --bs-btn-hover-border-color: var(--clr-accent--900);
-  --bs-btn-active-bg: var(--clr-accent--900);
-  --bs-btn-active-border-color: var(--clr-accent--900);
 }
 
 .btn__add i {
