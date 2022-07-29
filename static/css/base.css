@@ -2522,6 +2522,10 @@ div.data__main--order:hover {
   align-items: center;
 }
 
+.dashboard__form--warning {
+  text-align: center;
+}
+
 .adding__promotion--form textarea {
   display: flex;
   flex-direction: column;
