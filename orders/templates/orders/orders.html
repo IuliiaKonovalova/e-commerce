@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .content__container {
+      justify-content: start !important;
+      align-items: flex-start !important;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
@@ -29,7 +38,6 @@
                 <option value="shipped">Shipped</option>
                 <option value="Completed">Completed</option>
                 <option value="Refunded">Refunded</option>
-
               </select>
             {% comment %} </div> {% endcomment %}
             <button type="submit" id="category-btn" aria-label="Search" class="btn btn__search">
