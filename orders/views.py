@@ -5,6 +5,7 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from django.core.mail import EmailMultiAlternatives
 from django.core.paginator import Paginator
+from django.db.models import Q
 from inventory.models import ProductInventory
 
 from reviews.models import Review
@@ -32,6 +33,46 @@ class OrdersView(View):
                 context = {
                     'orders': orders,
                 }
+                if 'search_query' in request.GET:
+                    query = request.GET.get('search_query')
+                    if query == '':
+                        p = Paginator(
+                            Order.objects.filter(user=request.user),
+                            25
+                        )
+                        page = request.GET.get('page')
+                        orders = p.get_page(page)
+                        context = {
+                            'orders': orders,
+                        }
+                        return render(
+                            request,
+                            'orders/orders.html',
+                            context
+                        )
+                    orders = Order.objects.filter(
+                          Q(full_name__icontains=query) |
+                          Q(email__icontains=query) |
+                          Q(phone__icontains=query) |
+                          Q(city__icontains=query) |
+                          Q(county_region_state__icontains=query) |
+                          Q(country__icontains=query) |
+                          Q(status__icontains=query) |
+                          Q(order_number__icontains=query) |
+                          Q(order_key__icontains=query) |
+                          Q(status__icontains=query)
+                    )
+                    p = Paginator(orders, 25)
+                    page = request.GET.get('page')
+                    orders = p.get_page(page)
+                    context = {
+                        'orders': orders,
+                    }
+                    return render(
+                        request,
+                        'orders/orders.html',
+                        context
+                    )
                 return render(request, 'orders/orders.html', context)
         else:
             return render(
