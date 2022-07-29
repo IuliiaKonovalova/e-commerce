@@ -9,14 +9,12 @@
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="adding__promotion__title">
-        <h1>Add Promotion</h1>
-      </div>
-      <form method="POST" class="adding__promotion--form">
+      <form method="POST" class="dashboard__form">
+        <h1 class="dashboard__main--name">Add Promotion</h1>
         {% csrf_token %}
         {{ form }}
         {% comment %} Form buttons {% endcomment %}
-        <div class="form__btns">
+        <div class="form__btns accent">
           <a href="{% url 'promotions_list' %}" aria-label="Go to Promotions page" class="btn btn-primary">
             Cancel
           </a>
