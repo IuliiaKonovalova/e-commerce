@@ -68,5 +68,4 @@ class PromotionForm(forms.ModelForm):
                     'multiple': 'multiple',
                 }
             ),
-            
         }
