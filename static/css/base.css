@@ -1200,6 +1200,7 @@ input[name=quantity] {
 .promotion .bag__product--name,
 .promotion p,
 .promotion div,
+.promotion strong,
 .promotions__table--titles div {
   justify-self: center;
   align-self: center;
@@ -1590,29 +1591,8 @@ input[name=quantity] {
   z-index: 999;
 }
 
-.promotion__edit--btn {
-  background-color: var(--clr-btn-edit--500);
-  border-color: var(--clr-btn-edit--900);
-  color: var(--clr-text--100);
-  box-shadow: var(--box-shadow-buttons);
+.promotion__btns .btn__edit {
   margin-right: 0.5em;
-}
-
-.promotion__edit--btn:hover {
-  background-color: var(--clr-btn-edit--900);
-  color: var(--clr-text--100);
-}
-
-.promotion__delete--btn {
-  background-color: var(--clr-btn-delete--500);
-  border-color: var(--clr-btn-delete--900);
-  color: var(--clr-text--100);
-  box-shadow: var(--box-shadow-buttons);
-}
-
-.promotion__delete--btn:hover {
-  background-color: var(--clr-btn-delete--900);
-  color: var(--clr-text--100);
 }
 
 .promotion__product {
@@ -1621,7 +1601,6 @@ input[name=quantity] {
   width: 100%;
   display: flex;
   flex-direction: row;
-  /* background-color: var(--clr-primary--200); */
   padding: 0.5em 1em;
   border-radius: var(--br);
   color: var(--clr-text--900);
@@ -1636,8 +1615,6 @@ input[name=quantity] {
 .promotion__product div,
 .promotion__product strong {
   margin-right: 0.5rem;
-  /* font-weight: 400 !important; */
-
 }
 
 /* Add promotion */
@@ -1664,21 +1641,17 @@ input[name=quantity] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
 }
 
 .products__table {
   color: var(--clr-text--900);
-  /* gap: 0.2rem; */
 }
 
 .products__table--row,
 .brand__table--row {
   grid-template-columns: 0.1fr 0.7fr 0.8fr 0.4fr 0.4fr 0.2fr 0.2fr 0.1fr;
-
   color: var(--clr-text--900);
   padding: 0.5em 0.2em;
-  /* gap: 0.1em; */
   gap: 0;
 }
 
