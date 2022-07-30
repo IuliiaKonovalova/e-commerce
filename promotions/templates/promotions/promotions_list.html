@@ -61,11 +61,11 @@
               <div class="promotion__products--list">
                 {% if request.user.profile.role.id == 3 %}
                   <div class="promotion__btns">
-                    <a href="{% url 'edit_promotion' pk=promotion.id %}" class="btn promotion__edit--btn" aria-label="Edit promotion">
+                    <a href="{% url 'edit_promotion' pk=promotion.id %}" class="btn btn__edit" aria-label="Edit promotion">
                       <i class="fa fa-pencil"></i>
                       Edit
                     </a>
-                    <button type="button" class="btn promotion__delete--btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-delete="{{ promotion.id }}">
+                    <button type="button" class="btn btn__delete" data-bs-toggle="modal" data-bs-target="#exampleModal" data-delete="{{ promotion.id }}">
                       <i class="fa fa-trash"></i>
                       Delete
                     </button>
