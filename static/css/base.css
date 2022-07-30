@@ -1494,16 +1494,12 @@ input[name=quantity] {
 
 .promotion,
 .promotions__table--titles {
-  grid-template-columns: 0.3fr 0.1fr 0.2fr 0.2fr 0.1fr 0.2fr;
-
+  grid-template-columns: 0.3fr 0.1fr 0.3fr 0.3fr 0.1fr 0.2fr;
 }
 
 .promotion {
-  padding-top: 5vh;
   grid-template-columns: 0.3fr 0.1fr 0.2fr 0.2fr 0.1fr 0.2fr;
-  grid-template-rows: 0.2fr 1fr;
   cursor: pointer;
-  /* border: 1px solid var(--clr-accent--200); */
 }
 
 .promotion__title--name {
@@ -1557,16 +1553,22 @@ input[name=quantity] {
   grid-column: 1/8;
   grid-row: 2/3;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(25rem, 100%), 1fr));
-  gap: 1rem;
-  padding-top: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-self: start !important;
+  align-items: flex-start !important;
+}
+
+.promotion__products--list {
   position: relative;
+  padding-top: 2.5em;
+  width: 100%;
+  border-top: 1px solid var(--clr-text--300);
 }
 
 .promotion__btns {
   position: absolute;
-  top: -0.7rem;
+  top: 0.7rem;
   right: 0;
   width: 100%;
   display: flex;
@@ -1607,7 +1609,7 @@ input[name=quantity] {
   width: 100%;
   display: flex;
   flex-direction: row;
-  background-color: var(--clr-primary--200);
+  /* background-color: var(--clr-primary--200); */
   padding: 0.5em 1em;
   border-radius: var(--br);
   color: var(--clr-text--900);
