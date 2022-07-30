@@ -27,7 +27,7 @@
     </section>
     {% if promotions %}
       <div class="promotions__table">
-        <div class="promotion ">
+        <div class="promotion title">
           <div class="promotion__title--name">Name</div>
           <div>Now</div>
           <div>Start</div>
@@ -37,7 +37,7 @@
           {% comment %} <div>Description</div> {% endcomment %}
         </div>
         {% for promotion in promotions %}
-          <section class="promotion" data-id="{{ promotion.id }}">
+          <section class="promotion cell" data-id="{{ promotion.id }}">
             <h2 class="promotion__title">{{ promotion.name }}</h2>
             <p class="promotion__now">
               {% if promotion.is_active_now %}
@@ -71,19 +71,24 @@
                     </button>
                   </div>
                 {% endif %}
-                {% for product_inventory in promotion.products_inventory_in_promotion.all %}
-                  <a class="promotion__product" data-attr="{{ product_inventory.id }}"
-                      href="{% url 'product_inventory_details' pk=product_inventory.product.pk inventory_pk=product_inventory.id %}"
-                      aria-label="Go to product inventories details">
-                    <strong>{{ product_inventory.sku }}</strong>
-                    <div>{{ product_inventory.product.name }}</div>
-                    {% if product_inventory.attribute_values %}
-                      {% for value in product_inventory.get_attribute_values %}
-                        <strong>{{ value.attribute_value }}</strong>
-                      {% endfor %}
-                    {% endif %}
-                  </a>
-                {% endfor %}
+                {% if promotion.products_inventory_in_promotion.all %}
+                  {% for product_inventory in promotion.products_inventory_in_promotion.all %}
+                    <a class="promotion__product" data-attr="{{ product_inventory.id }}"
+                        href="{% url 'product_inventory_details' pk=product_inventory.product.pk inventory_pk=product_inventory.id %}"
+                        aria-label="Go to product inventories details">
+                      <strong>{{ product_inventory.sku }}</strong>
+                      <div>{{ product_inventory.product.name }}</div>
+                      {% if product_inventory.attribute_values %}
+                        {% for value in product_inventory.get_attribute_values %}
+                          <strong>{{ value.attribute_value }}</strong>
+                        {% endfor %}
+                      {% endif %}
+                      <i class="fa fa-external-link" aria-hidden="true"></i>
+                    </a>
+                  {% endfor %}
+                {% else %}
+                  <p class="promotion__products empty">No products in this promotion</p>
+                {% endif %}
               </div>
             </div>
           </section>
