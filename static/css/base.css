@@ -1506,6 +1506,10 @@ input[name=quantity] {
   /* border: 1px solid var(--clr-accent--200); */
 }
 
+.promotion__title--name {
+  justify-self: start !important;
+}
+
 .promotion__title {
   grid-column: 1/2;
   grid-row: 1/2;
