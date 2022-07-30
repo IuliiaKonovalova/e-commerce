@@ -1166,14 +1166,14 @@ input[name=quantity] {
 }
 
 .bag__item,
-.bag__items--titles,
-.promotion,
-.promotions__table--titles {
+.bag__items--titles {
   border-bottom: 1px solid var(--clr-text--300);
 }
 
 .brand__table--row:not(:last-child),
-.products__table--row:not(:last-child) {
+.products__table--row:not(:last-child),
+.promotion:not(:last-child),
+.promotions__table--titles:not(:last-child) {
   border-bottom: 1px solid var(--clr-text--300);
 }
 
@@ -1494,16 +1494,16 @@ input[name=quantity] {
 
 .promotion,
 .promotions__table--titles {
-  grid-template-columns: 0.3fr 0.1fr 0.2fr 0.2fr 0.1fr 0.2fr 0.5fr;
+  grid-template-columns: 0.3fr 0.1fr 0.2fr 0.2fr 0.1fr 0.2fr;
 
 }
 
 .promotion {
   padding-top: 5vh;
-  grid-template-columns: 0.3fr 0.1fr 0.2fr 0.2fr 0.1fr 0.2fr 0.5fr;
+  grid-template-columns: 0.3fr 0.1fr 0.2fr 0.2fr 0.1fr 0.2fr;
   grid-template-rows: 0.2fr 1fr;
   cursor: pointer;
-  border: 1px solid var(--clr-accent--200);
+  /* border: 1px solid var(--clr-accent--200); */
 }
 
 .promotion__title {
