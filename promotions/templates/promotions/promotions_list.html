@@ -12,10 +12,11 @@
 
 {% block content %}
   <div class="promotions">
+  {% comment %} Limit access for customers {% endcomment %}
   {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
     <section class="promotion__header">
       <h1 class="dashboard__main--name" >Promotions</h1>
-      <!-- Add button add promotion -->
+      {% comment %} Accessable only to Admin {% endcomment %}
       {% if request.user.profile.role.id == 3 %}
         <div class="promotions__add">
           <a href="{% url 'add_promotion' %}" class="btn btn-primary btn__add promotions__add--btn" aria-label="Add promotion">
@@ -25,7 +26,9 @@
         </div>
       {% endif %}
     </section>
+    {% comment %} If there are any promotions {% endcomment %}
     {% if promotions %}
+    {% comment %} Promotions table {% endcomment %}
       <div class="promotions__table">
         <div class="promotion title">
           <strong class="promotion__title--name">Name</strong>
@@ -34,8 +37,8 @@
           <strong>End</strong>
           <strong>Active</strong>
           <strong>Code</strong>
-          {% comment %} <div>Description</div> {% endcomment %}
         </div>
+        {% comment %} Get all promotions {% endcomment %}
         {% for promotion in promotions %}
           <section class="promotion cell" data-id="{{ promotion.id }}">
             <h2 class="promotion__title">{{ promotion.name }}</h2>
@@ -56,8 +59,8 @@
               {% endif %}
             </p>
             <p class="promotion__code">{{ promotion.promotion_code }}</p>
-            {% comment %} <p class="promotion__description">{{ promotion.description }}</p> {% endcomment %}
             <div class="promotion__products hidden">
+              {% comment %} Accessable only to Admin {% endcomment %}
               <div class="promotion__products--list">
                 {% if request.user.profile.role.id == 3 %}
                   <div class="promotion__btns">
@@ -71,6 +74,7 @@
                     </button>
                   </div>
                 {% endif %}
+                {% comment %} Units in promotions {% endcomment %}
                 {% if promotion.products_inventory_in_promotion.all %}
                   {% for product_inventory in promotion.products_inventory_in_promotion.all %}
                     <a class="promotion__product" data-attr="{{ product_inventory.id }}"
@@ -145,7 +149,7 @@
       </div>
     {% endif %}
   {% endif %}
-  {% comment %} Modal {% endcomment %}
+  {% comment %} Modal for promo deletion {% endcomment %}
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -180,7 +184,6 @@
         // close modal reusable function
         promotion.on('click', function(){
           // find .promotion__products for this
-          console.log(this)
           let products = promotion.find('.promotion__products');
           if(products.hasClass('hidden')){
             products.removeClass('hidden');
@@ -192,7 +195,6 @@
             confirmDelete.data('id', promotionId);
             // add data-id="{{ promotion.id }}" to .confirm__delete
             confirmDelete.data('id', promotionId);
-            console.log(confirmDelete)
           } else {
             products.addClass('hidden');
           }
@@ -213,7 +215,6 @@
             $('#exampleModal').modal('hide');
             // remove promotion from page
             $('.promotion[data-id="' + promotionId + '"]').remove();
-
           },
           error: function(data){
             $('#messages-notes').remove();
