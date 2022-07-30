@@ -1,6 +1,6 @@
 """Views for the promotions app."""
 from django.views import View
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from .models import Promotion
@@ -70,6 +70,7 @@ class AddPromotionView(View):
                         'products_inventory_in_promotion'
                     ]
                     promotion.save()
+                    # Add the product inventories to the promotion
                     promotion.products_inventory_in_promotion.set(
                         products_inventory_in_promotion
                     )
@@ -129,11 +130,11 @@ class EditPromotionView(View):
                         'products_inventory_in_promotion'
                     ]
                     promotion.save()
+                    # Add set of product inventories to promotion
                     promotion.products_inventory_in_promotion.set(
                         products_inventory_in_promotion
                     )
                     promotion.save()
-                      
                     return redirect('promotions_list')
                 else:
                     return render(
