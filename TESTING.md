@@ -69,6 +69,7 @@ Missing case due to the use of the function to update payment status. The descri
 ![Django unit testing. Payment. Coverage](documentation/testing/coverage/coverage_payment.png)
 The missing cases in the coverage is simply because I have no idea how test webhooks. The functionality is working well and described in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:** 
 
+![Django unit testing. Payment. Coverage. Missing cases](documentation/testing/coverage/coverage_payment_missing_cases.png)
 
 **Personnel app:**
 
@@ -86,7 +87,6 @@ The missing coverage is due to the fact that I was not able to test the edit pro
 
 ![Django unit testing. Promotions. Coverage](documentation/testing/coverage/coverage_promotions.png)
 
-![Django unit testing. Payment. Coverage. Missing cases](documentation/testing/coverage/coverage_payment_missing_cases.png)
 
 
 **Reviews app:**
