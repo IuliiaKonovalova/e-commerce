@@ -25,7 +25,7 @@
           <div>End</div>
           <div>Active</div>
           <div>Code</div>
-          <div>Description</div>
+          {% comment %} <div>Description</div> {% endcomment %}
         </div>
         {% for promotion in promotions %}
           <section class="promotion" data-id="{{ promotion.id }}">
@@ -47,7 +47,7 @@
               {% endif %}
             </p>
             <p class="promotion__code">{{ promotion.promotion_code }}</p>
-            <p class="promotion__description">{{ promotion.description }}</p>
+            {% comment %} <p class="promotion__description">{{ promotion.description }}</p> {% endcomment %}
             <div class="promotion__products hidden">
               {% if request.user.profile.role.id == 3 %}
                 <div class="promotion__btns">
