@@ -1,7 +1,6 @@
 """Tests for promotions urls."""
 from django.test import SimpleTestCase
-from django.urls import reverse,resolve
-
+from django.urls import reverse, resolve
 from promotions.views import (
     PromotionsListView,
     AddPromotionView,
