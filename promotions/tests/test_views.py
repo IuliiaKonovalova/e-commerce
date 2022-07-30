@@ -7,6 +7,7 @@ from promotions.models import Promotion
 from datetime import datetime
 from django.utils import timezone
 
+
 class PromotionsListViewTest(TestCase):
     """Tests for the promotions list view."""
 
@@ -65,7 +66,6 @@ class PromotionsListViewTest(TestCase):
         self.edit_promotion_url = reverse('edit_promotion', args=['1'])
         self.delete_promotion_url = reverse('delete_promotion')
 
-
     def test_promotions_list_view_status_code(self):
         """Test the status code for the promotions list view."""
         response = self.client.get(self.promotions_list_url)
@@ -89,7 +89,7 @@ class PromotionsListViewTest(TestCase):
         response = self.client.get(self.promotions_list_url)
         self.assertTemplateUsed(response, 'promotions/promotions_list.html')
         self.client.logout()
-    
+
     def test_add_promotion_view_status_code(self):
         """Test the status code for the add promotion view."""
         response = self.client.get(self.add_promotion_url)
@@ -197,8 +197,7 @@ class PromotionsListViewTest(TestCase):
     def test_edit_promotion_view_status_code(self):
         """Test the status code for the edit promotion view."""
         response = self.client.get(
-            reverse('edit_promotion',
-            args=[self.promotion.id])
+            reverse('edit_promotion', args=[self.promotion.id])
         )
         self.assertEquals(response.status_code, 200)
 
@@ -275,8 +274,7 @@ class PromotionsListViewTest(TestCase):
         self.profile2.role = self.role2
         self.profile2.save()
         response = self.client.post(
-            reverse('edit_promotion',
-            args=[self.promotion.id]),
+            reverse('edit_promotion', args=[self.promotion.id]),
             {
                 'name': 'Promotion 2',
                 'slug': 'promotion-2',
@@ -300,8 +298,7 @@ class PromotionsListViewTest(TestCase):
         self.profile3.role = self.role3
         self.profile3.save()
         response = self.client.post(
-            reverse('edit_promotion',
-            args=[self.promotion.id]),
+            reverse('edit_promotion', args=[self.promotion.id]),
             {
                 'name': 'Promotion 2',
                 'slug': 'promotion-2',
@@ -325,8 +322,7 @@ class PromotionsListViewTest(TestCase):
         self.profile3.role = self.role3
         self.profile3.save()
         response = self.client.post(
-            reverse('edit_promotion',
-            args=[self.promotion.id]),
+            reverse('edit_promotion', args=[self.promotion.id]),
             {
                 'slug': 'promotion-2',
                 'description': 'Promotion 2 description',
