@@ -583,6 +583,10 @@ def payment_confirmation(data):
 
 [Orders. Validation Report](documentation/validation/orders_validation_report.pdf)
 
+#### Promotions app
+
+[Promotions. Validation Report](documentation/validation/promotions_validation_report.pdf)
+
 #### Wishlist app
 
 [Wishlist. Validation report](documentation/validation/wishlist_validation_report.pdf)
