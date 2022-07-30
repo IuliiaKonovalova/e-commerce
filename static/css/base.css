@@ -384,6 +384,16 @@ main {
   max-width: 20rem;
 }
 
+.btn {
+  font-weight: 900;
+  --bs-btn-font-size: var(--fs) !important;
+  box-shadow: var(--box-shadow-buttons) !important;
+}
+
+.btn i {
+  margin-right: 0.5em;
+}
+
 .btn__add {
   background-color: var(--clr-accent--700);
   border-color: var(--clr-accent--700);
@@ -978,12 +988,6 @@ main {
   color: var(--clr-text--900);
   text-transform: capitalize;
   margin-bottom: 0.5em;
-}
-
-.btn {
-  font-weight: 900;
-  --bs-btn-font-size: var(--fs) !important;
-  box-shadow: var(--box-shadow-buttons) !important;
 }
 
 button:active {
