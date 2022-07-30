@@ -384,6 +384,23 @@ main {
   max-width: 20rem;
 }
 
+.btn__add {
+  background-color: var(--clr-accent--700);
+  border-color: var(--clr-accent--700);
+  color: var(--clr-text--100);
+  box-shadow: var(--box-shadow-buttons);
+}
+
+.btn__add i {
+  color: var(--clr-text--100) !important;
+}
+
+.btn__add:hover {
+  background-color: var(--clr-accent--900);
+  border: 1px solid var(--clr-accent--900);
+  color: var(--clr-text--100);
+}
+
 .btn__delete {
   background-color: var(--clr-btn-delete--500) !important;
   border: 1px solid var(--clr-btn-delete--900) !important;
@@ -399,6 +416,7 @@ main {
 .btn__edit,
 .btn__settings {
   background-color: var(--clr-btn-edit--500) !important;
+  border: 1px solid var(--clr-btn-edit--900) !important;
   color: var(--clr-text--100) !important;
 }
 
@@ -412,6 +430,7 @@ main {
 
 .btn__save {
   background-color: var(--clr-accent--500);
+  border: 1px solid var(--clr-accent--900);
   color: var(--clr-text--100);
 }
 
@@ -423,6 +442,7 @@ main {
 
 .btn__cancel {
   background-color: var(--clr-primary--300) !important;
+  border: 1px solid var(--clr-primary--900) !important;
   color: var(--clr-text--100) !important;
 }
 
@@ -434,12 +454,14 @@ main {
 
 .btn__redirect {
   background-color: var(--clr-accent--200);
+  border: 1px solid var(--clr-accent--700);
   color: var(--clr-text--900);
 }
 
 .btn__redirect:hover,
 .btn__redirect:focus {
   background-color: var(--clr-accent--500) !important;
+  border: 1px solid var(--clr-accent--900);
   color: var(--clr-text--100) !important;
 }
 
@@ -1468,30 +1490,6 @@ input[name=quantity] {
   justify-content: center;
   align-items: center;
 }
-
-.promotions__add--btn {
-  /* position: absolute;
-  top: 1em;
-  right: 0.5rem; */
-}
-
-.btn__add {
-  background-color: var(--clr-accent--700);
-  border-color: var(--clr-accent--700);
-  color: var(--clr-text--100);
-  box-shadow: var(--box-shadow-buttons);
-}
-
-.btn__add i {
-  color: var(--clr-text--100) !important;
-}
-
-.btn__add:hover {
-  background-color: var(--clr-accent--900);
-  color: var(--clr-text--100);
-}
-
-.promotions__table {}
 
 .promotion,
 .promotions__table--titles {
