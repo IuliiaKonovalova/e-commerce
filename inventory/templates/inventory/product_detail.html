@@ -254,8 +254,15 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary confirm__email--require btn_ok_in_modal" data-id="">Send</button>
+          <button type="button" class="btn btn__cancel" data-bs-dismiss="modal">
+            {% comment %} Add icon cancel arrow {% endcomment %}
+            <i class="fas fa-arrow-left"></i>
+            Cancel
+          </button>
+          <button type="button" class="btn btn__add confirm__email--require btn_ok_in_modal" data-id="">
+            <i class="fas fa-check"></i>
+            Send
+          </button>
         </div>
       </div>
     </div>
