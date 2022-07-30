@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block content %}
   <div class="promotions">
   {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
@@ -19,7 +20,7 @@
     {% if promotions %}
       <div class="promotions__table">
         <div class="promotion ">
-          <div>Name</div>
+          <div class="promotion__title--name">Name</div>
           <div>Now</div>
           <div>Start</div>
           <div>End</div>
@@ -49,31 +50,33 @@
             <p class="promotion__code">{{ promotion.promotion_code }}</p>
             {% comment %} <p class="promotion__description">{{ promotion.description }}</p> {% endcomment %}
             <div class="promotion__products hidden">
-              {% if request.user.profile.role.id == 3 %}
-                <div class="promotion__btns">
-                  <a href="{% url 'edit_promotion' pk=promotion.id %}" class="btn promotion__edit--btn" aria-label="Edit promotion">
-                    <i class="fa fa-pencil"></i>
-                    Edit
+              <div class="promotion__products--list">
+                {% if request.user.profile.role.id == 3 %}
+                  <div class="promotion__btns">
+                    <a href="{% url 'edit_promotion' pk=promotion.id %}" class="btn promotion__edit--btn" aria-label="Edit promotion">
+                      <i class="fa fa-pencil"></i>
+                      Edit
+                    </a>
+                    <button type="button" class="btn promotion__delete--btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-delete="{{ promotion.id }}">
+                      <i class="fa fa-trash"></i>
+                      Delete
+                    </button>
+                  </div>
+                {% endif %}
+                {% for product_inventory in promotion.products_inventory_in_promotion.all %}
+                  <a class="promotion__product" data-attr="{{ product_inventory.id }}"
+                      href="{% url 'product_inventory_details' pk=product_inventory.product.pk inventory_pk=product_inventory.id %}"
+                      aria-label="Go to product inventories details">
+                    <strong>{{ product_inventory.sku }}</strong>
+                    <div>{{ product_inventory.product.name }}</div>
+                    {% if product_inventory.attribute_values %}
+                      {% for value in product_inventory.get_attribute_values %}
+                        <strong>{{ value.attribute_value }}</strong>
+                      {% endfor %}
+                    {% endif %}
                   </a>
-                  <button type="button" class="btn promotion__delete--btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-delete="{{ promotion.id }}">
-                    <i class="fa fa-trash"></i>
-                    Delete
-                  </button>
-                </div>
-              {% endif %}
-              {% for product_inventory in promotion.products_inventory_in_promotion.all %}
-                <a class="promotion__product" data-attr="{{ product_inventory.id }}"
-                    href="{% url 'product_inventory_details' pk=product_inventory.product.pk inventory_pk=product_inventory.id %}"
-                    aria-label="Go to product inventories details">
-                  <strong>{{ product_inventory.sku }}</strong>
-                  <div>{{ product_inventory.product.name }}</div>
-                  {% if product_inventory.attribute_values %}
-                    {% for value in product_inventory.get_attribute_values %}
-                      <strong>{{ value.attribute_value }}</strong>
-                    {% endfor %}
-                  {% endif %}
-                </a>
-              {% endfor %}
+                {% endfor %}
+              </div>
             </div>
           </section>
         {% endfor %}
