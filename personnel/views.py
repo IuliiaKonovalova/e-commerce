@@ -1,9 +1,10 @@
 """Views for the personnel app."""
 from decimal import Decimal
 from django.views import View
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 import json
+from django.db.models import Q
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from inventory.models import (
@@ -1125,6 +1126,37 @@ class BrandsTableView(View):
                 context = {
                     'brands': brands,
                 }
+                if 'search_query' in request.GET:
+                    query = request.GET.get('search_query')
+                    if query == '':
+                        p = Paginator(
+                            Brand.objects.all(), 25
+                        )
+                        page = request.GET.get('page')
+                        brands = p.get_page(page)
+                        context = {
+                            'brands': brands,
+                        }
+                        return render(
+                            request,
+                            'personnel/brands_table.html',
+                            context,
+                        )
+                    else:
+                        brands = Brand.objects.filter(
+                            Q(name__icontains=query)
+                        )
+                        p = Paginator(brands, 25)
+                        page = request.GET.get('page')
+                        brands = p.get_page(page)
+                        context = {
+                            'brands': brands,
+                        }
+                        return render(
+                            request,
+                            'personnel/brands_table.html',
+                            context,
+                        )
                 return render(
                     request,
                     'personnel/brands_table.html',
