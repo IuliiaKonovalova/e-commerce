@@ -47,17 +47,18 @@
       </div>
       {% comment %} Brands table {% endcomment %}
       <div class="brand__table">
-      <div class="search__navbar">
-        <div class="search__container">
-          <form class="search__input" id="search-all">
-            {% csrf_token %}
-            <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
-            <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
-              <i class="fas fa-search"></i>
-            </button>
-          </form>
+        {% comment %} Search brand by input {% endcomment %}
+        <div class="search__navbar">
+          <div class="search__container">
+            <form class="search__input" id="search-all">
+              {% csrf_token %}
+              <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
+              <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
         <div class="brand__table--row table__titles">
           <div class="brand__table--cell">Name</div>
           <div class="brand__table--cell">Active</div>
