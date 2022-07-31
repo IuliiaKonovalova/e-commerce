@@ -1,6 +1,36 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .content__container {
+      justify-content: start !important;
+      align-items: flex-start !important;
+    }
+
+    .btn i {
+      margin-right: 0 !important;
+    }
+
+    .search__navbar {
+      background-color: transparent !important;
+    }
+
+    .search__container {
+      width: 100% !important;
+    }
+
+    .search__input {
+      padding: 0.2em 0 !important;
+      width: 100% !important;
+    }
+
+    .search__input input {
+      border: 1px solid #363636 !important;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
@@ -14,6 +44,18 @@
         </a>
       </div> 
       <div class="brand__table">
+        {% comment %} Search tag by input {% endcomment %}
+        <div class="search__navbar">
+          <div class="search__container">
+            <form class="search__input" id="search-all">
+              {% csrf_token %}
+              <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
+              <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
+        </div>
         <div class="brand__table--row table__titles">
           <div class="brand__table--cell">Name</div>
           <div class="brand__table--cell">Active</div>
