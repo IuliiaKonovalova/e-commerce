@@ -47,14 +47,12 @@ class AddRemoveProductWishlistAJAXView(View):
                     message_alert = (
                         f'{product.name} added to wishlist.'
                     )
-                    print(message_alert)
                 else:
                     wishlist.remove_from_wishlist(product)
                     product_in_wishlist = False
                     message_alert = (
                         f'{product.name} removed from wishlist.'
                     )
-                    print(message_alert)
                 return JsonResponse(
                     {
                         'success': True,
