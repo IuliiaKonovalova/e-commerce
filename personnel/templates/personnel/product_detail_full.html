@@ -8,6 +8,10 @@
       padding: 0.2em 0.5em;
       border-radius: 0.2em;
     }
+
+    .fa-external-link {
+      margin-left: 0.2em;
+    }
   </style>
 {% endblock %}
 
@@ -61,12 +65,14 @@
           <strong>Category: </strong>
           <a href="{% url 'categories_table' %}" aria-label=" Go to categories page" class="data__main--link cursor">
             {{ product.category.name }}
+            <i class="fa fa-external-link"></i>
           </a>
         </div>
         <div class="data__main--section">
           <strong>Brand: </strong>
           <a href="{% url 'brand_detail' brand_pk=product.brand.id %}" aria-label=" Go to {{ product.brand }} page" class="data__main--link cursor">
             {{ product.brand }}
+            <i class="fa fa-external-link"></i>
           </a>
         </div>
         <div class="data__main--section">
@@ -75,6 +81,7 @@
             {% for tag in product.get_tags %}
               <a href="{% url 'tag_detail' tag_pk=tag.id %}" aria-label=" Go to {{ tag.name }} page" class="data__main--link cursor">
                 {{ tag.name }}
+                <i class="fa fa-external-link"></i>
               </a>
             {% endfor %}
           </div>
