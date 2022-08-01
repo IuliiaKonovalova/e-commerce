@@ -2995,6 +2995,42 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'personnel/product_types_list.html')
         self.client.logout()
 
+    def test_product_types_with_access_search_query(self):
+        """Test product types with access search query"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.product_types_table_url,
+            {
+                'search_query': 'women clothes',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/product_types_list.html')
+        self.assertEqual(len(response.context['product_types']), 1)
+        self.client.logout()
+
+    def test_product_types_with_access_search_query_empty(self):
+        """Test product types with access search query empty"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.product_types_table_url,
+            {
+                'search_query': '',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/product_types_list.html')
+        self.assertEqual(len(response.context['product_types']), 2)
+        self.client.logout()
+
     def test_add_product_type_get_view_user_logged_out(self):
         """Test add product type get view user logged out"""
         response = self.client.get(
