@@ -1,6 +1,35 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .content__container {
+      justify-content: start !important;
+      align-items: flex-start !important;
+    }
+
+    .btn i {
+      margin-right: 0 !important;
+    }
+
+    .search__navbar {
+      background-color: transparent !important;
+    }
+
+    .search__container {
+      width: 100% !important;
+    }
+
+    .search__input {
+      padding: 0.5em 0.5em !important;
+      width: 100% !important;
+    }
+
+    .search__input input {
+      border: 1px solid #363636 !important;
+    }
+  </style>
+{% endblock %}
 
 {% block content %}
   <div class="dashboard">
@@ -34,6 +63,46 @@
               {% endfor %}
             </div>
           {% endif %}
+        </div>
+        {% comment %} Search product type by input {% endcomment %}
+        <div class="search__navbar">
+          {% comment %} Form with radio buttons set to get units from classmethods {% endcomment %}
+          <div class="sort__container">
+            <form class="sort__input" id="sort-all">
+              {% csrf_token %}
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="submit" name="sort" value="all" id="all" class="btn-check option in_modal">
+                <label for="all" class="btn">all</label>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="submit" name="sort" value="inconsistency" id="inconsistency" class="btn-check option in_modal">
+                <label for="inconsistency" class="btn">inconsistency</label>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="submit" name="sort" value="high-sales-lack-units" id="high-sales-lack-units" class="btn-check option in_modal">
+                <label for="high-sales-lack-units" class="btn">high-sales-lack-units</label>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="submit" name="sort" value="stock-50" id="stock-50" class="btn-check option in_modal">
+                <label for="stock-50" class="btn"><i class="fas fa-less-than"></i> 50</label>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="submit" name="sort" value="stock-20" id="stock-20" class="btn-check option in_modal">
+                <label for="stock-20" class="btn"><i class="fas fa-less-than"></i> 20</label>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="submit" name="sort" value="stock-10" id="stock-10" class="btn-check option in_modal">
+                <label for="stock-10" class="btn"><i class="fas fa-less-than"></i> 10</label>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="submit" name="sort" value="stock-0" id="stock-0" class="btn-check option in_modal">
+                <label for="stock-0" class="btn">0</label>
+              </div>
+              <div class="btn-submit" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" name="sort" value="low-sales" id="low-sales" class="btn-check option in_modal">
+                <label for="low-sales" class="btn">low-sales</label>
+              </div>
+            </form>
           </div>
         </div>
         {% comment %} Stock table data {% endcomment %}
