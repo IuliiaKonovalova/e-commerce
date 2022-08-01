@@ -21,7 +21,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 0.5em;
+      padding-top: 1em;
+      padding-bottom: 0.5em;
     }
 
     .sort__input {
@@ -121,6 +122,17 @@
         </div>
         {% comment %} Stock table data {% endcomment %}
         <div class="stock__table--container">
+          <div class="stock__summary">
+            {% if all_stock %}
+              {% if all_stock.count %}
+                {{ all_stock.count }} units found
+              {% else %}
+                {{ all_products_count}} units in stock
+              {% endif %}
+            {% else %}
+              No units found
+            {% endif %}
+          </div>
           <table class="stock__table">
             <tr>
               <th>SKU</th>
