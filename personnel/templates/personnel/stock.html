@@ -16,17 +16,31 @@
       background-color: transparent !important;
     }
 
-    .search__container {
-      width: 100% !important;
+    .sort__container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.5em;
     }
 
-    .search__input {
-      padding: 0.5em 0.5em !important;
-      width: 100% !important;
+    .sort__input {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
+      grid-gap: 1rem;
     }
 
-    .search__input input {
-      border: 1px solid #363636 !important;
+    .btn__search {
+      color: white;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn__search i {
+      margin-right: 0.3em !important;
     }
   </style>
 {% endblock %}
@@ -72,35 +86,35 @@
               {% csrf_token %}
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="submit" name="sort" value="all" id="all" class="btn-check option in_modal">
-                <label for="all" class="btn">all</label>
+                <label for="all" class="btn btn__search">All units</label>
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="submit" name="sort" value="inconsistency" id="inconsistency" class="btn-check option in_modal">
-                <label for="inconsistency" class="btn">inconsistency</label>
-              </div>
-              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="submit" name="sort" value="high-sales-lack-units" id="high-sales-lack-units" class="btn-check option in_modal">
-                <label for="high-sales-lack-units" class="btn">high-sales-lack-units</label>
+                <label for="inconsistency" class="btn btn__search">Irregularity</label>
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="submit" name="sort" value="stock-50" id="stock-50" class="btn-check option in_modal">
-                <label for="stock-50" class="btn"><i class="fas fa-less-than"></i> 50</label>
+                <label for="stock-50" class="btn btn__search"><i class="fas fa-less-than"></i> 50 units</label>
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="submit" name="sort" value="stock-20" id="stock-20" class="btn-check option in_modal">
-                <label for="stock-20" class="btn"><i class="fas fa-less-than"></i> 20</label>
+                <label for="stock-20" class="btn btn__search"><i class="fas fa-less-than"></i> 20 units</label>
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="submit" name="sort" value="stock-10" id="stock-10" class="btn-check option in_modal">
-                <label for="stock-10" class="btn"><i class="fas fa-less-than"></i> 10</label>
+                <label for="stock-10" class="btn btn__search"><i class="fas fa-less-than"></i> 10 units</label>
               </div>
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="submit" name="sort" value="stock-0" id="stock-0" class="btn-check option in_modal">
-                <label for="stock-0" class="btn">0</label>
+                <label for="stock-0" class="btn btn__search">Out of stock</label>
               </div>
-              <div class="btn-submit" role="group" aria-label="Basic radio toggle button group">
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="submit" name="sort" value="high-sales-lack-units" id="high-sales-lack-units" class="btn-check option in_modal">
+                <label for="high-sales-lack-units" class="btn btn__search"><i class="fas fa-greater-than"></i> sales</label>
+              </div>
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" name="sort" value="low-sales" id="low-sales" class="btn-check option in_modal">
-                <label for="low-sales" class="btn">low-sales</label>
+                <label for="low-sales" class="btn btn__search"><i class="fas fa-less-than"></i> sales</label>
               </div>
             </form>
           </div>
