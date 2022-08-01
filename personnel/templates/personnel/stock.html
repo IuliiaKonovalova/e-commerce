@@ -246,6 +246,9 @@
           btnWithoutStock.html('<i class="fas fa-chevron-up"></i> Hide');
         }
       });
+      if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+        window.location.replace(window.location.origin + "/personnel/stock/");
+      }
     });
   </script>
 {% endblock %}
