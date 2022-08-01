@@ -27,7 +27,7 @@ class OrdersView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                p = Paginator(Order.objects.filter(user=request.user), 25)
+                p = Paginator(Order.objects.all(), 25)
                 page = request.GET.get('page')
                 orders = p.get_page(page)
                 context = {
@@ -37,7 +37,7 @@ class OrdersView(View):
                     query = request.GET.get('search_query')
                     if query == '':
                         p = Paginator(
-                            Order.objects.filter(user=request.user),
+                            Order.objects.all(),
                             25
                         )
                         page = request.GET.get('page')
