@@ -4,7 +4,7 @@
 {% block extra_css %}
   <style>
     .new {
-      display: block;
+      display: inline-block;
       padding: 0.2em 0.5em;
       border-radius: 0.2em;
     }
@@ -36,7 +36,7 @@
         </div>
         {% comment %} Link to check how the product presented in store {% endcomment %}
         <a href="{% url 'product_detail' pk=product.pk %}" aria-label="Go to {{ product.name }} in the shop" target="_blank"
-          class="btn btn__link">
+          class="btn btn__redirect btn__link">
           <i class="fa fa-external-link"></i>
           View in store
         </a>
