@@ -889,7 +889,7 @@ class ProductInventoriesTableView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                p = Paginator(ProductInventory.objects.all(), 10)
+                p = Paginator(ProductInventory.objects.all(), 25)
                 page = request.GET.get('page')
                 inventories = p.get_page(page)
                 # promotions active now
@@ -898,6 +898,15 @@ class ProductInventoriesTableView(View):
                 for promotion in promotions:
                     if promotion.is_active_now():
                         active_now_promotions.append(promotion)
+                if 'search_query' in request.GET:
+                    query = request.GET.get('search_query')
+                    if query == '':
+                        inventories = p.get_page(page)
+                    else:
+                        inventories = ProductInventory.objects.filter(
+                            Q(sku__icontains=query) |
+                            Q(upc__icontains=query)
+                        )
                 context = {
                     'inventories': inventories,
                     'active_now_promotions': active_now_promotions,
