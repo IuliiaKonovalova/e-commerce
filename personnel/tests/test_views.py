@@ -1099,7 +1099,8 @@ class TestViews(TestCase):
         response = self.client.post(
             self.product_inventory_create_url,
             data={
-                'csrfmiddlewaretoken': 'LRtDcXPWz1Ibje4CuGjs9T0BXp1LBILuDkq4M6zoAezKed0Kq9fLZ4T3h9F9JSXI',
+                'csrfmiddlewaretoken': 'LRtDcXPWz1Ibje4CuGjs9T0BXp' +
+                '1LBILuDkq4M6zoAezKed0Kq9fLZ4T3h9F9JSXI',
                 'sku': 11111,
                 'upc': 2222,
                 'product': 1,
@@ -1736,7 +1737,6 @@ class TestViews(TestCase):
         )
         self.client.logout()
 
-
     def test_delete_category_post_view_user_logged_out(self):
         """Test delete category post view user logged out"""
         response = self.client.post(
@@ -1794,7 +1794,7 @@ class TestViews(TestCase):
         self.profile3.save()
         self.delete_category_url = reverse(
             'delete_category',
-            kwargs={'category_pk': 0,}
+            kwargs={'category_pk': 0}
         )
         self.assertEqual(Category.objects.count(), 2)
         response = self.client.post(
@@ -2079,7 +2079,6 @@ class TestViews(TestCase):
         self.assertEqual(Brand.objects.count(), 2)
         self.client.logout()
 
-
     def test_edit_brand_post_view_staff_with_access_invalid(self):
         """Test edit brand post view user with access"""
         self.client.force_login(self.user2)
@@ -2223,6 +2222,38 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/tags_table.html')
+        self.client.logout()
+
+    def test_tags_table_view_staff_search_query(self):
+        """Test tags table view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.tags_table_url,
+            {'search_query': 'skirt'},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/tags_table.html')
+        self.assertEqual(len(response.context['tags']), 1)
+        self.client.logout()
+
+    def test_tags_table_view_staff_search_query_empty(self):
+        """Test tags table view user with access"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.tags_table_url,
+            {'search_query': ''},
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/tags_table.html')
+        self.assertEqual(len(response.context['tags']), 2)
         self.client.logout()
 
     def test_tag_details_view_user_logged_out(self):
