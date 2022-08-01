@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .new {
+      display: block;
+      padding: 0.2em 0.5em;
+      border-radius: 0.2em;
+    }
+  </style>
+{% endblock %}
 
 {% block content %}
   <div class="dashboard">
