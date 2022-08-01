@@ -240,7 +240,7 @@ class Product(models.Model):
         """Meta class for Product model"""
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
-        ordering = ['name']
+        ordering = ['-created_at']
 
     def __str__(self):
         """String representation of Product model"""
