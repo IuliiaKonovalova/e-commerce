@@ -1947,6 +1947,21 @@ class ProductTypesListView(View):
                 context = {
                     'product_types': product_types,
                 }
+                if 'search_query' in request.GET:
+                    query = request.GET['search_query']
+                    if query == '':
+                        product_types = ProductType.objects.all()
+                        context = {
+                            'product_types': product_types,
+                        }
+                    else:
+                        product_types = ProductType.objects.filter(
+                            name__icontains=query
+                        )
+                        context = {
+                            'product_types': product_types,
+                            'search_query': query,
+                        }
                 return render(
                     request,
                     'personnel/product_types_list.html',
