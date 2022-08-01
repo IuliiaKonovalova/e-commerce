@@ -79,11 +79,11 @@
                 </div>
                 {% comment %} Form controll buttons {% endcomment %}
                 <div class="form__btns">
-                  <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}" aria-label="Go to Promotions page" class="btn btn-primary">
+                  <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}" aria-label="Go to Promotions page" class="btn btn__cancel">
                     <i class="fas fa-arrow-circle-left"></i>
                     Back to Unit Page
                   </a>
-                  <button id="form-check" class="btn btn-primary btn__add">
+                  <button id="form-check" class="btn btn__add">
                     <i class="fas fa-check-circle"></i>
                     Confirm Changes
                   </button>
