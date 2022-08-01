@@ -1770,7 +1770,6 @@ a.brand__table--row:hover {
 
 .btn__link:hover {
   background-color: unset;
-  text-decoration: underline;
   color: var(--clr-text--900);
 }
 
@@ -2504,9 +2503,18 @@ div.data__main--order:hover {
 
 /* --------- FORMSSSSSSSSSSSSSSSSS ---------- */
 .form-text.text-muted,
-.helptext,
-.errorlist {
+.helptext {
   display: none;
+}
+
+.errorlist {
+  color: var(--clr-btn-delete--500);
+  font-weight: 700;
+}
+
+.errorlist li {
+  list-style: disc;
+  margin-left: 1em;
 }
 
 .dashboard__form,
