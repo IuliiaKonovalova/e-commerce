@@ -670,6 +670,7 @@ main {
 
 .product__card--image img {
   height: 100%;
+  max-height: 15rem;
 }
 
 .product__card--name,
