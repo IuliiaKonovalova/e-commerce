@@ -197,3 +197,14 @@
     {% endif %}
   </div>
 {% endblock %}
+
+
+{% block postloadjs_extra %}
+  <script>
+    $(document).ready(function () {
+      if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+        window.location.replace(window.location.origin + "/personnel/product_inventories_table/");
+      }
+    });
+  </script>
+{% endblock %}
