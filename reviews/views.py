@@ -79,19 +79,12 @@ class AddReviewWithImagesAJAXView(View):
         if request.user.is_authenticated:
             if request.is_ajax():
                 order_id = request.POST.get('order_id')
-                print('order_id', order_id)
                 order = get_object_or_404(Order, id=order_id)
-                print('order', order)
                 product_id = request.POST.get('product_id')
-                print('product_id', product_id)
                 product = get_object_or_404(Product, id=product_id)
-                print('product', product)
                 user = request.user
-                print('user', user)
                 comment = request.POST.get('comment')
-                print('comment', comment)
                 rating = request.POST.get('rating')
-                print('rating', rating)
                 if Review.objects.filter(
                     user=user,
                     product=product,
@@ -113,9 +106,6 @@ class AddReviewWithImagesAJAXView(View):
                         comment=comment,
                         rating=rating,
                     )
-                    print('review', review)
-                    images = request.FILES.getlist('images')
-                    print('images', images)
                     for image in request.FILES.getlist('images'):
                         ReviewImage.objects.create(
                             review=review,
