@@ -1626,6 +1626,8 @@ class StockView(View):
                 p = Paginator(Stock.objects.all(), 25)
                 page = request.GET.get('page')
                 all_stock = p.get_page(page)
+                # get count of all products
+                all_products_count = Stock.objects.all().count()
                 stock_inconsistency = Stock.get_units_inconsistent()
                 # get all products without stock
                 products_without_stock = ProductInventory.objects.filter(
@@ -1640,6 +1642,7 @@ class StockView(View):
                     'stock_inconsistency': stock_inconsistency,
                     'products_without_stock': products_without_stock,
                     'stocks_without_units': stocks_without_units,
+                    'all_products_count': all_products_count,
                 }
                 if 'sort' in request.GET:
                     sort = request.GET.get('sort')
