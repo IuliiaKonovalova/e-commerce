@@ -1641,6 +1641,27 @@ class StockView(View):
                     'products_without_stock': products_without_stock,
                     'stocks_without_units': stocks_without_units,
                 }
+                if 'sort' in request.GET:
+                    sort = request.GET.get('sort')
+                    if sort == 'all':
+                        context['all_stock'] = p.get_page(page)
+                    elif sort == 'inconsistency':
+                        context['all_stock'] = Stock.get_units_inconsistent()
+                    elif sort == 'high-sales-lack-units':
+                        context[
+                            'all_stock'
+                        ] = Stock.get_high_sales_fewer_products()
+                    elif sort == 'stock-50':
+                        context['all_stock'] = Stock.get_low_stock_50()
+                    elif sort == 'stock-20':
+                        context['all_stock'] = Stock.get_low_stock_20()
+                    elif sort == 'stock-10':
+                        context['all_stock'] = Stock.get_low_stock_10()
+                    elif sort == 'stock-0':
+                        context['all_stock'] = Stock.get_out_of_stock()
+                    elif sort == 'low-sales':
+                        context['all_stock'] = Stock.get_low_sales()
+
                 return render(
                     request,
                     'personnel/stock.html',
