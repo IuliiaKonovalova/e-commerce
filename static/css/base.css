@@ -1721,6 +1721,11 @@ a.brand__table--row:hover {
   background-color: var(--clr-btn-delete--500);
 }
 
+.stock__summary {
+  font-weight: 900;
+  padding-bottom: 0.5em;
+}
+
 /* ------------ Product View --------------- */
 .dashboard__main {
   width: 100%;
