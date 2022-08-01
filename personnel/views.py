@@ -1337,6 +1337,7 @@ class DeleteBrandView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -1380,6 +1381,25 @@ class TagsTableView(View):
                 context = {
                     'tags': tags,
                 }
+                if 'search_query' in request.GET:
+                    query = request.GET.get('search_query')
+                    if query == '':
+                        p = Paginator(Tag.objects.all(), 25)
+                        page = request.GET.get('page')
+                        tags = p.get_page(page)
+                        context = {
+                            'tags': tags,
+                        }
+                    else:
+                        tags = Tag.objects.filter(
+                            name__icontains=query
+                        )
+                        p = Paginator(tags, 25)
+                        page = request.GET.get('page')
+                        tags = p.get_page(page)
+                        context = {
+                            'tags': tags,
+                        }
                 return render(
                     request,
                     'personnel/tags_table.html',
@@ -1505,6 +1525,7 @@ class EditTagView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         """Handle POST requests."""
         if request.user.is_authenticated:
@@ -2434,7 +2455,9 @@ class EditAttributeValueView(View):
                     ProductAttributeValue,
                     id=pk
                 )
-                form = ProductAttributeValueForm(request.POST, instance=attribute_value)
+                form = ProductAttributeValueForm(
+                    request.POST, instance=attribute_value
+                )
                 context = {
                     'form': form,
                     'pk': pk,
