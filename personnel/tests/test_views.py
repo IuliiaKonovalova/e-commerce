@@ -1446,6 +1446,44 @@ class TestViews(TestCase):
         )
         self.client.logout()
 
+    def test_product_inventories_table_staff_query_search(self):
+        """Test product inventories table staff query search"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.product_inventories_table_url,
+            {'search_query': '11111'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'personnel/product_inventories_table.html'
+        )
+        self.assertEqual(len(response.context['inventories']), 1)
+        self.client.logout()
+
+    def test_product_inventories_table_staff_query_search_empty(self):
+        """Test product inventories table staff query search empty"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.product_inventories_table_url,
+            {'search_query': ''}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'personnel/product_inventories_table.html'
+        )
+        self.assertEqual(len(response.context['inventories']), 2)
+        self.client.logout()
+
     def test_categories_table_view_user_logged_out(self):
         """Test categories table view user logged out"""
         response = self.client.get(
