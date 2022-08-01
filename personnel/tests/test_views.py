@@ -2575,6 +2575,206 @@ class TestViews(TestCase):
         self.assertTemplateUsed(response, 'personnel/stock.html')
         self.client.logout()
 
+    def test_stock_view_staff_with_access_sort_all(self):
+        """Test stock view user with access sort all"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        # create stock for self.product_inventory1
+        Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units_variable=50,
+            units=40,
+            units_sold=9
+        )
+        response = self.client.get(
+            self.stock_url,
+            data={
+                'sort': 'all',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/stock.html')
+        self.assertEqual(len(response.context['all_stock']), 1)
+        self.client.logout()
+
+    def test_stock_view_staff_with_access_sort_inconsistency(self):
+        """Test stock view user with access sort inconsistency"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        # create stock for self.product_inventory1
+        Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units_variable=50,
+            units=40,
+            units_sold=9
+        )
+        response = self.client.get(
+            self.stock_url,
+            data={
+                'sort': 'inconsistency',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/stock.html')
+        self.assertEqual(len(response.context['all_stock']), 1)
+        self.client.logout()
+
+    def test_stock_view_staff_with_access_sort_high_sales_fewer_products(self):
+        """Test stock view user with access sort high sales fewer products"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        # create stock for self.product_inventory1
+        Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units_variable=150,
+            units=40,
+            units_sold=110
+        )
+        response = self.client.get(
+            self.stock_url,
+            data={
+                'sort': 'high-sales-lack-units',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/stock.html')
+        self.assertEqual(len(response.context['all_stock']), 1)
+        self.client.logout()
+
+    def test_stock_view_staff_with_access_sort_stock_50(self):
+        """Test stock view user with access sort fewer 50"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        # create stock for self.product_inventory1
+        Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units_variable=50,
+            units=40,
+            units_sold=9
+        )
+        response = self.client.get(
+            self.stock_url,
+            data={
+                'sort': 'stock-50',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/stock.html')
+        self.assertEqual(len(response.context['all_stock']), 1)
+        self.client.logout()
+
+    def test_stock_view_staff_with_access_sort_stock_20(self):
+        """Test stock view user with access sort fewer 20"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        # create stock for self.product_inventory1
+        Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units_variable=20,
+            units=19,
+            units_sold=1
+        )
+        response = self.client.get(
+            self.stock_url,
+            data={
+                'sort': 'stock-20',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/stock.html')
+        self.assertEqual(len(response.context['all_stock']), 1)
+        self.client.logout()
+
+    def test_stock_view_staff_with_access_sort_stock_10(self):
+        """Test stock view user with access sort fewer 10"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        # create stock for self.product_inventory1
+        Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units_variable=10,
+            units=9,
+            units_sold=1
+        )
+        response = self.client.get(
+            self.stock_url,
+            data={
+                'sort': 'stock-10',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/stock.html')
+        self.assertEqual(len(response.context['all_stock']), 1)
+        self.client.logout()
+
+    def test_stock_view_staff_with_access_sort_stock_0(self):
+        """Test stock view user with access sort fewer 0"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        # create stock for self.product_inventory1
+        Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units_variable=10,
+            units=0,
+            units_sold=10
+        )
+        response = self.client.get(
+            self.stock_url,
+            data={
+                'sort': 'stock-0',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/stock.html')
+        self.assertEqual(len(response.context['all_stock']), 1)
+        self.client.logout()
+
+    def test_stock_view_staff_with_access_sort_low_sales(self):
+        """Test stock view user with access sort low sales"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        # create stock for self.product_inventory1
+        Stock.objects.create(
+            product_inventory=self.product_inventory1,
+            units_variable=550,
+            units=549,
+            units_sold=1
+        )
+        response = self.client.get(
+            self.stock_url,
+            data={
+                'sort': 'low-sales',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/stock.html')
+        self.assertEqual(len(response.context['all_stock']), 1)
+        self.client.logout()
+
     def test_add_stock_get_view_user_logged_out(self):
         """Test add stock get view user logged out"""
         response = self.client.get(
