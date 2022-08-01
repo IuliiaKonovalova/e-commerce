@@ -352,7 +352,7 @@ class TestOrdersViews(TestCase):
         response = self.client.get(self.order_url, {'search_query': ''})
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'orders/orders.html')
-        self.assertEqual(len(response.context['orders']), 0)
+        self.assertEqual(len(response.context['orders']), 1)
 
     def test_add_order_ajax_view_user_logged_out(self):
         """Test add order ajax view user logged out"""
