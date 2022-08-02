@@ -371,6 +371,15 @@ When the user signs up, a new wishlist is created.
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 | updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
 
+#### Stock Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| product_inventory | product_inventory | ForeignKey   | ProductInventory, on_delete=models.CASCADE, related_name='stock', verbose_name='Product inventory' |
+| last_checked     | last_checked     | DateTimeField | null=True, blank=True, verbose_name='Last checked' |
+| units_variable   | units_variable   | IntegerField | default=0, null=False, blank=False, verbose_name='Units variable' |
+| units            | units            | IntegerField | default=0, null=False, blank=False, verbose_name='Units current' |
+| units_sold       | units_sold       | IntegerField | default=0, null=False, blank=False, verbose_name='Units sold' |
 
 
 
