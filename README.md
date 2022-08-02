@@ -347,6 +347,14 @@ When the user signs up, a new wishlist is created.
 | product_type_attributes | product_type_attributes | ManyToManyField | ProductAttribute, related_name="product_type_attributes", through="ProductTypeAttribute", verbose_name='Product type attributes' |
 | description   | description   | TextField    | max_length=500, blank=False, null=False, verbose_name='Product type description' |
 
+#### ProductAttributeValue Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| product_attribute | product_attribute | ForeignKey   | ProductAttribute, on_delete=models.CASCADE, related_name='product_attribute_values', verbose_name='Product attribute' |
+| attribute_value | attribute_value | CharField    | max_length=255, blank=False, null=False, verbose_name='Attribute value' |
+
+
 
 
 
@@ -359,8 +367,6 @@ When the user signs up, a new wishlist is created.
 ## Testing
 
 Please refer to the [TESTING.md](TESTING.md) file for all test-related documentation.
-
-[Back to contents](#contents)
 
 ---
 
