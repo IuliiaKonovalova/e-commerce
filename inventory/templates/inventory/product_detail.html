@@ -783,6 +783,18 @@
           // check if user checked 1 in each btn-group
           // add event listener to each btn-group
 
+          let inputs = $(' input[name="request-Color"]');
+          // loop through all inputs
+          inputs.each(function() {
+            // get the value of the input
+            let valueModal = $(this).val();
+            let thisLabel = $('label[for="request-' + valueModal + '"]');
+            // check if the value is in the values_list_array
+            //get label with disabled class
+            thisLabel.css('background-color', valueModal);
+            thisLabel.text('');
+          });
+
           if ($('.btn-check:checked').length == $('.btn-group .in_modal').length) {
             // if yes, add the button
             //enable send button in modal
