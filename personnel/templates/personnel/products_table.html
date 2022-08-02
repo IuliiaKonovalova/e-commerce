@@ -2,6 +2,8 @@
 {% load static %}
 
 
+
+
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
@@ -16,6 +18,18 @@
           Add new product
         </a>
       </section>
+      {% comment %} Search product type by input {% endcomment %}
+        <div class="search__navbar">
+          <div class="search__container">
+            <form class="search__input" id="search-all">
+              {% csrf_token %}
+              <input type="text" name="search_query" placeholder="Search by SKU or UPC ..." id="sort-selector">
+              <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
+        </div>
       {% comment %} Products' table for personnel {% endcomment %}
       <div class="products__table">
         <div class="products__table--row table__titles">
