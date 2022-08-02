@@ -305,6 +305,20 @@ When the user signs up, a new wishlist is created.
 | updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
 
 
+#### Product Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| name          | name          | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='Product name' |
+| slug          | slug          | SlugField    | max_length=150, unique=True, blank=False, null=False, verbose_name='Product Slug' |
+| description   | description   | TextField    | max_length=500, blank=False, null=False, verbose_name='Product description' |
+| category      | category      | ForeignKey   | Category, on_delete=models.CASCADE, related_name='products', verbose_name='Category' |
+| tags          | tags          | ManyToManyField | Tag, related_name='products', verbose_name='Tags' |
+| brand         | brand         | ForeignKey   | Brand, on_delete=models.CASCADE, related_name='products', verbose_name='Brand' |
+| is_active     | is_active     | BooleanField | default=False, verbose_name='Is active' |
+| created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
+| updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
+
 ---
 ## Testing
 
