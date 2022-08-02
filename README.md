@@ -399,6 +399,15 @@ When the user signs up, a new wishlist is created.
 *The decision to implement unique_together model method was made due to the wider coverage of it rather than UniqueConstraint which has been added in Django 4.0.0.
 [Link to Django Documentation](https://docs.djangoproject.com/en/4.0/ref/models/options/#django.db.models.Options.unique_together)*
 
+#### EmailNewsNotification Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| email_name    | email_name    | CharField    | max_length=100, null=False, unique=True, blank=False, verbose_name='Email name' |
+| content       | content       | TextField    | null=False, blank=False, verbose_name='Content' |
+| created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
+
+
 
 
 ---
