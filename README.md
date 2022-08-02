@@ -246,9 +246,22 @@ When user signs up, a new profile is created.
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 | updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
 
+#### Address Model
 
+Users are encouraged to create their own addresses and set the default address for the fastest purchase. 
 
-
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| user          | user          | ForeignKey   | User, on_delete=models.CASCADE, related_name='addresses', verbose_name='User' |
+| country       | country       | CharField    | max_length=50, blank=False, null=False, verbose_name='Country' |
+| county_region | county_region | CharField    | max_length=50, blank=False, null=False, verbose_name='County/region' |
+| city          | city          | CharField    | max_length=50, blank=False, null=False, verbose_name='City' |
+| address_line  | address_line  | CharField    | max_length=150, blank=False, null=False, verbose_name='Address line' |
+| zip_code      | zip_code      | CharField    | max_length=10, blank=False, null=False, verbose_name='Zip code' |
+| phone_number  | phone_number  | CharField    | max_length=15, blank=False, null=False, verbose_name='Phone' |
+| is_primary    | is_primary    | BooleanField | default=False, verbose_name='Is primary' |
+| created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
+| updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
 
 
 ---
