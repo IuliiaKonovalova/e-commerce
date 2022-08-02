@@ -354,6 +354,22 @@ When the user signs up, a new wishlist is created.
 | product_attribute | product_attribute | ForeignKey   | ProductAttribute, on_delete=models.CASCADE, related_name='product_attribute_values', verbose_name='Product attribute' |
 | attribute_value | attribute_value | CharField    | max_length=255, blank=False, null=False, verbose_name='Attribute value' |
 
+#### ProductInventory Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| sku           | sku           | CharField    | max_length=50, null=False, unique=True, blank=False, verbose_name='Stock Keeping Unit' |
+| upc           | upc           | CharField    | max_length=12, null=False, unique=True, blank=False, verbose_name='Universal Product Code' |
+| product       | product       | ForeignKey   | Product, on_delete=models.CASCADE, related_name='inventory', verbose_name='Product' |
+| product_type  | product_type  | ForeignKey   | ProductType, on_delete=models.CASCADE, related_name='inventory', verbose_name='Product type' |
+| attribute_values | attribute_values | ManyToManyField | ProductAttributeValue, related_name="product_attribute_values", through="ProductAttributeValues", verbose_name='Attribute values' |
+| retail_price  | retail_price  | DecimalField | max_digits=9, decimal_places=2, null=False, blank=False, verbose_name='Retail price' |
+| store_price   | store_price   | DecimalField | max_digits=9, decimal_places=2, null=False, blank=False, verbose_name='Store price' |
+| sale_price    | sale_price    | DecimalField | max_digits=9, decimal_places=2, null=False, blank=False, verbose_name='Sale price' |
+| weight        | weight        | FloatField   | null=False, blank=False, verbose_name='Product weight' |
+| is_active     | is_active     | BooleanField | default=False, verbose_name='Is active' |
+| created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
+| updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
 
 
 
