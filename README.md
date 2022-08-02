@@ -153,6 +153,31 @@ This website is intended for people who are interested in purchasing products on
     + [PostgreSQL](https://www.postgresql.org/): the database used to store all the data.
 
 
+- ### Other tools:
+
+    + [Git](https://git-scm.com/): the version control system used to manage the code.
+    + [Pip3](https://pypi.org/project/pip/): the package manager used to install the dependencies.
+    + [Gunicorn](https://gunicorn.org/): the webserver used to run the website.
+    + [Spycopg2](https://www.python.org/dev/peps/pep-0249/): the database driver used to connect to the database.
+    + [Django-allauth](https://django-allauth.readthedocs.io/en/latest/): the authentication library used to create the user accounts.
+    + [Django-crispy-forms](https://django-cryptography.readthedocs.io/en/latest/): was used to control the rendering behavior of Django forms.
+    + [Heroku](https://dashboard.heroku.com/): the hosting service used to host the website.
+    + [GitHub](https://github.com/): used to host the website's source code.
+    + [VSCode](https://code.visualstudio.com/): the IDE used to develop the website.
+    + [Chrome DevTools](https://developer.chrome.com/docs/devtools/open/): was used to debug the website.
+    + [Font Awesome](https://fontawesome.com/): was used to create the icons used in the website.
+    + [Draw.io](https://www.lucidchart.com/) was used to make a flowchart for the README file.
+    + [Coolors](https://coolors.co/202a3c-1c2431-181f2a-0b1523-65e2d9-925cef-6b28e0-ffffff-eeeeee) was used to make a color palette for the website.
+    + [BGJar](https://www.bgjar.com/): was used to make a background images for the website.
+    + [W3C Validator](https://validator.w3.org/): was used to validate HTML5 code for the website.
+    + [W3C CSS validator](https://jigsaw.w3.org/css-validator/): was used to validate CSS code for the website.
+    + [JShint](https://jshint.com/): was used to validate JS code for the website.
+    + [PEP8](https://pep8.org/): was used to validate Python code for the website.
+    + [geonames](https://www.geonames.org/) was used to get the country and city names.
+    + [Multiple Video & Image Upload Plugin - jQuery Miv.js](https://www.jqueryscript.net/form/multi-video-image-upload.html)
+    + [stripe](https://stripe.com/): was used to create the payment system.
+    + [birme.net](https://www.birme.net/): was used to crop and center unsplash images.
+
 
 ---
 
@@ -243,6 +268,7 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 - [Multiple Video & Image Upload Plugin - jQuery Miv.js](https://www.jqueryscript.net/form/multi-video-image-upload.html)
 - [Very Academy Youtube Channel](https://www.youtube.com/c/veryacademy): for brilliant tutorials, which shed the light on the implementation of database with multi-values products, precise explanations of the stripe API, and many other things!
 - [Stripe](https://stripe.com/): for providing a free payment gateway.
+- [unsplash](https://unsplash.com/): for providing a free products' images.
 
 
 ---
