@@ -418,6 +418,49 @@ When the user signs up, a new wishlist is created.
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 | answer_sent    | answer_sent    | BooleanField | default=False, verbose_name='Answer send' |
 
+#### Order Model
+
+
+```python
+    """Model for Order."""
+    PENDING = 'Pending'
+    PROCESSING = 'Processing'
+    SHIPPED = 'shipped'
+    COMPLETED = 'Completed'
+    REFUNDED = 'Refunded'
+
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (PROCESSING, 'Processing'),
+        (SHIPPED, 'Shipped'),
+        (COMPLETED, 'Completed'),
+        (REFUNDED, 'Refunded'),
+    )
+```
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| user           | user           | ForeignKey   | User, on_delete=models.CASCADE, verbose_name='Requested user' |
+| full_name      | full_name      | CharField    | max_length=50, null=False, blank=False, verbose_name='Full name' |
+| email          | email          | CharField    | max_length=50, null=False, blank=False, verbose_name='Email' |
+| phone          | phone          | CharField    | max_length=100, null=False, blank=False, verbose_name='Phone' |
+| address1       | address1       | CharField    | max_length=250, null=False, blank=False, verbose_name='Address1' |
+| address2       | address2       | CharField    | max_length=250, null=False, blank=False, verbose_name='Address2' |
+| city           | city           | CharField    | max_length=100, null=False, blank=False, verbose_name='City' |
+| county_region_state | county_region_state | CharField    | max_length=100, null=False, blank=False, verbose_name='County/Region/State' |
+| country        | country        | CharField    | max_length=100, null=False, blank=False, verbose_name='Country' |
+| zip_code       | zip_code       | CharField    | max_length=20, null=False, blank=False, verbose_name='Zip code' |
+| created        | created        | DateTimeField | auto_now_add=True, verbose_name='Created' |
+| updated        | updated        | DateTimeField | auto_now=True, verbose_name='Updated' |
+| total_paid     | total_paid     | DecimalField | max_digits=5, decimal_places=2, null=False, blank=False, verbose_name='Total paid' |
+| order_number   | order_number   | CharField    | max_length=32, null=False, editable=False, verbose_name='Order number' |
+| order_key      | order_key      | CharField    | max_length=200, blank=True, null=True, verbose_name='Order key' |
+| billing_status | billing_status | BooleanField | default=False, verbose_name='Billing status' |
+| status         | status         | CharField    | max_length=20, choices=STATUS_CHOICES, default=PENDING, verbose_name='Status' |
+
+*The decision to implement several options for the order identification numbers was due to the variety of the possibilities of the identification numbers in different countries.*
+
+
 
 ---
 ## Testing
@@ -453,7 +496,8 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 - [jQuery UI](https://jqueryui.com/): for providing varieties of tools to make standard HTML code look appealing.
 - [Postgresql](https://www.postgresql.org/): for providing a free database.
 - [geonames](https://www.geonames.org/): for providing a free database on countries, regions, cities.
-- [Multiple Video & Image Upload Plugin - jQuery Miv.js](https://www.jqueryscript.net/form/multi-video-image-upload.html)
+- [Multiple Video & Image Upload Plugin - jQuery Miv.js](https://www.jqueryscript.net/form/multi-video-image-upload.html): for providing a free plugin to upload multiple videos and images.
+- [htmlcolorcodes.com](https://htmlcolorcodes.com/): for providing a free database on colors.
 - [Very Academy Youtube Channel](https://www.youtube.com/c/veryacademy): for brilliant tutorials, which shed the light on the implementation of database with multi-values products, precise explanations of the stripe API, and many other things!
 - [Stripe](https://stripe.com/): for providing a free payment gateway.
 - [unsplash](https://unsplash.com/): for providing a free products' images.
