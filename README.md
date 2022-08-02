@@ -319,6 +319,20 @@ When the user signs up, a new wishlist is created.
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 | updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
 
+#### ProductImage Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| product       | product       | ForeignKey   | Product, on_delete=models.CASCADE, related_name='images', verbose_name='Product' |
+| image         | image         | CloudinaryField | null=True, blank=True, verbose_name='Image' |
+| alt_text      | alt_text      | CharField    | max_length=300, null=True, blank=True, verbose_name='Alt text' |
+| default_image | default_image | BooleanField | default=False, verbose_name='Default image' |
+| is_active     | is_active     | BooleanField | default=False, verbose_name='Is active' |
+| created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
+| updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
+
+
+
 ---
 ## Testing
 
