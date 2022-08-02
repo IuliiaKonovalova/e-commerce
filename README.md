@@ -224,11 +224,28 @@ This website is intended for people who are interested in purchasing products on
 
 ### Data Modeling
 
-#### Roles Model
+#### Role Model
 | Name          | Database Key  | Field Type    | Validation |
 | ------------- | ------------- | ------------- | ---------- |
 | name          | name          | CharField    | max_length=50, unique=True, blank=True, null=False, verbose_name='Role name' |
 | description   | description   | TextField    | max_length=500, blank=True, null=True, verbose_name='Role description' |
+
+#### Profile Model
+
+When user signs up, a new profile is created. 
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| user          | user          | OneToOneField | User, on_delete=models.CASCADE, related_name='profile', verbose_name='User' |
+| first_name    | first_name    | CharField    | max_length=50, blank=True, null=True, verbose_name='First name' |
+| last_name     | last_name     | CharField    | max_length=50, blank=True, null=True, verbose_name='Last name' |
+| birthday      | birthday      | DateField    | blank=True, null=True, verbose_name='Birthday' |
+| avatar        | avatar        | CloudinaryField | blank=True, null=True, verbose_name='Avatar' |
+| subscription | subscription | BooleanField | default=False, verbose_name='Subscription' |
+| role          | role          | ForeignKey   | Role, default=1, on_delete=models.SET_NULL, null=True, verbose_name='Role' |
+| created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
+| updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
+
 
 
 
