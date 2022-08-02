@@ -396,7 +396,8 @@ When the user signs up, a new wishlist is created.
 | product_attribute | product_attribute | ForeignKey   | ProductAttribute, on_delete=models.CASCADE, related_name='producttypeattribute', verbose_name='Product attribute' |
 | product_type | product_type | ForeignKey   | ProductType, on_delete=models.CASCADE, related_name='producttypeattribute', verbose_name='Product type' |
 
-
+*The decision to implement unique_together model method was made due to the wider coverage of it rather than UniqueConstraint which has been added in Django 4.0.0.
+[Link to Django Documentation](https://docs.djangoproject.com/en/4.0/ref/models/options/#django.db.models.Options.unique_together)*
 
 
 
