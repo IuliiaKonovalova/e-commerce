@@ -407,7 +407,16 @@ When the user signs up, a new wishlist is created.
 | content       | content       | TextField    | null=False, blank=False, verbose_name='Content' |
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 
+#### StockEmailNotification Model
 
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| user           | user           | ForeignKey   | User, on_delete=models.CASCADE, verbose_name='Requested user' |
+| requested_product | requested_product | ForeignKey   | Product, on_delete=models.CASCADE, verbose_name='Requested product' |
+| requested_attributes_values | requested_attributes_values | ManyToManyField | ProductAttributeValue, related_name="requested_attributes_values", through="RequestedAttributesValues", verbose_name='Requested attributes values' |
+| requested_quantity | requested_quantity | PositiveIntegerField | verbose_name='Requested quantity' |
+| created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
+| answer_sent    | answer_sent    | BooleanField | default=False, verbose_name='Answer send' |
 
 
 ---
