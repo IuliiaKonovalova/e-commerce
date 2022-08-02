@@ -1074,7 +1074,8 @@ button:active {
   border-bottom-left-radius: 0.375rem;
 }
 
-.option[name="Color"]+label.disabled {
+.option[name="Color"]+label.disabled,
+.option[name="request-Color"]+label.disable {
   box-shadow: var(--box-shadow-disabled) !important;
   display: flex;
   justify-content: center;
@@ -1083,11 +1084,13 @@ button:active {
   opacity: 0.5 !important;
 }
 
-.option[name="Color"]:checked+.btn {
+.option[name="Color"]:checked+.btn,
+.option[name="request-Color"]:checked+.btn {
   border: 5px solid orange;
 }
 
-.option[name="Color"]+label {
+.option[name="Color"]+label,
+.option[name="request-Color"]+label {
   height: 5rem;
   width: 5rem;
   border-radius: 0.4em !important;
