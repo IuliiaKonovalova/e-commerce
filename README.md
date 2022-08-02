@@ -460,6 +460,20 @@ When the user signs up, a new wishlist is created.
 
 *The decision to implement several options for the order identification numbers was due to the variety of the possibilities of the identification numbers in different countries.*
 
+#### OrderItem Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| order          | order          | ForeignKey   | Order, on_delete=models.CASCADE, related_name='order_item', verbose_name='Order' |
+| product_inventory | product_inventory | ForeignKey   | ProductInventory, on_delete=models.CASCADE, related_name='order_item_inventory', verbose_name='Product inventory' |
+| quantity       | quantity       | PositiveIntegerField | verbose_name='Quantity' |
+
+
+
+
+
+
+
 
 
 ---
