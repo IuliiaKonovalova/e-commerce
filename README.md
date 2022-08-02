@@ -338,6 +338,19 @@ When the user signs up, a new wishlist is created.
 | name          | name          | CharField    | max_length=255, unique=True, blank=False, null=False, verbose_name='Attribute name' |
 | description   | description   | TextField    | max_length=500, blank=True, null=True, verbose_name='Attribute description' |
 
+#### ProductType Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| name          | name          | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='Product type name' |
+| slug          | slug          | SlugField    | max_length=150, unique=True, blank=False, null=False, verbose_name='Product type Slug' |
+| product_type_attributes | product_type_attributes | ManyToManyField | ProductAttribute, related_name="product_type_attributes", through="ProductTypeAttribute", verbose_name='Product type attributes' |
+| description   | description   | TextField    | max_length=500, blank=False, null=False, verbose_name='Product type description' |
+
+
+
+
+
 
 
 
