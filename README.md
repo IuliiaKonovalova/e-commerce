@@ -331,6 +331,15 @@ When the user signs up, a new wishlist is created.
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 | updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
 
+#### ProductAttribute Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| name          | name          | CharField    | max_length=255, unique=True, blank=False, null=False, verbose_name='Attribute name' |
+| description   | description   | TextField    | max_length=500, blank=True, null=True, verbose_name='Attribute description' |
+
+
+
 
 
 ---
