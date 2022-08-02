@@ -224,6 +224,11 @@ This website is intended for people who are interested in purchasing products on
 
 ### Data Modeling
 
+#### Roles Model
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| name          | name          | CharField    | max_length=50, unique=True, blank=True, null=False, verbose_name='Role name' |
+| description   | description   | TextField    | max_length=500, blank=True, null=True, verbose_name='Role description' |
 
 
 
