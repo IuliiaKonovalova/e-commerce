@@ -263,6 +263,20 @@ Users are encouraged to create their own addresses and set the default address f
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 | updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
 
+#### Wishlist Model
+
+When the user signs up, a new wishlist is created.
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| user          | user          | ForeignKey   | User, on_delete=models.CASCADE, related_name='wishlist', verbose_name='User' |
+| products      | products      | ManyToManyField | Product, blank=True, related_name='wishlist', verbose_name='Products' |
+| created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
+
+
+
+
+
 
 ---
 ## Testing
