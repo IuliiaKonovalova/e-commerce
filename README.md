@@ -381,6 +381,14 @@ When the user signs up, a new wishlist is created.
 | units            | units            | IntegerField | default=0, null=False, blank=False, verbose_name='Units current' |
 | units_sold       | units_sold       | IntegerField | default=0, null=False, blank=False, verbose_name='Units sold' |
 
+#### ProductAttributeValues Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| attributevalues | attributevalues | ForeignKey   | ProductAttributeValue, on_delete=models.CASCADE, related_name='productattributevalues', verbose_name='Attribute values' |
+| productinventory | productinventory | ForeignKey   | ProductInventory, on_delete=models.CASCADE, related_name='productattributevalues', verbose_name='Product inventory' |
+
+
 
 
 
