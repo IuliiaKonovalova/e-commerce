@@ -283,6 +283,17 @@ When the user signs up, a new wishlist is created.
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 | updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
 
+#### Tag Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| name          | name          | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='Tag name' |
+| slug          | slug          | SlugField    | max_length=150, unique=True, blank=False, null=False, verbose_name='Tag Slug' |
+| is_active     | is_active     | BooleanField | default=False, verbose_name='Is active' |
+| created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
+| updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
+
+
 
 ---
 ## Testing
