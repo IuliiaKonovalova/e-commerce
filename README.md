@@ -505,6 +505,13 @@ When the user signs up, a new wishlist is created.
 | comment        | comment        | TextField    | max_length=1000, blank=True, null=True, verbose_name='Comment' |
 | created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
 
+#### ReviewImage Model
+
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| review         | review         | ForeignKey   | Review, on_delete=models.CASCADE, related_name='images', verbose_name='Review' |
+| image          | image          | CloudinaryField | null=True, blank=True, verbose_name='Image' |
 
 ---
 ## Testing
