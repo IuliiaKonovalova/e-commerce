@@ -57,6 +57,32 @@ class ProductsTableView(View):
                     'promotions': promotions,
                     'active_now_promotions': active_now_promotions,
                 }
+                if 'search_query' in request.GET:
+                    query = request.GET.get('search_query')
+                    if query == '':
+                        return render(
+                            request,
+                            'personnel/products_table.html',
+                            context
+                        )
+                    else:
+                        products = Product.objects.filter(
+                            Q(name__icontains=query) |
+                            Q(description__icontains=query) |
+                            Q(category__name__icontains=query) |
+                            Q(brand__name__icontains=query) |
+                            Q(tags__name__icontains=query)
+                        )
+                        context = {
+                            'products': products,
+                            'promotions': promotions,
+                            'active_now_promotions': active_now_promotions,
+                        }
+                        return render(
+                            request,
+                            'personnel/products_table.html',
+                            context
+                        )
                 return render(
                     request,
                     'personnel/products_table.html',
