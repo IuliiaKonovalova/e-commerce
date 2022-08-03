@@ -5,8 +5,13 @@
 {% block extra_title %}Access Error{% endblock %}
 
 {% block content %}
-  <div class="profile dashboard__form">
-    <h1>Access denied</h1>
-    <p>You do not have permission to access this page.</p>
+  <div class="dashboard">
+    <div class="dashboard__form form__delete">
+      <h1 class="dashboard__main--name">Access denied</h1>
+      <div class="access__image">
+        <img src="{% static 'images/access_denied.png' %}" alt="Access denied warning image">
+      </div>
+      <strong>You do not have permission to access this page.</strong>
+    </div>
   </div>
 {% endblock %}
