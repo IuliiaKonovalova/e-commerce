@@ -3,26 +3,31 @@
 
 {% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    label[for="id_is_active"] {
+      margin-top: 0.5em;
+    }
+  </style>
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Edit Product{% endblock %}
 
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
+      <form method="POST" class="dashboard__form">
         <h1 class="dashboard__main--name">
           Edit Product
         </h1>
-      </div>
-      <form method="POST" class="adding__promotion--form">
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
+        <div class="form__btns accent">
           <a href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to Promotions page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn__save">
+          <button type="submit" class="btn btn__add">
             <i class="fas fa-save"></i>
             Save Changes
           </button>
