@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Delete Order{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% comment %} Check that user is permitted to access this page {% endcomment %}
