@@ -1,6 +1,37 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .content__container {
+      justify-content: start !important;
+      align-items: flex-start !important;
+    }
+
+    .btn i {
+      margin-right: 0 !important;
+    }
+
+    .search__navbar {
+      background-color: transparent !important;
+      margin-top: 0.5em !important;
+    }
+
+    .search__container {
+      width: 100% !important;
+    }
+
+    .search__input {
+      padding: 0.5em !important;
+      width: 100% !important;
+    }
+
+    .search__input input {
+      border: 1px solid #363636 !important;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
@@ -14,9 +45,17 @@
         </a>
       </section>
       {% if attributes %}
-        <div class="search-input-container">
-          <input type="text" name="search_query" placeholder="Search..." class="search-input">
-          <i class="fa fa-search search-icon"></i>
+        {% comment %} Search product type by input {% endcomment %}
+        <div class="search__navbar">
+          <div class="search__container">
+            <form class="search__input" id="search-all">
+              {% csrf_token %}
+              <input type="text" name="search_query" placeholder="Search by SKU or UPC ..." id="sort-selector">
+              <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
         </div>
         <div class="types__all">
           {% for attribute in attributes %}
