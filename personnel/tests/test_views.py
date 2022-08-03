@@ -358,6 +358,37 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/products_table.html')
 
+    def test_products_table_view_with_access_search_query(self):
+        """Test products table view with access search query."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.products_table_url,
+            {'search_query': 'nike'}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['products']), 2)
+        # self.assertQuerysetEqual(response.context['products'][0], self.product1)
+        self.assertTemplateUsed(response, 'personnel/products_table.html')
+
+    def test_products_table_view_with_access_search_query_empty(self):
+        """Test products table view with access search query empty."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.products_table_url,
+            {'search_query': ''}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context['products']), 4)
+        self.assertTemplateUsed(response, 'personnel/products_table.html')
+
     def test_product_detail_full_view_user_logged_out(self):
         """Test product detail full view user logged out."""
         response = self.client.get(self.product_detail_full_url)
