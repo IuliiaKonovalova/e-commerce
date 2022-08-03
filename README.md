@@ -528,7 +528,23 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 - [Very Academy Youtube Channel](https://www.youtube.com/c/veryacademy): for brilliant tutorials, which shed the light on the implementation of database with multi-values products, precise explanations of the stripe API, and many other things!
 - [Stripe](https://stripe.com/): for providing a free payment gateway.
 - [unsplash](https://unsplash.com/): for providing a free products' images.
-
+- [birme](https://www.birme.net/): for providing free service to center and crop images.
+- [fontawesome](https://fontawesome.com/): for providing free icons.
+- [googlefonts](https://fonts.google.com/): for providing free fonts.
+- [BGJar](https://www.bgjar.com/): for the free access to the background images build tool.
+- [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en): for providing a free platform to test website responsiveness
+- [GoFullPage](chrome://extensions/?id=fdpohaocaechififmbbbbbknoalclacl): for allowing to create free full web page screenshots;
+- [Favicon Generator. For real.](https://realfavicongenerator.net/): for providing a free platform to generate favicons.
+- [Coolors](https://coolors.co/): for providing a free platform to generate your own palette.
+- [Icons8](https://icons8.com/): for providing free access to amazing icons and illustrations to fill out the store.
+- [unsplash](https://unsplash.com/): for providing a free products' images to fill out the store.
+- [adidas](https://www.adidas.com/): for providing a free products' images to fill out the store.
+- [nike](https://www.nike.com/): for providing a free products' images to fill out the store.
+- [lego](https://www.lego.com/): for providing a free products' images to fill out the store.
+- [maggie](https://www.maggie.com/): for providing a free products' images to fill out the store.
+- [barilla](https://www.barilla.com/): for providing a free products' images to fill out the store.
+- [LG electronics](https://www.lg.com/): for providing a free products' images to fill out the store.
+- [chrome developer tools](https://developer.chrome.com/extensions/devtools_inspector): for providing a free platform to test website.
 
 ---
 
