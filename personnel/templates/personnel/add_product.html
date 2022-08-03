@@ -3,28 +3,34 @@
 
 {% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    label[for="id_is_active"] {
+      margin-top: 0.5em;
+    }
+  </style>
 {% endblock %}
+
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Add Product{% endblock %}
 
 
 {% block content %}
   <div class="dashboard">
     {% comment %} Check that user is permetted to access this page {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
+      {% comment %} Add product form {% endcomment %}
+      <form method="POST" class="dashboard__form">
         <h1 class="dashboard__main--name">
           Add new product
         </h1>
-      </div>
-      {% comment %} Add product form {% endcomment %}
-      <form method="POST" class="adding__promotion--form">
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
-          <a href="{% url 'products_table' %}" aria-label="Go to Promotions page" class="btn btn-primary">
+        <div class="form__btns accent">
+          <a href="{% url 'products_table' %}" aria-label="Go to Promotions page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn__add">
             <i class="fas fa-plus-circle"></i>
             Save
           </button>
