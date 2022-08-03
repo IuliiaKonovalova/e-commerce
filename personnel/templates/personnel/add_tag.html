@@ -10,7 +10,7 @@
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <form method="POST" class="dashboard__form">
-        <h1 class="dashboard__main--name">Add Brand</h1>
+        <h1 class="dashboard__main--name">Add Tag</h1>
         {% csrf_token %}
         {{ form }}
         {% comment %} save icon {% endcomment %}
