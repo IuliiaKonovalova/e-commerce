@@ -2707,7 +2707,8 @@ div.data__main--order:hover {
   text-align: center;
 }
 
-.adding__promotion--form textarea {
+.adding__promotion--form textarea,
+.dashboard__form textarea {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
