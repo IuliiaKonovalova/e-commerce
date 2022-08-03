@@ -468,8 +468,21 @@ When the user signs up, a new wishlist is created.
 | product_inventory | product_inventory | ForeignKey   | ProductInventory, on_delete=models.CASCADE, related_name='order_item_inventory', verbose_name='Product inventory' |
 | quantity       | quantity       | PositiveIntegerField | verbose_name='Quantity' |
 
+#### Promotion Model
 
-
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| name           | name           | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='Name' |
+| slug           | slug           | SlugField    | max_length=100, unique=True, blank=False, null=False, verbose_name='Slug' |
+| description    | description    | TextField    | null=False, blank=False, verbose_name='Description' |
+| promotion_code | promotion_code | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='Promotion code' |
+| promotion_reduction | promotion_reduction | DecimalField | max_digits=3, decimal_places=0, default=Decimal(0), validators=PERCENTAGE_VALIDATOR, verbose_name='Promotion reduction' |
+| active         | active         | BooleanField | default=True, verbose_name='Active' |
+| start_date     | start_date     | DateTimeField | null=False, blank=False, verbose_name='Start date' |
+| end_date       | end_date       | DateTimeField | null=False, blank=False, verbose_name='End date' |
+| products_inventory_in_promotion | products_inventory_in_promotion | ManyToManyField | blank=True, related_name='products_promotions', verbose_name='Products inventory in promotion' |
+| created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
+| updated_at     | updated_at     | DateTimeField | auto_now=True, verbose_name='Updated at', help_text='Date and time of last update.' |
 
 
 
