@@ -3877,6 +3877,46 @@ class TestViews(TestCase):
             'personnel/attribute_values_list.html'
         )
 
+    def test_attribute_values_staff_query_search(self):
+        """Test attribute values staff query search"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(
+            self.attribute_values_url,
+            {
+                'search_query': 'red',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'personnel/attribute_values_list.html'
+        )
+        self.assertEqual(len(response.context['attribute_values']), 1)
+
+    def test_attribute_values_staff_query_search_empty(self):
+        """Test attribute values staff query search empty"""
+        self.client.force_login(self.user3)
+        self.assertFalse(self.profile3.role.id == 2)
+        self.profile3 = Profile.objects.get(id=self.user3.profile.id)
+        self.profile3.role = self.role3
+        self.profile3.save()
+        response = self.client.get(
+            self.attribute_values_url,
+            {
+                'search_query': '',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'personnel/attribute_values_list.html'
+        )
+        self.assertEqual(len(response.context['attribute_values']), 2)
+
     def test_add_attribute_value_get_view_user_logged_out(self):
         """Test add attribute value get view user logged out"""
         response = self.client.get(
