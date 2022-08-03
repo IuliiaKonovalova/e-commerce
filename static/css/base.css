@@ -373,6 +373,23 @@ main {
   margin: 0.1em 0 1em 14rem;
 }
 
+
+.parallelogram {
+  padding: 8px;
+  display: inline-block;
+  background: var(--clr-primary--900);
+  transform: skewX(-30deg);
+}
+
+.main__logo--text {
+  font-size: 2.7rem;
+  font-weight: 900;
+  transform: initial;
+  color: white;
+  transform: skewX(30deg);
+  padding: 0.2em 1.5em;
+}
+
 .main__logo--text span {
   color: var(--clr-accent--500);
   margin-right: 0.15em;
