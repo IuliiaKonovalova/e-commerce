@@ -1,1 +1,12 @@
-<div>HUY TO YOU</div>
+{% extends 'base.html' %}
+{% load static %}
+
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Access Error{% endblock %}
+
+{% block content %}
+  <div class="profile dashboard__form">
+    <h1>Access denied</h1>
+    <p>You do not have permission to access this page.</p>
+  </div>
+{% endblock %}
