@@ -1,6 +1,7 @@
 """ecommerce_project URL Configuration"""
 from django.contrib import admin
 from django.urls import path, include
+from .views import handler404, handler500
 
 
 urlpatterns = [
@@ -18,3 +19,6 @@ urlpatterns = [
     path('orders/', include('orders.urls')),
     path('reviews/', include('reviews.urls')),
 ]
+
+handler404 = 'school_application.views.handler404'
+handler500 = 'school_application.views.handler500'
