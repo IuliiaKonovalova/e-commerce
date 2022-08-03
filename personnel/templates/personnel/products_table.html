@@ -32,6 +32,9 @@
   </style>
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Products{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
@@ -51,7 +54,7 @@
           <div class="search__container">
             <form class="search__input" id="search-all">
               {% csrf_token %}
-              <input type="text" name="search_query" placeholder="Search by SKU or UPC ..." id="sort-selector">
+              <input type="text" name="search_query" placeholder="Search ..." id="sort-selector">
               <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
                 <i class="fas fa-search"></i>
               </button>
