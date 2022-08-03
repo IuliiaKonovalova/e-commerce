@@ -404,7 +404,25 @@ main {
   margin-left: 0.5em;
 }
 
+.btn__getstarted {
+  background-color: var(--clr-primary--300);
+  color: var(--clr-text--100);
+  border: 1px solid var(--clr-primary--500);
+  box-shadow: var(--box-shadow-buttons);
+  border-radius: 0.4em;
+  padding: 0.5em 2em;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin: 1em 0 1.5em 0;
+}
 
+.btn__getstarted:hover {
+  background-color: var(--clr-primary--400);
+  color: var(--clr-text--100);
+  border: 1px solid var(--clr-primary--600);
+}
 
 .main__image {
   object-fit: contain;
