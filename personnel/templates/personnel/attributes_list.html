@@ -50,7 +50,7 @@
           <div class="search__container">
             <form class="search__input" id="search-all">
               {% csrf_token %}
-              <input type="text" name="search_query" placeholder="Search by SKU or UPC ..." id="sort-selector">
+              <input type="text" name="search_query" placeholder="Search by attribute name ..." id="sort-selector">
               <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
                 <i class="fas fa-search"></i>
               </button>
@@ -101,6 +101,9 @@
 {% block postloadjs_extra %}
     <script>
       $(document).ready(function() {
+        if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+          window.location.replace(window.location.origin + "/personnel/attributes/");
+        }
       });
     </script>
 {% endblock %}
