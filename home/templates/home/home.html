@@ -1,5 +1,32 @@
 {% extends 'base.html' %}
 {% load static %}
+
+
 {% block content %}
-Home page
+  <section class="home__main">
+    <div class="main__content">
+      <div class="parallelogram">
+        <h1 class="main__logo--text">
+          <span>Wow</span>der!
+        </h1>
+      </div>
+      <div class="main__content--subtitle">Online Store</div>
+      <p>
+        The best place to buy your favorite products for your daily needs.
+        You will find everything in our store from food and drink to clothes and electronics.
+      </p>
+      <p>
+        We have regular discounts for our customers and additional perks for loyal customers.
+        Don't hesitate to register!
+        It will make your life easier at once!
+      </p>
+      <a href="{% url 'account_signup' %}" class="btn btn__getstarted">Get Started</a>
+    </div>
+    <div class="main__image">
+      <img src="{% static 'images/store.png' %}" alt="store">
+    </div>
+  </section>
+  
+
+
 {% endblock %}
