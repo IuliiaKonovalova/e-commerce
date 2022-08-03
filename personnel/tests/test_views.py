@@ -1,7 +1,5 @@
 """Test Inventory views."""
 from django.test import TestCase, Client
-# import QueryDict
-from django.http import QueryDict
 from django.urls import reverse
 from datetime import datetime
 from django.utils import timezone
@@ -18,8 +16,6 @@ from inventory.models import (
     ProductAttributeValue,
     ProductInventory,
     Stock,
-    ProductAttributeValues,
-    ProductTypeAttribute,
 )
 from promotions.models import Promotion
 
