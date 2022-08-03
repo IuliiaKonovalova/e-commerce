@@ -2919,8 +2919,11 @@ a.ui-button:active,
 }
 
 
-
-
+/* ------------- Access denied -------------- */
+.access__image {
+  width: 7rem;
+  margin-bottom: 1em;
+}
 
 /* ------------- MEDIA -------------- */
 @media all and (max-width: 1075px) {
