@@ -367,7 +367,6 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['products']), 2)
-        # self.assertQuerysetEqual(response.context['products'][0], self.product1)
         self.assertTemplateUsed(response, 'personnel/products_table.html')
 
     def test_products_table_view_with_access_search_query_empty(self):
@@ -3587,6 +3586,42 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'personnel/attributes_list.html')
+        self.client.logout()
+
+    def test_product_type_attribute_staff_search_query(self):
+        """Test product type attribute staff search query"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.product_type_attributes_url,
+            {
+                'search_query': 'women clothing size',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/attributes_list.html')
+        self.assertEqual(len(response.context['attributes']), 1)
+        self.client.logout()
+
+    def test_product_type_attribute_staff_search_query_empty(self):
+        """Test product type attribute staff search query empty"""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(
+            self.product_type_attributes_url,
+            {
+                'search_query': '',
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'personnel/attributes_list.html')
+        self.assertEqual(len(response.context['attributes']), 2)
         self.client.logout()
 
     def test_add_attribute_get_view_user_logged_out(self):
