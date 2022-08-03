@@ -8,7 +8,7 @@
     {% if request.user.profile.role.id == 3 %}
       <form method="POST" class="dashboard__form form__delete">
         <h1 class="dashboard__main--name">
-          Delete Tag
+          Delete Tag: {{ tag.name }}
         </h1>
         {% if tag.products.count %}
           <strong>Please, note! The following tag is assigned to {{ tag.products.count }} product!</strong>
