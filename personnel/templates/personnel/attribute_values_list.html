@@ -32,6 +32,9 @@
   </style>
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Values{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
@@ -129,4 +132,14 @@
       <h1>You are not authorized to view this page</h1>
     {% endif %}
   </div>
+{% endblock %}
+
+{% block postloadjs_extra %}
+  <script>
+    $(document).ready(function () {
+      if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
+        window.location.replace(window.location.origin + "/personnel/values/");
+      }
+    });
+  </script>
 {% endblock %}
