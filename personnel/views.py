@@ -2425,6 +2425,22 @@ class AttributeValuesListView(View):
                 context = {
                     'attribute_values': attribute_values,
                 }
+                if 'search_query' in request.GET:
+                    query = request.GET.get('search_query')
+                    if query == '':
+                        return render(
+                            request,
+                            'personnel/attribute_values_list.html',
+                            context,
+                        )
+                    else:
+                        attribute_values = ProductAttributeValue.objects.filter(
+                            attribute_value__icontains=query
+                        )
+                        context = {
+                            'attribute_values': attribute_values,
+                            'search_query': query,
+                        }
                 return render(
                     request,
                     'personnel/attribute_values_list.html',
