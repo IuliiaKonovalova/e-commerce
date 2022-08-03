@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}500 Error{% endblock %}
+
+{% block content %}
+  <div class="dashboard">
+    <div class="dashboard__form form__delete">
+      <h1 class="dashboard__main--name">500</h1>
+      <div class="access__image">
+        <img src="{% static 'images/two_gears.png' %}" alt="Access denied warning image">
+      </div>
+      <strong>Oh! It seems that there are some internal problems with the server.</strong>
+      <div class="form__btns accent">
+        <a href="{% url 'products_list' %}" aria-label="Go to Tags page" class="btn btn__getstarted">
+          <i class="fas fa-store"></i>
+          Back to Store
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
