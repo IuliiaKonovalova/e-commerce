@@ -1,94 +1,94 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Addresses{% endblock %}
+
 {% block content %}
-
-
-<div class="profile">
-  <h1>Your addresses:</h1>
-  <div>
-    <a href="{% url 'add_address' user=request.user %}" class="btn btn__redirect">
-      Add new address
-      <i class="fas fa-plus-circle"></i>
-    </a>
-  </div>
-  <div class="addresses__all">
-    {% if addresses %}
-    {% for address in addresses %}
-    {% if address.is_primary %}
-    <div class="address__card address__card--primary">
-      <div>
-        Country: {{ address.country }}
-      </div>
-      <div>
-        County/region/state: {{ address.county_region }}
-      </div>
-      <div>
-        City: {{ address.city }}
-      </div>
-      <div>
-        Address Line: {{ address.address_line }}
-      </div>
-      <div>
-        Zip/postal code: {{ address.zip_code }}
-      </div>
-      <div>
-        Phone: {{ address.phone_number }}
-      </div>
-      <div>
-        Primary: {{ address.is_primary }}
-      </div>
-      <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
-        aria-label="Go to Edit Address Page">
-        Edit
-        <i class="fas fa-edit"></i>
-      </a>
-      <a class="address__primary--btn address__card--disable" href="#" aria-label="Disable Primary Address"
-        data-id="{{ address.id }}">
-        Disable as Primary
+  <div class="profile">
+    <h1>Your addresses:</h1>
+    <div>
+      <a href="{% url 'add_address' user=request.user %}" class="btn btn__redirect">
+        Add new address
+        <i class="fas fa-plus-circle"></i>
       </a>
     </div>
-    {% else %}
-    <div class="address__card">
-      <div>
-        Country: {{ address.country }}
-      </div>
-      <div>
-        County/region/state: {{ address.county_region }}
-      </div>
-      <div>
-        City: {{ address.city }}
-      </div>
-      <div>
-        Address Line: {{ address.address_line }}
-      </div>
-      <div>
-        Zip/postal code: {{ address.zip_code }}
-      </div>
-      <div>
-        Phone: {{ address.phone_number }}
-      </div>
-      <div>
-        Primary: {{ address.is_primary }}
-      </div>
-      <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
-        aria-label="Go to Edit Address Page">
-        Edit
-        <i class="fas fa-edit"></i>
-      </a>
-      <a class="address__primary--btn address__card--enable" href="#" aria-label="Enable Primary Address"
-        data-id="{{ address.pk }}">
-        <div>Enable as Primary</div>
-      </a>
+    <div class="addresses__all">
+      {% if addresses %}
+        {% for address in addresses %}
+          {% if address.is_primary %}
+            <div class="address__card address__card--primary">
+              <div>
+                Country: {{ address.country }}
+              </div>
+              <div>
+                County/region/state: {{ address.county_region }}
+              </div>
+              <div>
+                City: {{ address.city }}
+              </div>
+              <div>
+                Address Line: {{ address.address_line }}
+              </div>
+              <div>
+                Zip/postal code: {{ address.zip_code }}
+              </div>
+              <div>
+                Phone: {{ address.phone_number }}
+              </div>
+              <div>
+                Primary: {{ address.is_primary }}
+              </div>
+              <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
+                aria-label="Go to Edit Address Page">
+                Edit
+                <i class="fas fa-edit"></i>
+              </a>
+              <a class="address__primary--btn address__card--disable" href="#" aria-label="Disable Primary Address"
+                data-id="{{ address.id }}">
+                Disable as Primary
+              </a>
+            </div>
+          {% else %}
+            <div class="address__card">
+              <div>
+                Country: {{ address.country }}
+              </div>
+              <div>
+                County/region/state: {{ address.county_region }}
+              </div>
+              <div>
+                City: {{ address.city }}
+              </div>
+              <div>
+                Address Line: {{ address.address_line }}
+              </div>
+              <div>
+                Zip/postal code: {{ address.zip_code }}
+              </div>
+              <div>
+                Phone: {{ address.phone_number }}
+              </div>
+              <div>
+                Primary: {{ address.is_primary }}
+              </div>
+              <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
+                aria-label="Go to Edit Address Page">
+                Edit
+                <i class="fas fa-edit"></i>
+              </a>
+              <a class="address__primary--btn address__card--enable" href="#" aria-label="Enable Primary Address"
+                data-id="{{ address.pk }}">
+                <div>Enable as Primary</div>
+              </a>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <p>You have no addresses.</p>
+      {% endif %}
     </div>
-    {% endif %}
-    {% endfor %}
-    {% else %}
-    <p>You have no addresses.</p>
-
-    {% endif %}
   </div>
-</div>
-</div>
 {% endblock %}
 
 {% block postloadjs_extra %}
