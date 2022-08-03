@@ -484,9 +484,26 @@ When the user signs up, a new wishlist is created.
 | created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
 | updated_at     | updated_at     | DateTimeField | auto_now=True, verbose_name='Updated at', help_text='Date and time of last update.' |
 
+#### Review Model
 
 
-
+```python
+    STAR_CHOICES = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+    )
+```
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| user           | user           | ForeignKey   | User, on_delete=models.CASCADE, related_name='reviews', verbose_name='User' |
+| product        | product        | ForeignKey   | Product, on_delete=models.CASCADE, related_name='reviews', verbose_name='Product' |
+| order          | order          | ForeignKey   | Order, on_delete=models.CASCADE, related_name='reviews', verbose_name='Order' |
+| rating         | rating         | CharField    | max_length=20, choices=STAR_CHOICES, default=1, verbose_name='Rating' |
+| comment        | comment        | TextField    | max_length=1000, blank=True, null=True, verbose_name='Comment' |
+| created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
 
 
 ---
