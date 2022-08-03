@@ -5,20 +5,23 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
+      <form method="POST" class="dashboard__form form__delete">
         <h1 class="dashboard__main--name">
           Delete Product
         </h1>
-      </div>
-      <form method="POST" class="adding__promotion--form">
+        <em>{{ product.name }}</em>
+        <div class="warning__msg">
+          <p>Please, note that <strong>{{ product.inventory.count }}</strong> related units will be deleted:</p>
+          <p>Are you sure you want to delete this product?</p>
+        </div>
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
-          <a href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to Promotions page" class="btn btn-primary">
+        <div class="form__btns accent">
+          <a href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to Promotions page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn__delete">
             <i class="fas fa-trash-alt"></i>
             Delete
           </button>
@@ -32,8 +35,4 @@
       </div>
     {% endif %}
   </div>
-{% endblock %}
-
-{% block postloadjs_extra %}
-
 {% endblock %}
