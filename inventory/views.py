@@ -17,7 +17,7 @@ class ProductsListView(View):
     """View for the home page."""
     def get(self, request, *args, **kwargs):
         """Handle GET requests."""
-        p = Paginator(Product.objects.all(), 30)
+        p = Paginator(Product.objects.all(), 35)
         page = request.GET.get('page')
         products = p.get_page(page)
         categories = Category.objects.all()
@@ -30,7 +30,7 @@ class ProductsListView(View):
         if 'search_query' in request.GET:
             query = request.GET.get('search_query')
             if query == '' or query == 'All Categories':
-                p = Paginator(Product.objects.all(), 30)
+                p = Paginator(Product.objects.all(), 35)
                 page = request.GET.get('page')
                 products = p.get_page(page)
                 context = {
@@ -49,7 +49,7 @@ class ProductsListView(View):
                 Q(brand__name__icontains=query) |
                 Q(tags__name__icontains=query)
             )
-            p = Paginator(products, 30)
+            p = Paginator(products, 35)
             page = request.GET.get('page')
             products = p.get_page(page)
             context = {
