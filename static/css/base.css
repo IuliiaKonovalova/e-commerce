@@ -822,10 +822,9 @@ main {
 }
 
 .product__card:hover {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4);
-  /* background-color: ; */
+  box-shadow: 0 0.5rem 0.5rem rgba(0, 0, 0, 0.23);
   border-radius: var(--br) !important;
-  color: var(--clr-primary--400)
+  color: var(--clr-accent--900);
 }
 
 .product__card--image {
