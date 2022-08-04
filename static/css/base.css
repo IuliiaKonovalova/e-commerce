@@ -2981,17 +2981,6 @@ a.ui-button:active,
     font-size: 1.3rem;
   }
 
-  .home__credits {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 1em;
-    color: var(--clr-text--100);
-    max-width: 70rem;
-  }
-
   .home__credits--title {
     font-size: 2rem;
     font-weight: 700;
@@ -3000,6 +2989,41 @@ a.ui-button:active,
 }
 
 @media all and (max-width: 800px) {
+
+  /* ------ Media for Home page ------- */
+  .home__main {
+    padding: 2em 3em;
+  }
+
+  .main__content--subtitle {
+    font-size: 1.6rem;
+    margin: 0.1em 0 0.6em 7rem;
+  }
+
+  .main__logo--text {
+    font-size: 1.9rem;
+  }
+
+  .parallelogram {
+    padding: 2px;
+  }
+
+  .main__content p {
+    font-size: 1rem;
+    margin-bottom: 0.5em;
+    margin-left: 0.3em;
+    line-height: 1.2rem;
+    font-weight: 400;
+  }
+
+  .main__content p.last {
+    margin-bottom: 1.5em;
+  }
+
+  .btn__getstarted {
+    padding: 0.3em 1.2em;
+    font-size: 1rem;
+  }
 
   /* Product Page */
   .product__main {
@@ -3082,6 +3106,46 @@ a.ui-button:active,
   .bag__items--title.image,
   .bag__item--image.image {
     display: none;
+  }
+}
+
+@media all and (max-width: 461px) {
+
+
+  /* ------ Media for Home page ------- */
+  .home__main {
+    padding: 2em 1em;
+  }
+
+  .main__content--subtitle {
+    font-size: 1.2rem;
+    margin: 0.1em 0 0.6em 4rem;
+  }
+
+  .main__logo--text {
+    font-size: 1.5rem;
+  }
+
+  .parallelogram {
+    padding: 2px;
+    margin-left: 1em;
+  }
+
+  .main__content p {
+    font-size: 1rem;
+    margin-bottom: 0.5em;
+    margin-left: 0.3em;
+    line-height: 1.2rem;
+    font-weight: 400;
+  }
+
+  .main__content p.last {
+    margin-bottom: 1.3em;
+  }
+
+  .btn__getstarted {
+    padding: 0.3em 1.2em;
+    font-size: 1rem;
   }
 }
 
