@@ -4,11 +4,14 @@
   <link rel="stylesheet" href="{% static 'css//multiple-image-video(MIV).css' %}">
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Add Review{% endblock %}
+
 {% block content %}
   <div class="profile">
     {% if request.user.is_authenticated %}
       <h1>Add review on {{ product.name }}</h1>
-
+      {% comment %} Review form {% endcomment %}
       <form method="post" class="form__review">
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group" id="rating">
         <p> Rating: </p>
@@ -27,64 +30,59 @@
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
           </label>
-        <input type="radio" class="btn-check" name="btnradio" id="3" autocomplete="off">
-        <label class="btn btn-outline-primary" for="3">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-        </label>
-        <input type="radio" class="btn-check" name="btnradio" id="2" autocomplete="off">
-        <label class="btn btn-outline-primary" for="2">
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-        </label>
-        <input type="radio" class="btn-check" name="btnradio" id="1" autocomplete="off">
-        <label class="btn btn-outline-primary" for="1">
-          <i class="fas fa-star"></i>
-        </label>
-      </div>
-      <div class="form-group">
-        <label for="review">Review</label>
-        <textarea class="form-control" id="review" name="review" rows="3">{{ review }}</textarea>
-      </div>
-      {% comment %} Add multiple images {% endcomment %}
-      <div class="multiple__images">
-        <h2>Add multiple images</h2>
-        <a class="cam" href="javascript:void(0)">
-          <i class="fas fa-camera"></i>
-        </a>
-        <div class="gallery"></div>
-      </div>
-      <div class="form__btns">
-        <a href="{% url 'my_order_details' order_number=order.order_number user=user %}" aria-label="Go to my order details page" class="btn btn__cancel">
-          <i class="fas fa-arrow-circle-left"></i>
-          Cancel
-        </a>
-        <a class="btn btn__add" id="review-submit">
-          <i class="fas fa-save"></i>
-          Save Review
-        </a>
-      </div>
-    </form>
-
-  {% endif %}
-</div>
+          <input type="radio" class="btn-check" name="btnradio" id="3" autocomplete="off">
+          <label class="btn btn-outline-primary" for="3">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </label>
+          <input type="radio" class="btn-check" name="btnradio" id="2" autocomplete="off">
+          <label class="btn btn-outline-primary" for="2">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </label>
+          <input type="radio" class="btn-check" name="btnradio" id="1" autocomplete="off">
+          <label class="btn btn-outline-primary" for="1">
+            <i class="fas fa-star"></i>
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="review">Review</label>
+          <textarea class="form-control" id="review" name="review" rows="3">{{ review }}</textarea>
+        </div>
+        {% comment %} Add multiple images {% endcomment %}
+        <div class="multiple__images">
+          <h2>Add multiple images</h2>
+          <a class="cam" href="javascript:void(0)">
+            <i class="fas fa-camera"></i>
+          </a>
+          <div class="gallery"></div>
+        </div>
+        <div class="form__btns">
+          <a href="{% url 'my_order_details' order_number=order.order_number user=user %}" aria-label="Go to my order details page" class="btn btn__cancel">
+            <i class="fas fa-arrow-circle-left"></i>
+            Cancel
+          </a>
+          <a class="btn btn__add" id="review-submit">
+            <i class="fas fa-save"></i>
+            Save Review
+          </a>
+        </div>
+      </form>
+    {% endif %}
+  </div>
 {% endblock %}
 
 {% block postloadjs_extra %}
-<script src="{% static 'js/multiple-image-video(MIV).js' %}"></script>
-<script>
+  <script src="{% static 'js/multiple-image-video(MIV).js' %}"></script>
+  <script>
     $(document).ready(function() {
       let csrfToken = '{{ csrf_token }}';
       $('.gallery').miv({
         image:'.cam',
-        //video:'.vid'
       });
       // get the image files from the .gallery div
       let images = $('.gallery');
-
-
-
       $('#review-submit').on('click', function() {
         console.log('clicked');
         let rating = parseInt($('input[name=btnradio]:checked').attr('id'));
