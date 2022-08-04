@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Review Added{% endblock %}
 
 {% block content %}
   <div class="review">
@@ -12,9 +14,11 @@
       </div>
     {% endif %}
     <div class="review__details">
+      {% comment %} Review Details {% endcomment %}
       <div class="review__details--data">
         <strong>Rating: </strong>
         <span class="review__details--data--rating">
+          {% comment %} Star rating {% endcomment %}
           {% spaceless %}
             {% for star in "12345"|make_list %}
               {% if forloop.counter <= review.rating|add:"0" %}
@@ -26,6 +30,7 @@
           {% endspaceless %}
         </span>
       </div>
+      {% comment %} Review comment {% endcomment %}
       <div class="review__details--data comment">
         <strong>Comment: </strong>
         <p class="review__details--data--comment">
@@ -36,12 +41,14 @@
           {% endif %}
         </p>
       </div>
+      {% comment %} Review date {% endcomment %}
       <div class="review__details--data">
         <strong>Date: </strong>
         <span class="review__details--data--date">
           {{ review.created_at|date }}
         </span>
       </div>
+      {% comment %} Review author {% endcomment %}
       <div class="review__details--data">
         <strong>Left by: </strong>
         <span class="review__details--data--user">
@@ -49,6 +56,7 @@
         </span>
       </div>
     </div>
+    {% comment %} Images all {% endcomment %}
     <div class="review__images">
       {% for image in images %}
         <div class="review__image">
