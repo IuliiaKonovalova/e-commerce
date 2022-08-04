@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    div.review__details:hover {
+      color: black;
+      cursor: auto;
+    }
+  </style>
+{% endblock %}
+
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Review Error{% endblock %}
+
 
 {% block content %}
-  <div class="profile">
+  <div class="review__details review__details--product">
     {% if request.user.is_authenticated and request.user == order.user %}
       <h1>You have already left a  review on {{ product.name }}</h1>
       <div>
