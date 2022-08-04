@@ -461,7 +461,7 @@ def payment_confirmation(data):
     )
     text_content = ''
     html_content = '<h1>Payment Confirmation</h2>' \
-        '<p>Your payment of ' + str(order_total_paid) \
+        '<p>Your payment of $' + str(order_total_paid) \
         + ' has been confirmed.</p>' \
         '<p>You can view your order details by ' \
         'clicking on your your order information link below:</p>' \
