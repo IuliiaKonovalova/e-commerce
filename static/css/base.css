@@ -2951,6 +2951,52 @@ a.ui-button:active,
     justify-content: center;
     position: relative;
   }
+
+  /* ------ Media for Home page ------- */
+  .home__main {
+    padding: 2.5em 3.5em;
+  }
+
+  .main__content--subtitle {
+    font-size: 2rem;
+    margin: 0.1em 0 0.6em 10rem;
+  }
+
+  .main__logo--text {
+    font-size: 2.3rem;
+  }
+
+  .main__content p {
+    font-size: 1rem;
+    margin-bottom: 0.5em;
+    margin-left: 0.3em;
+  }
+
+  .main__content p.last {
+    margin-bottom: 1.5em;
+  }
+
+  .btn__getstarted {
+    padding: 0.3em 1.5em;
+    font-size: 1.3rem;
+  }
+
+  .home__credits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1em;
+    color: var(--clr-text--100);
+    max-width: 70rem;
+  }
+
+  .home__credits--title {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
 }
 
 @media all and (max-width: 800px) {
