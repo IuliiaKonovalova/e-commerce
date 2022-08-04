@@ -4,6 +4,18 @@
 {% comment %} Extra Title {% endcomment %}
 {% block extra_title %}Product Review{% endblock %}
 
+{% block extra_css %}
+  <style>
+    a.review__details:hover {
+      color: #4a2532;
+    }
+    div.review__details:hover {
+      color: black;
+      cursor: auto;
+    }
+  </style>
+{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     <div class="dashboard__main">
