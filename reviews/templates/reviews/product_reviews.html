@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Product Review{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     <div class="dashboard__main">
@@ -22,15 +25,15 @@
               {{ review.user.username }}
             </div>
             <div class="review__details--stars">
-                {% spaceless %}
-                  {% for star in "12345"|make_list %}
-                    {% if forloop.counter <= review.rating|add:"0" %}
-                      <i class="fas fa-star"></i>
-                    {% else %}
-                      <i class="far fa-star"></i>
-                    {% endif %}
-                  {% endfor %}
-                {% endspaceless %}
+              {% spaceless %}
+                {% for star in "12345"|make_list %}
+                  {% if forloop.counter <= review.rating|add:"0" %}
+                    <i class="fas fa-star"></i>
+                  {% else %}
+                    <i class="far fa-star"></i>
+                  {% endif %}
+                {% endfor %}
+              {% endspaceless %}
             </div>
             <div class="review__details--data comment">
               <p class="review__details--comment">
@@ -54,8 +57,6 @@
             </div>
           </a>
         {% endfor %}
-      </div>
-
         {% comment %} Control Pagination {% endcomment %}
         {% if reviews.paginator.num_pages %}
           {% if not reviews.paginator.num_pages == 1 %}
