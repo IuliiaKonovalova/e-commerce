@@ -3,11 +3,7 @@
 {% block extra_css %}
   <link rel="stylesheet" href="{% static 'css//multiple-image-video(MIV).css' %}">
   <style>
-    .btn i {
-      margin-right: 0 !important;
-    }
-
-    .fa-star {
+    .btn i, .fa-star {
       margin-right: 0 !important;
     }
 
@@ -16,16 +12,16 @@
     .form__review .btn.active,
     .form__review .btn.show,
     .form__review .btn:active {
-      background-color: #151422;
+      background-color: #5c55b1;
       color: #ffffff !important;
     }
 
-    .form__review .btn-check:active+.btn .btn i,
-    .form__review .btn-check:checked+.btn .btn i,
-    .form__review .btn.active .btn i,
-    .form__review .btn.show .btn i,
-    .form__review .btn:active .btn i {
-      color: #ffffff !important;
+    .form__review .btn-check:active+.btn i.fa-star,
+    .form__review .btn-check:checked+.btn i.fa-star,
+    .form__review .btn.active .btn i.fa-star,
+    .form__review .btn.show .btn i.fa-star,
+    .form__review .btn:active .btn i.fa-star {
+      color: #ffcedb !important;
     } 
   </style>
 {% endblock %}
