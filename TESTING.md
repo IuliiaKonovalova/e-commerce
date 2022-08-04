@@ -54,7 +54,8 @@ The missing coverage is due to the fact that I was not able to test fully ```Ema
 **Inventory app:**
 
 ![Django unit testing. Inventory. Coverage](documentation/testing/coverage/coverage_inventory.png)
-The missing coverage is unknown as I have been testing the code attentively. The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
+
+
 
 **Orders app:**
 
@@ -622,3 +623,7 @@ Add edit_order_item_url -> Add tests for edit order item functionality
 7. bd39e0881a6734c017728011b0020f32ba46ce60
 
 Add custom stylings for search buttons -> Change if condition to show all categories products
+
+8. 9091743069373eefd32a46b1365389860fce14e6
+
+Add functions handlers for 400 and 505 errors - > Add functions handlers for 404 and 500 errors
