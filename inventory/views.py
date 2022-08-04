@@ -42,21 +42,22 @@ class ProductsListView(View):
                     'inventory/products_list.html',
                     context
                 )
-            products = Product.objects.filter(
-                Q(name__icontains=query) |
-                Q(description__icontains=query) |
-                Q(category__name__icontains=query) |
-                Q(brand__name__icontains=query) |
-                Q(tags__name__icontains=query)
-            )
-            p = Paginator(products, 35)
-            page = request.GET.get('page')
-            products = p.get_page(page)
-            context = {
-                'products': products,
-                'categories': categories,
-            }
-            return render(request, 'inventory/products_list.html', context)
+            else:
+                products = Product.objects.filter(
+                    Q(name__icontains=query) |
+                    Q(description__icontains=query) |
+                    Q(category__name__icontains=query) |
+                    Q(brand__name__icontains=query) |
+                    Q(tags__name__icontains=query)
+                ).distinct()
+                p = Paginator(products, 35)
+                page = request.GET.get('page')
+                products = p.get_page(page)
+                context = {
+                    'products': products,
+                    'categories': categories,
+                }
+                return render(request, 'inventory/products_list.html', context)
         return render(request, 'inventory/products_list.html', context)
 
 
