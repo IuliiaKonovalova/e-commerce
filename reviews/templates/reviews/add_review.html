@@ -84,24 +84,17 @@
       // get the image files from the .gallery div
       let images = $('.gallery');
       $('#review-submit').on('click', function() {
-        console.log('clicked');
         let rating = parseInt($('input[name=btnradio]:checked').attr('id'));
-        console.log(rating);
         let review = $('#review').val();
-        console.log(review);
         let images = $('.gallery');
         let images_array = [];
         $('input[type=file]').each(function() {
           images_array.push($(this).prop('files')[0]);
         });
-        console.log(images_array);
         // Create formData
         let formData = new FormData();
         formData.append('review', 'hui');
-        console.log(formData.values());
-
         formData.append('user', {{ request.user.id }});
-
         formData.append('product_id', {{ product.id }});
         formData.append('order_id', {{ order.id }});
         formData.append('rating', rating);
@@ -111,14 +104,8 @@
         });
         //formData.append('images', images_array);
         formData.append('csrfmiddlewaretoken', csrfToken);
-
-        for(let i of formData) {
-          console.log(i);
-        }
         // formData to string
         let formDataString = JSON.stringify(formData);
-        console.log(formDataString);
-
         // create AJAX request
         $.ajax({
           url: "{% url 'add_review_with_images_ajax' %}",
@@ -127,12 +114,9 @@
           contentType: false,
           processData: false,
           success: function(data) {
-            console.log(data);
             if (data.success) {
-              console.log('success');
               window.location.href = "{% url 'my_order_details' user=request.user order_number=order.order_number %}";
             } else {
-              console.log('Already reviewed');
               window.location.href = "{% url 'my_order_details' user=request.user order_number=order.order_number %}";
             }
           },
@@ -149,11 +133,7 @@
             }, 3000);
           }
         });
-
       })
-
     });
   </script>
-
-
 {% endblock %}
