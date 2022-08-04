@@ -1,6 +1,22 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .new {
+      display: inline-block;
+      padding: 0.2em 0.5em;
+      border-radius: 0.2em;
+    }
+
+    .data__accent--sale {
+      border-radius: 0.2em;
+    }
+  </style>
+{% endblock %}
+
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Unit{% endblock %}
 
 {% block content %}
   <div class="dashboard">
