@@ -354,7 +354,7 @@ main {
   border-radius: var(--br);
   display: grid;
   grid-template-columns: 1.5fr 1fr;
-  padding: 2.5em 5vw;
+  padding: 2.5em 3.5em;
   max-height: 45rem;
 }
 
@@ -404,8 +404,11 @@ main {
   margin-left: 0.5em;
 }
 
+.main__content p.last {
+  margin-bottom: 2em;
+}
+
 .btn__getstarted {
-  background-color: var(--clr-primary--300);
   background-color: var(--clr-btn-edit--900);
   color: var(--clr-text--100);
   border: 1px solid var(--clr-primary--500);
@@ -415,14 +418,13 @@ main {
   font-size: 1.5rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  margin: 1em 0 1.5em 0;
+  transition: unset;
 }
 
 .btn__getstarted:hover {
   background-color: var(--clr-primary--400);
   color: var(--clr-text--100);
-  border: 1px solid var(--clr-primary--600);
+
 }
 
 .main__image {
