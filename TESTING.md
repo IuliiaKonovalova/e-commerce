@@ -35,15 +35,19 @@ python3 -m http.server
 
 ![Django unit testing. Bag. Coverage](documentation/testing/coverage/coverage_bag.png)
 
+
 However, after implementing the promotion functionality, I was not been able to get access to the full contexts.py and therefore I am missing 4 cases on the coverage report.
 
 ![Django unit testing. Promotions. Coverage](documentation/testing/coverage/coverage_promotions_2.png)
+
 
  The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
 
 **Email_notification app:**
 
-![Django unit testing. Email_notification. Coverage](documentation/testing/coverage/coverage_email_notification.png)
+![Django unit testing. Email_notification. Coverage](documentation/testing/coverage/coverage_email_notifications.png)
+
+
 The missing coverage is due to the fact that I was not able to test fully ```EmailStockNotificationFormAJAX```. The description of the testing iss is in is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
 
 **Home app:**
@@ -68,6 +72,8 @@ Missing case due to the use of the function to update payment status. The descri
 **Payment app:**
 
 ![Django unit testing. Payment. Coverage](documentation/testing/coverage/coverage_payment.png)
+
+
 The missing cases in the coverage is simply because I have no idea how test webhooks. The functionality is working well and described in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:** 
 
 ![Django unit testing. Payment. Coverage. Missing cases](documentation/testing/coverage/coverage_payment_missing_cases.png)
@@ -81,6 +87,8 @@ The missing cases in the coverage is simply because I have no idea how test webh
 **Profiles app:**
 
 ![Django unit testing. Profiles. Coverage](documentation/testing/coverage/coverage_profiles.png)
+
+
 The missing coverage is due to the fact that I was not able to test the edit profile view on the password form. The description of the view is in the section [Django unit testing Issues](#django-unit-testing-issues) **Unsolved issues:**
 
 
@@ -92,8 +100,7 @@ The missing coverage is due to the fact that I was not able to test the edit pro
 
 **Reviews app:**
 
-
-
+![Django unit testing. Reviews. Coverage](documentation/testing/coverage/coverage_reviews.png)
 
 
 **Wishlist app:**
