@@ -52,10 +52,12 @@ class ProductsTableView(View):
                 for promotion in promotions:
                     if promotion.is_active_now():
                         active_now_promotions.append(promotion)
+                products_count = Product.objects.all().count()
                 context = {
                     'products': products,
                     'promotions': promotions,
                     'active_now_promotions': active_now_promotions,
+                    'products_count': products_count,
                 }
                 if 'search_query' in request.GET:
                     query = request.GET.get('search_query')
@@ -73,10 +75,12 @@ class ProductsTableView(View):
                             Q(brand__name__icontains=query) |
                             Q(tags__name__icontains=query)
                         )
+                        products_count = products.count()
                         context = {
                             'products': products,
                             'promotions': promotions,
                             'active_now_promotions': active_now_promotions,
+                            'products_count': products_count,
                         }
                         return render(
                             request,
