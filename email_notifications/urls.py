@@ -3,6 +3,7 @@ from django.urls import path
 from .views import (
     EmailStockNotificationFormAJAX,
     PromoEmailCreateView,
+    StockRequestsListView,
 )
 
 
@@ -16,5 +17,10 @@ urlpatterns = [
         'add_promo_email/',
         PromoEmailCreateView.as_view(),
         name='add_promo_email',
+    ),
+    path(
+        'stock_requests_list/',
+        StockRequestsListView.as_view(),
+        name='stock_requests_list',
     ),
 ]
