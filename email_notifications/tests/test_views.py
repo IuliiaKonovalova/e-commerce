@@ -400,3 +400,68 @@ class EmailStockNotificationFormAJAXTest(TestCase):
             'email_notifications/stock_requests_list.html'
         )
         self.client.logout()
+
+    def test_stock_requests_list_view_staff_search_query(self):
+        """Test stock requests list view staff search query."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        data = (
+            '{"id":2,"options": ' +
+            '{"color":"red","women clothing size":"xs"}, ' +
+            '"quantity":"1"}'
+        )
+        response = self.client.post(
+            self.stock_notification_url,
+            data={
+              'data': data
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        response = self.client.get(
+            self.stock_requests_list_url,
+            data={
+                'search_query': 'Adidas Shirt',
+            }
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'email_notifications/stock_requests_list.html'
+        )
+        self.assertEqual(len(response.context['stock_requests']), 1)
+        self.client.logout()
+
+    def test_stock_requests_list_view_staff_search_query_empty(self):
+        """Test stock requests list view staff search query empty."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        data = (
+            '{"id":2,"options": ' +
+            '{"color":"red","women clothing size":"xs"}, ' +
+            '"quantity":"1"}'
+        )
+        response = self.client.post(
+            self.stock_notification_url,
+            data={
+              'data': data
+            },
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
+        )
+        response = self.client.get(
+            self.stock_requests_list_url,
+            data={
+                'search_query': '',
+            }
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'email_notifications/stock_requests_list.html'
+        )
+        self.assertEqual(len(response.context['stock_requests']), 1)
