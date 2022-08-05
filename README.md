@@ -513,6 +513,25 @@ When the user signs up, a new wishlist is created.
 | review         | review         | ForeignKey   | Review, on_delete=models.CASCADE, related_name='images', verbose_name='Review' |
 | image          | image          | CloudinaryField | null=True, blank=True, verbose_name='Image' |
 
+#### Future Models:
+
+##### Supplier Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| company_name  | company_name  | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='Company name' |
+| company_email | company_email | EmailField   | max_length=100, unique=True, blank=False, null=False, verbose_name='Company email' |
+| company_phone | company_phone | CharField    | max_length=20, unique=True, blank=False, null=False, verbose_name='Company phone' |
+| company_contact_name | company_contact_name | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='Company contact name' |
+| country       | country       | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='Country' |
+| city          | city          | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='City' |
+| state_region_county | state_region_county | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='State/region/county' |
+| zip_code      | zip_code      | CharField    | max_length=20, unique=True, blank=False, null=False, verbose_name='Zip code' |
+| address       | address       | CharField    | max_length=100, unique=True, blank=False, null=False, verbose_name='Address' |
+| notes         | notes         | TextField    | max_length=1000, blank=True, null=True, verbose_name='Notes' |
+| created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
+| updated_at     | updated_at     | DateTimeField | auto_now=True, verbose_name='Updated at', help_text='Date and time of last update.' |
+
 ---
 ## Testing
 
