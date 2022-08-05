@@ -532,6 +532,19 @@ When the user signs up, a new wishlist is created.
 | created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
 | updated_at     | updated_at     | DateTimeField | auto_now=True, verbose_name='Updated at', help_text='Date and time of last update.' |
 
+##### StorePurchase Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| product_inventory | product_inventory | ForeignKey   | ProductInventory, on_delete=models.CASCADE, related_name='store_purchases', verbose_name='Product inventory' |
+| units | units | PositiveIntegerField | verbose_name='Units' |
+| total_spending | total_spending | DecimalField | max_digits=5, decimal_places=2, null=False, blank=False, verbose_name='Total spending' |
+| supplier | supplier | ForeignKey   | Supplier, on_delete=models.CASCADE, related_name='store_purchases', verbose_name='Supplier' |
+| delivered | delivered | BooleanField | default=False, verbose_name='Delivered' |
+| created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
+| updated_at     | updated_at     | DateTimeField | auto_now=True, verbose_name='Updated at', help_text='Date and time of last update.' |
+
+
 ---
 ## Testing
 
