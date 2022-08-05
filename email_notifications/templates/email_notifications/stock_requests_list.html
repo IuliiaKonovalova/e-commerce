@@ -1,6 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .dashboard__main strong {
+      margin-bottom: 0.4em;
+    }
+    
+    .content__container {
+      justify-content: start !important;
+      align-items: flex-start !important;
+    }
+
+    .btn i {
+      margin-right: 0 !important;
+    }
+
+    .search__navbar {
+      background-color: transparent !important;
+      margin-top: 0.5em !important;
+      max-width: 70rem;
+    }
+
+    .search__container {
+      width: 100% !important;
+    }
+
+    .search__select {
+      padding: 0.5em 0 !important;
+      width: 100% !important;
+    }
+
+    .products__table {
+      max-width: 70rem;
+    }
+
+    .products__table--row.table__titles, .products__table--row {
+      grid-template-columns: 2fr 1fr 0.5fr ;
+    }
+  </style>
+{% endblock %}
+
+
 {% comment %} Extra Title {% endcomment %}
 {% block extra_title %}Requests{% endblock %}
 
@@ -8,39 +49,55 @@
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-
-
-      <div class="search__container">
-
-        <form  class="search__select" id="search-products">
-          {% csrf_token %}
-            <label for="category"></label>
-            <select class="form-control" id="product" name="search_query">
-              <option value="">Products in requests</option>
-              {% for product in products %}
-                <option value="{{ product }}">{{ product }}</option>
-              {% endfor %}
-            </select>
-          <button type="submit" id="category-btn" aria-label="Search" class="btn btn__search">
-            <i class="fas fa-search"></i>
-          </button>
-        </form>
+      <section class="dashboard__main">
+        <h1 class="dashboard__main--name">
+          All Requests
+        </h1>
+        <strong>( {{ stock_requests.count }}  requests now )</strong>
+      </section>
+      {% comment %} Search navbar {% endcomment %}
+      <div class="search__navbar">
+        <div class="search__container">
+          <form  class="search__select" id="search-products">
+            {% csrf_token %}
+              <label for="category"></label>
+              <select class="form-control" id="product" name="search_query">
+                <option value="">Products in requests</option>
+                {% for product in products %}
+                  <option value="{{ product }}">{{ product }}</option>
+                {% endfor %}
+              </select>
+            <button type="submit" id="category-btn" aria-label="Search" class="btn btn__search">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
       </div>
-{% for request in stock_requests %}
-
-  <strong>{{ request.requested_product }}</strong>
-  <div>{{ request.requested_quantity }}</div>
-    {% for values in  request.requested_attributes_values.all  %}
-      {{ values.attribute_value }}
-    {% endfor %}
-  {% endfor %}
-
+      {% comment %} Products requested table {% endcomment %}
+      <div class="products__table">
+        <div class="products__table--row table__titles">
+          <div class="products__table--cell">Requested Product</div>
+          <div class="products__table--cell">Values</div>
+          <div class="products__table--cell">Quantity</div>
+        </div>
+        {% for request in stock_requests %}
+          <a class="products__table--row" href="{% url 'product_detail_full' pk=request.requested_product.id %}" aria-label="Go to product detail page">
+            <div class="products__table--cell">
+              <strong>{{ request.requested_product }}</strong>
+            </div>
+            <div class="products__table--cell">
+              {% for values in  request.requested_attributes_values.all  %}
+                {{ values.attribute_value }}
+              {% endfor %}
+            </div>
+            <div class="products__table--cell">{{ request.requested_quantity }}</div>
+          </a>
+        {% endfor %}
+      </div>
     {% else %}
       <div class="dashboard__main">
         <h1>You are not authorized to access this page</h1>
       </div>
     {% endif %}
   </div>
-
-
 {% endblock %}
