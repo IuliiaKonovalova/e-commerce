@@ -3,6 +3,7 @@ import json
 from django.views import View
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
+from django.db.models import Q
 from email_notifications.forms import EmailNewsNotificationForm
 from inventory.models import (
     Product,
@@ -150,7 +151,6 @@ class PromoEmailCreateView(View):
                     form.save()
                     return render(
                         request,
-                        # to promotions page
                         'promotions/promotions_list.html',
                     )
                 else:
@@ -162,6 +162,40 @@ class PromoEmailCreateView(View):
                             'success': False,
                         }
                     )
+        else:
+            return render(
+                request,
+                'account/login.html',
+            )
+
+
+class StockRequestsListView(View):
+    """List of stock requests"""
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.profile.role.id == 1:
+                return render(
+                    request,
+                    'profiles/access_denied.html',
+                )
+            else:
+                stock_requests = StockEmailNotification.objects.filter(
+                    answer_sent=False
+                )
+                # get all Product from stock_requests
+                products = set()
+                for stock_request in stock_requests:
+                    products.add(stock_request.requested_product.name)
+                context = {
+                    'stock_requests': stock_requests,
+                    'products': products,
+                }
+                
+                return render(
+                    request,
+                    'email_notifications/stock_requests_list.html',
+                    context,
+                )
         else:
             return render(
                 request,
