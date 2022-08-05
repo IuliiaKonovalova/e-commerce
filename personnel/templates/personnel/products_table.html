@@ -3,6 +3,10 @@
 
 {% block extra_css %}
   <style>
+    .dashboard__main strong {
+      margin-bottom: 0.4em;
+    }
+    
     .content__container {
       justify-content: start !important;
       align-items: flex-start !important;
@@ -43,6 +47,7 @@
         <h1 class="dashboard__main--name">
           All products table
         </h1>
+        <strong>( {{ products_count }}  products found )</strong>
         {% comment %} Add new product button {% endcomment %}
         <a href="{% url 'add_product' %}" aria-label="Go to add new product page" class="btn btn-primary btn__add">
           <i class="fas fa-plus-circle"></i>
