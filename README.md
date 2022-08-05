@@ -544,6 +544,15 @@ When the user signs up, a new wishlist is created.
 | created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
 | updated_at     | updated_at     | DateTimeField | auto_now=True, verbose_name='Updated at', help_text='Date and time of last update.' |
 
+##### LiveSupportChat Model
+
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| members       | members       | ManyToManyField | blank=True, related_name='live_support_chats', verbose_name='Members' |
+| created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
+| updated_at     | updated_at     | DateTimeField | auto_now=True, verbose_name='Updated at', help_text='Date and time of last update.' |
+
+
 
 ---
 ## Testing
