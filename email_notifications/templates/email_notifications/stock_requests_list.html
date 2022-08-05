@@ -61,6 +61,7 @@
           <form  class="search__select" id="search-products">
             {% csrf_token %}
               <label for="category"></label>
+              {% comment %} Select requests by products in requests {% endcomment %}
               <select class="form-control" id="product" name="search_query">
                 <option value="">Products in requests</option>
                 {% for product in products %}
@@ -82,14 +83,17 @@
         </div>
         {% for request in stock_requests %}
           <a class="products__table--row" href="{% url 'product_detail_full' pk=request.requested_product.id %}" aria-label="Go to product detail page">
+            {% comment %} Requested product's name {% endcomment %}
             <div class="products__table--cell">
               <strong>{{ request.requested_product }}</strong>
             </div>
+            {% comment %} Requested values {% endcomment %}
             <div class="products__table--cell">
               {% for values in  request.requested_attributes_values.all  %}
                 {{ values.attribute_value }}
               {% endfor %}
             </div>
+            {% comment %} Requested quantity {% endcomment %}
             <div class="products__table--cell">{{ request.requested_quantity }}</div>
           </a>
         {% endfor %}
