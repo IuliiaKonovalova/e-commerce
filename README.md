@@ -552,7 +552,16 @@ When the user signs up, a new wishlist is created.
 | created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
 | updated_at     | updated_at     | DateTimeField | auto_now=True, verbose_name='Updated at', help_text='Date and time of last update.' |
 
+##### LiveSupportMessage Model
 
+| Name          | Database Key  | Field Type    | Validation |
+| ------------- | ------------- | ------------- | ---------- |
+| chat          | chat          | ForeignKey   | LiveSupportChat, on_delete=models.CASCADE, related_name='messages', verbose_name='Chat' |
+| author       | author        | ForeignKey   | User, on_delete=models.CASCADE, related_name='live_support_messages', verbose_name='Author' |
+| content       | content       | TextField    | max_length=1000, blank=True, null=True, verbose_name='Content' |
+| image         | image         | CloudinaryField | null=True, blank=True, verbose_name='Image' |
+| created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
+| updated_at     | updated_at     | DateTimeField | auto_now=True, verbose_name='Updated at', help_text='Date and time of last update.' |
 
 ---
 ## Testing
