@@ -204,6 +204,9 @@ class EmailStockNotificationFormAJAXTest(TestCase):
         self.add_promo_email_url = reverse(
             'add_promo_email'
         )
+        self.stock_requests_list_url = reverse(
+            'stock_requests_list'
+        )
 
     def test_email_stock_notification_form_ajax_user_logged_out(self):
         """Test email stock notification form AJAX user logged out."""
@@ -364,5 +367,36 @@ class EmailStockNotificationFormAJAXTest(TestCase):
         self.assertTemplateUsed(
             response,
             'email_notifications/promo_email_create.html'
+        )
+        self.client.logout()
+
+    def test_stock_requests_list_view_user_logged_out(self):
+        """Test stock requests list view user logged out."""
+        response = self.client.get(self.stock_requests_list_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'account/login.html')
+
+    def test_stock_requests_list_view_user_logged_no_access(self):
+        """Test stock requests list view user logged no access."""
+        self.client.force_login(self.user)
+        # check a role
+        self.assertEqual(self.user.profile.role.id, 1)
+        response = self.client.get(self.stock_requests_list_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'profiles/access_denied.html')
+        self.client.logout()
+
+    def test_stock_requests_list_view_user_logged_with_access(self):
+        """Test stock requests list view user logged with access."""
+        self.client.force_login(self.user2)
+        self.assertFalse(self.profile2.role.id == 1)
+        self.profile2 = Profile.objects.get(id=self.user2.profile.id)
+        self.profile2.role = self.role2
+        self.profile2.save()
+        response = self.client.get(self.stock_requests_list_url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(
+            response,
+            'email_notifications/stock_requests_list.html'
         )
         self.client.logout()
