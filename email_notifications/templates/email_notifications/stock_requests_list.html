@@ -10,6 +10,22 @@
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
 
 
+      <div class="search__container">
+
+        <form  class="search__select" id="search-products">
+          {% csrf_token %}
+            <label for="category"></label>
+            <select class="form-control" id="product" name="search_query">
+              <option value="">Products in requests</option>
+              {% for product in products %}
+                <option value="{{ product }}">{{ product }}</option>
+              {% endfor %}
+            </select>
+          <button type="submit" id="category-btn" aria-label="Search" class="btn btn__search">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
 {% for request in stock_requests %}
 
   <strong>{{ request.requested_product }}</strong>
