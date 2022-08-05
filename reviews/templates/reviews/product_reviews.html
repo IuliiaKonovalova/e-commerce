@@ -25,12 +25,7 @@
     <div class="data__main--details">
       {% if reviews %}
         {% for review in reviews %}
-          {% if review.user == request.user %}
-            <a href="{% url 'order_details' order_id=review.order.id %}"
-                aria-label="View order details" class="review__details review__details--product">
-          {% else %}
-            <div class="review__details review__details--product">
-          {% endif %}
+          <div class="review__details review__details--product">
             <div class="review__details--customer">
               <div class="profile__avatar--navbar">
                 {% if review.user.profile.avatar %}
@@ -72,11 +67,7 @@
             <div class="review__details--date">
               {{ review.created_at|date }}
             </div>
-          {% if review.user == request.user %}
-            </a>
-          {% else %}
-            </div>
-          {% endif %}
+          </div>
         {% endfor %}
         {% comment %} Control Pagination {% endcomment %}
         {% if reviews.paginator.num_pages %}
