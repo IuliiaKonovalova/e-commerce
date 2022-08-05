@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Requests{% endblock %}
+
+{% block content %}
+  <div class="dashboard">
+    {% comment %} Limit access for customers {% endcomment %}
+    {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+
+
+{% for request in stock_requests %}
+
+  <strong>{{ request.requested_product }}</strong>
+  <div>{{ request.requested_quantity }}</div>
+    {% for values in  request.requested_attributes_values.all  %}
+      {{ values.attribute_value }}
+    {% endfor %}
+  {% endfor %}
+
+    {% else %}
+      <div class="dashboard__main">
+        <h1>You are not authorized to access this page</h1>
+      </div>
+    {% endif %}
+  </div>
+
+
+{% endblock %}
