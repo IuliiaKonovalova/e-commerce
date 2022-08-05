@@ -190,7 +190,25 @@ class StockRequestsListView(View):
                     'stock_requests': stock_requests,
                     'products': products,
                 }
-                
+                if 'search_query' in request.GET:
+                    query = request.GET.get('search_query')
+                    if query == '':
+                        return render(
+                            request,
+                            'email_notifications/stock_requests_list.html',
+                            context
+                        )
+                    else:
+                        stock_requests = stock_requests.filter(
+                            Q(requested_product__name__icontains=query) |
+                            Q(user__username__icontains=query)
+                        )
+                        context['stock_requests'] = stock_requests
+                        return render(
+                            request,
+                            'email_notifications/stock_requests_list.html',
+                            context
+                        )
                 return render(
                     request,
                     'email_notifications/stock_requests_list.html',
