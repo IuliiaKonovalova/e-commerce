@@ -15,12 +15,12 @@
         The best place to buy your favorite products for your daily needs.
         You will find everything in our store from food and drink to clothes and electronics.
       </p>
-      <p>
+      <p class="last">
         We have regular discounts for our customers and additional perks for loyal customers.
         Don't hesitate to register!
         It will make your life easier at once!
       </p>
-      <a href="{% url 'account_signup' %}" class="btn btn__getstarted">Get Started</a>
+      <a href="{% url 'account_signup' %}" class=" btn__getstarted">Get Started</a>
     </div>
     <div class="main__image">
       <img src="{% static 'images/store.png' %}" alt="store">
@@ -29,6 +29,10 @@
   <section class="home__credits">
     <h2 class="home__credits--title">About us:</h2>
     <div class="credits__subsection right">
+      {% comment %} Icon for high quality {% endcomment %}
+      <div class="credits__image right">
+        <img src="{% static 'images/high-quality.png' %}" alt="high-quality">
+      </div>
       <h3 class="credits__subsection--title">The best quality</h3>
       <p>
         We take a great care of all our products: their quality, their packaging, their delivery.
@@ -37,6 +41,9 @@
       </p>
     </div>
     <div class="credits__subsection left">
+      <div class="credits__image left">
+        <img src="{% static 'images/best-prices.png' %}" alt="best-prices">
+      </div>
       <h3 class="credits__subsection--title">The best prices</h3>
       <p>
         We have a great deals for our customers as we seek to provide the best offers.
@@ -45,6 +52,10 @@
       </p>
     </div>
     <div class="credits__subsection right">
+      {% comment %} Icon for privacy {% endcomment %}
+      <div class="credits__image right">
+        <img src="{% static 'images/privacy.png' %}" alt="privacy">
+      </div>
       <h3 class="credits__subsection--title">Your privacy is our priority</h3>
       <p>
         We protect all data that we collect from you and we will not share it with anyone.
@@ -53,6 +64,10 @@
       </p>
     </div>
     <div class="credits__subsection left">
+      {% comment %} icon for fast delivery {% endcomment %}
+      <div class="credits__image left">
+        <img src="{% static 'images/fast-delivery.png' %}" alt="fast-delivery">
+      </div>
       <h3 class="credits__subsection--title">Fast delivery</h3>
       <p>
         We have a great delivery service which is fast and reliable for our customers.
@@ -61,6 +76,10 @@
       </p>
     </div>
     <div class="credits__subsection right">
+      {% comment %} Icon for techsupport {% endcomment %}
+      <div class="credits__image right">
+        <img src="{% static 'images/techsupport.png' %}" alt="techsupport">
+      </div>
       <h3 class="credits__subsection--title">Being in touch</h3>
       <p>
         We are always open to discuss new ideas for our products!
@@ -69,6 +88,8 @@
       </p>
     </div>
   </section>
+
+
 
 
 {% endblock %}
