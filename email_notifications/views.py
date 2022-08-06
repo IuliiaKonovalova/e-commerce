@@ -138,6 +138,7 @@ class PromoEmailCreateView(View):
                 request,
                 'account/login.html',
             )
+
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if request.user.profile.role.id == 1:
