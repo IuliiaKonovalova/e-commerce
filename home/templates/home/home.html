@@ -88,8 +88,73 @@
       </p>
     </div>
   </section>
-
-
-
+  {% comment %} Testimonials section {% endcomment %}
+  <section class="home__testimonials">
+    {% comment %} Testimonials title {% endcomment %}
+    <h2 class="testimonials__title">Testimonials</h2>
+    <section class="testimonials">
+      {% comment %} Testimonial 1 {% endcomment %}
+      <div class="testimonial testimonial--1">
+        <p class="description">
+          Wowder is the greatest platform for online shopping. I love it!
+          I am very happy with the service and the quality of the products.
+        </p>
+        <div class="testimonial__author">
+          <div class="testimonial__author--image">
+            <img src="{% static 'images/profile-1.jpg' %}" alt="Portrait of a man">
+          </div>
+          <div class="testimonial__author--data">
+            <h3 class="testimonial__author--name">
+              Stan Poter
+            </h3>
+            <p class="testimonial__author--position">
+              Regular Customer
+            </p>
+          </div>
+        </div>
+      </div>
+      {% comment %} Testimonial 2 {% endcomment %}
+      <div class="testimonial">
+        <p class="description">
+          Since I am used to be busy with my work, I decided to use Wowder as my shopping place.
+          It is a great place to buy all my daily needs.
+        </p>
+        <div class="testimonial__author">
+          <div class="testimonial__author--image">
+            <img src="{% static 'images/profile-2.jpg' %}" alt="Portrait of a man smiling">
+          </div>
+          <div class="testimonial__author--data">
+            <h3 class="testimonial__author--name">
+              Bruce Fryer
+            </h3>
+            <p class="testimonial__author--position">
+              Business Owner
+            </p>
+          </div>
+        </div>
+      </div>
+      {% comment %} Testimonial 3 {% endcomment %}
+      <div class="testimonial">
+        <p class="description">
+          Wowder website is the best online store in the world.
+          Great service and great products!
+          I do love to buy everything from food to clothes.
+        </p>
+        <div class="testimonial__author">
+          <div class="testimonial__author--image">
+            <img src="{% static 'images/profile-3.jpg' %}" alt="Portrait of a woman">
+          </div>
+          <div class="testimonial__author--data">
+            <h3 class="testimonial__author--name">
+              Rita Brown
+            </h3>
+            <p class="testimonial__author--position">
+              Loyal Customer
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 {% endblock %}
