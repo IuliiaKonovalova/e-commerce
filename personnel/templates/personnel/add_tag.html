@@ -5,11 +5,16 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Add Tag{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      {% comment %} Add tag form {% endcomment %}
       <form method="POST" class="dashboard__form">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">Add Tag</h1>
         {% csrf_token %}
         {{ form }}
@@ -25,7 +30,8 @@
           </button>
         </div>
       </form>
-    {% else %}
+    {% else %}  
+      {% comment %} If user is a customer {% endcomment %}
       <div class="dashboard__main">
         <h1>You are not authorized to access this page</h1>
       </div>
