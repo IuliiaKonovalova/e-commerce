@@ -3,7 +3,6 @@ from django.contrib import admin
 from .models import EmailNewsNotification, StockEmailNotification
 
 
-# admin.site.register(EmailNewsNotification)
 @admin.register(EmailNewsNotification)
 class EmailNewsNotificationAdmin(admin.ModelAdmin):
     """Admin for email news notifications."""
@@ -15,7 +14,7 @@ class EmailNewsNotificationAdmin(admin.ModelAdmin):
     list_per_page = 25
     actions = ['send_email']
 
-# admin.site.register(StockEmailNotification)
+
 @admin.register(StockEmailNotification)
 class StockEmailNotification(admin.ModelAdmin):
     """Admin for product detail view."""
