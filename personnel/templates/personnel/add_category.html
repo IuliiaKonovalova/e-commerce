@@ -5,15 +5,20 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Add Category{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      {% comment %} Add category form {% endcomment %}
       <form method="POST" class="dashboard__form">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">Add Category</h1>
         {% csrf_token %}
         {{ form }}
-        {% comment %} form buttons {% endcomment %}
+        {% comment %} Form control buttons {% endcomment %}
         <div class="form__btns accent">
           <a href="{% url 'categories_table' %}" aria-label="Go to Categories page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
@@ -26,6 +31,7 @@
         </div>
       </form>
     {% else %}
+      {% comment %} User is a customer {% endcomment %}
       <div class="dashboard__main">
         <h1>You are not authorized to access this page</h1>
       </div>
