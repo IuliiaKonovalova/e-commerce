@@ -445,9 +445,8 @@ main {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 1em;
   color: var(--clr-text--100);
-  max-width: 70rem;
+  max-width: 100rem;
 }
 
 .home__credits--title {
@@ -462,7 +461,7 @@ main {
   color: var(--clr-text--100);
   border-radius: var(--br);
   padding: 1em 1.5em;
-  max-width: 40rem;
+  max-width: 50rem;
   box-shadow: var(--box-shadow-card);
   margin-bottom: 0.7em;
 }
