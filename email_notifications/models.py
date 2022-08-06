@@ -6,7 +6,6 @@ from inventory.models import Product, ProductAttributeValue
 from profiles.models import Profile
 
 
-
 class EmailNewsNotification(models.Model):
     """Model for email news notifications."""
     email_name = models.CharField(
@@ -28,7 +27,7 @@ class EmailNewsNotification(models.Model):
         auto_now_add=True,
         verbose_name='Created at',
     )
-    
+
     class Meta:
         """Meta class for email news notifications."""
         verbose_name = 'Email news notification'
@@ -90,7 +89,7 @@ class StockEmailNotification(models.Model):
         """Meta class for stock email notifications."""
         verbose_name = 'Stock email notification'
         verbose_name_plural = 'Stock email notifications'
-        
+
     def __str__(self):
         """Return the name of the stock email notification."""
         return self.user.username
@@ -98,7 +97,7 @@ class StockEmailNotification(models.Model):
     def get_all_not_sent(self):
         """Return all not send back to stock email notifications."""
         return StockEmailNotification.objects.filter(answer_sent=False)
-    
+
     def get_all_requested_attributes_values_objects(self):
         """Return all requested attributes values objects."""
         all = self.requested_attributes_values.all()
