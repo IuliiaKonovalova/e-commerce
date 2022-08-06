@@ -25,13 +25,17 @@
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Accessable only to admin {% endcomment %}
     {% if request.user.is_authenticated and request.user.profile.role.id == 3 %}
+      {% comment %} Add stock form {% endcomment %}
       <form method="POST" class="dashboard__form">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">
           Add Stock for {{ product }} unit {{ product_inventory.sku }}
         </h1>
         {% csrf_token %}
         {{ form }}
+        {% comment %} Form control buttons {% endcomment %}
         <div class="form__btns">
           <a href="{% url 'product_inventory_details' pk=pk inventory_pk=inventory_pk %}" aria-label="Go to product inventories details" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
@@ -44,6 +48,7 @@
         </div>
       </form>
     {% else %}
+      {% comment %} User is not an admin {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           You are not authorized to access this page
@@ -54,17 +59,15 @@
 {% endblock %}
 
 {% block postloadjs_extra %}
-
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script>
-  $(document).ready(function () {
-    $('#id_last_checked').datepicker({
-      changeMonth: true,
-      changeYear: true,
-      dateFormat: 'yy-mm-dd',
-      yearRange: '-100:-12',
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#id_last_checked').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: 'yy-mm-dd',
+        yearRange: '-100:-12',
+      });
     });
-  });
-</script>
-  
+  </script>
 {% endblock %}
