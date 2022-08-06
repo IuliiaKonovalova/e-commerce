@@ -347,7 +347,7 @@ class EmailStockNotificationFormAJAXTest(TestCase):
 
     def test_promo_email_create_post_view_user_with_access_failed(self):
         """
-        Test promo email create post view user logged 
+        Test promo email create post view user logged
         with access but failed to fill out the form.
         """
         self.client.force_login(self.user2)
