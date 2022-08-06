@@ -107,6 +107,10 @@ The missing coverage is due to the fact that I was not able to test the edit pro
 
 ![Django unit testing. Wishlist. Coverage](documentation/testing/coverage/coverage_wishlist.png)
 
+**Total coverage:**
+
+![Django unit testing. Total coverage](documentation/testing/coverage/coverage_total.png)
+
 ### Django unit testing Issues
 
 **Solved issues:**
