@@ -37,11 +37,13 @@
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Not accessable by customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <section class="dashboard__main">
         <h1 class="dashboard__main--name">
           Product Attributes
         </h1>
+        {% comment %} Add new product attribute buttons {% endcomment %}
         <a href="{% url 'add_attribute' %}" aria-label="Go to add new product attribute" class="btn btn__add">
           <i class="fas fa-plus-circle"></i>
           Add New Product Attribute
@@ -60,6 +62,7 @@
             </form>
           </div>
         </div>
+        {% comment %} Attributes table {% endcomment %}
         <div class="types__all">
           {% for attribute in attributes %}
             <div class="type__details attributes">
@@ -81,6 +84,7 @@
                   <i class="fas fa-edit"></i>
                   Edit
                 </a>
+                {% comment %} Delete Attribute accessable only to admin {% endcomment %}
                 {% if request.user.profile.role.id == 3 %}
                   <a href="{% url 'delete_attribute' pk=attribute.id %}"
                       aria-label="Delete product attribute page" class="btn btn__delete">
@@ -96,6 +100,7 @@
       </div>
       {% endif %}
     {% else %}
+      {% comment %} User is a cutomer {% endcomment %}
       <h1>You are not authorized to view this page</h1>
     {% endif %}
   </div>
