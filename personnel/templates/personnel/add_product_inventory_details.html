@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Add Unit{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       {% comment %} Add Product inventory form {% endcomment %}
-      <div class="row">
+      <div class="row dashboard__form">
         <div class="col-md-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Add New unit to {{ product.name }}</h3>
+              <h3 class="dashboard__main--name">Add New unit to {{ product.name }}</h3>
             </div>
             <div class="panel-body">
               <form method="post" enctype="multipart/form-data">
@@ -58,12 +61,12 @@
                   </label>
                 </div>
                 {% comment %} Form control buttons {% endcomment %}
-                <div class="form__btns">
-                  <a href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to Promotions page" class="btn btn-primary">
+                <div class="form__btns accent">
+                  <a href="{% url 'product_detail_full' pk=product.id %}" aria-label="Go to Promotions page" class="btn btn__cancel">
                     <i class="fas fa-arrow-circle-left"></i>
                     Back to Product
                   </a>
-                  <button id="form-check" class="btn btn-primary btn__add">
+                  <button id="form-check" class="btn btn__add">
                     <i class="fa fa-plus-circle"></i>
                     Add Product Unit
                   </button>
