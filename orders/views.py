@@ -464,7 +464,7 @@ def payment_confirmation(data):
         '<p>Your payment of $' + str(order_total_paid) \
         + ' has been confirmed.</p>' \
         '<p>You can view your order details by ' \
-        'clicking on your your order information link below:</p>' \
+        'clicking on your order information link below:</p>' \
         '<strong>Order ID: </strong>' \
         '<a href=' + link + '>' + order_num + \
         '</a><br><p>Thank you for shopping with us!</p>' \
