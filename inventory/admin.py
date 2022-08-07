@@ -107,7 +107,7 @@ class ProductInventoryAdmin(admin.ModelAdmin):
         'is_active',
         'get_all_attribute_values_str',
     )
-    list_filter = ('sku', 'upc', 'product', 'product_type', 'is_active')
+    list_filter = ('product', 'product_type', 'is_active')
     search_fields = ('sku', 'upc', 'product', 'product_type')
 
 
