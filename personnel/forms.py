@@ -168,7 +168,7 @@ class ProductAttributeForm(forms.ModelForm):
     """Form for the ProductAttribute model."""
     class Meta:
         model = ProductAttribute
-        fields = ['name', 'description',]
+        fields = ['name', 'description']
         widgets = {
             'name': forms.TextInput(
                 attrs={
@@ -299,7 +299,6 @@ class ProductInventoryForm(forms.ModelForm):
                     'placeholder': 'Attribute Values',
                 }
             ),
-            
             'weight': forms.NumberInput(
                 attrs={
                     'class': 'form-control',
