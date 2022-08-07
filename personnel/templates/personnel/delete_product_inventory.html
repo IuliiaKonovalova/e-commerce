@@ -1,30 +1,37 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Delete Unit{% endblock %}
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Accessible only to personnel {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
+      <form method="POST" class="dashboard__form">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">
-          Delete {{ inventory.product.name }} Unit {{ inventory.sku }}
+          Delete Unit
         </h1>
-      </div>
-      <form method="POST" class="adding__promotion--form">
+        <div class="warning__msg">
+          <p>Are you sure you want to delete this unit <strong>{{ inventory.product.name }} Unit {{ inventory.sku }}</strong>?</p>
+        </div>
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
-          <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}" aria-label="Go to Promotions page" class="btn btn-primary">
+        {% comment %} Control buttons {% endcomment %}
+        <div class="form__btns accent">
+          <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}" aria-label="Go to Promotions page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn-primary btn__delete">
+          <button type="submit" class="btn btn__delete">
             <i class="fas fa-trash-alt"></i>
             Delete
           </button>
         </div>
       </form>
     {% else %}
+      {% comment %} User is not a personnel member {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           You are not authorized to delete categories
