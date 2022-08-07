@@ -32,6 +32,9 @@
   </style>
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Product Full Data{% endblock %}
+
 {% block content %}
   <div class="dashboard">
   {% comment %} Limit access for customers {% endcomment %}
@@ -354,9 +357,8 @@
           // add loading icon
           $('#modal-form').html('<i class="fas fa-spinner fa-spin"></i>');
           let fileInput = $('#image-url');
-          // append to modal form <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
+          // append to modal form csrfToken}
           $('#image-url').off('change');
-
           let csrfToken = '{{ csrf_token }}';
           fileInput.type = 'file';
           fileInput.accept = 'image/*';
@@ -374,7 +376,6 @@
             formData.append('is_active', 'false');
           }
           formData.append('alt_text', $('#image-alt-text').val());
-
           formData.append('product_id', $('#image-product-id').val());
           formData.append('image', file);
           formData.append('csrfmiddlewaretoken', csrfToken);
@@ -387,8 +388,6 @@
             cache: false,
             data: formData,
             success: function(data) {
-              console.log('success');
-              console.log(imgUrl);
               // add new
               // get .data__main--images
               let images = $('.data__main--images');
@@ -435,7 +434,6 @@
               divImageTitle.append(divImageTitleText);
               divImageTitle.append(aSettings);
               divImageTitle.append(aDelete);
-
               // create image div
               let imgDiv = $('<div></div>');
               imgDiv.addClass('image__container');
@@ -452,7 +450,6 @@
               imageCard.append(divImageTitle);
               imageCard.append(imgDiv);
               images.append(imageCard);
-
               $('#image-alt-text').val('');
               // empty the file input in #image-alt-text
               // enable modal button
@@ -461,7 +458,6 @@
               $('#modal-form').html('Save changes');
               //remove spinner
               $('#modal-form').find('.spinner').remove();
-
               $('#image-url').val('');
               $('#image-url').on('change', imagePreview);
               $('#image-default').prop('checked', false);
@@ -506,7 +502,6 @@
         let imageDefault = $('img[data-id="' + imageId + '"]').attr('data-default');
         let imageActive = $('img[data-id="' + imageId + '"]').attr('data-active');
         let imageSrc = $('img[data-id="' + imageId + '"]').attr('src');
-        console.log(imageSrc);
         // set the values to the inputs
         $('#image-alt-text').val(imageAltText);
         if (imageDefault == 'True') {
@@ -587,7 +582,6 @@
           let fileInput = $('#image-url');
           // append to modal form <input type="hidden" name="csrfmiddlewaretoken" value="${csrfToken}">
           $('#image-url').off('change');
-
           let csrfToken = '{{ csrf_token }}';
           fileInput.type = 'file';
           fileInput.accept = 'image/*';
@@ -605,7 +599,6 @@
             formData.append('is_active', 'false');
           }
           formData.append('alt_text', $('#image-alt-text').val());
-
           formData.append('product_id', $('#image-product-id').val());
           formData.append('image', file);
           formData.append('image_id', imageId);
@@ -619,7 +612,6 @@
               cache: false,
               data: formData,
               success: function(data) {
-                console.log(data);
               // enable modal button
                 $('#modal-form-edit').prop('disabled', false);
                 // remove loading icon
@@ -671,7 +663,6 @@
                 }, 3000);
               }
             });
-            console.log($('#image-url').val())
           } else {
             $('.modal-title').text('Please select all options');
             // set highlight effect for .modal-title
@@ -687,7 +678,6 @@
         });
         $('#exampleModal').modal('show');
       }
-
       // delete image function
       const deleteImage = function(e) {
         e.preventDefault();
@@ -724,7 +714,6 @@
           });
         }
       }
-      
       // edit image on click
       $('.image__settings').on('click', editImage);
       // delete image on click
