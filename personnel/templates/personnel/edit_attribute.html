@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Edit attribute{% endblock %}
 
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      {% comment %} Edit attribute {% endcomment %}
       <form method="POST" class="dashboard__form">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">Edit Product Attribute</h1>
         {% csrf_token %}
         {{ form }}
@@ -23,6 +27,7 @@
         </div>
       </form>
     {% else %}
+      {% comment %} User is not personnel {% endcomment %}
       <div class="dashboard__main">
         <h1>You are not authorized to access this page</h1>
       </div>
