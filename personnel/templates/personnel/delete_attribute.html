@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Delete Attribute{% endblock %}
 
 {% block content %}
   <div class="dashboard">
-    {% comment %} Accessable only to admin {% endcomment %}
+    {% comment %} Accessible only to admin {% endcomment %}
     {% if request.user.is_authenticated and request.user.profile.role.id == 3 %}
+      {% comment %} Delete Product Attribute Form {% endcomment %}
       <div class="dashboard__main dashboard__form">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">Delete product attribute</h1>
+        {% comment %} Warning message {% endcomment %}
         <div class="warning__msg">
           <p>If you delete this product attribute, all products attributes values of this type will be deleted. Are you sure you want to delete this product attribute?</p>
           {% if attribute.product_attribute.all %}
@@ -29,6 +34,7 @@
         <div>
       </div>
     {% else %}
+      {% comment %} User doesn't have and access {% endcomment %}
       <div class="dashboard__main">
         <h1>You are not authorized to access this page</h1>
       </div>
