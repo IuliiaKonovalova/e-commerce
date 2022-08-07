@@ -16,7 +16,7 @@
 
 {% block content %}
   <div class="dashboard">
-    {% comment %} Check that user is permetted to access this page {% endcomment %}
+    {% comment %} Check that user is permitted to access this page {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       {% comment %} Add product form {% endcomment %}
       <form method="POST" class="dashboard__form">
@@ -36,6 +36,11 @@
           </button>
         </div>
       </form>
+    {% else %}
+      {% comment %} User is not permitted to access this page {% endcomment %}
+      <h1 class="dashboard__main--name">
+        You are not permitted to access this page
+      </h1>
     {% endif %}
   </div>
 {% endblock %}
