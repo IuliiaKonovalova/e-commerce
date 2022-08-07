@@ -1,19 +1,24 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Categories{% endblock %}
+
 {% block content %}
   <div class="dashboard">
   {% comment %} limit access for the customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <section class="dashboard__main">
         <h1 class="dashboard__main--name">
-          Catgories
+          Categories
         </h1>
-        <a href="{% url 'add_category' %}" aria-label="Go to add new category page" class="btn btn-primary btn__add">
+        {% comment %} Add new category buttons {% endcomment %}
+        <a href="{% url 'add_category' %}" aria-label="Go to add new category page" class="btn btn__add">
           <i class="fas fa-plus-circle"></i>
           Add New Category
         </a>
       </section>
+      {% comment %} Categories table {% endcomment %}
       <div class="categories">
         {% for category in categories %}
           <div class="category">
@@ -30,6 +35,7 @@
             <div class="category__assigned--products">
               <strong>{{ category.products.count }}</strong> products in this category
             </div>
+            {% comment %} Category edit-delete buttons {% endcomment %}
             <div class="order__review--btns">
               <a class="btn btn__edit" href="{% url 'edit_category' category_pk=category.pk %}">
                 <i class="fa fa-pencil"></i>
@@ -46,6 +52,7 @@
         {% endfor %}
       </div>
     {% else %}
+      {% comment %} User doesn't have an access {% endcomment %}
       <h1>You are not authorized to view this page</h1>
     {% endif %}
   </div>
