@@ -6,7 +6,7 @@
 
 {% block content %}
   <div class="dashboard">
-    {% comment %} Only accessable to admin {% endcomment %}
+    {% comment %} Only accessible to admin {% endcomment %}
     {% if request.user.profile.role.id == 3 %}
       <form method="POST" class="dashboard__form form__delete">
         {% comment %} Form Title {% endcomment %}
