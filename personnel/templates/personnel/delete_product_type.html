@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Delete Type{% endblock %}
 
 {% block content %}
   <div class="dashboard">
-    {% comment %} Accessable only to admin {% endcomment %}
+    {% comment %} Accessible only to admin {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main dashboard__form">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">Delete Product Type</h1>
         {% comment %} Warning messages {% endcomment %}
         <div class="warning__msg">
@@ -37,6 +40,7 @@
         <div>
       </div>
     {% else %}
+      {% comment %} User is not personnel {% endcomment %}
       <div class="dashboard__main">
         <h1>You are not authorized to access this page</h1>
       </div>
