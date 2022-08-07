@@ -5,27 +5,33 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Edit Brand{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      {% comment %} Edit Brand Form {% endcomment %}
       <form method="POST" class="dashboard__form">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">Edit Brand</h1>
         {% csrf_token %}
         {{ form }}
+        {% comment %} Form control buttons {% endcomment %}
         <div class="form__btns accent">
           <a href="{% url 'brand_detail' brand_pk=brand.id %}" aria-label="Go to Brand detail page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
           <button type="submit" class="btn btn__add">
-            {% comment %} save icon {% endcomment %}
             <i class="fas fa-save"></i>
             Save changes
           </button>
         </div>
       </form>
     {% else %}
+      {% comment %} User is not personnel {% endcomment %}
       <div class="dashboard__main">
         <h1>You are not authorized to view this page</h1>
       </div>
