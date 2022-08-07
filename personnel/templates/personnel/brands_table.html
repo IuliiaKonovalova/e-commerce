@@ -31,6 +31,9 @@
   </style>
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Brands{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
@@ -129,9 +132,10 @@
         {% endif %}
       {% endif %}
     {% else %}
+      {% comment %} If user is not personnel {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
-          You are not authorized to delete categories
+          You are not authorized to view this page.
         </h1>
       </div>
     {% endif %}
@@ -142,7 +146,6 @@
   <script>
     $(document).ready(function () {
       if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-        console. info( "This page is reloaded" );
         window.location.replace(window.location.origin + "/personnel/brands_table/");
       }
     });
