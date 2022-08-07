@@ -1,29 +1,38 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Delete Stock{% endblock %}
+
 {% block content %}
   <div class="dashboard">
+    {% comment %} Accessible only to admin {% endcomment %}
     {% if request.user.is_authenticated and request.user.profile.role.id == 3 %}
-      <div class="dashboard__main">
+      {% comment %} Delete Stock form {% endcomment %}
+      <form method="POST" class="dashboard__form form__delete">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">
-          Delete Stock for {{ product }} unit {{ product_inventory.sku }}
+          Delete {{ product_inventory.sku }} Stock
         </h1>
-      </div>
-      <form method="POST" class="form">
+        <div class="warning__msg">
+          <p>Are you sure you want to delete stock for <strong>{{ product_inventory.product.name }} Unit {{ product_inventory.sku }}</strong>?</p>
+        </div>
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
-          <a href="{% url 'product_inventory_details' pk=pk inventory_pk=inventory_pk %}" aria-label="Go to product inventories details" class="btn btn-primary btn__cancel">
+        {% comment %} Form buttons {% endcomment %}
+        <div class="form__btns accent">
+          <a href="{% url 'product_inventory_details' pk=pk inventory_pk=inventory_pk %}" aria-label="Go to product inventories details" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
-          <button type="submit" class="btn btn-primary btn__add">
+          <button type="submit" class="btn btn__add">
             <i class="fas fa-trash-alt"></i>
-            Delete Stock
+            Delete
           </button>
         </div>
       </form>
     {% else %}
+      {% comment %} User is not admin {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           You are not authorized to access this page
