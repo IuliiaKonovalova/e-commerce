@@ -1,6 +1,6 @@
 """Test for personnel/urls.py"""
 from django.test import SimpleTestCase
-from django.urls import reverse,resolve
+from django.urls import reverse, resolve
 from personnel.views import (
     ProductsTableView,
     ProductFullDetailView,
