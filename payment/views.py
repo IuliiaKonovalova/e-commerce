@@ -29,7 +29,6 @@ def BasketView(request):
         total = promo_price
     else:
         total = bag['total']
-    
     total_sum = str(total)
     total = total_sum.replace('.', '')
     total = int(total)
