@@ -10,7 +10,7 @@
 
 {% block content %}
   <div class="dashboard">
-    {% comment %} Lemet access for all customers {% endcomment %}
+    {% comment %} Limit access for all customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <form method="POST" class="dashboard__form">
         <h1 class="dashboard__main--name">Add Attribute Vlaue</h1>
@@ -28,6 +28,7 @@
         </div>
       </form>
     {% else %}
+      {% comment %} User has no access {% endcomment %}
       <div class="dashboard__main">
         <h1>You are not authorized to access this page</h1>
       </div>

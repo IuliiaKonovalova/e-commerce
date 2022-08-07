@@ -37,7 +37,7 @@
 
 {% block content %}
   <div class="dashboard">
-    {% comment %} Not accessable by customers {% endcomment %}
+    {% comment %} Not Accessible by customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <section class="dashboard__main">
         <h1 class="dashboard__main--name">

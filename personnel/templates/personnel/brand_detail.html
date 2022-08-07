@@ -6,7 +6,7 @@
 
 {% block content %}
   <div class="dashboard">
-    {% comment %} Accessable only to personnel {% endcomment %}
+    {% comment %} Accessible only to personnel {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main dashboard__form">
         <h1 class="dashboard__main--name">{{ brand.name }}</h1>

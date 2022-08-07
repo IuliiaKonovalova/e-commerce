@@ -25,7 +25,7 @@
 
 {% block content %}
   <div class="dashboard">
-    {% comment %} Accessable only to admin {% endcomment %}
+    {% comment %} Accessible only to admin {% endcomment %}
     {% if request.user.is_authenticated and request.user.profile.role.id == 3 %}
       {% comment %} Add stock form {% endcomment %}
       <form method="POST" class="dashboard__form">
