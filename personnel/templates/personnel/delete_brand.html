@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Delete Brand{% endblock %}
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Accessible only to admin {% endcomment %}
     {% if request.user.profile.role.id == 3 %}
       <form method="POST" class="dashboard__form form__delete">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">
           Delete Brand
         </h1>
+        {% comment %} Warning message {% endcomment %}
         <h2 class="dashboard__main--subtitle">
           Are you sure you want to delete <strong>{{ brand.name }}</strong> brand?
         </h2>
-        {% comment %} Show products assosiated with this brand {% endcomment %}
+        {% comment %} Show products associated with this brand {% endcomment %}
         {% if brand.products.all %}
           <strong>Please, note! The following products will be deleted as well!</strong>
           <div class="dashboard__main--list">
@@ -40,6 +45,7 @@
         </div>
       </form>
     {% else %}
+      {% comment %} User is not a staff member {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           You are not authorized to delete Brand
