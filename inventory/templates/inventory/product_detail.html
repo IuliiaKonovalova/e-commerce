@@ -139,7 +139,7 @@
                     <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
                   {% else %}
                     <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" aria-label="Choose value">
-                    <label class="btn btn-outline-primary disabled" style="background-color: {{ item }}" for="{{ item }}">{{ item }}</label>
+                    <label class="btn btn-outline-primary disabled" for="{{ item }}">{{ item }}</label>
                   {% endif %}
                 {% endif %}
               {% endfor %}
@@ -238,8 +238,8 @@
                 <div class="btn-group in_modal" role="group" aria-label="Basic radio toggle button group" data-group-name="{{ k }}">
                   {% for item in v %}
                     {% if item in values_set %}
-                        <input type="radio" class="btn-check option in_modal" name="request-{{ k }}" id="request-{{ item }}" value="{{ item }}">
-                        <label class="btn btn-outline-primary" for="request-{{ item }}">{{ item }}</label>
+                      <input type="radio" class="btn-check option in_modal" name="request-{{ k }}" id="request-{{ item }}" value="{{ item }}">
+                      <label class="btn btn-outline-primary" for="request-{{ item }}">{{ item }}</label>
                     {% endif %}
                   {% endfor %}
                 </div>
