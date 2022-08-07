@@ -5,12 +5,17 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Edit Value{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access to all customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      {% comment %} Edit Value form {% endcomment %}
       <form method="POST" class="dashboard__form">
-        <h1 class="dashboard__main--name">Edit Attribute Vlaue</h1>
+        {% comment %} Form title {% endcomment %}
+        <h1 class="dashboard__main--name">Edit Attribute Value</h1>
         {% csrf_token %}
         {{ form }}
         {% comment %} Form control buttons {% endcomment %}
@@ -26,6 +31,7 @@
         </div>
       </form>
     {% else %}
+      {% comment %} User is not personnel {% endcomment %}
       <div class="dashboard__main">
         <h1>You are not authorized to access this page</h1>
       </div>
