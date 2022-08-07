@@ -158,27 +158,27 @@
             {% elif product.get_same_sale_price %}
               {% if product.get_sale_price_is_lower_than_store_price %}
                 <div class="product__card--price price__regular">
-                  {{ product.get_lowest_store_price }}
+                  $ {{ product.get_lowest_store_price }}
                 </div>
                 <div class="product__card--price price__sale">
-                  {{ product.get_lowest_price }}
+                  $ {{ product.get_lowest_price }}
                 </div>
               {% else %}
                 <div class="product__card--price">
-                  {{ product.get_lowest_price }}
+                  $ {{ product.get_lowest_price }}
                 </div>
               {% endif %}
             {% else %}
               {% if product.get_sale_price_is_lower_than_store_price %}
                 <div class="product__card--price price__regular">
-                  {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                  $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
                 </div>
                 <div class="product__card--price price__sale">
-                  {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                  $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
                 </div>
               {% else %}
                 <div class="product__card--price">
-                  {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                  $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
                 </div>
               {% endif %}
             {% endif %}
@@ -527,7 +527,7 @@
             }
           }
           if (price !== 0) {
-            $('.product__price').text(price);
+            $('.product__price').text('\$ '+ price);
             $('.product__price').addClass('price__sale');
             $('.product__price').addClass('product__card--price');
             
