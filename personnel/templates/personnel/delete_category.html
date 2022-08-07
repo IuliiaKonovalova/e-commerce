@@ -1,15 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Delete Category{% endblock %}
 
 {% block content %}
   <div class="dashboard">
     {% comment %} Only accessable to admin {% endcomment %}
     {% if request.user.profile.role.id == 3 %}
       <form method="POST" class="dashboard__form form__delete">
+        {% comment %} Form Title {% endcomment %}
         <h1 class="dashboard__main--name">
           Delete Category
         </h1>
+        {% comment %} Warning message {% endcomment %}
         <h2 class="dashboard__main--subtitle">
           Are you sure you want to delete <strong>{{ category.name }}</strong> category?
         </h2>
@@ -41,6 +45,7 @@
         </div>
       </form>
     {% else %}
+      {% comment %} User is not a personnel member {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           You are not authorized to delete categories
