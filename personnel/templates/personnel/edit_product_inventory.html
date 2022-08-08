@@ -1,31 +1,34 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Edit Unit{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       {% comment %} Edit Product inventory form {% endcomment %}
-      <div class="row">
+      <div class="row dashboard__form">
         <div class="col-md-12">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title">Edit Unit for {{ inventory.product.name }}</h3>
+              <h3 class="panel-title dashboard__main--name">Edit Unit for {{ inventory.product.name }}</h3>
             </div>
             <div class="panel-body">
               <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                   <label for="product_name">SKU</label>
-                  {% comment %} add profilled input with inventory.sku {% endcomment %}
+                  {% comment %} add pre-filled input with inventory.sku {% endcomment %}
                   <input type="text" class="form-control" id="sku" name="sku" value="{{ inventory.sku }}" maxlength="50" required>
                 </div>
                 <div class="form-group">
                   <label for="product_name">UPC</label>
-                  {% comment %} add profilled input with inventory.upc {% endcomment %}
+                  {% comment %} add pre-filled input with inventory.upc {% endcomment %}
                   <input type="text" class="form-control" id="upc" name="upc" value="{{ inventory.upc }}" maxlength="50" required>
                 <div class="form-group">
                   <label for="product_description">Product ID</label>
-                  {% comment %} add product data profilled and disabled {% endcomment %}
+                  {% comment %} add product data pre-filled and disabled {% endcomment %}
                   <input type="text" class="form-control" id="product_id" data-product="{{ pk }}" name="product_id" placeholder="{{ inventory.product.name }}" readonly>
                 <div class="form-group" id="type-block">
                   <label for="exampleDataList" class="form-label">Type</label>
@@ -49,7 +52,7 @@
                   </div>
                 {% comment %} If attributes, insert here {% endcomment %}
                 <div id="attributes"></div>
-                {% comment %} profilled inputs for prices and weight {% endcomment %}
+                {% comment %} pre-filled inputs for prices and weight {% endcomment %}
                 <div class="form-group">
                   <label for="product_quantity">Retail Price</label>
                   <input type="text" class="form-control" id="retail_price" name="retail_price" value="{{ inventory.retail_price }}" maxlength="50" required>
@@ -77,8 +80,8 @@
                       Active
                     </label>
                 </div>
-                {% comment %} Form controll buttons {% endcomment %}
-                <div class="form__btns">
+                {% comment %} Form control buttons {% endcomment %}
+                <div class="form__btns accent">
                   <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}" aria-label="Go to Promotions page" class="btn btn__cancel">
                     <i class="fas fa-arrow-circle-left"></i>
                     Back to Unit Page
@@ -94,6 +97,7 @@
         </div>
       </div>
     {% else %}
+      {% comment %} User is not authorized to view this page {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           You are not authorized to delete categories
