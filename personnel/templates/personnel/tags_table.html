@@ -31,13 +31,18 @@
   </style>
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Tags Table{% endblock %}
+
 {% block content %}
   <div class="dashboard">
+    {% comment %} Accessible only vy personnel {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           All Tags
         </h1>
+        {% comment %} Add new tag button {% endcomment %}
         <a href="{% url 'add_tag' %}" aria-label="Go to add new tag page" class="btn btn-primary btn__add">
           <i class="fas fa-plus-circle"></i>
           Add New Tag
@@ -125,6 +130,7 @@
         {% endif %}
       {% endif %}
     {% else %}
+      {% comment %} User is a customer {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           You are not authorized to view this page.
@@ -138,7 +144,6 @@
   <script>
     $(document).ready(function () {
       if (performance.navigation.type == performance.navigation.TYPE_RELOAD) {
-        console. info( "This page is reloaded" );
         window.location.replace(window.location.origin + "/personnel/brands_table/");
       }
     });
