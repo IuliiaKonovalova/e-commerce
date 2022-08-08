@@ -17,7 +17,14 @@
         {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">Add Category</h1>
         {% csrf_token %}
-        {{ form }}
+        {% for field in form %}
+          {% if field.is_hidden %}
+            {{ field }}
+          {% else %}
+            {{ field.label_tag }}
+            {{ field }}
+          {% endif %}
+        {% endfor %}
         {% comment %} Form control buttons {% endcomment %}
         <div class="form__btns accent">
           <a href="{% url 'categories_table' %}" aria-label="Go to Categories page" class="btn btn__cancel">
