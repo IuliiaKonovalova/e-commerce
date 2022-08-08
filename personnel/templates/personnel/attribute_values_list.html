@@ -59,74 +59,78 @@
           </form>
         </div>
       </div>
-      <div class="types__all">
-        {% for value in attribute_values %}
-          <div class="type__details attributes">
-            <strong>{{ value.attribute_value }} ({{ value.product_attribute }})</strong>
-            <div class="type_attributes">
-              {{ value.attributevalues.count }} units with this attribute value
+      {% if attribute_values %}
+        <div class="types__all">
+          {% for value in attribute_values %}
+            <div class="type__details attributes">
+              <strong>{{ value.attribute_value }} ({{ value.product_attribute }})</strong>
+              <div class="type_attributes">
+                {{ value.attributevalues.count }} units with this attribute value
+              </div>
+              <div class="type__buttons">
+                <a href="{% url 'edit_attribute_value' pk=value.id %}"
+                    aria-label="Edit attribute value page" class="btn btn__edit">
+                  <i class="fas fa-edit"></i>
+                  Edit
+                </a>
+                {% if request.user.profile.role.id == 3 %}
+                  <a href="{% url 'delete_attribute_value' pk=value.id %}"
+                      aria-label="Delete attribute value page" class="btn btn__delete">
+                    <i class="fas fa-trash-alt"></i>
+                    Delete
+                  </a>
+                {% endif %}
+              </div>
             </div>
-            <div class="type__buttons">
-              <a href="{% url 'edit_attribute_value' pk=value.id %}"
-                  aria-label="Edit attribute value page" class="btn btn__edit">
-                <i class="fas fa-edit"></i>
-                Edit
-              </a>
-              {% if request.user.profile.role.id == 3 %}
-                <a href="{% url 'delete_attribute_value' pk=value.id %}"
-                    aria-label="Delete attribute value page" class="btn btn__delete">
-                  <i class="fas fa-trash-alt"></i>
-                  Delete
-                </a>
-              {% endif %}
+          {% endfor %}
+        </div>
+        {% comment %} Control Pagination {% endcomment %}
+        {% if attribute_values.paginator.num_pages %}
+          {% if not attribute_values.paginator.num_pages == 1 %}
+            <div class="pagination">
+              <div class="pagination__navigation">
+                {% if attribute_values.has_previous and not attribute_values.has_next %}
+                  <a href="?page={{ attribute_values.previous_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to previous page results">
+                    <i class="fas fa-chevron-left"></i>
+                  </a>
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-right"></i>
+                  </div>
+                {% elif attribute_values.has_next and not attribute_values.has_previous %}
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-left"></i>
+                  </div>
+                  <a href="?page={{ attribute_values.next_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to next page results">
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                {% elif attribute_values.has_next and attribute_values.has_previous %}
+                  <a href="?page={{ attribute_values.previous_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to previous page results">
+                    <i class="fas fa-chevron-left"></i>
+                  </a>
+                  <a href="?page={{ attribute_values.next_page_number }}" class="pagination__navigation--btn"
+                    aria-label="Go to next page results">
+                    <i class="fas fa-chevron-right"></i>
+                  </a>
+                {% else %}
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-left"></i>
+                  </div>
+                  <div class="pagination__navigation--fake">
+                    <i class="fas fa-chevron-right"></i>
+                  </div>
+                {% endif %}
+              </div>
+              <div class="pagination__location">
+                Page <span>{{ attribute_values.number }}</span> of {{ attribute_values.paginator.num_pages }}
+              </div>
             </div>
-          </div>
-        {% endfor %}
-      </div>
-      {% comment %} Control Pagination {% endcomment %}
-      {% if attribute_values.paginator.num_pages %}
-        {% if not attribute_values.paginator.num_pages == 1 %}
-          <div class="pagination">
-            <div class="pagination__navigation">
-              {% if attribute_values.has_previous and not attribute_values.has_next %}
-                <a href="?page={{ attribute_values.previous_page_number }}" class="pagination__navigation--btn"
-                  aria-label="Go to previous page results">
-                  <i class="fas fa-chevron-left"></i>
-                </a>
-                <div class="pagination__navigation--fake">
-                  <i class="fas fa-chevron-right"></i>
-                </div>
-              {% elif attribute_values.has_next and not attribute_values.has_previous %}
-                <div class="pagination__navigation--fake">
-                  <i class="fas fa-chevron-left"></i>
-                </div>
-                <a href="?page={{ attribute_values.next_page_number }}" class="pagination__navigation--btn"
-                  aria-label="Go to next page results">
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-              {% elif attribute_values.has_next and attribute_values.has_previous %}
-                <a href="?page={{ attribute_values.previous_page_number }}" class="pagination__navigation--btn"
-                  aria-label="Go to previous page results">
-                  <i class="fas fa-chevron-left"></i>
-                </a>
-                <a href="?page={{ attribute_values.next_page_number }}" class="pagination__navigation--btn"
-                  aria-label="Go to next page results">
-                  <i class="fas fa-chevron-right"></i>
-                </a>
-              {% else %}
-                <div class="pagination__navigation--fake">
-                  <i class="fas fa-chevron-left"></i>
-                </div>
-                <div class="pagination__navigation--fake">
-                  <i class="fas fa-chevron-right"></i>
-                </div>
-              {% endif %}
-            </div>
-            <div class="pagination__location">
-              Page <span>{{ attribute_values.number }}</span> of {{ attribute_values.paginator.num_pages }}
-            </div>
-          </div>
+          {% endif %}
         {% endif %}
+      {% else %}
+        <strong>No attribute values found</strong>
       {% endif %}
     {% else %}
       <h1>You are not authorized to view this page</h1>
