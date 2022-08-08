@@ -105,12 +105,12 @@ class TestUrls(TestCase):
             self.product_attribute2
         )
         self.product_attr_value1 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute1,
-            attribute_value = 'red'
+            product_attribute=self.product_attribute1,
+            attribute_value='red'
         )
         self.product_attr_value2 = ProductAttributeValue.objects.create(
-            product_attribute = self.product_attribute2,
-            attribute_value = 'xs'
+            product_attribute=self.product_attribute2,
+            attribute_value='xs'
         )
         self.product_inventory1 = ProductInventory.objects.create(
             sku='11111',
@@ -190,7 +190,7 @@ class TestUrls(TestCase):
             is_active=True
         )
         attr = product_inventory_active.product_type.\
-            product_type_attributes.all() 
+            product_type_attributes.all()
         self.assertEqual(attr.count(), 1)
         attribute_testing_set = set()
         for attribute in attr:
@@ -200,7 +200,7 @@ class TestUrls(TestCase):
             product_inventory_active.attribute_values.count(), 2
         )
         product_inventory_active_stock = Stock.objects.filter(
-            product_inventory=product_inventory_active 
+            product_inventory=product_inventory_active
         )
         self.assertEqual(product_inventory_active_stock.count(), 0)
 
@@ -272,22 +272,24 @@ class TestUrls(TestCase):
             product_inventory_active_stock_list[0].product_inventory.
             product_type.product_type_attributes.count(), 1
         )
+        unit = product_inventory_active_stock_list[0].product_inventory
         self.assertEqual(
-            product_inventory_active_stock_list[0].product_inventory.\
-                    product_type.product_type_attributes.all()[0],
+            unit.product_type.product_type_attributes.all()[0],
             self.product_attribute1
         )
         attribute_testing_set.add(
-            product_inventory_active_stock_list[0].product_inventory.\
-                product_type.product_type_attributes.all()[0]
+            unit.product_type.product_type_attributes.all()[0]
         )
         response = self.client.get(self.product_detail_url)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.context['values_list'],
-            [{
-                'color': 'red',
-                'Quantity': 10,
-                'Price': '9.00',
-                'id': 1
-            }]
+        self.assertEqual(
+            response.context['values_list'],
+            [
+                {
+                    'color': 'red',
+                    'Quantity': 10,
+                    'Price': '9.00',
+                    'id': 1
+                }
+            ]
         )

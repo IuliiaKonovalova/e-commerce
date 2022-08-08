@@ -745,9 +745,6 @@ class TestModels(TestCase):
         self.product_inventory3.delete()
         # count product inventories
         self.assertEqual(ProductInventory.objects.count(), 2)
-        # THIS DOESN'T WORK:
-        # self.assertEqual(str(stock3), 'No SKU - 10')
-
 
     def test_reset_product_inventory_is_active(self):
         """Test reset_product_inventory_is_active method."""
