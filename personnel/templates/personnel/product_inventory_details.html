@@ -12,6 +12,14 @@
     .data__accent--sale {
       border-radius: 0.2em;
     }
+
+    .dashboard__main--name {
+      margin-top: 2em;
+    }
+
+    .dashboard__main a {
+      top: -0.8rem;
+    }
   </style>
 {% endblock %}
 
@@ -19,7 +27,7 @@
 {% block extra_title %}Personnel-Unit{% endblock %}
 
 {% block content %}
-  <div class="dashboard">
+  <div class="dashboard dashboard__form">
   {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
     {% comment %} Unit page Header {% endcomment %}
@@ -136,7 +144,7 @@
                 <td>{{ inventory.stock.units_variable }}</td>
                 <td>{{ inventory.stock.units }}</td>
                 <td>{{ inventory.stock.units_sold }}</td>
-                <td>{{ inventory.stock.last_checked }}</td>
+                <td>{{ inventory.stock.last_checked|date:"d.m.Y" }}</td>
                 <td>
                   {% if inventory.stock in stock_inconsistency %}
                     <div class="data__accent--red">
