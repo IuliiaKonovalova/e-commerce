@@ -595,6 +595,10 @@ def payment_confirmation(data):
 
 [Email_notifications. Validation Report](documentation/validation/pep8_validation_email_notifications.pdf)
 
+#### Home app
+
+[Home. Validation Report](documentation/validation/pep8_validation_home.pdf)
+
 #### Orders app
 
 [Orders. Validation Report](documentation/validation/orders_validation_report.pdf)
