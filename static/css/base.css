@@ -305,6 +305,7 @@ main {
   justify-content: center;
   align-items: center;
   flex: 1 0 auto !important;
+  padding-bottom: 6em;
 }
 
 /* ------------ content__container ----------- */
@@ -332,6 +333,7 @@ main {
 .home__main {
   /* background-color: #fff2ff; */
   background-color: var(--clr-accent--100);
+  background-color: #f8eaee;
   box-shadow: var(--box-shadow-card);
   border-radius: var(--br);
   display: grid;
@@ -2963,8 +2965,121 @@ a.ui-button:active,
 .footer {
   width: 100%;
   background-color: var(--clr-primary--900);
+  color: white;
 }
 
+.footer__main {
+  max-width: 100rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  padding: 7em 5em 5em 5em;
+}
+
+/* Footer Logo */
+.footer__logo--container {
+  width: 8rem;
+  margin-bottom: 3.5em;
+}
+
+.footer__links--container {
+  display: flex;
+  justify-content: start;
+}
+
+.footer__links {
+  margin-right: 10vw;
+  font-size: 1.2rem;
+}
+
+.footer__link {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.4em;
+}
+
+.footer__link.phone {
+  min-width: 12rem;
+}
+
+.footer__link a {
+  color: white;
+  display: inline;
+  min-width: 8rem;
+}
+
+.footer__icon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.8em;
+  display: flex;
+  align-items: center;
+}
+
+.footer__links--social {
+  display: flex;
+  flex-direction: row;
+  margin-right: 0;
+  margin-left: 10vw;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.footer__link--social:not(:last-child) {
+  margin-right: 1.2em;
+}
+
+/* Social links */
+.footer__link--social {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.footer__link--social a {
+  color: white;
+}
+
+.footer__link--social a i {
+  width: 1rem;
+  height: 1rem;
+}
+
+.footer__link:hover,
+.footer__link:hover a,
+.footer__link--social:hover a {
+  color: var(--clr-accent--500);
+}
+
+.footer__link:hover .footer__icon {
+  filter: invert(38%) sepia(83%) saturate(4602%) hue-rotate(218deg) brightness(99%) contrast(96%);
+}
+
+.footer__link--social:hover {
+  border: 1px solid var(--clr-accent--500);
+}
+
+.attribution {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 1.2em;
+  color: var(--clr-neutral--300);
+}
+
+.attribution a {
+  color: var(--clr-primary--200);
+}
+
+.attribution a:hover {
+  color: #a781d0;
+}
 
 /* ------------- Access denied -------------- */
 .access__image {
