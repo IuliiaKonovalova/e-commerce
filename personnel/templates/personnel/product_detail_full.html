@@ -29,6 +29,19 @@
     .data__accent--sale {
       border-radius: 0.2em;
     }
+
+    .dashboard__form {
+      max-width: 100%;
+      background-color: #ffffffb3 !important;
+    }
+    .dashboard__main--name {
+      padding-top: 1em;
+    }
+
+    .dashboard__main a {
+    top: -1rem;
+    right: 0rem;
+    }
   </style>
 {% endblock %}
 
@@ -36,7 +49,7 @@
 {% block extra_title %}Personnel-Product Full Data{% endblock %}
 
 {% block content %}
-  <div class="dashboard">
+  <div class="dashboard dashboard__form">
   {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
