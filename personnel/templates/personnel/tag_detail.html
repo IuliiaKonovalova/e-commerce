@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Tag{% endblock %}
+
 {% block content %}
   <div class="dashboard">
+    {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main dashboard__form">
         <h1 class="dashboard__main--name">
@@ -40,6 +44,7 @@
             </div>
           {% endif %}
         </div>
+        {% comment %} Form control buttons {% endcomment %}
         <div class="form__btns accent">
           <a class="btn btn__edit" href="{% url 'edit_tag' tag_pk=tag.pk %}" aria-label="Go to edit tag form">
             <i class="fa fa-pencil"></i>
@@ -50,9 +55,9 @@
             Delete Tag
           </a>
         </div>
-
       </div>
     {% else %}
+      {% comment %} User is a customer {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           You are not authorized to view this page.
