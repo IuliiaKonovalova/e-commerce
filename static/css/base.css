@@ -2737,11 +2737,13 @@ div.data__main--order:hover {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   color: var(--clr-primary--500);
   padding: 1em;
-  background-color: var(--clr-text--100);
+  /* background-color: var(--clr-text--100); */
+  background-color: #ffffffb3;
   padding: 1.5em 1em;
   border-radius: var(--br);
   width: 100%;
   max-width: 50rem;
+  margin-top: 2em;
 }
 
 .dashboard__form.form__delete {
@@ -2764,7 +2766,6 @@ div.data__main--order:hover {
   justify-content: flex-start;
   margin-bottom: 1rem;
   max-height: 5rem;
-
 }
 
 .select2-container .select2-search--inline .select2-search__field {
