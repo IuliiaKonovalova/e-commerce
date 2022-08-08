@@ -27,9 +27,14 @@
 
     .sort__input {
       width: 100%;
+      max-width: 54rem;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
-      grid-gap: 1rem;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: "sort sort sort sort"
+                            "sort sort sort sort";
+      gap: 0.5em;
     }
 
     .btn__search {
@@ -46,9 +51,12 @@
   </style>
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Stock Table{% endblock %}
+
 {% block content %}
   <div class="dashboard">
-  {% comment %} Limit access for customers {% endcomment %}
+    {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <div class="dashboard__main">
           <h1 class="dashboard__main--name">Stock</h1>
@@ -85,6 +93,7 @@
           <div class="sort__container">
             <form class="sort__input" id="sort-all">
               {% csrf_token %}
+              {% comment %} <div> {% endcomment %}
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="submit" name="sort" value="all" id="all" class="btn-check option in_modal">
                 <label for="all" class="btn btn__search">All units</label>
@@ -101,6 +110,8 @@
                 <input type="submit" name="sort" value="stock-20" id="stock-20" class="btn-check option in_modal">
                 <label for="stock-20" class="btn btn__search"><i class="fas fa-less-than"></i> 20 units</label>
               </div>
+              {% comment %} </div>
+              <div> {% endcomment %}
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="submit" name="sort" value="stock-10" id="stock-10" class="btn-check option in_modal">
                 <label for="stock-10" class="btn btn__search"><i class="fas fa-less-than"></i> 10 units</label>
@@ -116,6 +127,7 @@
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                 <input type="radio" name="sort" value="low-sales" id="low-sales" class="btn-check option in_modal">
                 <label for="low-sales" class="btn btn__search"><i class="fas fa-less-than"></i> sales</label>
+              {% comment %} </div> {% endcomment %}
               </div>
             </form>
           </div>
