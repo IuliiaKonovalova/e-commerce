@@ -18,18 +18,19 @@
               <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                  <label for="product_name">SKU</label>
+                  <label for="sku">SKU</label>
                   <input type="text" class="form-control" id="sku" name="sku" placeholder="Enter SKU" maxlength="50" required>
                 </div>
                 <div class="form-group">
-                  <label for="product_name">UPC</label>
+                  <label for="upc">UPC</label>
                   <input type="text" class="form-control" id="upc" name="upc" placeholder="Enter UPC" maxlength="12" required>
+                </div>
                 <div class="form-group">
-                  <label for="product_description">Product ID</label>
-                  {% comment %} add input wich is disabled {% endcomment %}
+                  <label for="product_id">Product ID</label>
                   <input type="text" class="form-control" id="product_id" data-product="{{ product.id }}" name="product_id" placeholder="{{ product.name }}" readonly>
+                </div>
                 <div class="form-group" id="type-block">
-                  <label for="exampleDataList" class="form-label">Type</label>
+                  <label for="type" class="form-label">Type</label>
                   <select class="form-control" id="type" name="type" required>
                     <option value="">Select Type</option>
                     {% for type in product_types %}
@@ -39,19 +40,19 @@
                 </div>
                 <div id="attributes"></div>
                 <div class="form-group">
-                  <label for="product_quantity">Retail Price</label>
+                  <label for="retail_price">Retail Price</label>
                   <input type="text"  class="form-control" id="retail_price" name="retail_price" placeholder="Enter Retail Price" required>
                 </div>
                 <div class="form-group">
-                  <label for="product_quantity">Store Price</label>
+                  <label for="store_price">Store Price</label>
                   <input type="text"  class="form-control" id="store_price" name="store_price" placeholder="Enter Store Price" maxlength="9" required>
                 </div>
                 <div class="form-group">
-                  <label for="product_quantity">Sale Price</label>
+                  <label for="sale_price">Sale Price</label>
                   <input type="text" class="form-control" id="sale_price" name="whole_sale_price" placeholder="Enter Whole Sale Price" maxlength="9" required>
                 </div>
                 <div class="form-group">
-                  <label for="product_image">Weight (grams)</label>
+                  <label for="weight">Weight (grams)</label>
                   <input type="text"  class="form-control" id="weight" name="weight" placeholder="Enter Weight" maxlength="9" required>
                 </div>
                 <div class="form-check">
