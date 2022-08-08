@@ -18,20 +18,22 @@
               <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                  <label for="product_name">SKU</label>
+                  <label for="sku">SKU</label>
                   {% comment %} add pre-filled input with inventory.sku {% endcomment %}
                   <input type="text" class="form-control" id="sku" name="sku" value="{{ inventory.sku }}" maxlength="50" required>
                 </div>
                 <div class="form-group">
-                  <label for="product_name">UPC</label>
+                  <label for="upc">UPC</label>
                   {% comment %} add pre-filled input with inventory.upc {% endcomment %}
                   <input type="text" class="form-control" id="upc" name="upc" value="{{ inventory.upc }}" maxlength="50" required>
+                </div>
                 <div class="form-group">
-                  <label for="product_description">Product ID</label>
+                  <label for="product_id">Product ID</label>
                   {% comment %} add product data pre-filled and disabled {% endcomment %}
                   <input type="text" class="form-control" id="product_id" data-product="{{ pk }}" name="product_id" placeholder="{{ inventory.product.name }}" readonly>
+                </div>
                 <div class="form-group" id="type-block">
-                  <label for="exampleDataList" class="form-label">Type</label>
+                  <label for="type" class="form-label">Type</label>
                   {% comment %} Add types select {% endcomment %}
                   <select class="form-control" id="type" name="type" required>
                     <option value="">Select Type</option>
@@ -54,19 +56,19 @@
                 <div id="attributes"></div>
                 {% comment %} pre-filled inputs for prices and weight {% endcomment %}
                 <div class="form-group">
-                  <label for="product_quantity">Retail Price</label>
+                  <label for="retail_price">Retail Price</label>
                   <input type="text" class="form-control" id="retail_price" name="retail_price" value="{{ inventory.retail_price }}" maxlength="50" required>
                 </div>
                 <div class="form-group">
-                  <label for="product_quantity">Store Price</label>
+                  <label for="store_price">Store Price</label>
                   <input type="text" class="form-control" id="store_price" name="store_price" value="{{ inventory.store_price }}" maxlength="50" required>
                 </div>
                 <div class="form-group">
-                  <label for="product_quantity">Sale Price</label>
+                  <label for="sale_price">Sale Price</label>
                   <input type="text" class="form-control" id="sale_price" name="sale_price" value="{{ inventory.sale_price }}" maxlength="50" required>
                 </div>
                 <div class="form-group">
-                  <label for="product_image">Weight (grams)</label>
+                  <label for="weight">Weight (grams)</label>
                   <input type="text" class="form-control" id="weight" name="weight" value="{{ inventory.weight }}" maxlength="50" required>
                 </div>
                 <div class="form-check">
@@ -76,7 +78,7 @@
                   {% else %}
                     <input type="checkbox" class="form-check-input" id="is_not_active" name="is_active" value="0" data-active="false">
                   {% endif %}
-                    <label class="form-check-label" for="flexCheckDefault">
+                    <label class="form-check-label" for="is_active">
                       Active
                     </label>
                 </div>
