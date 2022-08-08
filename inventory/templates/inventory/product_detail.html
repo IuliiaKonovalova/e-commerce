@@ -284,11 +284,10 @@
       // convert to array
       let values_list_array = JSON.parse(values_list);
       let valuesSetActive = {{ values_set_active_list|safe }};
-
       // check if the product is out of stock
       if (product_inventory_id == 0) {
+        // do nothing
       }
-
       // Reset options:
       const reset = function(e) {
         // prevent default
@@ -387,11 +386,13 @@
             let label = $('label[for="' + value + '"]');
           }
         });
-
-
         // we have button radio groups for each attribute
         // when an attribute is checked, we need to update all the other attribute groups
-        // [{"size-shoes":"36","Color":"red","Quantity":10},{"size-shoes":"35","Color":"yellow","Quantity":10},{"Color":"yellow","size-shoes":"38","Quantity":10}]
+        // [
+        //   {"size-shoes":"36","Color":"red","Quantity":10},
+        //   {"size-shoes":"35","Color":"yellow","Quantity":10},
+        //   {"Color":"yellow","size-shoes":"38","Quantity":10}
+        //]
         // if color is checked, we need to update the size-shoes group to check what sizes are available for that color
         // if size-shoes is checked, we need to update the color group to check what colors are available for that size
         $('.product__options').on('change', 'input', function() {
@@ -466,7 +467,6 @@
               $('label.disabled').removeClass('disabled');
               $('input.btn-check').prop('checked', false);
               $('#item-price').html(`
-            
                 <div class="">
                   {% if product.get_out_of_stock %}
                     <div class="product__card--price price__sale">
@@ -507,7 +507,6 @@
             }
           })
         });
-
         const findPriceAndQuantity = (values_list, chosen_attributes) => {
           //[{"size-shoes":"36","Color":"red","Quantity":10,"Price":"102.00"},{"size-shoes":"35","Color":"yellow","Quantity":10,"Price":"101.00"},{"Color":"yellow","size-shoes":"38","Quantity":10,"Price":"102.00"}]
           let price = 0;
@@ -571,9 +570,6 @@
               }
           }
         });
-        //let is_match
-        //let quantityFinal = 0;
-
         const checkReadyToPurchase = (values_list, chosen_attributes) => {
           for (let stockOption of values_list) {
             is_match = true;
@@ -607,7 +603,6 @@
           }
         }
       } else if (valuesSetActive.length == 0 && values_list_array.length == 1) {
-        //let quantityFinal = 0;
         //get id of the product from [{"Quantity":100,"Price":"7.00","id":9}]
         //let quantityForSingle;
         let idForSingle;
@@ -725,7 +720,6 @@
           }
         })
       });
-
       // add-to/remove-from wishlist
       $('#wishlist-control').on('click', function(e) {
         if ($('#messages-notes').length !== 0) {
@@ -784,7 +778,6 @@
         if ($('.options__request').length) {
           // check if user checked 1 in each btn-group
           // add event listener to each btn-group
-
           let inputs = $(' input[name="request-Color"]');
           // loop through all inputs
           inputs.each(function() {
@@ -796,16 +789,13 @@
             thisLabel.css('background-color', valueModal);
             thisLabel.text('');
           });
-
           if ($('.btn-check:checked').length == $('.btn-group .in_modal').length) {
             // if yes, add the button
             //enable send button in modal
             //$('.btn_ok_in_modal').removeClass('disabled');
           }
         }
-
       });
-
       $('.btn_ok_in_modal').on('click', function(e) {
           e.preventDefault();
           let productRequestOptions = {
@@ -870,8 +860,6 @@
           }
         
       });
-
-
       // If user is LOGGED OUT:
       // check if #ask-user-to-log-in is present
       if ($('#ask-user-to-log-in').length) {
