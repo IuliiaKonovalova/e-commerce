@@ -205,7 +205,6 @@ class ProductTypeForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'title': 'select attributes',
-                    'placeholder': 'Product Type Attributes',
                 }
             ),
             'description': forms.Textarea(
