@@ -111,21 +111,18 @@ class ProductForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'title': 'select a category',
-                    'placeholder': 'Product Type Category',
                 }
             ),
             'tags': forms.SelectMultiple(
                 attrs={
                     'class': 'form-control',
                     'title': 'select tags',
-                    'placeholder': 'Product Type Tags',
                 }
             ),
             'brand': forms.Select(
                 attrs={
                     'class': 'form-control',
                     'title': 'select a brand',
-                    'placeholder': 'Product Type Brand',
                 }
             ),
             'is_active': forms.CheckboxInput(
