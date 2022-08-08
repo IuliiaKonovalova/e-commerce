@@ -31,30 +31,36 @@
   </style>
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Types{% endblock %}
+
 {% block content %}
   <div class="dashboard">
+    {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <section class="dashboard__main">
         <h1 class="dashboard__main--name">
           Product types
         </h1>
+        {% comment %} Add new product type button {% endcomment %}
         <a href="{% url 'add_product_type' %}" aria-label="Go to add new product Type" class="btn btn__add">
           <i class="fas fa-plus-circle"></i>
           Add New Product Type
         </a>
       </section>
       {% comment %} Search product type by input {% endcomment %}
-        <div class="search__navbar">
-          <div class="search__container">
-            <form class="search__input" id="search-all">
-              {% csrf_token %}
-              <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
-              <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
-                <i class="fas fa-search"></i>
-              </button>
-            </form>
-          </div>
+      <div class="search__navbar">
+        <div class="search__container">
+          <form class="search__input" id="search-all">
+            {% csrf_token %}
+            <input type="text" name="search_query" placeholder="Search..." id="sort-selector">
+            <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
         </div>
+      </div>
+      {% comment %} Products types table {% endcomment %}
       <div class="types__all">
         {% for type in product_types %}
           <div class="type__details">
@@ -86,6 +92,7 @@
         {% endfor %}
       </div>
     {% else %}
+      {% comment %} User is a customer {% endcomment %}
       <h1>You are not authorized to view this page</h1>
     {% endif %}
   </div>
