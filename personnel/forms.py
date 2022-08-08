@@ -227,7 +227,6 @@ class ProductAttributeValueForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control',
                     'title': 'select an attribute',
-                    'placeholder': 'Product Attribute',
                 }
             ),
             'attribute_value': forms.TextInput(
