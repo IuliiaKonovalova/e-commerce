@@ -12,6 +12,7 @@
     <meta name="keywords" content="" />
     <meta name="author" content="Iuliia Konovalova" />
     {% comment %} Favicon {% endcomment %}
+
   {% endblock%}
 
   {% block extra_meta %}
@@ -55,34 +56,20 @@
         <span>WoW</span>der!
       </div>
       <ul class="navbar__items">
-        {% if not request.user.is_authenticated %}
+        {% comment %} {% if not request.user.is_authenticated %} {% endcomment %}
           <li class="navbar__item">
-            <a href="{% url 'account_signup' %}" class="enter">SignUp</a>
-            <a href="{% url 'account_login' %}" class="enter">Login</a>
+            {% comment %} Product in Store {% endcomment %}
+            <a href="{% url 'products_list' %}" aria-label="Go to Products page" class="account__option">
+              <i class="fas fa-store"></i>
+              <span class="navbar__item--name">Store</span>
+            </a>
           </li>
-        {% endif %}
-        {% if request.user.is_authenticated %}
-        {% comment %} Go to my profile {% endcomment %}
-        <li class="navbar__item">
-          {% comment %} Product in Store {% endcomment %}
-          <a href="{% url 'products_list' %}" aria-label="Go to Products page" class="account__option">
-            <i class="fas fa-store"></i>
-            <span class="navbar__item--name">Store</span>
-          </a>
-        </li>
-        <li class="navbar__item">
-          <a href="{% url 'wishlist_display' %}" aria-label="Go to Wishlist page" class="account__option">
-            <i class="fas fa-heart"></i>
-            <span class="navbar__item--name">Wishlist</span>
-          </a>
-        </li>
-        {% comment %} Links accessable to every member {% endcomment %}
-
-        {% else %}
-          <li class="navbar__item ">
-
+          <li class="navbar__item">
+            <a href="{% url 'wishlist_display' %}" aria-label="Go to Wishlist page" class="account__option">
+              <i class="fas fa-heart"></i>
+              <span class="navbar__item--name">Wishlist</span>
+            </a>
           </li>
-        {% endif %}
           <li class="navbar__item">
             {% comment %} Bag {% endcomment %}
             <a href="{% url 'bag_display' %}" aria-label="Go to Bag page" class="account__option account__option--bag">
@@ -91,25 +78,32 @@
             </a>
           </li>
         {% if request.user.is_authenticated %}
-        <li class="navbar__item">
-          <a href="{% url 'my_profile' user=request.user %}" aria-label="Go to Profile page" class="account__option">
-            <div class="profile__avatar--navbar">
-              {% if user.profile.avatar %}
-                <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
-              {% else %}
-                <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
-              {% endif %}
-            </div>
-            <span class="navbar__item--name">Profile</span>
-          </a>
-        </li>
-        {% comment %} logout {% endcomment %}
-        <li class="navbar__item">
-          <a href="{% url 'account_logout' %}" aria-label="Logout" class="">
-            <i class="fas fa-sign-out-alt"></i>
-            <span class="navbar__item--name">Logout</span>
-          </a>
-        </li>
+          <li class="navbar__item">
+            <a href="{% url 'my_profile' user=request.user %}" aria-label="Go to Profile page" class="account__option">
+              <div class="profile__avatar--navbar">
+                {% if user.profile.avatar %}
+                  <img src="{{ user.profile.avatar.url }}" alt="avatar" class="avatar">
+                {% else %}
+                  <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
+                {% endif %}
+              </div>
+              <span class="navbar__item--name">Profile</span>
+            </a>
+          </li>
+          {% comment %} logout {% endcomment %}
+          <li class="navbar__item">
+            <a href="{% url 'account_logout' %}" aria-label="Logout" class="">
+              <i class="fas fa-sign-out-alt"></i>
+              <span class="navbar__item--name">Logout</span>
+            </a>
+          </li>
+        {% elif not request.user.is_authenticated %}
+          <li class="navbar__item">
+            <a href="{% url 'account_signup' %}" class="account__option">SignUp</a>
+          </li>
+          <li class="navbar__item">
+            <a href="{% url 'account_login' %}" class="account__option">Login</a>
+          </li>
         {% endif %}
       </ul>
     </nav>
