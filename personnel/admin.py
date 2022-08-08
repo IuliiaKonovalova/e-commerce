@@ -1,3 +1,2 @@
+"""Admin for the personnel app"""
 from django.contrib import admin
-
-# Register your models here.
