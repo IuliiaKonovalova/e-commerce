@@ -198,7 +198,7 @@
               <td>{{ stock.units }}</td>
               <td>{{ stock.units_variable }}</td>
               <td>{{ stock.units_sold }}</td>
-              <td>{{ stock.last_checked }}</td>
+              <td>{{ stock.last_checked|date:"d.m.Y" }}</td>
               <td>
                 {% if stock in stock_inconsistency %}
                   <div class="data__accent--red">
