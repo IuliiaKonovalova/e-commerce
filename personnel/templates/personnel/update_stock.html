@@ -3,31 +3,52 @@
 
 {% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    input[type="number"] {
+      margin: 0;
+      border-radius: 0.4rem;
+      border: 1px solid #ced4da;
+    }
+
+    input[type="number"]:focus, .form-control:focus {
+      border: 1px solid #4a2532 !important;
+      outline: none !important;
+      border-color: #86b7fe;
+      outline: 0;
+      box-shadow: 0 0 0 0.25rem rgb(39 0 88 / 51%);
+    }
+  </style>
 {% endblock %}
+
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Update Stock{% endblock %}
 
 {% block content %}
   <div class="dashboard">
+    {% comment %} Accessible only to admin {% endcomment %}
     {% if request.user.is_authenticated and request.user.profile.role.id == 3 %}
-      <div class="dashboard__main">
+      {% comment %} Update stock Form {% endcomment %}
+      <form method="POST" class="dashboard__form">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">
           Update Stock for {{ product }} unit {{ product_inventory.sku }}
         </h1>
-      </div>
-      <form method="POST" class="form">
         {% csrf_token %}
         {{ form }}
-        <div class="form__btns">
+        {% comment %} Form control buttons {% endcomment %}
+        <div class="form__btns accent">
           <a href="{% url 'product_inventory_details' pk=pk inventory_pk=inventory_pk %}" aria-label="Go to product inventories details" class="btn btn-primary btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </a>
           <button type="submit" class="btn btn-primary btn__add">
-            <i class="fa fa-refresh"></i>
-            Update stock
+            <i class="fas fa-check-circle"></i>
+            Update
           </button>
         </div>
       </form>
     {% else %}
+      {% comment %} User is not an admin {% endcomment %}
       <div class="dashboard__main">
         <h1 class="dashboard__main--name">
           You are not authorized to access this page
