@@ -15,7 +15,14 @@
       <form method="POST" class="dashboard__form">
         <h1 class="dashboard__main--name">Add Attribute Vlaue</h1>
         {% csrf_token %}
-        {{ form }}
+        {% for field in form %}
+          {% if field.is_hidden %}
+            {{ field }}
+          {% else %}
+            {{ field.label_tag }}
+            {{ field }}
+          {% endif %}
+        {% endfor %}
         <div class="form__btns accent">
           <a href="{% url 'attribute_values' %}" aria-label="Go to Product Attributes page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
