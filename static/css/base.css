@@ -567,6 +567,21 @@ main {
   text-align: center;
 }
 
+.profile.profile__table {
+  background-color: #ffffffb3 !important;
+  border-radius: var(--br);
+  box-shadow: var(--box-shadow-card);
+  max-width: 70rem;
+  padding: 2em;
+  position: relative;
+}
+
+.profile.profile__table .profile__edit--btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
 .profile h2 {
   font-size: 1.2rem;
   font-weight: 900;
@@ -1092,7 +1107,6 @@ main {
 .rating__title {
   font-size: 1.2rem;
   font-weight: 900;
-  /* color: var(--clr-accent--100); */
   margin-bottom: 2vh;
 }
 
@@ -1984,8 +1998,6 @@ a.brand__table--row:hover {
   background-color: var(--clr-text--100);
   padding: 1em;
   margin: 1em 0;
-  border-radius: var(--br);
-  box-shadow: var(--box-shadow-card);
 }
 
 .data__main--section {
@@ -2088,6 +2100,8 @@ a.brand__table--row:hover {
   padding: 0.5em;
   position: relative;
   background-color: var(--clr-text--100);
+  display: grid;
+  grid-template-rows: 1fr 1fr 2fr 1fr 3.5fr 1fr;
 }
 
 .data__main--link.data__main--inventory:hover {
