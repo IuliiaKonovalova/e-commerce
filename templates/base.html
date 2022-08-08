@@ -4,28 +4,28 @@
 
 <head>
   {% block meta %}
-  {% comment %} Required meta tags {% endcomment %}
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="" />
-  <meta name="keywords" content="" />
-  <meta name="author" content="Iuliia Konovalova" />
-  {% comment %} Favicon {% endcomment %}
+    {% comment %} Required meta tags {% endcomment %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Iuliia Konovalova" />
+    {% comment %} Favicon {% endcomment %}
   {% endblock%}
 
   {% block extra_meta %}
   {% endblock%}
 
   {% block corecss %}
-  {% comment %} Link to css {% endcomment %}
-  <!-- jquery ui css -->
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    {% comment %} Link to css {% endcomment %}
+    <!-- jquery ui css -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
   {% endblock%}
 
   {% block extra_css %}
@@ -34,7 +34,7 @@
 
 
   {% block jslibraries %}
-  <script src="https://kit.fontawesome.com/8e4b08b302.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/8e4b08b302.js" crossorigin="anonymous"></script>
   {% endblock %}
   {% block corejs %}
   {% endblock%}
@@ -56,10 +56,10 @@
       </div>
       <ul class="navbar__items">
         {% if not request.user.is_authenticated %}
-        <li class="navbar__item">
-          <a href="{% url 'account_signup' %}" class="enter">SignUp</a>
-          <a href="{% url 'account_login' %}" class="enter">Login</a>
-        </li>
+          <li class="navbar__item">
+            <a href="{% url 'account_signup' %}" class="enter">SignUp</a>
+            <a href="{% url 'account_login' %}" class="enter">Login</a>
+          </li>
         {% endif %}
         {% if request.user.is_authenticated %}
         {% comment %} Go to my profile {% endcomment %}
@@ -79,17 +79,17 @@
         {% comment %} Links accessable to every member {% endcomment %}
 
         {% else %}
-        <li class="navbar__item ">
+          <li class="navbar__item ">
 
-        </li>
+          </li>
         {% endif %}
-        <li class="navbar__item">
-          {% comment %} Bag {% endcomment %}
-          <a href="{% url 'bag_display' %}" aria-label="Go to Bag page" class="account__option account__option--bag">
-            <i class="fas fa-shopping-bag"></i><span id="shopping-bag-count">{{ product_count }}</span>
-            <div class="navbar__item--name">Bag</div>
-          </a>
-        </li>
+          <li class="navbar__item">
+            {% comment %} Bag {% endcomment %}
+            <a href="{% url 'bag_display' %}" aria-label="Go to Bag page" class="account__option account__option--bag">
+              <i class="fas fa-shopping-bag"></i><span id="shopping-bag-count">{{ product_count }}</span>
+              <div class="navbar__item--name">Bag</div>
+            </a>
+          </li>
         {% if request.user.is_authenticated %}
         <li class="navbar__item">
           <a href="{% url 'my_profile' user=request.user %}" aria-label="Go to Profile page" class="account__option">
@@ -225,13 +225,13 @@
     <div class="content__container">
       {% comment %} Messages {% endcomment %}
       {% if messages %}
-      <div class="message-container" id="messages-notes">
-        {% for message in messages %}
-        <div class="message-container__message">
-          <p class="message-container__message--text">{{ message }}</p>
+        <div class="message-container" id="messages-notes">
+          {% for message in messages %}
+            <div class="message-container__message">
+              <p class="message-container__message--text">{{ message }}</p>
+            </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-      </div>
       {% endif %}
 
       {% block page_header %}
@@ -243,7 +243,87 @@
   </main>
   {% comment %} Footer {% endcomment %}
   <footer class="footer">
-  This is a footer
+    <div class="footer__main">
+      <!-- Logo -->
+      <div class="footer__logo--container">
+        <div class="logo__container">
+          <span>WoW</span>der!
+        </div>
+      </div>
+      <!-- Links container -->
+      <div class="footer__links--container">
+        <!-- Contact info -->
+        <ul class="footer__links">
+          <li class="footer__link phone">
+            <div class="footer__icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <div>+82-132-23-1197</div>
+          </li>
+          <li class="footer__link">
+            <div class="footer__icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <div>wow@der.com</div>
+          </li>
+        </ul>
+        <!-- More info links -->
+        <ul class="footer__links">
+          <li class="footer__link">
+            <a href="#">About us</a>
+          </li>
+          <li class="footer__link">
+            <a href="#">Jobs</a>
+          </li>
+          <li class="footer__link">
+            <a href="#">Press</a>
+          </li>
+          <li class="footer__link">
+            <a href="#">Blog</a>
+          </li>
+        </ul>
+        <!-- Webpage links -->
+        <ul class="footer__links">
+          <li class="footer__link">
+            <a href="#">Contact Us</a>
+          </li>
+          <li class="footer__link">
+            <a href="#">Terms</a>
+          </li>
+          <li class="footer__link">
+            <a href="#">Privacy</a>
+          </li>
+        </ul>
+        <!-- Social links -->
+        <ul class="footer__links--social footer__links">
+          <li class="footer__link--social">
+            <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Visit our Instagram page">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </li>
+          <li class="footer__link--social">
+            <a href="https://twitter.com" target="_blank" rel="noopener" aria-label="Visit our Twitter page">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+          <li class="footer__link--social">
+            <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Visit our Facebook page">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Attributions -->
+    <ul class="attribution">
+      <li class="credits_myself">
+        Created by
+        <a href="https://github.com/IuliiaKonovalova" rel="noopener" target="_blank"
+          aria-label="Visit Iuliia Konovalova github page">
+          Iuliia Konovalova
+        </a>.
+      </li>
+    </ul>
 
   </footer>
   {% block postloadjs %}
