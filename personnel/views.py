@@ -2438,11 +2438,11 @@ class AttributeValuesListView(View):
                             context,
                         )
                     else:
-                        attribute_values = ProductAttributeValue.objects.filter(
+                        attr_values = ProductAttributeValue.objects.filter(
                             attribute_value__icontains=query
                         )
                         context = {
-                            'attribute_values': attribute_values,
+                            'attribute_values': attr_values,
                             'search_query': query,
                         }
                 return render(
