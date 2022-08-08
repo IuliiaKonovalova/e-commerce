@@ -5,14 +5,26 @@
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Edit Type{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
+      {% comment %} Edit Product Type form {% endcomment %}
       <form method="POST" class="dashboard__form">
+        {% comment %} Form title {% endcomment %}
         <h1 class="dashboard__main--name">Edit Product Type</h1>
         {% csrf_token %}
-        {{ form }}
+        {% for field in form %}
+          {% if field.is_hidden %}
+            {{ field }}
+          {% else %}
+            {{ field.label_tag }}
+            {{ field }}
+          {% endif %}
+        {% endfor %}
         {% comment %} Form control buttons {% endcomment %}
         <div class="form__btns accent">
           <a href="{% url 'product_types_table' %}" aria-label="Go to Product Type page" class="btn btn__cancel">
@@ -26,6 +38,7 @@
         </div>
       </form>
     {% else %}
+      {% comment %} User is not personnel {% endcomment %}
       <div class="dashboard__main">
         <h1>You are not authorized to access this page</h1>
       </div>
