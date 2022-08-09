@@ -595,6 +595,126 @@ main {
   max-width: 20rem;
 }
 
+.avatar__edit--form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.avatar-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 1em auto;
+}
+
+.avatar-buttons a {
+  font-size: 0.9rem;
+}
+
+.avatar-buttons a:first-child {
+  margin-right: 0.5em;
+}
+
+.profile__forms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 1em auto;
+}
+
+.profile__edit--form,
+.rofile__password--form {
+  width: 100%;
+}
+
+label[for="id_subscription"] {
+  margin-bottom: 1em;
+}
+
+.btn__container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Profile forms */
+.profile__forms a {
+  margin: 1em auto;
+}
+
+.profile__password--form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+  margin: 1em auto;
+}
+
+.profile__password--form input {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.375rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  margin-bottom: 1.5em;
+}
+
+.profile__password--form label {
+  margin-right: auto;
+}
+
+.profile__password--form br {
+  display: none;
+}
+
+.profile__delete--dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 1em auto;
+}
+
+.profile__delete--dropdown p:first-child {
+  margin-top: 1em;
+}
+
+.profile__delete--dropdown .btn__container {
+  padding-top: 1em !important;
+}
+
+.profile__delete--dropdown .btn__container a {
+  font-size: 0.9rem;
+}
+
+.profile__delete--dropdown .btn__container a:first-child {
+  margin-right: 0.5em;
+}
+
+.profile__delete--form {
+  padding-bottom: 2em;
+}
+
 .btn {
   font-weight: 900;
   --bs-btn-font-size: var(--fs) !important;
