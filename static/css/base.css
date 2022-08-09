@@ -186,9 +186,7 @@ button {
 
 .profile__avatar--navbar {
   max-width: 2.5rem;
-  padding: 0.09em;
   border-radius: 50%;
-  border: 1px solid #f4edff;
   margin-right: 0.5em;
   width: 2.5rem;
   height: 2.5rem;
