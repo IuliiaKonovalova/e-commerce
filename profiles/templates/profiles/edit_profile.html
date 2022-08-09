@@ -52,6 +52,52 @@
     margin-bottom: 1em;
   }
 
+  .btn__container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile__forms a {
+    margin: 1em auto;
+  }
+
+  .profile__password--form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    margin: 1em auto;
+  }
+
+  .profile__password--form  input {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-bottom: 1.5em;
+  }
+
+  .profile__password--form label {
+    margin-right: auto;
+  }
+
+  .profile__password--form br {
+    display: none;
+  }
   </style>
 {% endblock %}
 
@@ -87,10 +133,12 @@
           <h2 class="profile__edit--title">Edit Profile Data</h2>
           {% csrf_token %}
           {{ profile_form }}
+          <div class="btn__container">
           <a class="save-form profile-bio-edit-btn btn btn__add" id="profile-save-btn">
             <i class="fas fa-save"></i>
             Save changes
           </a>
+          </div>
         </form>
         <form class="profile__password--form">
           <h2 class="profile__password--title">Edit password</h2>
@@ -102,7 +150,6 @@
           </a>
         </form>
       </div>
-
       {% comment %} Delete Profile Form {% endcomment %}
       <div class="profile__delete--form">
         <a class="btn__delete btn" id="btn-delete-profile">
