@@ -4,100 +4,13 @@
 {% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <style>
-  h1 {
-    display: none;
-  }
-  h2 {
-    font-size:1.7rem !important;
-  }
-  .avatar__edit--form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
-  .avatar-buttons {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 1em auto;
-  }
+    h1 {
+      display: none;
+    }
 
-  .avatar-buttons a {
-    font-size: 0.9rem;
-  }
-
-  .avatar-buttons a:first-child {
-    margin-right: 0.5em;
-  }
-
-  .profile__forms {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 1em auto;
-  }
-
-  .profile__edit--form,
-  .rofile__password--form {
-    width: 100%;
-  }
-
-  label[for="id_subscription"] {
-    margin-bottom: 1em;
-  }
-
-  .btn__container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .profile__forms a {
-    margin: 1em auto;
-  }
-
-  .profile__password--form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: left;
-    width: 100%;
-    margin: 1em auto;
-  }
-
-  .profile__password--form  input {
-    display: block;
-    width: 100%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 0.375rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    margin-bottom: 1.5em;
-  }
-
-  .profile__password--form label {
-    margin-right: auto;
-  }
-
-  .profile__password--form br {
-    display: none;
-  }
+    h2 {
+      font-size:1.7rem !important;
+    }
   </style>
 {% endblock %}
 
@@ -152,16 +65,19 @@
       </div>
       {% comment %} Delete Profile Form {% endcomment %}
       <div class="profile__delete--form">
+        <h2 class="profile__edit--title">Delete Your account</h2>
+        <div class="btn__container">
         <a class="btn__delete btn" id="btn-delete-profile">
           <i class="fas fa-trash-alt"></i>
-          Delete account
+          Delete
         </a>
+        </div>
         <div class="profile__delete--dropdown hidden" id="delete-dropwdown">
           <p>Are you sure you want to permanently delete your account?</p>
           <p>This action is irreversible!!!</p>
-          <div class="">
-            <a id="delete-confirm" href="{% url 'delete-user' %}">Yes, delete my account</a>
-            <a id="delete-cancel" href="javascript:void(0);">No, cancel</a>
+          <div class="btn__container">
+            <a id="delete-confirm" href="{% url 'delete-user' %}" class="btn btn__delete">Yes, delete my account</a>
+            <a id="delete-cancel" href="javascript:void(0);" class="btn btn__cancel">No, cancel</a>
           </div>
         </div>
       </div>
