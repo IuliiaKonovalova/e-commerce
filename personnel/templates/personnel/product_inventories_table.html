@@ -31,6 +31,9 @@
   </style>
 {% endblock %}
 
+{% comment %} Extra Title {% endcomment %}
+{% block extra_title %}Personnel-Units Table{% endblock %}
+
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
@@ -40,7 +43,7 @@
         </h1>
       </section>
       {% if inventories %}
-      {% comment %} Search product type by input {% endcomment %}
+        {% comment %} Search product type by input {% endcomment %}
         <div class="search__navbar">
           <div class="search__container">
             <form class="search__input" id="search-all">
@@ -54,7 +57,8 @@
         </div>
         <div class="data__main--inventories">
           {% for inventory in inventories %}
-            <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}" aria-label="Go to product inventories details" class="data__main--inventory data__main--link">
+            <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}"
+                aria-label="Go to product inventories details" class="data__main--inventory data__main--link">
               <span>
                 {% if inventory.is_active %}
                 <i class="fa fa-check-circle"></i> (Active)
@@ -72,6 +76,7 @@
               </div>
               <div>
                 <strong>Options: </strong>
+                <br>
                 {{ inventory.get_all_attribute_values_str }}
               </div>
               <div>
@@ -137,7 +142,6 @@
             </a>
           {% endfor %}
         </div>
-
         <div>
           {% comment %} Control Pagination {% endcomment %}
           {% if inventories.paginator.num_pages %}
@@ -197,7 +201,6 @@
     {% endif %}
   </div>
 {% endblock %}
-
 
 {% block postloadjs_extra %}
   <script>
