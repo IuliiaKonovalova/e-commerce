@@ -3,6 +3,56 @@
 
 {% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+  h1 {
+    display: none;
+  }
+  h2 {
+    font-size:1.7rem !important;
+  }
+  .avatar__edit--form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .avatar-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 1em auto;
+  }
+
+  .avatar-buttons a {
+    font-size: 0.9rem;
+  }
+
+  .avatar-buttons a:first-child {
+    margin-right: 0.5em;
+  }
+
+  .profile__forms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 1em auto;
+  }
+
+  .profile__edit--form,
+  .rofile__password--form {
+    width: 100%;
+  }
+
+  label[for="id_subscription"] {
+    margin-bottom: 1em;
+  }
+
+  </style>
 {% endblock %}
 
 {% comment %} Extra Title {% endcomment %}
@@ -12,7 +62,7 @@
   <div class="profile">
     <h1>Edit profile data</h1>
     {% comment %} Editing Profile Avatar {% endcomment %}
-    <div class="avatar__edit--form">
+    <div class="avatar__edit--form dashboard__form">
       <h2 class="avatar__edit--title">Edit Profile Avatar</h2>
       <div class="profile__avatar">
         {% if user.profile.avatar %}
@@ -32,7 +82,7 @@
         </div>
       </div>
       {% comment %} Editing Profile Data {% endcomment %}
-      <div class="">
+      <div class="profile__forms">
         <form class="profile__edit--form" method="POST">
           <h2 class="profile__edit--title">Edit Profile Data</h2>
           {% csrf_token %}
