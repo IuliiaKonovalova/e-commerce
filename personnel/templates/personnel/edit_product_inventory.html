@@ -74,11 +74,11 @@
                 <div class="form-check">
                 {% comment %} Check if pi is active {% endcomment %}
                   {% if inventory.is_active %}
-                    <input type="checkbox" class="form-check-input" id="is_active" name="is_active" value="1" checked data-active="true">
+                    <input type="checkbox" class="form-check-input" id="flexCheckDefault" name="is_active" value="1" checked data-active="true">
                   {% else %}
-                    <input type="checkbox" class="form-check-input" id="is_not_active" name="is_active" value="0" data-active="false">
+                    <input type="checkbox" class="form-check-input" id="flexCheckDefault" name="is_active" value="0" data-active="false">
                   {% endif %}
-                    <label class="form-check-label" for="is_active">
+                    <label class="form-check-label" for="flexCheckDefault">
                       Active
                     </label>
                 </div>
