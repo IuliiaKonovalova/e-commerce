@@ -129,7 +129,6 @@
               cache: false,
               data: formData,
               success: function (data) {
-                console.log('success');
                 $('.avatar').attr('src', data.avatar_url);
                 $('#edit-avatar-btn').show();
                 $('#save-avatar-btn').remove();
@@ -141,7 +140,6 @@
                 }, 3000);
               },
               error: function (data) {
-                console.log('error');
                 $('.avatar').attr('src', currentAvatarUrl);
                 $('#edit-avatar-btn').show();
                 $('#save-avatar-btn').remove();
@@ -313,7 +311,7 @@
           }
         })
       })
-
+      // Delete account functionality
       $('#btn-delete-profile').on('click', (e) => {
         $('#delete-dropwdown').toggleClass('hidden');
         $('html, body').animate({
