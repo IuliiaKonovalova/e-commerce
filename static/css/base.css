@@ -2992,7 +2992,6 @@ a.ui-button:active,
 
 .footer__links {
   margin-right: 10vw;
-  font-size: 1.2rem;
 }
 
 .footer__link {
@@ -3089,6 +3088,33 @@ a.ui-button:active,
 }
 
 /* ------------- MEDIA -------------- */
+@media all and (max-width: 2178px) {
+  .footer__main {
+    padding: 5em 3em 3em 3em;
+  }
+
+  /* Footer Logo */
+  .footer__logo--container {
+    width: 5rem;
+    margin-bottom: 3em;
+  }
+
+  .footer__links {
+    margin-right: 7vw;
+  }
+
+  .footer__link a {
+    color: white;
+    display: inline;
+    min-width: 6.5rem;
+  }
+
+  .footer__links--social {
+    margin-left: 7vw;
+  }
+
+}
+
 @media all and (max-width: 1075px) {
   .navbar__customer .navbar__item a .navbar__item--name {
     display: none;
@@ -3147,6 +3173,23 @@ a.ui-button:active,
     font-weight: 700;
   }
 
+  /* Footer */
+  .footer__main {
+    padding: 4em 2em 2em 2em;
+  }
+
+  /* Footer Logo */
+  .footer__logo--container {
+    margin-bottom: 2.5em;
+  }
+
+  .footer__links {
+    margin-right: 5vw;
+  }
+
+  .footer__links--social {
+    margin-left: 5vw;
+  }
 }
 
 @media all and (max-width: 800px) {
