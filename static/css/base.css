@@ -3115,15 +3115,24 @@ a.ui-button:active,
   }
 }
 
+
+@media all and (max-width: 1511px) {
+
+  /* Media for home credits section */
+  .credits__subsection {
+    padding: 1em 2em 2em 2em;
+    width: 50rem;
+  }
+}
+
 @media all and (max-width: 1075px) {
   .navbar__customer .navbar__item a .navbar__item--name {
     display: none;
   }
 
-  /* 
-  .navbar__customer .navbar__item a i {
-    font-size: 1.3rem;
-  } */
+  .credits__subsection {
+    width: 40rem;
+  }
 
   .profile__avatar--navbar {
     max-width: 1.7rem;
@@ -3226,6 +3235,10 @@ a.ui-button:active,
   .btn__getstarted {
     padding: 0.3em 1.2em;
     font-size: 1rem;
+  }
+
+  .credits__subsection {
+    width: 100%;
   }
 
   /* Product Page */
