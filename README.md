@@ -570,6 +570,120 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 
 ---
 
+## Payment Setup
+
+1. Register a stripe account at https://dashboard.stripe.com/register.
+2. Go to developers page:
+
+![developers](documentation/payment_setup/developers__btn.png)
+
+3. Select API keys.
+
+![api_keys](documentation/payment_setup/api_keys.png)
+
+4. Copy the `public key` and `secret key` to the `env.py` file.
+
+5. Add the following setting to `settings.py`:
+
+```python
+  STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY")
+  STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+```
+
+6. Install stripe package:
+
+```python
+  pip3 install stripe
+```
+
+7. Create order model with required fields in orders app.
+8. Set up a payment app.
+9. Add payment form to the payment app template.
+10. Add div to hold stripe element:
+
+```html
+  <div id="stripe-element"></div>
+```
+11. Create View to handle payment set up:
+  - Get public key: `stripe_public_key = settings.STRIPE_PUBLIC_KEY`
+  - Get private key: `stripe_secret_key = settings.STRIPE_SECRET_KEY`
+  - create intent: `intent = stripe.PaymentIntent.create(**kwargs)`
+  - **kwargs for the payment intent should include:
+    * `amount`: amount
+    * `currency`: currency
+    * `metadata`: metadata
+  - For the metadata I have user id `userid: request.user.id`
+  - Create context for the view with the following data:
+      *  'my_profile': my_profile,
+      *  'total_sum': total_sum,
+      *  'client_secret': intent.client_secret,
+      *  'stripe_public_key': stripe_public_key,
+
+12. Add extra js block to payment template where you have to add csrf_token, stripe_public_key,
+  script tag with stripe.js, and script tag with payment.js.
+
+```html
+  {% block postloadjs_extra %}
+    <script>
+        let CSRF_TOKEN = '{{ csrf_token }}';
+        let stripe_public_key = '{{ stripe_public_key }}';
+    </script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static 'js/payment.js' %}" data-rel-js></script>
+  {% endblock %}
+```
+
+13. In the payment.js create variables for stripe public key, stripe, payment element, payment form, and a variable from which you will receive 'client_secret'. To get 'client secret` I have added data-attribute to confirmation button in the payment form:
+
+```html
+  data-secret="{{ client_secret }}"
+```
+14. Set up stripe element:
+
+```javascript
+  let elements = stripe.elements();
+  let style = {
+    base: {
+      color: "#000",
+      lineHeight: '2.4',
+      fontSize: '16px'
+    }
+  };
+  let card = elements.create("card", {
+    style: style
+  });
+  card.mount("#card-element");
+```
+
+*You can use various styling by checking out the following docs [stripe/elements-examples](https://github.com/stripe/elements-examples)*
+
+15. Get all data from the payment form and collect it by using `new FormData()`
+
+16. Create AJAX request to send collected data and set the url to for adding order. The url is `window.location.origin + '/orders/add/'`.
+
+17. In the orders app views you need to create a view to handle order creation.
+
+18. When the user clicks on the confirmation button, the payment intent is created. Needless to say that stripe element prevents the user from multiple clicks and handles all errors. However, you have to set alerts for the user to show the error.
+
+19. To test the user's payment, you need to create a test payment intent with the card data provided by the stripe:
+
+No auth: 4242424242424242
+
+Auth: 4000002500003155
+
+Error: 4000000000009995
+
+20. Create a success page to redirect the user after successful payment and add js functionality to handle the redirection:
+
+```javascript
+    if (result.paymentIntent.status === 'succeeded') {
+      window.location.replace(window.location.origin + "/payment/order_placed/");
+    }
+```
+
+
+---
+
 ## Deployment
 
 - The app was deployed to [Heroku](https://heroku.com).
@@ -605,6 +719,7 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 - [birme](https://www.birme.net/): for providing free service to center and crop images.
 - [fontawesome](https://fontawesome.com/): for providing free icons.
 - [googlefonts](https://fonts.google.com/): for providing free fonts.
+- [wordstream](https://www.wordstream.com/) for the great insights on the keywords and the search engine.
 - [BGJar](https://www.bgjar.com/): for the free access to the background images build tool.
 - [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en): for providing a free platform to test website responsiveness
 - [GoFullPage](chrome://extensions/?id=fdpohaocaechififmbbbbbknoalclacl): for allowing to create free full web page screenshots;
@@ -612,13 +727,16 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 - [Coolors](https://coolors.co/): for providing a free platform to generate your own palette.
 - [Icons8](https://icons8.com/): for providing free access to amazing icons and illustrations to fill out the store.
 - [unsplash](https://unsplash.com/): for providing a free products' images to fill out the store.
-- [adidas](https://www.adidas.com/): for providing a free products' images to fill out the store.
-- [nike](https://www.nike.com/): for providing a free products' images to fill out the store.
-- [lego](https://www.lego.com/): for providing a free products' images to fill out the store.
-- [maggie](https://www.maggie.com/): for providing a free products' images to fill out the store.
-- [barilla](https://www.barilla.com/): for providing a free products' images to fill out the store.
-- [LG electronics](https://www.lg.com/): for providing a free products' images to fill out the store.
 - [chrome developer tools](https://developer.chrome.com/extensions/devtools_inspector): for providing a free platform to test website.
+- [adidas](https://www.adidas.com/): for providing a free products' data and images to fill out the store on clothes and shoes.
+- [nike](https://www.nike.com/): for providing a free products' data and images to fill out the store on clothes and shoes.
+- [artsaber](https://www.artsabers.com/): for providing a free products' images to fill out the store on lightsabers data and images.
+- [backwaterreptiles](https://www.backwaterreptiles.com/): for providing a free products' images to fill out the store on tarantulas' data and images.
+- [Yum Of China](https://www.yumofchina.com/chinese-beer/): for providing a free data on the Chinese beer.
+- [lego](https://www.lego.com/): for providing a free products' data and images to fill out the store with toys.
+- [maggie](https://www.maggie.com/): for providing a free products' data and images to fill out the store with maggie products.
+- [barilla](https://www.barilla.com/): for providing a free products' data and images to fill out the store with pasta.
+- [LG electronics](https://www.lg.com/): for providing a free products' data and images to fill out the store with electronics.
 
 ---
 
