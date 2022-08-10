@@ -7,9 +7,9 @@ $(document).ready(function () {
   });
   // Function controls messages's display
   setTimeout(() => {
-    let messages = $('#messages-notes');
+    let messages = $('#messages-notes-main');
     if (messages) {
-      $('#messages-notes').remove();
+      $('#messages-notes-main').remove();
     }
   }, 2500);
 });
