@@ -204,7 +204,6 @@
         // multiply data-quantity and data-price and put it in items-total span
         items_total.text(quantity_value * price_value)
       });
-      
       // edit order status
       let orderEditStatus = $('#order-edit-status');
       let orderStatusSelect = $('.order__status--select');
@@ -223,9 +222,7 @@
         let orderStatus;
         // if select box changed, change data-status
         orderStatusSelect.change(function() {
-          console.log('changed')
           orderStatusValue = $(this).val()
-          console.log(orderStatusValue)
           orderStatus = $(this).parent().parent().find('.order__status')
           orderStatus.data('status', orderStatusValue)
           orderStatus.text(orderStatusValue)
@@ -245,8 +242,6 @@
               'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             success: function(data) {
-              console.log(data)
-              console.log('success')
               $('.fa-spinner').remove();
               // replace this button with edit button
               orderStatus.removeClass('hidden');
