@@ -3205,6 +3205,39 @@ a.ui-button:active,
   margin-bottom: 1em;
 }
 
+
+/* ------------- Allauth Account -------------- */
+.account {
+  background-color: #381e73;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+  margin: 10em auto;
+  margin-bottom: 6em;
+  border-radius: var(--br);
+  box-shadow: var(--box-shadow-card);
+}
+
+.account h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+}
+
+.btn__account {
+  background-color: var(--clr-accent--100) !important;
+  color: black !important;
+  border: none;
+  margin-top: 1.5em;
+  cursor: pointer;
+}
+
+.btn__account:hover {
+  background-color: var(--clr-accent--200) !important;
+}
+
 /* ------------- MEDIA -------------- */
 @media all and (max-width: 2178px) {
 
