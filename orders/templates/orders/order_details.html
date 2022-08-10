@@ -75,21 +75,21 @@
               COMPLETED
             </div>
           {% endif %}
-        <select class="form-control order__status--select hidden" id="type" name="type" required>
-          <option value="Pending" {% if order.status == 'Pending' %} selected {% endif %}>Pending</option>
-          <option value="Processing" {% if order.status == 'Processing' %} selected {% endif %}>Processing</option>
-          <option value="shipped" {% if order.status == 'shipped' %} selected {% endif %}>In Delivery</option>
-          <option value="Refunded" {% if order.status == 'Refunded' %} selected {% endif %}>Refunded</option>
-          <option value="Completed" {% if order.status == 'Completed' %} selected {% endif %}>Completed</option>
-        </select>
+          <select class="form-control order__status--select hidden" id="type" name="type">
+            <option value="Pending" {% if order.status == 'Pending' %} selected {% endif %}>Pending</option>
+            <option value="Processing" {% if order.status == 'Processing' %} selected {% endif %}>Processing</option>
+            <option value="shipped" {% if order.status == 'shipped' %} selected {% endif %}>In Delivery</option>
+            <option value="Refunded" {% if order.status == 'Refunded' %} selected {% endif %}>Refunded</option>
+            <option value="Completed" {% if order.status == 'Completed' %} selected {% endif %}>Completed</option>
+          </select>
           {% if request.user.profile.role.id == 3 or request.user.profile.role.id == 4 %}
             <div class="btn btn__edit" id="order-edit-status">
               <i class="fas fa-edit"></i>
               Edit
             </div>
-          <div class="btn btn__save hidden" id="order-save-status">
-            <i class="fas fa-save"></i>
-            Save
+            <div class="btn btn__save hidden" id="order-save-status">
+              <i class="fas fa-save"></i>
+              Save
           </div>
           {% endif %}
         </div>
@@ -97,9 +97,6 @@
           <strong>Order Details:</strong>
           <div class="order__details--units">
             {% for item in order_items %}
-
-
-
               <div id="{{ item.id }}" class="order__item">
                 {% if request.user.profile.role.id == 3 %}
                   <div class="order__review--btns">
@@ -113,7 +110,6 @@
                     </a>
                   </div>
                 {% endif %}
-
                 <div>
                   <a href="{% url 'product_detail_full' pk=item.product_inventory.product.id %}"
                     aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link"> 
@@ -224,8 +220,6 @@
       }
       // if clicked, replace with select box
       orderEditStatus.on('click', editStatusPreset);
-
-
         let orderStatus;
         // if select box changed, change data-status
         orderStatusSelect.change(function() {
