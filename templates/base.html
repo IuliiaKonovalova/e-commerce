@@ -12,7 +12,13 @@
     <meta name="keywords" content="" />
     <meta name="author" content="Iuliia Konovalova" />
     {% comment %} Favicon {% endcomment %}
-
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon_package_v0.16/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon_package_v0.16/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon_package_v0.16/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/favicon_package_v0.16/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'images/favicon_package_v0.16/safari-pinned-tab.svg' %}" color="#2fcd99">
+    <meta name="msapplication-TileColor" content="#2fcd99">
+    <meta name="theme-color" content="#2fcd99">
   {% endblock%}
 
   {% block extra_meta %}
