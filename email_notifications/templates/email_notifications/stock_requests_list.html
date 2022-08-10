@@ -60,7 +60,7 @@
         <div class="search__container">
           <form  class="search__select" id="search-products">
             {% csrf_token %}
-              <label for="category"></label>
+              <label for="product"></label>
               {% comment %} Select requests by products in requests {% endcomment %}
               <select class="form-control" id="product" name="search_query">
                 <option value="">Products in requests</option>
