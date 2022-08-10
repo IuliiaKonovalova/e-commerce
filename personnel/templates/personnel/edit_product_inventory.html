@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .btn.btn__add {
+      background-color: #633b48;
+      color: #fff;
+    }
+  </style>
+{% endblock %}
+
 {% comment %} Extra Title {% endcomment %}
 {% block extra_title %}Personnel-Edit Unit{% endblock %}
 
