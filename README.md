@@ -681,6 +681,88 @@ Error: 4000000000009995
     }
 ```
 
+21. Set app stripe backend:
+  - Go to [Stripe Docs. Stripe CLI](https://stripe.com/docs/stripe-cli)
+  - Download the stripe-cli file depending on your operating system.
+
+  ![stripe-cli](documentation/payment_setup/stripe_cli_docs.png)
+
+  - In my case, I downloaded the file for Linux:
+
+  ![stripe-cli](documentation/payment_setup/stripe_cli_docs_linux.png)
+
+  - Go to the link provided and download the file.
+
+  ![stripe-cli](documentation/payment_setup/stipe_linux_x86_64.png)
+
+  - Open the downloaded file and move the file `stripe` to the root directory of the project.
+
+  - Open the terminal and type:
+
+  `./stripe login`
+
+  *Note! For the windows the command looks as following `stripe login`*
+
+  - Hit enter -> You will be redirected to the Stripe dashboard where you need to allow access to your local workspace.
+
+  - Create a payment and the intent will be created.
+
+  *Another option:*
+  
+  - Download the following file:
+
+  ![stripe-cli](documentation/payment_setup/stripe_directly.png)
+
+  - Open downloads folder in the terminal and type:
+
+  `sudo gdebi stripe_1.11.0_linux_amd64.deb`
+
+  - The package will be installed -> Type `stripe` in the terminal and hit enter.
+
+22. Create a function in the orders views to handle the payment confirmation, which will take payment data. This function will also handle email confirmation.
+
+23. To run this function you will need to add the following function provided by stripe:
+
+```python
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+  def stripe_webhook(request):
+      payload = request.body
+      event = None
+      try:
+          event = stripe.Event.construct_from(
+              json.loads(payload), stripe.api_key
+          )
+      except ValueError as e:
+          return HttpResponse(status=400)
+      # Handle the event
+      if event.type == 'payment_intent.succeeded':
+          payment_confirmation(event.data.object.client_secret)
+      else:
+          print('Unhandled event type {}'.format(event.type))
+      return HttpResponse(status=200)
+```
+
+24. Add url to the stripe_webhook function in the payment urls.py
+
+```python
+    path('webhook/', stripe_webhook),
+```
+
+25. In the terminal type:
+
+`./stripe listen --forward-to localhost:8000/payment/webhook/`
+
+26. Remember to set app stripe data in heroku configs:
+
+  - Create a webhook in the stripe dashboard and set the hosted endpoint.
+
+  ![webhook](documentation/payment_setup/stripe_webhook.png)
+
+  - `STRIPE_PUBLIC_KEY`
+  - `STRIPE_SECRET_KEY`
+  - `STRIPE_WEBHOOK_SECRET`
 
 ---
 
