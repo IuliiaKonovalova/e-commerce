@@ -612,12 +612,24 @@ main {
   margin: 1em auto;
 }
 
-.avatar-buttons a {
+.avatar-buttons a,
+.avatar-buttons button {
   font-size: 0.9rem;
 }
 
-.avatar-buttons a:first-child {
+.avatar-buttons button i {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+.avatar-buttons a:first-child,
+.avatar-buttons button:not(:last-child) {
   margin-right: 0.5em;
+}
+
+.avatar-buttons .btn__save {
+  background-color: var(--clr-accent--500);
+  color: var(--clr-text--100);
 }
 
 .profile__forms {
