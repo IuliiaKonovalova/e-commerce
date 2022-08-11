@@ -78,10 +78,10 @@ class TestModels(TestCase):
     def test_profile_update(self):
         """Test the update method."""
         profile = Profile.objects.get(user=self.user)
-        profile.first_name='Test2First'
-        profile.last_name='Test2Last'
-        profile.birthday='2000-01-01'
-        profile.subscription=True
+        profile.first_name = 'Test2First'
+        profile.last_name = 'Test2Last'
+        profile.birthday = '2000-01-01'
+        profile.subscription = True
         self.assertEqual(profile.first_name, 'Test2First')
         self.assertEqual(profile.last_name, 'Test2Last')
         self.assertEqual(profile.birthday, '2000-01-01')
@@ -91,9 +91,9 @@ class TestModels(TestCase):
         """Test profile string representation."""
         profile = Profile.objects.get(user=self.user)
         self.assertEqual(str(profile), 'testuser')
-        profile.first_name='Test2First'
+        profile.first_name = 'Test2First'
         self.assertEqual(str(profile), 'Test2First')
-        profile.last_name='Test2Last'
+        profile.last_name = 'Test2Last'
         self.assertEqual(str(profile), 'Test2First Test2Last')
 
     def test_profile_avatar_url(self):
@@ -124,7 +124,6 @@ class TestModels(TestCase):
     def test_address_creation(self):
         """Test address creation."""
         self.assertEqual(Address.objects.all().count(), 1)
-
 
     def test_address_user(self):
         """Test the user field."""
