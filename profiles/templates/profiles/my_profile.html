@@ -2,7 +2,53 @@
 {% load static %}
 
 {% block extra_css %}
+  <style>
+  .profile__name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--clr-primary--900);
+    padding-top: 1em
+  }
+  .profile__data--address {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+  }
 
+  .profile__data--address--title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--clr-primary--900);
+  }
+
+  .profile__menu {
+    width: 100%;
+    max-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+  }
+
+  .btn__profile {
+    color: var(--clr-accent--700) !important;
+    background-color: var(--clr-accent--100);
+    margin-bottom: 0.5em;
+    width: 20rem;
+  }
+
+  .btn__profile i {
+    font-size: calc(60% + 0.8vmin) !important;
+  }
+
+  .btn__profile:hover {
+    background-color: var(--clr-accent--200);
+  }
+  </style>
 {% endblock %}
 
 {% comment %} Extra Title {% endcomment %}
