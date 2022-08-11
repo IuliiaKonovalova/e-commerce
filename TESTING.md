@@ -607,6 +607,10 @@ def payment_confirmation(data):
 
 [Payment. Validation Report](documentation/validation/pep8_validation_payment.pdf)
 
+#### Personnel app
+
+[Personnel. Validation Report](documentation/validation/pep8_validation_personnel.pdf)
+
 #### Orders app
 
 [Orders. Validation Report](documentation/validation/orders_validation_report.pdf)
