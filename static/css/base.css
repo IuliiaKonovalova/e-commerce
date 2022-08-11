@@ -574,12 +574,7 @@ main {
   max-width: 70rem;
   padding: 2em;
   position: relative;
-}
-
-.profile.profile__table .profile__edit--btn {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  max-width: 30rem;
 }
 
 .profile h2 {
