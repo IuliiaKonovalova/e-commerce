@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from inventory.models import Product
 from orders.models import Order
 
+
 class Review(models.Model):
     """Review model."""
     STAR_CHOICES = (
@@ -57,7 +58,7 @@ class ReviewImage(models.Model):
         on_delete=models.CASCADE,
         related_name='images',
     )
-    image =CloudinaryField(
+    image = CloudinaryField(
         'review_image',
         null=True,
         blank=True,
