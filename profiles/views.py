@@ -74,7 +74,9 @@ class EditUserProfileView(View):
         if request.user.is_authenticated:
             profile_form = ProfileForm(instance=request.user.profile)
             password_form = PasswordChangeForm(user=request.user)
-            password_form.fields['old_password'].widget.attrs['autofocus'] = False
+            password_form.fields[
+                'old_password'
+            ].widget.attrs['autofocus'] = False
             context = {
                 'profile_form': profile_form,
                 'password_form': password_form
@@ -89,6 +91,7 @@ class EditUserProfileView(View):
                 request,
                 'account/login.html'
             )
+
     def post(self, request, *args, **kwargs):
         """Post request for the edit profile page."""
         if request.user.is_authenticated:
@@ -173,6 +176,7 @@ class AddAddressView(View):
                 request,
                 'account/login.html'
             )
+
     def post(self, request, *args, **kwargs):
         """Post request for the add address page."""
         if request.user.is_authenticated:
@@ -224,6 +228,7 @@ class EditAddressView(View):
                 request,
                 'account/login.html'
             )
+
     def post(self, request, *args, **kwargs):
         """Post request for the edit address page."""
         if request.user.is_authenticated:
