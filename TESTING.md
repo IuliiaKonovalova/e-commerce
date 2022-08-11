@@ -603,6 +603,10 @@ def payment_confirmation(data):
 
 [Inventory. Validation Report](documentation/validation/pep8_validation_inventory.pdf)
 
+#### Payment app
+
+[Payment. Validation Report](documentation/validation/pep8_validation_payment.pdf)
+
 #### Orders app
 
 [Orders. Validation Report](documentation/validation/orders_validation_report.pdf)
