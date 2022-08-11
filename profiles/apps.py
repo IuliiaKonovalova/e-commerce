@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 
 
 class ProfilesConfig(AppConfig):
+    """Config for the profiles app."""
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'profiles'
 
