@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+
+{% endblock %}
 
 {% comment %} Extra Title {% endcomment %}
 {% block extra_title %}Profile{% endblock %}
 
 {% block content %}
   {% comment %} User's profile page {% endcomment %}
-  <div class="profile">
-    <h1>My Profile</h1>
-    <strong>{{ my_profile.first_name }} {{ my_profile.last_name }}</strong>
+  <div class="profile profile__table">
     {% comment %} Avatar {% endcomment %}
     <div class="profile__avatar">
       {% if user.profile.avatar %}
@@ -18,20 +19,16 @@
         <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
       {% endif %}
     </div>
+    <h1 class="profile__name">{{ my_profile.first_name }} {{ my_profile.last_name }}</h1>
     {% comment %} Edit profile button {% endcomment %}
-    <div>
-      <a href="{% url 'edit_profile' user=request.user %}" aria-label="Go to Edit My Profile Page" class="btn btn__edit">
-        <i class="fas fa-user-edit"></i>
-        Edit Profile
-      </a>
-    </div>
+
     {% comment %} Address {% endcomment %}
-    <div>
+    <div class="profile__data--address">
       {% comment %} If there are addresses for this user in db: {% endcomment %}
       {% if my_addresses %}
         {% comment %} If primary address is set up {% endcomment %}
         {% if primary_address %}
-          Your primary address is:
+          <div class="profile__data--address--title">Your primary address is:</div>
           <div>
             {% for address in primary_address %}
             {{ address.country }}
@@ -44,41 +41,45 @@
           </div>
         {% comment %} If There is no primary address chosen {% endcomment %}
         {% else %}
-          You haven't added the primary address
+          <div class="profile__data--address--title">You haven't added the primary address</div>
         {% endif %}
-        {% comment %} Suggestion to set primary {% endcomment %}
-        <div>
-          <a href="{% url 'my_addresses' user=request.user %}" aria-label="Go to Manage My Addresses Page"
-            class="btn btn__settings">
-            <i class="fas fa-map-marked-alt"></i>
-            Manage my addresses
-          </a>
-        </div>
-        {% comment %} If no addresses are added -> Add primary address suggestion {% endcomment %}
+      {% comment %} If there are no addresses for this user in db: {% endcomment %}
       {% else %}
-        <div>No addresses found</div>
-        <div>
-          <a href="{% url 'add_address' user=request.user %}" aria-label="Go to Add Address Page" class="btn btn__settings">
-            <i class="fas fa-plus-circle"></i>
-            Add address
-          </a>
-        </div>
+        <div class="profile__data--address--title">No addresses found</div>
       {% endif %}
     </div>
-    {% comment %} View my orders {% endcomment %}
-    <a href="{% url 'my_orders' user=request.user %}" aria-label="Go to My Orders Page" class="btn btn__redirect">
-      <i class="fas fa-shopping-cart"></i>
-      My orders
-    </a>
-    {% comment %} View my wishlist {% endcomment %}
-    <a href="{% url 'wishlist_display' %}" aria-label="Go to My Wishlist Page" class="btn btn__redirect">
-      <i class="fas fa-heart"></i>
-      My wishlist
-    </a>
-    {% comment %} View my Reviews {% endcomment %}
-    <a href="{% url 'view_users_reviews' %}" aria-label="Go to My reviews Page" class="btn btn__redirect">
-      <i class="fas fa-star"></i>
-      My reviews
-    </a>
+    <div class="profile__menu">
+      {% if my_addresses %}
+        <a href="{% url 'edit_profile' user=request.user %}" aria-label="Go to Edit My Profile Page" class="btn btn__profile">
+          <i class="fas fa-user-edit"></i>
+          Edit Profile
+        </a>
+        <a href="{% url 'my_addresses' user=request.user %}" aria-label="Go to Manage My Addresses Page"
+          class="btn btn__profile">
+          <i class="fas fa-map-marked-alt"></i>
+          My addresses
+        </a>
+      {% else %}
+        <a href="{% url 'add_address' user=request.user %}" aria-label="Go to Add Address Page" class="btn btn__profile">
+          <i class="fas fa-plus-circle"></i>
+          Add address
+        </a>
+      {% endif %}
+      {% comment %} View my orders {% endcomment %}
+      <a href="{% url 'my_orders' user=request.user %}" aria-label="Go to My Orders Page" class="btn btn__profile">
+        <i class="fas fa-shopping-cart"></i>
+        My orders
+      </a>
+      {% comment %} View my wishlist {% endcomment %}
+      <a href="{% url 'wishlist_display' %}" aria-label="Go to My Wishlist Page" class="btn btn__profile">
+        <i class="fas fa-heart"></i>
+        My wishlist
+      </a>
+      {% comment %} View my Reviews {% endcomment %}
+      <a href="{% url 'view_users_reviews' %}" aria-label="Go to My reviews Page" class="btn btn__profile">
+        <i class="fas fa-star"></i>
+        My reviews
+      </a>
+    </div>
   </div>
 {% endblock %}
