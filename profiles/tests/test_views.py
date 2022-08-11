@@ -122,7 +122,6 @@ class TestViews(TestCase):
         )
         self.assertEqual(response.json()['success'], False)
 
-
     def test_edit_profile_get_view(self):
         """Test edit profile get view."""
         self.client.force_login(self.user)
@@ -168,7 +167,7 @@ class TestViews(TestCase):
         pwd = make_password('123')
         self.user33 = User.objects.create(
             username='testuser33',
-            password = pwd,
+            password=pwd,
             email='user3gmail.com'
         )
         self.client.force_login(self.user33)
@@ -207,7 +206,7 @@ class TestViews(TestCase):
         pwd = make_password('123')
         self.user33 = User.objects.create(
             username='testuser33',
-            password = pwd,
+            password=pwd,
             email='user3gmail.com'
         )
         self.client.force_login(self.user33)
@@ -271,7 +270,7 @@ class TestViews(TestCase):
                 'county_region': 'Test county region',
                 'city': 'Test city',
                 'address_line': 'Test street',
-                'zip_code': '99999',                
+                'zip_code': '99999',
                 'phone_number': '123456789',
                 'is_primary': True
             },
@@ -302,7 +301,7 @@ class TestViews(TestCase):
                 'county_region': 'Test county region',
                 'city': 'Test city',
                 'address_line': 'Test street',
-                'zip_code': '12345',                
+                'zip_code': '12345',
                 'phone_number': '123456789',
                 'is_primary': True
             },
@@ -331,7 +330,7 @@ class TestViews(TestCase):
                 'county_region': 'Test county region',
                 'city': 'Test city',
                 'address_line': 'Test street',
-                'zip_code': '99999',                
+                'zip_code': '99999',
                 'phone_number': '123456789',
                 'is_primary': True
             },
