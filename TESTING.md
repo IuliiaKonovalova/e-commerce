@@ -623,6 +623,10 @@ def payment_confirmation(data):
 
 [Promotions. Validation Report](documentation/validation/promotions_validation_report.pdf)
 
+#### Reviews app
+
+[Reviews. Validation Report](documentation/validation/pep8_validation_reviews.pdf)
+
 #### Wishlist app
 
 [Wishlist. Validation report](documentation/validation/wishlist_validation_report.pdf)
