@@ -599,6 +599,10 @@ def payment_confirmation(data):
 
 [Home. Validation Report](documentation/validation/pep8_validation_home.pdf)
 
+#### Inventory app
+
+[Inventory. Validation Report](documentation/validation/pep8_validation_inventory.pdf)
+
 #### Orders app
 
 [Orders. Validation Report](documentation/validation/orders_validation_report.pdf)
