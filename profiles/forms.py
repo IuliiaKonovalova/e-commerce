@@ -29,11 +29,12 @@ class ProfileForm(forms.ModelForm):
                     'title': 'YYYY-MM-DD',
                     'placeholder': 'Birthday',
                 }
-            ),            
+            ),
             'subscription': forms.CheckboxInput(
                 attrs={'class': 'form-check-input'}
             )
         }
+
 
 class AddressForm(forms.ModelForm):
     """Form for the Address model."""
@@ -55,6 +56,7 @@ class AddressForm(forms.ModelForm):
             'address_line': forms.TextInput(attrs={'class': 'form-control'}),
             'zip_code': forms.NumberInput(attrs={'class': 'form-control'}),
             'phone_number': forms.NumberInput(attrs={'class': 'form-control'}),
-            'is_primary': forms.CheckboxInput(attrs={'class': 'form-check-input'})
+            'is_primary': forms.CheckboxInput(
+                attrs={'class': 'form-check-input'}
+            )
         }
-
