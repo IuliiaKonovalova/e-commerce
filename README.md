@@ -769,7 +769,7 @@ from django.views.decorators.csrf import csrf_exempt
 ## Deployment
 
 - The app was deployed to [Heroku](https://heroku.com).
-- The app can be reached by the [ADD LINK HERE]()
+- The app can be reached by the [Deployed website](https://wowder.herokuapp.com/)
 
 ### Local deployment
 
@@ -811,6 +811,7 @@ from django.views.decorators.csrf import csrf_exempt
 - [unsplash](https://unsplash.com/): for providing a free products' images to fill out the store.
 - [chrome developer tools](https://developer.chrome.com/extensions/devtools_inspector): for providing a free platform to test website.
 - [adidas](https://www.adidas.com/): for providing a free products' data and images to fill out the store on clothes and shoes.
+- [dell](https://www.dell.com/): for providing a free products' data and images to fill out the store on computers and laptops.
 - [nike](https://www.nike.com/): for providing a free products' data and images to fill out the store on clothes and shoes.
 - [artsaber](https://www.artsabers.com/): for providing a free products' images to fill out the store on lightsabers data and images.
 - [backwaterreptiles](https://www.backwaterreptiles.com/): for providing a free products' images to fill out the store on tarantulas' data and images.
