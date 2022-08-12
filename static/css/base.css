@@ -888,6 +888,7 @@ label[for="id_subscription"] {
 div.address__card--primary {
   background-color: var(--clr-primary--300) !important;
   color: var(--clr-text--100) !important;
+  text-shadow: 0 0.9rem 1rem rgba(5, 5, 5, 0.396);
 }
 
 .addresses__all div a {
