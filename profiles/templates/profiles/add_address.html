@@ -109,7 +109,6 @@
       $('#id_city').on('select2:open', function () {
         $('body').css('overflow-x', 'hidden');
       });
-
       $('#id_county_region').on('select2:open', function () {
         $('body').css('overflow-x', 'hidden');
       });
@@ -122,8 +121,6 @@
       $('#id_city').on('select2:close', function () {
         $('body').css('overflow-x', 'auto');
       });
-
-
 
       // need to fetch only country names from geonames.org
       $.ajax({
@@ -143,7 +140,6 @@
             }));
           }
         }
-
       })
       $('#id_country').on('change', () => {
         let countryId = $('#id_country').find(':selected').data('id');
@@ -177,18 +173,15 @@
           }
         })
       })
-
       $('#id_county_region').on('change', () => {
         let stateName = $('#id_county_region').find(':selected').text();
         let stateNameFirstWord = stateName.split(' ')[0];
         const city = $('#id_city');
-
         $.ajax({
           url: 'https://secure.geonames.org/searchJSON?q=' + stateNameFirstWord + '&username=juliia55&style=FULL&fclName=city, village,...&maxRows=1000',
           type: 'GET',
           dataType: 'json',
           success: function (data) {
-            console.log(data);
             city.html('<option value="" selected disabled>Select City</option>');
             $.each(data.geonames, function (key, value) {
               city.append('<option value="' + value.name + '">' + value.name + '</option>');
