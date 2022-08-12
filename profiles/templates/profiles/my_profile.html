@@ -66,8 +66,6 @@
       {% endif %}
     </div>
     <h1 class="profile__name">{{ my_profile.first_name }} {{ my_profile.last_name }}</h1>
-    {% comment %} Edit profile button {% endcomment %}
-
     {% comment %} Address {% endcomment %}
     <div class="profile__data--address">
       {% comment %} If there are addresses for this user in db: {% endcomment %}
@@ -77,11 +75,11 @@
           <div class="profile__data--address--title">Your primary address is:</div>
           <div>
             {% for address in primary_address %}
-            {{ address.country }}
-            {{ address.county_region }}
-            {{ address.city }}
-            {{ address.address_line }}
-            {{ address.zip_code }}
+            {{ address.country }},
+            {{ address.county_region }},
+            {{ address.city }},
+            {{ address.address_line }},
+            {{ address.zip_code }},
             {{ address.phone_number }}
             {% endfor %}
           </div>
