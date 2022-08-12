@@ -24,69 +24,77 @@
         {% for address in addresses %}
           {% if address.is_primary %}
             <div class="address__card address__card--primary">
-              <div>
-                <strong>Country: </strong>{{ address.country }}
+              <div class="address__card--data">
+                <div>
+                  <strong>Country: </strong>{{ address.country }}
+                </div>
+                <div>
+                  <strong>Region: </strong>{{ address.county_region }}
+                </div>
+                <div>
+                  <strong>City: </strong>{{ address.city }}
+                </div>
+                <div>
+                  <strong>Address Line: </strong>{{ address.address_line }}
+                </div>
+                <div>
+                  <strong>Zip code: </strong>{{ address.zip_code }}
+                </div>
+                <div>
+                  <strong>Phone: </strong>{{ address.phone_number }}
+                </div>
+                <div>
+                  <strong>Primary: </strong>{{ address.is_primary }}
+                </div>
               </div>
-              <div>
-                <strong>Region: </strong>{{ address.county_region }}
+              <div class="address__card--btns">
+                <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
+                  aria-label="Go to Edit Address Page">
+                  Edit
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a class="address__primary--btn address__card--disable" href="Disable primary address" aria-label="Disable Primary Address"
+                  data-id="{{ address.id }}">
+                  Disable as Primary
+                </a>
               </div>
-              <div>
-                <strong>City: </strong>{{ address.city }}
-              </div>
-              <div>
-                <strong>Address Line: </strong>{{ address.address_line }}
-              </div>
-              <div>
-                <strong>Zip code: </strong>{{ address.zip_code }}
-              </div>
-              <div>
-                <strong>Phone: </strong>{{ address.phone_number }}
-              </div>
-              <div>
-                <strong>Primary: </strong>{{ address.is_primary }}
-              </div>
-              <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
-                aria-label="Go to Edit Address Page">
-                Edit
-                <i class="fas fa-edit"></i>
-              </a>
-              <a class="address__primary--btn address__card--disable" href="Disable primary address" aria-label="Disable Primary Address"
-                data-id="{{ address.id }}">
-                Disable as Primary
-              </a>
             </div>
           {% else %}
             <div class="address__card">
-              <div>
-                <strong>Country: </strong>{{ address.country }}
+              <div class="address__card--data">
+                <div>
+                  <strong>Country: </strong>{{ address.country }}
+                </div>
+                <div>
+                  <strong>Region: </strong>{{ address.county_region }}
+                </div>
+                <div>
+                  <strong>City: </strong>{{ address.city }}
+                </div>
+                <div>
+                  <strong>Address Line: </strong>{{ address.address_line }}
+                </div>
+                <div>
+                  <strong>Zip code: </strong>{{ address.zip_code }}
+                </div>
+                <div>
+                  <strong>Phone: </strong>{{ address.phone_number }}
+                </div>
+                <div>
+                  <strong>Primary: </strong>{{ address.is_primary }}
+                </div>
               </div>
-              <div>
-                <strong>Region: </strong>{{ address.county_region }}
+              <div class="address__card--btns">
+                <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
+                  aria-label="Go to Edit Address Page">
+                  Edit
+                  <i class="fas fa-edit"></i>
+                </a>
+                <a class="address__primary--btn address__card--enable" href="Enable primary address" aria-label="Enable Primary Address"
+                  data-id="{{ address.pk }}">
+                  <div>Enable as Primary</div>
+                </a>
               </div>
-              <div>
-                <strong>City: </strong>{{ address.city }}
-              </div>
-              <div>
-                <strong>Address Line: </strong>{{ address.address_line }}
-              </div>
-              <div>
-                <strong>Zip code: </strong>{{ address.zip_code }}
-              </div>
-              <div>
-                <strong>Phone: </strong>{{ address.phone_number }}
-              </div>
-              <div>
-                <strong>Primary: </strong>{{ address.is_primary }}
-              </div>
-              <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
-                aria-label="Go to Edit Address Page">
-                Edit
-                <i class="fas fa-edit"></i>
-              </a>
-              <a class="address__primary--btn address__card--enable" href="Enable primary address" aria-label="Enable Primary Address"
-                data-id="{{ address.pk }}">
-                <div>Enable as Primary</div>
-              </a>
             </div>
           {% endif %}
         {% endfor %}
