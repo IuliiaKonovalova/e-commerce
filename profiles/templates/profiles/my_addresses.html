@@ -8,9 +8,9 @@
   <div class="profile">
     <h1>Your addresses:</h1>
     <div>
-      <a href="{% url 'add_address' user=request.user %}" class="btn btn__redirect">
-        Add new address
+      <a href="{% url 'add_address' user=request.user %}" class="btn btn__add">
         <i class="fas fa-plus-circle"></i>
+        Add new address
       </a>
     </div>
     <div class="addresses__all">
@@ -19,25 +19,25 @@
           {% if address.is_primary %}
             <div class="address__card address__card--primary">
               <div>
-                Country: {{ address.country }}
+                <strong>Country: </strong>{{ address.country }}
               </div>
               <div>
-                County/region/state: {{ address.county_region }}
+                <strong>Region: </strong>{{ address.county_region }}
               </div>
               <div>
-                City: {{ address.city }}
+                <strong>City: </strong>{{ address.city }}
               </div>
               <div>
-                Address Line: {{ address.address_line }}
+                <strong>Address Line: </strong>{{ address.address_line }}
               </div>
               <div>
-                Zip/postal code: {{ address.zip_code }}
+                <strong>Zip code: </strong>{{ address.zip_code }}
               </div>
               <div>
-                Phone: {{ address.phone_number }}
+                <strong>Phone: </strong>{{ address.phone_number }}
               </div>
               <div>
-                Primary: {{ address.is_primary }}
+                <strong>Primary: </strong>{{ address.is_primary }}
               </div>
               <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
                 aria-label="Go to Edit Address Page">
@@ -52,25 +52,25 @@
           {% else %}
             <div class="address__card">
               <div>
-                Country: {{ address.country }}
+                <strong>Country: </strong>{{ address.country }}
               </div>
               <div>
-                County/region/state: {{ address.county_region }}
+                <strong>Region: </strong>{{ address.county_region }}
               </div>
               <div>
-                City: {{ address.city }}
+                <strong>City: </strong>{{ address.city }}
               </div>
               <div>
-                Address Line: {{ address.address_line }}
+                <strong>Address Line: </strong>{{ address.address_line }}
               </div>
               <div>
-                Zip/postal code: {{ address.zip_code }}
+                <strong>Zip code: </strong>{{ address.zip_code }}
               </div>
               <div>
-                Phone: {{ address.phone_number }}
+                <strong>Phone: </strong>{{ address.phone_number }}
               </div>
               <div>
-                Primary: {{ address.is_primary }}
+                <strong>Primary: </strong>{{ address.is_primary }}
               </div>
               <a class="address__card--edit" href="{% url 'edit_address' user=request.user pk=address.pk %}"
                 aria-label="Go to Edit Address Page">
