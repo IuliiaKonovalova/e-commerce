@@ -876,21 +876,18 @@ label[for="id_subscription"] {
 
 .address__card--data {
   width: 100% !important;
-  align-self: center;
+  align-self: flex-start;
   justify-self: center;
 }
-
-/* .address__card--btns {} */
 
 .orders__all>a:hover,
 .reviews__all>a:hover {
   background-color: var(--clr-primary--100)
 }
 
-.address__card--primary {
-  background-color: var(--clr-primary--200) !important;
+div.address__card--primary {
   background-color: var(--clr-primary--300) !important;
-  color: white !important;
+  color: var(--clr-text--100) !important;
 }
 
 .addresses__all div a {
@@ -907,7 +904,6 @@ label[for="id_subscription"] {
   padding: 0.2em 0.5em;
   border-radius: var(--br-buttons);
   box-shadow: var(--box-shadow-buttons);
-
 }
 
 .address__card--edit i,
@@ -917,13 +913,9 @@ label[for="id_subscription"] {
   margin-top: 0.0.5em;
 }
 
-/* .address__primary--btn {
-  padding-bottom: 0.35em;
-} */
-
 .address__card--edit {
   background-color: var(--clr-primary--200);
-  margin: 0.4em auto;
+  margin-bottom: 0.4em;
 }
 
 .address__card--disable {
