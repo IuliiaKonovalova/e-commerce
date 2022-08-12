@@ -131,14 +131,17 @@
                 $(this).removeClass('address__card--disable');
                 $(this).addClass('address__card--enable');
                 $(this).text('Enable as Primary');
+                //add href
+                $(this).attr('href', 'Enable primary address');
               });
               $('.fa-spinner').remove();
               if (data.primary) {
-                let cardParent = $('[data-id="' + addressId + '"]').parent();
+                let cardParent = $('[data-id="' + addressId + '"]').parent().parent();
                 cardParent.addClass('address__card--primary');
                 $('[data-id="' + addressId + '"]').removeClass('address__card--enable');
                 $('[data-id="' + addressId + '"]').addClass('address__card--disable');
                 $('[data-id="' + addressId + '"]').text('Disable as Primary');
+                $('[data-id="' + addressId + '"]').attr('href', 'Disable primary address');
               }
               setTimeout(() => {
                 $('.success-message').remove();
@@ -152,7 +155,6 @@
                 '<p class="message-container__message--text">Something went wrong</p>' +
                 '</div>' +
                 '</div>');
-              // remove the message block after 3 seconds
               setTimeout(() => {
                 $('#messages-notes').remove();
               }, 3000);
