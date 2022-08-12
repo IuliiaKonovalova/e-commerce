@@ -87,7 +87,7 @@
       <div class="address__delete--dropdown hidden" id="delete-dropwdown">
         <p>Are you sure you want to permanently delete this address?</p>
         <p>This action is irreversible!</p>
-        <div class="">
+        <div class="btn__container">
           <a id="delete-confirm" href="{% url 'delete_address' user=request.user.username pk=address.pk %}"
             class="btn btn__delete">
             <i class="fas fa-trash-alt"></i>
