@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+
+  </style>
+{% endblock %}
+
 {% comment %} Extra Title {% endcomment %}
 {% block extra_title %}Addresses{% endblock %}
 
@@ -99,6 +105,7 @@
         $(this).on('click', function (e) {
           e.preventDefault();
           let addressId = $(this).data('id');
+          $(this).html('');
           $(this).append('<i class="fas fa-spinner fa-spin"></i>');
           $.ajax({
             url: "{% url 'set_primary_address' %}",
