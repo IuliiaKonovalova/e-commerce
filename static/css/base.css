@@ -867,9 +867,20 @@ label[for="id_subscription"] {
   background-color: var(--clr-text--100);
 }
 
-.addresses__all>div {
-  text-align: center;
+.address__card {
+  width: 100% !important;
+  display: grid !important;
+  grid-template-rows: 2.5fr 1fr !important;
+  grid-template-columns: 1fr !important;
 }
+
+.address__card--data {
+  width: 100% !important;
+  align-self: center;
+  justify-self: center;
+}
+
+/* .address__card--btns {} */
 
 .orders__all>a:hover,
 .reviews__all>a:hover {
@@ -878,6 +889,8 @@ label[for="id_subscription"] {
 
 .address__card--primary {
   background-color: var(--clr-primary--200) !important;
+  background-color: var(--clr-primary--300) !important;
+  color: white !important;
 }
 
 .addresses__all div a {
@@ -904,9 +917,9 @@ label[for="id_subscription"] {
   margin-top: 0.0.5em;
 }
 
-.address__primary--btn {
+/* .address__primary--btn {
   padding-bottom: 0.35em;
-}
+} */
 
 .address__card--edit {
   background-color: var(--clr-primary--200);
