@@ -586,6 +586,10 @@ main {
   text-align: center;
 }
 
+.profile__data--address {
+  text-align: center;
+}
+
 .profile__avatar {
   max-width: 20rem;
 }
