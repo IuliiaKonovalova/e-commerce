@@ -63,7 +63,14 @@
         <form class="profile__password--form">
           <h2 class="profile__password--title">Edit password</h2>
           {% csrf_token %}
-          {{ password_form }}
+          {% for field in password_form %}
+            {% if field.is_hidden %}
+              {{ field }}
+            {% else %}
+              {{ field.label_tag }}
+              {{ field }}
+            {% endif %}
+          {% endfor %}
           <a class="save-form password-form-btn btn btn__add" id="save-password-btn">
             <i class="fas fa-save"></i>
             Change password
