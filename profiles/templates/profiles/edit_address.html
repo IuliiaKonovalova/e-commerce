@@ -207,7 +207,6 @@
           type: 'GET',
           dataType: 'json',
           success: function (data) {
-            console.log(data);
             city.html('<option value="" selected disabled>Select City</option>');
             $.each(data.geonames, function (key, value) {
               city.append('<option value="' + value.name + '">' + value.name + '</option>');
