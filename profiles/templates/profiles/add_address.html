@@ -3,12 +3,13 @@
 
 {% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <style>
+  <style>
     .dashboard__form p {
       display: flex;
       flex-direction: column;
       width: 100%;
     }
+
     input[type="number"] {
       margin: 0;
       border-radius: 0.4rem;
@@ -58,10 +59,12 @@
 {% block content %}
   <div class="profile ">
     <div class="profile__section">
+      {% comment %} Address form {% endcomment %}
       <form class="dashboard__form" method="post" action="{% url 'add_address' user=request.user %}">
         <h1>Add new address</h1>
         {% csrf_token %}
         {{ address_form.as_p }}
+        {% comment %} Form control buttons {% endcomment %}
         <div class="form__btns accent">
           <a href="{% url 'my_addresses' user=request.user %}" aria-label="Go to addresses details"
             class="btn btn-primary btn__cancel">
@@ -121,7 +124,6 @@
       $('#id_city').on('select2:close', function () {
         $('body').css('overflow-x', 'auto');
       });
-
       // need to fetch only country names from geonames.org
       $.ajax({
         url: 'https://secure.geonames.org/countryInfoJSON?username=juliia55',
