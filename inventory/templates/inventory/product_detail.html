@@ -7,16 +7,19 @@
 {% block content %}
 <div class="product__main">
   <div class="product__main--image">
+    {% comment %} Get discount data {% endcomment %}
     {% if product.get_sale_price_is_lower_than_store_price %}
       <div class="product__card--discount">
         <img src="{% static 'images/sale.png' %}" alt="sale Image">
       </div>
     {% endif %}
+    {% comment %} Get new product data {% endcomment %}
     {% if product.get_recently_created %}
       <div class="product__card--new">
         New !
       </div>
     {% endif %}
+    {% comment %} Carousel for products images {% endcomment %}
     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="false">
       {% if active_images and active_images|length > 1 %}
         {% for image in active_images %}
@@ -62,6 +65,7 @@
         </button>
       {% endif %}
     </div>
+    {% comment %} Wishlist control buttons {% endcomment %}
     <div class="product__main--rating--wishlist">
       <div class="product__card--wishlist">
         {% if request.user.is_authenticated %}
@@ -89,6 +93,7 @@
           </button>
         {% endif %}
       </div>
+      {% comment %} Product's rating section {% endcomment %}
       <div class="product__card--rating">
         <div class="rating__title">
           Rating:
@@ -98,6 +103,7 @@
             <i class="fas fa-star"></i>
             <div>{{ product.get_average_rating }}</div>
           </div>
+          {% comment %} Go to reviews {% endcomment %}
           <a href="{% url 'view_all_products_reviews' product_id=product.id %}"
               aria-label="Go to view reviews details on th poduct" class="rating__data--reviews btn btn__redirect">
             View reviews
@@ -111,6 +117,7 @@
       </div>
     </div>
   </div>
+  {% comment %} Product's details info {% endcomment %}
   <div class="product__main--info">
     <div data-id="{{ product.id }}" id="product">
       <div class="product__title">
@@ -120,12 +127,14 @@
     <div class="product__description">
       <p>{{ product.description }}</p>
     </div>
+    {% comment %} Reset buttons {% endcomment %}
     {% if not product.get_out_of_stock %}
       <button class="btn btn-secondary btn__reset" id="reset-button" type="button" data-attributevalue="reset" aria-label="Reset chosen options">
         <i class="fas fa-undo"></i>
         Reset
       </button>
     {% endif %}
+    {% comment %} Form for product's values {% endcomment %}
     <form class="product__variants form" action="#"  id="form">
       {% for k,v in attribute_values_dict.items %}
         <div class="product__options form__section">
@@ -147,6 +156,7 @@
           </div>
         </div>
       {% endfor %}
+      {% comment %} Price options {% endcomment %}
       <div class="form__section">
         <div class="product__options--title"> price</div>
         <div class="product__price" id="item-price">
@@ -185,6 +195,7 @@
           </div>
         </div>
       </div>
+      {% comment %} Quantity for products {% endcomment %}
       {% if not product.get_out_of_stock %}
         <div class="form__section form__section--quantity">
           <div class="product__options--quantity product__options--input">
@@ -202,6 +213,7 @@
               </button>
             </div>
           </div>
+          {% comment %} Stock limit messages {% endcomment %}
           <div class="quantity__warning hidden" id="quantity-warning">
             <i class="fas fa-exclamation-triangle"></i>
             <div class="quantity__warning--message" id="quantity-warning-message"></div>
@@ -271,6 +283,7 @@
   </div>
 </div>
 {% endblock %}
+
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function() {
