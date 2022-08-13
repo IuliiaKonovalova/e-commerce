@@ -589,7 +589,7 @@ def payment_confirmation(data):
 
 #### Bag app
 
-[Bag. Validation Report](documentation/validation/bag_validation_report.pdf)
+[Bag. Validation Report](documentation/validation/pep8_validation_bag.pdf)
 
 #### Email_notifications app
 
@@ -603,6 +603,10 @@ def payment_confirmation(data):
 
 [Inventory. Validation Report](documentation/validation/pep8_validation_inventory.pdf)
 
+#### Orders app
+
+[Orders. Validation Report](documentation/validation/pep8_validation_orders.pdf)
+
 #### Payment app
 
 [Payment. Validation Report](documentation/validation/pep8_validation_payment.pdf)
@@ -615,13 +619,9 @@ def payment_confirmation(data):
 
 [Profiles. Validation Report](documentation/validation/pep8_validation_profiles.pdf)
 
-#### Orders app
-
-[Orders. Validation Report](documentation/validation/orders_validation_report.pdf)
-
 #### Promotions app
 
-[Promotions. Validation Report](documentation/validation/promotions_validation_report.pdf)
+[Promotions. Validation Report](documentation/validation/pep8_validation_promotions.pdf)
 
 #### Reviews app
 
@@ -629,7 +629,7 @@ def payment_confirmation(data):
 
 #### Wishlist app
 
-[Wishlist. Validation report](documentation/validation/wishlist_validation_report.pdf)
+[Wishlist. Validation report](documentation/validation/pep8_validation_wishlist.pdf)
 
 #### Errors:
 
