@@ -50,7 +50,9 @@ class AddressForm(forms.ModelForm):
             'is_primary'
         ]
         widgets = {
-            'country': forms.Select(attrs={'class': 'form-control'}),
+            'country': forms.Select(
+                attrs={'class': 'form-control'},
+            ),
             'county_region': forms.Select(attrs={'class': 'form-control'}),
             'city': forms.Select(attrs={'class': 'form-control'}),
             'address_line': forms.TextInput(attrs={'class': 'form-control'}),
@@ -60,3 +62,12 @@ class AddressForm(forms.ModelForm):
                 attrs={'class': 'form-check-input'}
             )
         }
+
+    def __init__(self, *args, **kwargs):
+            super(AddressForm, self).__init__(*args, **kwargs)
+            self.fields['country'].widget.attrs.pop('maxlength', None)
+            self.fields['county_region'].widget.attrs.pop('maxlength', None)
+            self.fields['city'].widget.attrs.pop('maxlength', None)
+            self.fields['address_line'].widget.attrs.pop('maxlength', None)
+            self.fields['zip_code'].widget.attrs.pop('maxlength', None)
+            self.fields['phone_number'].widget.attrs.pop('maxlength', None)
