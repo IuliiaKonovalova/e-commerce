@@ -135,7 +135,6 @@
               {% for item in v %}
                 {% if item in values_set %}
                   {% if item in values_set_active %}
-                  {% comment %} {{ k }}-{{ forloop.counter }} {% endcomment %}
                     <input type="radio" class="btn-check option" name="{{ k }}" id="{{ k }}-{{ forloop.counter }}" value="{{ item }}" aria-label="Choose value">
                     <label class="btn btn-outline-primary" for="{{ k }}-{{ forloop.counter }}" data-labelid="{{ item }}">{{ item }}</label>
                   {% else %}
@@ -361,8 +360,6 @@
           // get the value of the input
           let value = $(this).val();
           let thisLabel = $(this).next('label');
-          //let thisLabel = $('label[for="' + value + '"]');
-          // check if the value is in the values_list_array
           //get label with disabled class
           thisLabel.css('background-color', value);
           thisLabel.text('');
@@ -388,8 +385,6 @@
             let label = $('label[for="' + value + '"]');
           }
         });
-        // we have button radio groups for each attribute
-        // when an attribute is checked, we need to update all the other attribute groups
         // [
         //   {"size-shoes":"36","Color":"red","Quantity":10},
         //   {"size-shoes":"35","Color":"yellow","Quantity":10},
@@ -428,7 +423,6 @@
                   //find the label with data-labelid the same as the buttonId
                   let buttonLabel = $('label[data-labelid="' + buttonId + '"]');
                   console.log(buttonLabel);
-                 // let buttonLabel = $('label[for="' + buttonId + '"]');
                   $(buttonLabel).removeClass('disabled');
                 } else {
                   // find the buttons label and disable it
@@ -511,7 +505,6 @@
               `);
               $('#quantity-warning').addClass('hidden');
               $(document).off('click');
-              //}
             }
           })
         });
@@ -790,8 +783,6 @@
             // get the value of the input
             let valueModal = $(this).val();
             let thisLabel = $('label[data-labelid="' + valueModal + '"]');
-            //let thisLabel = $('label[for="request-' + valueModal + '"]');
-            // check if the value is in the values_list_array
             //get label with disabled class
             thisLabel.css('background-color', valueModal);
             thisLabel.text('');
