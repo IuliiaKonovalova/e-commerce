@@ -135,11 +135,12 @@
               {% for item in v %}
                 {% if item in values_set %}
                   {% if item in values_set_active %}
-                    <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" aria-label="Choose value">
-                    <label class="btn btn-outline-primary" for="{{ item }}">{{ item }}</label>
+                  {% comment %} {{ k }}-{{ forloop.counter }} {% endcomment %}
+                    <input type="radio" class="btn-check option" name="{{ k }}" id="{{ k }}-{{ forloop.counter }}" value="{{ item }}" aria-label="Choose value">
+                    <label class="btn btn-outline-primary" for="{{ k }}-{{ forloop.counter }}" data-labelid="{{ item }}">{{ item }}</label>
                   {% else %}
                     <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" aria-label="Choose value">
-                    <label class="btn btn-outline-primary disabled" for="{{ item }}">{{ item }}</label>
+                    <label class="btn btn-outline-primary disabled" for="{{ item }}" data-labelid="{{ item }}">{{ item }}</label>
                   {% endif %}
                 {% endif %}
               {% endfor %}
@@ -225,12 +226,12 @@
   {% comment %} Modal {% endcomment %}
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
+      <div class="modal-content modal__content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Please fill out the form below!</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body modal__body">
           {% for k,v in attribute_values_dict.items %}
             <div class="options__request form__section">
               <p data-attribute="{{ k }}" class="product__options--title">{{ k }}</p>
@@ -238,8 +239,8 @@
                 <div class="btn-group in_modal" role="group" aria-label="Basic radio toggle button group" data-group-name="{{ k }}">
                   {% for item in v %}
                     {% if item in values_set %}
-                      <input type="radio" class="btn-check option in_modal" name="request-{{ k }}" id="request-{{ item }}" value="{{ item }}">
-                      <label class="btn btn-outline-primary" for="request-{{ item }}">{{ item }}</label>
+                      <input type="radio" class="btn-check option in_modal" name="request-{{ k }}" id="request-{{ k }}-{{ forloop.counter }}" value="{{ item }}">
+                      <label class="btn btn-outline-primary" for="request-{{ k }}-{{ forloop.counter }}" data-labelid="{{ item }}">{{ item }}</label>
                     {% endif %}
                   {% endfor %}
                 </div>
@@ -359,7 +360,8 @@
         inputs.each(function() {
           // get the value of the input
           let value = $(this).val();
-          let thisLabel = $('label[for="' + value + '"]');
+          let thisLabel = $(this).next('label');
+          //let thisLabel = $('label[for="' + value + '"]');
           // check if the value is in the values_list_array
           //get label with disabled class
           thisLabel.css('background-color', value);
@@ -416,17 +418,23 @@
             let groupName = $(group).data('group-name');
             if (groupName != attribute_name) {
               for (let button of $(group).children('input')) {
+                console.log(button);
                 let buttonValue = $(button).val();
                 let buttonValueString = buttonValue.toString();
                 if (availableAttrsFromOtherGroups.includes(buttonValueString)) {
                   // find the buttons label and enable it
-                  let buttonId = $(button).attr('id');
-                  let buttonLabel = $('label[for="' + buttonId + '"]');
+                  let buttonId = $(button).attr('value');
+                  console.log(buttonId);
+                  //find the label with data-labelid the same as the buttonId
+                  let buttonLabel = $('label[data-labelid="' + buttonId + '"]');
+                  console.log(buttonLabel);
+                 // let buttonLabel = $('label[for="' + buttonId + '"]');
                   $(buttonLabel).removeClass('disabled');
                 } else {
                   // find the buttons label and disable it
-                  let buttonId = $(button).attr('id');
-                  let buttonLabel = $('label[for="' + buttonId + '"]');
+                  let buttonId = $(button).attr('value');
+                  let buttonLabel = $('label[data-labelid="' + buttonId + '"]');
+                  //let buttonLabel = $('label[for="' + buttonId + '"]');
                   $(buttonLabel).addClass('disabled');
                   // SHOW SUGGESTIONS MESSAGE "BE NOTIFIED WHEN THIS PRODUCT IS BACK IN STOCK"
                   availableAll = false;
@@ -564,7 +572,6 @@
               $('#quantity-warning').removeClass('hidden');
               $('#quantity-warning-message').text('Only ' + itemQuantity + ' items available');
               //check of all selected
-              
               } else {
                 $('#add-to-cart').addClass('disabled');
               }
@@ -577,7 +584,6 @@
               if (key != "Quantity" && key != "Price" && key != "id") {
                 if (stockOption[key] != chosen_attributes[key]) {
                   is_match = false;
-                  
                 }
               }
               if (is_match) {
@@ -783,7 +789,8 @@
           inputs.each(function() {
             // get the value of the input
             let valueModal = $(this).val();
-            let thisLabel = $('label[for="request-' + valueModal + '"]');
+            let thisLabel = $('label[data-labelid="' + valueModal + '"]');
+            //let thisLabel = $('label[for="request-' + valueModal + '"]');
             // check if the value is in the values_list_array
             //get label with disabled class
             thisLabel.css('background-color', valueModal);
