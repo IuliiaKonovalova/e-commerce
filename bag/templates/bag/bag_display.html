@@ -203,7 +203,6 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function () {
-
       // check if there quantity is not more that units in stock
       const stockChecker =function() {
         //get data-stock from bag__item
@@ -254,7 +253,7 @@
               // remove the message block after 3 seconds
               setTimeout(() => {
                 $('#messages-notes').remove();
-              }, 3000);
+              }, 2500);
               // update the total cost
               $('.bag__items--costs').text(data.total);
               // update the total quantity
@@ -296,7 +295,7 @@
               // remove the message block after 3 seconds
               setTimeout(() => {
                 $('#messages-notes').remove();
-              }, 3000);
+              }, 2500);
             }
           })
         })
@@ -337,7 +336,7 @@
               // remove the message block after 3 seconds
               setTimeout(() => {
                 $('#messages-notes').remove();
-              }, 3000);
+              }, 2500);
               // get element with data-attr = productInventoryId
               // change the quantity
               $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--quantity--main').text(data.quantity);
@@ -367,7 +366,7 @@
               // remove the message block after 3 seconds
               setTimeout(() => {
                 $('#messages-notes').remove();
-              }, 3000);
+              }, 2500);
             }
           })
         });
@@ -404,7 +403,7 @@
               // remove the message block after 3 seconds
               setTimeout(() => {
                 $('#messages-notes').remove();
-              }, 3000);
+              }, 2500);
               // update the total cost
               $('.bag__items--costs').text(data.total);
               // update the total quantity
@@ -429,7 +428,7 @@
               // remove the message block after 3 seconds
               setTimeout(() => {
                 $('#messages-notes').remove();
-              }, 3000);
+              }, 2500);
             }
           })
         });
@@ -466,7 +465,7 @@
               // remove the message block after 3 seconds
               setTimeout(() => {
                 $('#messages-notes').remove();
-              }, 3000);
+              }, 2500);
             }
             $('#bag-table').hide();
             $('#bag').append('<div class="bag__items--empty">' +
@@ -487,7 +486,7 @@
             // remove the message block after 3 seconds
             setTimeout(() => {
               $('#messages-notes').remove();
-            }, 3000);
+            }, 2500);
           }
         })
       });
