@@ -304,6 +304,7 @@ main {
   align-items: center;
   flex: 1 0 auto !important;
   padding-bottom: 6em;
+  min-height: 80vh;
 }
 
 /* ------------ content__container ----------- */
@@ -1238,6 +1239,9 @@ div.address__card--primary {
   left: 0.5rem;
 }
 
+.product__main .like.btn {
+  position: relative;
+}
 
 .products__all .fa-spinner,
 .product__main .fa-spinner {
@@ -1252,7 +1256,10 @@ div.address__card--primary {
   left: -0.5rem;
 }
 
-
+.product__main .like.btn .fa-spinner {
+  top: 0.5rem;
+  left: 5rem;
+}
 
 .product__card--rating {
   margin-right: 0.5em;
@@ -2888,8 +2895,6 @@ div.data__main--order:hover {
   width: 100%;
   height: 100%;
   border-radius: var(--br);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease-in-out;
   color: var(--clr-primary--500);
   padding: 1em;
   background-color: var(--clr-text--100);
