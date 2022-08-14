@@ -1657,6 +1657,19 @@ input[name=quantity] {
   margin-right: 0.5rem;
 }
 
+.bag .btn__delete {
+  box-shadow: inset 4px -8px 28px -6px rgb(51 51 51 / 51%) !important;
+  color: var(--clr-text--900) !important;
+  --bs-btn-active-color: var(--clr-text--900) !important;
+  --bs-btn-hover-color: var(--clr-text--900) !important;
+  background-color: var(--clr-accent--100) !important;
+  border: 0.5px solid rgba(0, 0, 0, 0.53) !important;
+}
+
+.bag .btn__delete:hover {
+  background-color: var(--clr-accent--200) !important;
+}
+
 .bag__summary {
   display: flex;
   flex-direction: column;
@@ -1668,8 +1681,11 @@ input[name=quantity] {
 }
 
 .bag__promotion .btn__redirect {
-  min-width: 10rem;
-  color: var(--clr-text--500) !important;
+  /* Prevent breaking line between 2 words */
+  white-space: nowrap;
+  /* color: var(--clr-text--500) !important; */
+  background-color: #d96f79 !important;
+  background-color: var(--clr-primary--300) !important;
 }
 
 .bag__items--count {
