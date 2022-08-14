@@ -22,7 +22,11 @@
     .form__review .btn.show .btn i.fa-star,
     .form__review .btn:active .btn i.fa-star {
       color: #ffcedb !important;
-    } 
+    }
+
+    .form__btns i {
+      margin-right: 0.5em !important;
+    }
   </style>
 {% endblock %}
 
@@ -32,12 +36,12 @@
 {% block content %}
   <div class="profile">
     {% if request.user.is_authenticated %}
-      <h1>Add review on {{ product.name }}</h1>
       {% comment %} Review form {% endcomment %}
-      <form method="post" class="form__review">
+      <form method="post" class="form__review dashboard__form">
+        <h1>Add review on {{ product.name }}</h1>
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group" id="rating">
         <p> Rating: </p>
-          <input type="radio" class="btn-check" name="btnradio" id="5" autocomplete="off" checked>
+          <input type="radio" class="btn-check" name="btnradio" id="5" checked>
           <label class="btn btn-outline-primary" for="5">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
@@ -45,25 +49,25 @@
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
           </label>
-          <input type="radio" class="btn-check" name="btnradio" id="4" autocomplete="off">
+          <input type="radio" class="btn-check" name="btnradio" id="4">
           <label class="btn btn-outline-primary" for="4">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
           </label>
-          <input type="radio" class="btn-check" name="btnradio" id="3" autocomplete="off">
+          <input type="radio" class="btn-check" name="btnradio" id="3">
           <label class="btn btn-outline-primary" for="3">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
           </label>
-          <input type="radio" class="btn-check" name="btnradio" id="2" autocomplete="off">
+          <input type="radio" class="btn-check" name="btnradio" id="2">
           <label class="btn btn-outline-primary" for="2">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
           </label>
-          <input type="radio" class="btn-check" name="btnradio" id="1" autocomplete="off">
+          <input type="radio" class="btn-check" name="btnradio" id="1">
           <label class="btn btn-outline-primary" for="1">
             <i class="fas fa-star"></i>
           </label>
@@ -80,7 +84,7 @@
           </a>
           <div class="gallery"></div>
         </div>
-        <div class="form__btns">
+        <div class="form__btns accent">
           <a href="{% url 'my_order_details' order_number=order.order_number user=user %}" aria-label="Go to my order details page" class="btn btn__cancel">
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
