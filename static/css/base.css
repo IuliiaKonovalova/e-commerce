@@ -1667,6 +1667,11 @@ input[name=quantity] {
   margin-left: 0.5em;
 }
 
+.bag__promotion .btn__redirect {
+  min-width: 10rem;
+  color: var(--clr-text--500) !important;
+}
+
 .bag__items--count {
   margin-bottom: 0.5em;
 }
