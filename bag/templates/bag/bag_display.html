@@ -405,6 +405,12 @@
               // check if data.quantity is 0:
               $('.bag__item[data-attr="' + productInventoryId + '"]').hide();
               $('.fa-spinner').remove();
+              if ($('.bag__items--count').text() == 0) {
+                $('#bag-table').hide();
+                $('#bag').append('<div class="bag__items--empty">' +
+                  '<p class="bag__items--empty--text">Your bag is empty</p>' +
+                  '</div>');
+              }
             },
             error: function (data) {
               $('#messages-notes').remove();
