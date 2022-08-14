@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /bag/
+Disallow: /personnel/
+Sitemap: https://wowder.herokuapp.com/sitemap.xml

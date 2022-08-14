@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://wowder.herokuapp.com/</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/wishlist/wishlist_display/</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/bag/bag_display/</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/accounts/signup/</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/accounts/login/</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/95</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/94</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/93</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/92</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/91</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/90</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/89</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/88</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/87</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/86</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/85</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/84</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/83</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/82</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/81</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/80</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/79</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/78</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/77</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/76</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/75</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/74</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/73</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/72</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/71</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/70</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/69</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/68</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/67</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/66</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/65</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/64</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/63</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/62</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/61</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/?page=2</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/accounts/password/reset/</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/reviews/product_reviews/71/</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/60</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/59</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/58</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/57</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/56</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/55</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/54</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/53</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/52</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/51</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/50</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/49</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/48</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/47</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/46</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/45</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/44</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/43</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/42</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/9</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/8</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/7</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/6</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/5</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/4</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/3</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/2</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/1</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/inventory/store/?page=1</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://wowder.herokuapp.com/reviews/product_reviews/3/</loc>
+  <lastmod>2022-08-14T08:52:32+00:00</lastmod>
+  <priority>0.41</priority>
+</url>
+
+
+</urlset>
