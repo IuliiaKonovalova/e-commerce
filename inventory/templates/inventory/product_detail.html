@@ -287,6 +287,55 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function() {
+      // reusable function for alert message
+      const messagesAlertData = function(data) {
+        if (data) {
+          if ($('#messages-notes').length) {
+            $('#messages-notes').remove();
+          }
+          $('.fa-spinner').remove();
+          $('.product__main').before('<div class="message-container" id="messages-notes">' +
+            '<div class="message-container__message">' +
+              '<p class="message-container__message--text">' + data + '</p>' +
+              '</div>' +
+            '</div>');
+        }
+        setTimeout(() => {
+          $('#messages-notes').remove();
+        }, 3000);
+      };
+      const messagesAlertError = function() {
+        if ($('#messages-notes').length) {
+          $('#messages-notes').remove();
+        }
+        $('.fa-spinner').remove();
+        $('.product__main').before('<div class="message-container" id="messages-notes">' +
+        '<div class="message-container__message">' +
+        '<p class="message-container__message--text">Something went wrong</p>' +
+        '</div>' +
+        '</div>');
+        setTimeout(() => {
+          $('#messages-notes').remove();
+        } , 3000);
+      };
+      const messageRequestItem = function() {
+        if ($('#messages-notes').length) {
+          $('#messages-notes').remove();
+        }
+        $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-notes">' +
+          '<div class="message-container__message">' +
+            '<p>Order notification about stock updates</p>' +
+              '<div class="message-container__buttons">' +
+                '<button class="btn btn__add" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
+                '<button class="btn btn__cancel btn__no" id="no-button">No</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>');
+        $('.btn__no').click(function() {
+          $('#messages-notes').remove();
+        });
+      }
       let product_inventory_id = 0
       let itemQuantity = 1
       let quantityFinal = 0;
@@ -380,19 +429,7 @@
             thisLabel.css('opacity', '0.5');
             availableAll = false;
             if (availableAll == false) {
-              $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-notes">' +
-                '<div class="message-container__message">' +
-                  '<p>Order notification about stock updates</p>' +
-                    '<div class="message-container__buttons">' +
-                      '<button class="btn btn__add" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
-                      '<button class="btn btn__cancel btn__no" id="no-button">No</button>' +
-                    '</div>' +
-                  '</div>' +
-                '</div>' +
-              '</div>');
-              $('.btn__no').click(function() {
-                $('#messages-notes').remove();
-              });
+              messageRequestItem();
             }
           } else {
             let label = $('label[for="' + value + '"]');
@@ -426,16 +463,13 @@
             let groupName = $(group).data('group-name');
             if (groupName != attribute_name) {
               for (let button of $(group).children('input')) {
-                console.log(button);
                 let buttonValue = $(button).val();
                 let buttonValueString = buttonValue.toString();
                 if (availableAttrsFromOtherGroups.includes(buttonValueString)) {
                   // find the buttons label and enable it
                   let buttonId = $(button).attr('value');
-                  console.log(buttonId);
                   //find the label with data-labelid the same as the buttonId
                   let buttonLabel = $('label[data-labelid="' + buttonId + '"]');
-                  console.log(buttonLabel);
                   $(buttonLabel).removeClass('disabled');
                 } else {
                   // find the buttons label and disable it
@@ -446,20 +480,7 @@
                   // SHOW SUGGESTIONS MESSAGE "BE NOTIFIED WHEN THIS PRODUCT IS BACK IN STOCK"
                   availableAll = false;
                   if (availableAll == false && $('#suggestions-message').length == 0) {
-                    $('#messages-notes').remove();
-                    $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-notes">' +
-                      '<div class="message-container__message">' +
-                        '<p>Order notification about stock updates</p>' +
-                          '<div class="message-container__buttons">' +
-                            '<button class="btn btn__add" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
-                            '<button class="btn btn__cancel btn__no" id="no-button">No</button>' +
-                          '</div>' +
-                        '</div>' +
-                      '</div>' +
-                    '</div>');
-                    $('.btn__no').click(function() {
-                      $('#messages-notes').remove();
-                    });
+                    messageRequestItem();
                   }
                 }
               }
@@ -658,7 +679,6 @@
           }
         });
         quantityFinal = $('input[name="quantity"]').val();
-        //convert to int
         quantityFinal = parseInt(quantityFinal);
         $('#add-to-bag-button').removeClass('disabled');
         is_match = true;
@@ -668,19 +688,8 @@
           $('.product__options--title').remove();
           availableAll = false;
           if (availableAll == false) {
-            $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-notes">' +
-              '<div class="message-container__message">' +
-                '<p>Order notification about stock updates</p>' +
-                  '<div class="message-container__buttons">' +
-                    '<button class="btn btn__add" id="yes-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Yes</button>' +
-                    '<button class="btn btn__cancel btn__no" id="no-button">No</button>' +
-                  '</div>' +
-                '</div>' +
-              '</div>' +
-            '</div>');
-            $('.btn__no').click(function() {
-              $('#messages-notes').remove();
-            });
+            // REMOVE FROM HERE NOW
+            messageRequestItem();
           }
         }
       }
@@ -701,44 +710,26 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'
           },
           success: function(data) {
-            $('.fa-spinner').remove();
             // update shopping bag in navbar
             $('#shopping-bag-count').text(data.product_count);
             // disable button after the click
             $('#add-to-bag-button').addClass('disabled');
-            if (data.message_alert) {
-              $('.product__main').before('<div class="message-container" id="messages-notes">' +
-                '<div class="message-container__message">' +
-                '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-                '</div>' +
-                '</div>');
-            }
-            setTimeout(() => {
-              $('#messages-notes').remove();
-            }, 3000);
+            messagesAlertData(data.message_alert);
           },
           error: function(data) {
-            $('.fa-spinner').remove();
-            $('#messages-notes').remove();
-            $('.bag').before('<div class="message-container" id="messages-notes">' +
-              '<div class="message-container__message">' +
-              '<p class="message-container__message--text">Something went wrong</p>' +
-              '</div>' +
-              '</div>');
-            // remove the message block after 3 seconds
-            setTimeout(() => {
-              $('#messages-notes').remove();
-            }, 3000);
+            messagesAlertError();
           }
         })
       });
       // add-to/remove-from wishlist
       $('#wishlist-control').on('click', function(e) {
+        // add spinner
+        $(this).append('<i class="fas fa-spinner fa-spin"></i>');
         if ($('#messages-notes').length !== 0) {
           $('#messages-notes').remove();
         }
         e.preventDefault();
-        $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
+        $(this).prev().append('<i class="fas fa-spinner fa-spin"></i>');
         // AJAX request to add item to the wishlist
         $.ajax({
           url: "{% url 'add_remove_product_wishlist_ajax' %}",
@@ -748,37 +739,21 @@
             'csrfmiddlewaretoken': '{{ csrf_token }}'
           },
           success: function(data) {
-            $('.fa-spinner').remove();
             if (data.product_in_wishlist) {
               //replace the with <i class="fas fa-heart"></i>
               $('#wishlist-control').html('<i class="fas fa-heart"></i>');
+              // change text in $('.rating__title'.)
+              $('.rating__title').text('Remove from wishlist');
             } else {
               //replace the with <i class="far fa-heart"></i>
               $('#wishlist-control').html('<i class="far fa-heart"></i>');
+              // change text in $('.rating__title'.)
+              $('.rating__title').text('Add to wishlist');
             }
-            if (data.message_alert) {
-              $('.product__main').before('<div class="message-container" id="messages-notes">' +
-                '<div class="message-container__message">' +
-                '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-                '</div>' +
-                '</div>');
-            }
-            setTimeout(() => {
-              $('#messages-notes').remove();
-            }, 3000);
+            messagesAlertData(data.message_alert);
           },
           error: function(data) {
-            $('.fa-spinner').remove();
-            $('#messages-notes').remove();
-            $('.bag').before('<div class="message-container" id="messages-notes">' +
-              '<div class="message-container__message">' +
-              '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-              '</div>' +
-              '</div>');
-            // remove the message block after 3 seconds
-            setTimeout(() => {
-              $('#messages-notes').remove();
-            }, 3000);
+            messagesAlertError();
           }
         })
       });
@@ -803,73 +778,56 @@
           if ($('.btn-check:checked').length == $('.btn-group .in_modal').length) {
             // if yes, add the button
             //enable send button in modal
-            //$('.btn_ok_in_modal').removeClass('disabled');
           }
         }
       });
       $('.btn_ok_in_modal').on('click', function(e) {
-          e.preventDefault();
-          let productRequestOptions = {
-            id: product_id,
-            options: {},
-            quantity: 0,
-            notes: ''
-          };
-          $('.btn-group.in_modal').each(function() {
-            let group_name = $(this).attr('data-group-name');
-            let group_value = $(this).find('input:checked').val();
-            productRequestOptions.options[group_name] = group_value;
-          });
-          let optionAmount = $('.options__request').length;
-          let optionChecked = $('.modal .btn-check:checked').length;
-          let quantity = $('.modal-body input[name="required-quantity"]').val();
-          productRequestOptions['quantity'] = quantity;
-          let data = JSON.stringify(productRequestOptions);
-          //AJAX request to add item to the StockEmailNotification table
-          if (optionAmount === optionChecked) {
-          // close the modal
-          $('#exampleModal').modal('hide');
-            $.ajax({
-              url: "{% url 'add_to_stock_email_notification' %}",
-              type: "POST",
-              data: {
-                'data': data,
-                'csrfmiddlewaretoken': '{{ csrf_token }}'
-              },
-              success: function(data) {
-                if (data.alert_message) {
-                  $('#messages-notes').remove();
-                  $('.product__main').before('<div class="message-container" id="messages-notes">' +
-                    '<div class="message-container__message">' +
-                    '<p class="message-container__message--text">' + data.alert_message + '</p>' +
-                    '</div>' +
-                    '</div>');
-                }
-                setTimeout(() => {
-                  $('#messages-notes').remove();
-                }, 3000);
-              },
-              error: function(data) {
-                if (data.alert_message) {
-                  $('#messages-notes').remove();
-                  $('.product__main').before('<div class="message-container" id="messages-notes">' +
-                    '<div class="message-container__message">' +
-                    '<p class="message-container__message--text">' + data.alert_message + '</p>' +
-                    '</div>' +
-                    '</div>');
-                }
-                // remove the message block after 3 seconds
-                setTimeout(() => {
-                  $('#messages-notes').remove();
-                }, 3000);
+        e.preventDefault();
+        let productRequestOptions = {
+          id: product_id,
+          options: {},
+          quantity: 0,
+          notes: ''
+        };
+        $('.btn-group.in_modal').each(function() {
+          let group_name = $(this).attr('data-group-name');
+          let group_value = $(this).find('input:checked').val();
+          productRequestOptions.options[group_name] = group_value;
+        });
+        let optionAmount = $('.options__request').length;
+        let optionChecked = $('.modal .btn-check:checked').length;
+        let quantity = $('.modal-body input[name="required-quantity"]').val();
+        productRequestOptions['quantity'] = quantity;
+        let data = JSON.stringify(productRequestOptions);
+        //AJAX request to add item to the StockEmailNotification table
+        if (optionAmount === optionChecked) {
+        // close the modal
+        $('#exampleModal').modal('hide');
+          $.ajax({
+            url: "{% url 'add_to_stock_email_notification' %}",
+            type: "POST",
+            data: {
+              'data': data,
+              'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(data) {
+              if (data.alert_message) {
+                messagesAlertData(data.message_alert);
               }
-            })
-          } else {
-            // change inner text in .modal-title
-            $('.modal-title').text('Please select all options');
-            $('.modal-title').effect('highlight', {color: '#ff0000'}, 1000);
-          }
-        
+            },
+            error: function(data) {
+              if (data.alert_message) {
+                messagesAlertData(data.message_alert);
+              } else {
+                messagesAlertError();
+              }
+            }
+          })
+        } else {
+          // change inner text in .modal-title
+          $('.modal-title').text('Please select all options');
+          $('.modal-title').effect('highlight', {color: '#ff0000'}, 1000);
+        }
       });
       // If user is LOGGED OUT:
       // check if #ask-user-to-log-in is present
