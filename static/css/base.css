@@ -1212,7 +1212,6 @@ div.address__card--primary {
   margin-bottom: 5vh;
 }
 
-
 .like {
   font-weight: 900;
   font-size: 2.5rem;
@@ -1239,6 +1238,7 @@ div.address__card--primary {
   left: 0.5rem;
 }
 
+
 .products__all .fa-spinner,
 .product__main .fa-spinner {
   position: absolute;
@@ -1251,6 +1251,8 @@ div.address__card--primary {
   top: -0.8rem;
   left: -0.5rem;
 }
+
+
 
 .product__card--rating {
   margin-right: 0.5em;
@@ -1653,6 +1655,15 @@ input[name=quantity] {
   bottom: -1.5rem;
 }
 
+.bag__item--remove {
+  position: relative;
+}
+
+.bag__item--remove .fa-spinner {
+  position: absolute;
+  bottom: -2rem;
+}
+
 .bag__item--value:not(:last-child) {
   margin-right: 0.5rem;
 }
@@ -1681,11 +1692,9 @@ input[name=quantity] {
 }
 
 .bag__promotion .btn__redirect {
-  /* Prevent breaking line between 2 words */
   white-space: nowrap;
-  /* color: var(--clr-text--500) !important; */
-  background-color: #d96f79 !important;
   background-color: var(--clr-primary--300) !important;
+  padding: 0.1em 0.6em 0.2em 0.6em !important;
 }
 
 .bag__items--count {
@@ -3186,6 +3195,13 @@ a.ui-button:active,
   min-width: 12rem;
 }
 
+.footer__link.phone:hover,
+.footer__link.email:hover,
+.footer__link.phone>*:hover {
+  color: white !important;
+  cursor: default !important;
+}
+
 .footer__link a {
   color: white;
   display: inline;
@@ -3238,10 +3254,6 @@ a.ui-button:active,
 .footer__link:hover a,
 .footer__link--social:hover a {
   color: var(--clr-accent--500);
-}
-
-.footer__link:hover .footer__icon {
-  filter: invert(38%) sepia(83%) saturate(4602%) hue-rotate(218deg) brightness(99%) contrast(96%);
 }
 
 .footer__link--social:hover {
