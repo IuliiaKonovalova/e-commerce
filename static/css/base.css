@@ -1645,6 +1645,12 @@ input[name=quantity] {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+.bag__item--quantity .fa-spinner {
+  position: absolute;
+  bottom: -1.5rem;
 }
 
 .bag__item--value:not(:last-child) {
