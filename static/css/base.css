@@ -3252,10 +3252,13 @@ a.ui-button:active,
   align-items: center;
   justify-content: center;
   padding: 2em;
+  padding-bottom: 2.5em;
   margin: 10em auto;
   margin-bottom: 6em;
   border-radius: var(--br);
   box-shadow: var(--box-shadow-card);
+  max-width: 30rem;
+  text-align: center;
 }
 
 .account h1 {
@@ -3263,12 +3266,78 @@ a.ui-button:active,
   margin-bottom: 0.5em;
 }
 
+.account p {
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+}
+
+.account p label[for='id_remember'] {
+  display: inline;
+  margin-right: 1em;
+  min-width: 10rem;
+}
+
+.account p #id_remember {
+  margin-right: 0.5em;
+  width: 1rem;
+  height: 1rem;
+  margin-top: 0.6em;
+}
+
+.account__paragraph {
+  margin-bottom: 0.9em;
+}
+
+.account__link {
+  color: var(--clr-accent--200);
+  text-decoration: none;
+  font-weight: 900;
+  margin-bottom: 0.5em;
+}
+
+.account__link.forgot__password {
+  margin-top: 1em;
+}
+
+.account__link.forgot__password:hover {
+  text-decoration: underline;
+}
+
+.account__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.account__form label:not([for='id_remember']) {
+  display: none;
+}
+
+.account__form input {
+  width: 100%;
+  padding: 0.2em;
+  border-radius: 0.2em;
+  border: 1px solid var(--clr-accent--200);
+  margin-bottom: 0.5em;
+}
+
 .btn__account {
   background-color: var(--clr-accent--100) !important;
   color: black !important;
   border: none;
-  margin-top: 1.5em;
+  margin-top: 1em;
   cursor: pointer;
+}
+
+.btn__account.btn__logout {
+  margin-top: 1.5em;
+}
+
+.btn__account.btn__password--reset {
+  margin-top: 0.5em;
 }
 
 .btn__account:hover {
