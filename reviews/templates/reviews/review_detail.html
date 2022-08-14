@@ -7,16 +7,15 @@
 {% block content %}
   <div class="review">
     <h1>Review on {{ review.product.name }}</h1> 
-    {% if request.user == review.user %}
-      <div class="warning__msg">
-        Your review is recorded, if you want to render your review, you will need to contact our support service.
-        It is important to provide the best service and the best experience for our users.
-      </div>
-    {% endif %}
     <div class="review__details">
+      {% if request.user == review.user %}
+        <div class="warning__msg alert alert-success">
+          Your review is recorded, if you want to render your review, you will need to contact our support service.
+          It is important to provide the best service and the best experience for our users.
+        </div>
+      {% endif %}
       {% comment %} Review Details {% endcomment %}
       <div class="review__details--data">
-        <strong>Rating: </strong>
         <span class="review__details--data--rating">
           {% comment %} Star rating {% endcomment %}
           {% spaceless %}
