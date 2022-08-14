@@ -15,7 +15,7 @@
 
     input.bag__promotion--input {
       border: 2px solid #ccc;
-      font-size: 1.2rem !important;
+      font-size: 1rem !important;
       margin-right: 1rem !important;
     }
 
@@ -202,6 +202,36 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function () {
+      // reusable function for alert message
+      const messagesAlertData = function(data) {
+        if (data) {
+          if ($('#messages-notes').length) {
+            $('#messages-notes').remove();
+          }
+          $('.bag').before('<div class="message-container" id="messages-notes">' +
+            '<div class="message-container__message">' +
+              '<p class="message-container__message--text">' + data + '</p>' +
+              '</div>' +
+            '</div>');
+        }
+        setTimeout(() => {
+          $('#messages-notes').remove();
+        }, 3000);
+      };
+      const messagesAlertError = function() {
+        if ($('#messages-notes').length) {
+          $('#messages-notes').remove();
+        }
+        $('.fa-spinner').remove();
+        $('.bag').before('<div class="message-container" id="messages-notes">' +
+        '<div class="message-container__message">' +
+        '<p class="message-container__message--text">Something went wrong</p>' +
+        '</div>' +
+        '</div>');
+        setTimeout(() => {
+          $('#messages-notes').remove();
+        } , 3000);
+      };
       // check if there quantity is not more that units in stock
       const stockChecker =function() {
         //get data-stock from bag__item
@@ -218,7 +248,6 @@
         }
       }; 
       $('.bag__item').each(stockChecker)
-
       // minus quantity
       $('.bag__item--quantity--minus').each(function () {
         $(this).click(function (e) {
@@ -240,19 +269,8 @@
               }
               // update shopping bag in navbar
               $('#shopping-bag-count').text(data.product_count);
-              // add div to the page above the bag class with the message
-              if (data.message_alert) {
-                $('#messages-notes').remove();
-                $('.bag').before('<div class="message-container" id="messages-notes">' +
-                  '<div class="message-container__message">' +
-                  '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-                  '</div>' +
-                  '</div>');
-              }
-              // remove the message block after 3 seconds
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 2500);
+              // alert the message
+              messagesAlertData(data.message_alert);
               // update the total cost
               $('.bag__items--costs').text(data.total);
               // update the total quantity
@@ -285,16 +303,7 @@
               }
             },
             error: function (data) {
-              $('#messages-notes').remove();
-              $('.bag').before('<div class="message-container" id="messages-notes">' +
-                '<div class="message-container__message">' +
-                '<p class="message-container__message--text">Something went wrong</p>' +
-                '</div>' +
-                '</div>');
-              // remove the message block after 3 seconds
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 2500);
+              messagesAlertError();
             }
           })
         })
@@ -323,20 +332,7 @@
               }
               // update shopping bag in navbar
               $('#shopping-bag-count').text(data.product_count);
-              // add div to the page above the bag class with the message
-              if (data.message_alert) {
-                $('#messages-notes').remove();
-                $('.bag').before('<div class="message-container" id="messages-notes">' +
-                  '<div class="message-container__message">' +
-                  '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-                  '</div>' +
-                  '</div>');
-              }
-              // remove the message block after 3 seconds
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 2500);
-              // get element with data-attr = productInventoryId
+              messagesAlertData(data.message_alert);
               // change the quantity
               $('.bag__item[data-attr="' + productInventoryId + '"]').find('.bag__item--quantity--main').text(data.quantity);
               // change the total for the item
@@ -356,16 +352,7 @@
               $('.fa-spinner').remove();
             },
             error: function (data) {
-              $('#messages-notes').remove();
-              $('.bag').before('<div class="message-container" id="messages-notes">' +
-                '<div class="message-container__message">' +
-                '<p class="message-container__message--text">Something went wrong</p>' +
-                '</div>' +
-                '</div>');
-              // remove the message block after 3 seconds
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 2500);
+              messagesAlertError();
             }
           })
         });
@@ -379,7 +366,7 @@
         $(this).click(function (e) {
           e.preventDefault();
           let productInventoryId = $(this).data('id');
-          $(this).parent().append('<i class="fas fa-spinner fa-spin"></i>');
+          $(this).append('<i class="fas fa-spinner fa-spin"></i>');
           $.ajax({
             url: "{% url 'remove_all_item_units_from_bag' %}",
             type: 'POST',
@@ -391,18 +378,7 @@
               // update shopping bag in navbar
               $('#shopping-bag-count').text(data.product_count);
               // add div to the page above the bag class with the message
-              if (data.message_alert) {
-                $('#messages-notes').remove();
-                $('.bag').before('<div class="message-container" id="messages-notes">' +
-                  '<div class="message-container__message">' +
-                  '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-                  '</div>' +
-                  '</div>');
-              }
-              // remove the message block after 3 seconds
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 2500);
+              messagesAlertData(data.message_alert);
               // update the total cost
               $('.bag__items--costs').text(data.total);
               // update the total quantity
@@ -418,16 +394,7 @@
               }
             },
             error: function (data) {
-              $('#messages-notes').remove();
-              $('.bag').before('<div class="message-container" id="messages-notes">' +
-                '<div class="message-container__message">' +
-                '<p class="message-container__message--text">Something went wrong</p>' +
-                '</div>' +
-                '</div>');
-              // remove the message block after 3 seconds
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 2500);
+              messagesAlertError();
             }
           })
         });
@@ -455,16 +422,7 @@
             $('#shopping-bag-count').text(data.product_count);
             // add div to the page above the bag class with the message
             if (data.message_alert) {
-              $('#messages-notes').remove();
-              $('.bag').before('<div class="message-container" id="messages-notes">' +
-                '<div class="message-container__message">' +
-                '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-                '</div>' +
-                '</div>');
-              // remove the message block after 3 seconds
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 2500);
+              messagesAlertData(data.message_alert);
             }
             $('#bag-table').hide();
             $('#bag').append('<div class="bag__items--empty">' +
@@ -476,16 +434,7 @@
             $('.bag__items--count').text(data.product_count);
           },
           error: function (data) {
-            $('#messages-notes').remove();
-            $('.bag').before('<div class="message-container" id="messages-notes">' +
-              '<div class="message-container__message">' +
-              '<p class="message-container__message--text">Something went wrong</p>' +
-              '</div>' +
-              '</div>');
-            // remove the message block after 3 seconds
-            setTimeout(() => {
-              $('#messages-notes').remove();
-            }, 2500);
+            messagesAlertError();
           }
         })
       });
@@ -514,6 +463,9 @@
               '<div class="data__promo--total">Total after confirming promo ' + promoCode + ' code: ' + data.total_promo + '</div>'
               );
             }
+          },
+          error: function (data) {
+            messagesAlertError();
           }
         })
       });
