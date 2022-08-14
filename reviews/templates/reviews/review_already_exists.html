@@ -3,6 +3,9 @@
 
 {% block extra_css %}
   <style>
+    .btn__redirect {
+      margin-top: 1em;
+    }
     div.review__details:hover {
       color: black;
       cursor: auto;
@@ -15,7 +18,7 @@
 
 
 {% block content %}
-  <div class="review__details review__details--product">
+  <div class="dashboard__form form__delete">
     {% if request.user.is_authenticated and request.user == order.user %}
       <h1>You have already left a  review on {{ product.name }}</h1>
       <div>
