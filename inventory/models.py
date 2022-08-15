@@ -763,15 +763,15 @@ class Stock(models.Model):
         # # if there are any requests, send email to users
         if len(recipients) > 0:
             subject, from_email, to = (
-                'Stock email notification', 'wowder', recipients
+                'Stock notification', 'wowder', recipients
             )
             text_content = ''
             html_content = (
                 '<h1 style="color:indigo; text-align:center">'
-                'Stock email notification</h1><br><p><strong>Product: '
-                '</strong>' + self.product_inventory.product.name +
-                'is in stock.</p><br><br><strong>Visit our shop now '
-                'to make anorder! </strong><br><br><a '
+                'Stock email notification</h1><br><p>Product: '
+                '<strong>' + self.product_inventory.product.name + '</strong>'
+                'is now in stock.</p><br><br><strong>Visit our shop '
+                'to purchase! </strong><br><br><a '
                 'href="http://wowder.herokuapp.com/inventory/store/">'
                 'Go to WoWder</a><br><br>'
                 '<p>Thank you for being with us!</p>'
