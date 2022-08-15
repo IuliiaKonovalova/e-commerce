@@ -65,7 +65,11 @@
         <img src="{% static 'images/default_avatar.svg' %}" alt="avatar" class="avatar">
       {% endif %}
     </div>
-    <h1 class="profile__name">{{ my_profile.first_name }} {{ my_profile.last_name }}</h1>
+    {% if not my_profile.first_name == None and not my_profile.last_name == None %}
+      <h1 class="profile__name">{{ my_profile.first_name }} {{ my_profile.last_name }}</h1>
+    {% else %}
+      <h1>Full name not set</h1>
+    {% endif %}
     {% comment %} Address {% endcomment %}
     <div class="profile__data--address">
       {% comment %} If there are addresses for this user in db: {% endcomment %}
