@@ -74,7 +74,7 @@ class ProductsTableView(View):
                             Q(category__name__icontains=query) |
                             Q(brand__name__icontains=query) |
                             Q(tags__name__icontains=query)
-                        )
+                        ).distinct()
                         products_count = products.count()
                         context = {
                             'products': products,
