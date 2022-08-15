@@ -61,10 +61,6 @@ class EmailNewsNotification(models.Model):
         text_content = ''
         if self.code is not None:
             html_content = (
-              '<strong style="color:White; width:100%;' 
-              'text-align:center; background-color:MidnightBlue;' 
-              'padding:1em 2em"' 
-              '><span style="color:Pink;>WoW</span>der<strong>' 
               '<h1 style="color:indigo; text-align:center">' + 
               self.email_name +
               '</h1><br><em style="text-align:center">Only for our' 
@@ -73,7 +69,7 @@ class EmailNewsNotification(models.Model):
               '<em style="text-align:center">Use the code below to get a' 
               'special discount!</em><br><br>' 
               '<br><br><strong style="color:SlateBlue;' 
-              'background-color:Lavender; padding:1em 2em width:100%;' 
+              'background-color:Lavender; padding:1em 2em; width:100%;' 
               'text-align:center;">' +
               self.code + '</strong></p>' 
               '<br><br><strong>Visit our shop now!</strong>' 
