@@ -64,12 +64,12 @@ class EmailNewsNotification(models.Model):
               '<h1 style="color:indigo; text-align:center">' +
               self.email_name +
               '</h1><br><p style="text-align:center; font-style: italic;">'
-              'Only for our loyal customers!</p><br><br>'
-              '<p>' + self.content + '<br><br>'
-              '<p style="text-align:center"><em>Use the code below to get a'
-              'special discount!</em></p><br><br>'
+              'Only for our loyal customers!</p><br>'
+              '<p>' + self.content + '</p><br><br>'
+              '<p style="text-align:center"><em>Use the code below to get a '
+              'special discount!</em></p>'
               '<br><br><p style="color:SlateBlue;'
-              'background-color:Lavender; padding:1em 2em; width:100%;'
+              'background-color:Lavender; padding:1em 2em;'
               'text-align:center; font-weight:bold">' +
               self.code + '</p>'
               '<br><br><strong>Visit our shop now! </strong><br><br>'
