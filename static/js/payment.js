@@ -1,3 +1,4 @@
+/* jshint esversion: 8, jquery: true, scripturl: true */
 let stripePublicKey = stripe_public_key;
 let stripe = Stripe(stripePublicKey);
 let elem = document.getElementById('submit');
@@ -34,7 +35,8 @@ let form = document.getElementById('payment-form');
 
 form.addEventListener('submit', function (ev) {
   ev.preventDefault();
-
+  // Disable the submit button to prevent repeated clicks
+  $('#submit').attr('disabled', true);
   let customerName = document.getElementById("customer-name").value;
   let customerEmail = document.getElementById("customer-email").value;
   let customerPhone = document.getElementById("customer-phone").value;
@@ -98,11 +100,15 @@ form.addEventListener('submit', function (ev) {
               </div>
             </div>
           `;
+          // enable the submit button again
+          $('#submit').prop('disabled', false);
           $('#card-errors').html(error);
         } else {
           if (result.paymentIntent.status === 'succeeded') {
             window.location.replace(window.location.origin + "/payment/order_placed/");
           }
+          // enable the submit button again
+          $('#submit').prop('disabled', false);
         }
       });
     },
