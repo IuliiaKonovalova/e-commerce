@@ -48,44 +48,40 @@ class EmailNewsNotification(models.Model):
         super().save()
         users = Profile.objects.filter(subscription=True)
         recipients = [user.user.email for user in users]
-        # send_mail(
-        #     self.email_name,
-        #     self.content,
-        #     'yuliyakonovalova5@gmail.com',
-        #     recipients,
-        #     fail_silently=False
-        # )
         subject, from_email, to = (
             self.email_name, 'wowder', recipients
         )
         text_content = ''
         if self.code is not None:
             html_content = (
-              '<h1 style="color:indigo; text-align:center">' +
-              self.email_name +
-              '</h1><br><p style="text-align:center; font-style: italic;">'
-              'Only for our loyal customers!</p><br>'
-              '<p>' + self.content + '</p><br><br>'
-              '<p style="text-align:center"><em>Use the code below to get a '
-              'special discount!</em></p>'
-              '<br><br><p style="color:SlateBlue;'
-              'background-color:Lavender; padding:1em 2em;'
-              'text-align:center; font-weight:bold">' +
-              self.code + '</p>'
-              '<br><br><strong>Visit our shop now! </strong><br><br>'
-              '<a href="http://wowder.herokuapp.com/inventory/store/">'
-              'Go to WoWder</a><br><br>'
-              '<p>Thank you for being with us!</p>'
-              '<em>Wowder shop</em>'
-                )
-        else:
-            html_content = '<h1 style="color:indigo">' + self.email_name \
-                + '</h1><br><p>' + self.content + '</p>' \
-                '<strong>Visit our shop now!</strong>'\
-                '<a href="http://wowder.herokuapp.com/inventory/store/">' \
-                'Go to WoWder</a>' \
-                '<br><br><p>Thank you for being with us!</p>' \
+                '<h1 style="color:indigo; text-align:center">' +
+                self.email_name +
+                '</h1><br><p style="text-align:center; font-style: italic;">'
+                'Only for our loyal customers!</p><br>'
+                '<p>' + self.content + '</p><br>'
+                '<p style="text-align:center"><em>Use the code below to get '
+                'a special discount!</em></p>'
+                '<br><br><p style="color:SlateBlue;'
+                'background-color:Lavender; padding:1em 2em;'
+                'text-align:center; font-weight:bold">' +
+                self.code + '</p>'
+                '<br><br><strong>Visit our shop now! </strong><br><br>'
+                '<a href="http://wowder.herokuapp.com/inventory/store/">'
+                'Go to WoWder</a><br><br>'
+                '<p>Thank you for being with us!</p>'
                 '<em>Wowder shop</em>'
+            )
+        else:
+            html_content = (
+                '<h1 style="color:indigo; text-align:center">' +
+                self.email_name +
+                '</h1><br><p>' + self.content + '</p>'
+                '<br><br><strong>Visit our shop now! </strong><br><br>'
+                '<a href="http://wowder.herokuapp.com/inventory/store/">'
+                'Go to WoWder</a><br><br>'
+                '<p>Thank you for being with us!</p>'
+                '<em>Wowder shop</em>'
+            )
         msg = EmailMultiAlternatives(subject, text_content, from_email, to)
         msg.attach_alternative(html_content, 'text/html')
         msg.send()
