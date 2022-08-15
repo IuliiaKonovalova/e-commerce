@@ -143,6 +143,21 @@ The age criteria for the customers is stated as 18 and older. The emphasis was m
 
 The Wowder store is aimed at the company that is interested in selling products online. It may be a small company, or a large one. The emphasis was made on providing a platform for any business that is interested in selling products online. Moreover, the potential growth of the company is taken into consideration.
 
+### Strategy Trade-Off
+
+WoWder is difficult to compete online store with due to its wide variety of product offerings and low cost products.
+
+- wide variety of product offerings;
+- product availability;
+- product quality;
+- product choice;
+- good user experience;
+- good service;
+- good sales;
+- good customer loyalty;
+- unique customer service (customer products' requests);
+
+
 
 
 
