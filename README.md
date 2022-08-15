@@ -9,13 +9,15 @@ In addition, the website has a personnel functionality which allows admin, manag
 
 ---
 
-## User Experience Design
+## UX
 
-### Strategy
+The website created to be eye-catching and user-friendly. The user is given plenty of choices to choose from when they are shoppings. The emphasis is on the user experience and the user is able to easily navigate the website in order to fulfill users goals. The website is designed to be easy to use and easy to understand. Additionally, the website attracts customers to become a part of loyalty programs by giving them additional discounts on their purchases.
+It also handles all personnel functionality moving from admin to manager to logistics to other personnel.
+Business goals were to make the website as scalable as possible as well as reusable in a real world that the store personnel can use it according to the position they have in the company.
 
 ### Target Audience
 
-This website is intended for people who are interested in purchasing products online, starting from bread and finishing electronics, such as TV, or smartphones, or other products. It was also aimed to lure people to use this website in their daily lives, which was achieved by implementing a discount system for all customers, additional discounts for loyal customers, and a notification system that allows users to be notified when a product is available.
+This website is intended for people who are interested in purchasing products online, starting from bread and finishing electronics, such as TV, or smartphones, or other products. It was also aimed to lure people to use this website in their daily lives, which was achieved by implementing a discount system for all customers, additional discounts for loyal customers, and a notification system that allows users to be notified when a product is available. This website may hold a lot of products, and it is important to make sure that the website is easy to use and navigate. 
 
 ### User Stories
 
@@ -131,7 +133,18 @@ This website is intended for people who are interested in purchasing products on
 **PDF version**
 [PDF version](documentation/user_stories/user_stories.pdf)
 
----
+
+### A Persona Summary of the customer
+
+The WoWder store is aimed at the diverse group of people considering their needs and wants. As all people have different needs and wants, the store provides for everyone the best possible service.
+The age criteria for the customers is stated as 18 and older. The emphasis was made on providing a good user experience for the customers by giving them the ability to find the products they are looking for, and give them all available options of these products, and offering the best possible service.
+
+### A persona summary of the store personnel
+
+The Wowder store is aimed at the company that is interested in selling products online. It may be a small company, or a large one. The emphasis was made on providing a platform for any business that is interested in selling products online. Moreover, the potential growth of the company is taken into consideration.
+
+
+
 
 ## Technologies used
 - ### Languages:
@@ -177,7 +190,8 @@ This website is intended for people who are interested in purchasing products on
     + [Multiple Video & Image Upload Plugin - jQuery Miv.js](https://www.jqueryscript.net/form/multi-video-image-upload.html)
     + [stripe](https://stripe.com/): was used to create the payment system.
     + [birme.net](https://www.birme.net/): was used to crop and center unsplash images.
-
+    + [Sitemap Generator](https://www.xml-sitemaps.com/) was used to create the sitemap.xml file.
+    + [Privacy Policy Generator](https://www.privacypolicygenerator.info/) was used to create the privacy policy.
 
 ---
 
@@ -806,6 +820,7 @@ from django.views.decorators.csrf import csrf_exempt
 - [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en): for providing a free platform to test website responsiveness
 - [GoFullPage](chrome://extensions/?id=fdpohaocaechififmbbbbbknoalclacl): for allowing to create free full web page screenshots;
 - [Favicon Generator. For real.](https://realfavicongenerator.net/): for providing a free platform to generate favicons.
+- [Sitemap Generator](https://www.xml-sitemaps.com/): for providing a free platform to generate sitemaps.
 - [Coolors](https://coolors.co/): for providing a free platform to generate your own palette.
 - [Icons8](https://icons8.com/): for providing free access to amazing icons and illustrations to fill out the store.
 - [unsplash](https://unsplash.com/): for providing a free products' images to fill out the store.
