@@ -4,7 +4,7 @@ from django.db import models
 from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 from django.db.models import F
-from django.core.mail import send_mail
+from django.core.mail import EmailMultiAlternatives
 
 
 class Category(models.Model):
@@ -760,20 +760,26 @@ class Stock(models.Model):
                         email.answer_sent = True
                         email.save()
         recipients = list(users_to_send_email)
-        # if there are any requests, send email to users
+        # # if there are any requests, send email to users
         if len(recipients) > 0:
-            subject = 'Stock email notification'
-            message = (
-                'Product ' + self.product_inventory.product.name +
-                ' is in stock. Please visit the website to order.'
+            subject, from_email, to = (
+                'Stock email notification', 'wowder', recipients
             )
-            send_mail(
-                subject,
-                message,
-                'yuliyakonovalova5@gmail.com',
-                recipients,
-                fail_silently=False
+            text_content = ''
+            html_content = (
+                '<h1 style="color:indigo; text-align:center">'
+                'Stock email notification</h1><br><p><strong>Product: '
+                '</strong>' + self.product_inventory.product.name +
+                'is in stock.</p><br><br><strong>Visit our shop now '
+                'to make anorder! </strong><br><br><a '
+                'href="http://wowder.herokuapp.com/inventory/store/">'
+                'Go to WoWder</a><br><br>'
+                '<p>Thank you for being with us!</p>'
+                '<em>Wowder shop</em>'
             )
+            msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
 
     @classmethod
     def get_high_sales_fewer_products(cls):
