@@ -61,21 +61,21 @@ class EmailNewsNotification(models.Model):
         text_content = ''
         if self.code is not None:
             html_content = (
-              '<h1 style="color:indigo; text-align:center">' + 
+              '<h1 style="color:indigo; text-align:center">' +
               self.email_name +
-              '</h1><br><p style="text-align:center"><em>Only for our ' 
-              'loyal customers!</em></p><br><br>' 
-              '<p>' + self.content + '<br><br>' 
-              '<p style="text-align:center"><em>Use the code below to get a' 
-              'special discount!</em></p><br><br>' 
-              '<br><br><p style="color:SlateBlue;' 
-              'background-color:Lavender; padding:1em 2em; width:100%;' 
-              'text-align:center;"><strong>' +
-              self.code + '</strong></p></p>' 
-              '<br><br><strong>Visit our shop now!</strong><br>' 
-              '<a href="http://wowder.herokuapp.com/inventory/store/">' 
-              'Go to WoWder</a><br><br>' 
-              '<p>Thank you for being with us!</p>' 
+              '</h1><br><p style="text-align:center; font-style: italic;">'
+              'Only for our loyal customers!</p><br><br>'
+              '<p>' + self.content + '<br><br>'
+              '<p style="text-align:center"><em>Use the code below to get a'
+              'special discount!</em></p><br><br>'
+              '<br><br><p style="color:SlateBlue;'
+              'background-color:Lavender; padding:1em 2em; width:100%;'
+              'text-align:center; font-weight:bold">' +
+              self.code + '</p>'
+              '<br><br><strong>Visit our shop now! </strong><br><br>'
+              '<a href="http://wowder.herokuapp.com/inventory/store/">'
+              'Go to WoWder</a><br><br>'
+              '<p>Thank you for being with us!</p>'
               '<em>Wowder shop</em>'
                 )
         else:
