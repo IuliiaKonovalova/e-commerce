@@ -93,13 +93,12 @@
       {% endif %}
     </div>
     <div class="profile__menu">
+      <a href="{% url 'edit_profile' user=request.user %}" aria-label="Go to Edit My Profile Page" class="btn btn__profile">
+        <i class="fas fa-user-edit"></i>
+        Edit Profile
+      </a>
       {% if my_addresses %}
-        <a href="{% url 'edit_profile' user=request.user %}" aria-label="Go to Edit My Profile Page" class="btn btn__profile">
-          <i class="fas fa-user-edit"></i>
-          Edit Profile
-        </a>
-        <a href="{% url 'my_addresses' user=request.user %}" aria-label="Go to Manage My Addresses Page"
-          class="btn btn__profile">
+        <a href="{% url 'my_addresses' user=request.user %}" aria-label="Go to Manage My Addresses Page" class="btn btn__profile">
           <i class="fas fa-map-marked-alt"></i>
           My addresses
         </a>
