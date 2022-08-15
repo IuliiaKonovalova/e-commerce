@@ -48,13 +48,31 @@ class EmailNewsNotification(models.Model):
         super().save()
         users = Profile.objects.filter(subscription=True)
         recipients = [user.user.email for user in users]
-        send_mail(
-            self.email_name,
-            self.content,
-            'yuliyakonovalova5@gmail.com',
-            recipients,
-            fail_silently=False
+        # send_mail(
+        #     self.email_name,
+        #     self.content,
+        #     'yuliyakonovalova5@gmail.com',
+        #     recipients,
+        #     fail_silently=False
+        # )
+        subject, from_email, to = (
+            self.email_name, 'wowder', recipients
         )
+        text_content = ''
+        if self.code is not None:
+            html_content = '<h1 style="color:indigo; text-align:center">' \
+                + self.email_name \
+                + '</h1><br><em>Only for our loyal customers!</em><br>' \
+                '<p>' + self.content + '<br><br>' \
+                '<em>Use the code below to get a special discount!</em>' \
+                '<br><br><strong style="color:SlateBlue;' \
+                'background-color:Lavender; padding:1em 2em">' \
+                + self.code + '</strong></p>' \
+                '<br><br><p>Thank you for being with us!</p>' \
+                '<em>Wowder shop</em>'
+        msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+        msg.attach_alternative(html_content, 'text/html')
+        msg.send()
 
 
 class StockEmailNotification(models.Model):
