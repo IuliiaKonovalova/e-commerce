@@ -126,6 +126,7 @@ class StockEmailNotification(models.Model):
         """Meta class for stock email notifications."""
         verbose_name = 'Stock email notification'
         verbose_name_plural = 'Stock email notifications'
+        ordering = ['-created_at']
 
     def __str__(self):
         """Return the name of the stock email notification."""
@@ -154,10 +155,10 @@ class StockEmailNotification(models.Model):
         text_content = ''
         html_content = (
             '<h1 style="color:indigo; text-align:center">'
-            'Stock email notification</h1><br><p>Your request has been sent '
-            'to the administrator.</p><br><p>Product: ' +
-            self.requested_product.name + '</p><br><p>Quantity: ' +
-            str(self.requested_quantity) + '</p>'
+            'Stock email notification</h1><br><strong>Your request has '
+            'been sent to the administrator.</strong><br><p><strong>Product: '
+            '</strong>' + self.requested_product.name + '</p><p><strong>'
+            'Quantity: </strong>' + str(self.requested_quantity) + '</p>'
             '<br><br><strong>Visit our shop now! </strong><br><br>'
             '<a href="http://wowder.herokuapp.com/inventory/store/">'
             'Go to WoWder</a><br><br>'
