@@ -1,6 +1,6 @@
 """Models for email_notifications app."""
 from django.db import models
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.contrib.auth.models import User
 from inventory.models import Product, ProductAttributeValue
 from profiles.models import Profile
@@ -22,6 +22,13 @@ class EmailNewsNotification(models.Model):
         blank=False,
         verbose_name='Content',
         help_text='Content.'
+    )
+    code = models.CharField(
+        blank=True,
+        null=True,
+        max_length=100,
+        verbose_name='Code',
+        help_text='Code.'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
