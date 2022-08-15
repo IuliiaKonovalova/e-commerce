@@ -147,7 +147,7 @@
                     <input type="radio" class="btn-check option" name="{{ k }}" id="{{ k }}-{{ forloop.counter }}" value="{{ item }}" aria-label="Choose value">
                     <label class="btn btn-outline-primary" for="{{ k }}-{{ forloop.counter }}" data-labelid="{{ item }}">{{ item }}</label>
                   {% else %}
-                    <input type="radio" class="btn-check option" name="{{ k }}" id="{{ item }}" value="{{ item }}" aria-label="Choose value">
+                    <input type="radio" class="btn-check option item__not__available" name="{{ k }}" id="{{ item }}" value="{{ item }}" aria-label="Choose value">
                     <label class="btn btn-outline-primary disabled" for="{{ item }}" data-labelid="{{ item }}">{{ item }}</label>
                   {% endif %}
                 {% endif %}
@@ -319,10 +319,10 @@
         } , 3000);
       };
       const messageRequestItem = function() {
-        if ($('#messages-notes').length) {
-          $('#messages-notes').remove();
+        if ($('#messages-stock').length) {
+          $('#messages-stock').remove();
         }
-        $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-notes">' +
+        $('#add-to-bag-button').after('<div class="request__stock--email" id="messages-stock">' +
           '<div class="message-container__message">' +
             '<p>Order notification about stock updates</p>' +
               '<div class="message-container__buttons">' +
@@ -333,7 +333,7 @@
           '</div>' +
         '</div>');
         $('.btn__no').click(function() {
-          $('#messages-notes').remove();
+          $('#messages-stock').remove();
         });
       }
       let product_inventory_id = 0
@@ -414,6 +414,9 @@
       $('#reset-button').click(reset);
       // IF PRODUCT HAS ATTRIBUTES AND VALUES
       if (valuesSetActive.length > 0) {
+        if ($('.item__not__available').length) {
+          messageRequestItem();
+        }
         let availableAll;
         // get all inputs with the name 'Color'
         let inputs = $(' input[name="Color"]');
@@ -479,7 +482,7 @@
                   $(buttonLabel).addClass('disabled');
                   // SHOW SUGGESTIONS MESSAGE "BE NOTIFIED WHEN THIS PRODUCT IS BACK IN STOCK"
                   availableAll = false;
-                  if (availableAll == false && $('#suggestions-message').length == 0) {
+                  if (availableAll == false && $('#messages-stock').length == 0) {
                     messageRequestItem();
                   }
                 }
@@ -639,6 +642,7 @@
         //get id of the product from [{"Quantity":100,"Price":"7.00","id":9}]
         //let quantityForSingle;
         let idForSingle;
+        //item__not__available
         for (let stockOption of values_list_array) {
           for (let key in stockOption) {
             if (key == "Quantity") {
@@ -759,7 +763,7 @@
       });
       // if modal is opened, $('#messages-notes').remove();
       $('#exampleModal').on('show.bs.modal', function(e) {
-        $('#messages-notes').remove();
+        //$('#messages-notes').remove();
         //$('.btn_ok_in_modal').addClass('disabled');
         // check if it has any options__request
         if ($('.options__request').length) {
@@ -801,8 +805,8 @@
         let data = JSON.stringify(productRequestOptions);
         //AJAX request to add item to the StockEmailNotification table
         if (optionAmount === optionChecked) {
-        // close the modal
-        $('#exampleModal').modal('hide');
+          // close the modal
+          $('#exampleModal').modal('hide');
           $.ajax({
             url: "{% url 'add_to_stock_email_notification' %}",
             type: "POST",
