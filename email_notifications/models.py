@@ -1,6 +1,6 @@
 """Models for email_notifications app."""
 from django.db import models
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
 from inventory.models import Product, ProductAttributeValue
 from profiles.models import Profile
@@ -148,16 +148,23 @@ class StockEmailNotification(models.Model):
 
     def save(self, *args, **kwargs):
         super().save()
-        users = Profile.objects.get(user=self.user)
-        recipient_list = [self.user.email]
-        content = 'Your request has been sent to the administrator.\n' \
-                  'Product: ' + self.requested_product.name + '\n' \
-                  'Quantity: ' + str(self.requested_quantity) + '\n'
-        if self.answer_sent is False:
-            send_mail(
-                'Stock email notification',
-                content,
-                'yuliyakonovalova5@gmail.com',
-                recipient_list,
-                fail_silently=False,
-            )
+        subject, from_email, to = (
+            self.email_name, 'wowder', self.user.email
+        )
+        text_content = ''
+        html_content = (
+            '<h1 style="color:indigo; text-align:center">'
+            'Stock email notification</h1><br><p>Your request has been sent '
+            'to the administrator.</p><br><p>Product: ' +
+            self.requested_product.name + '</p><br><p>Quantity: ' +
+            str(self.requested_quantity) + '</p><br><p>' +
+            self.get_all_requested_attributes_values_objects() + '</p>'
+            '<br><br><strong>Visit our shop now! </strong><br><br>'
+            '<a href="http://wowder.herokuapp.com/inventory/store/">'
+            'Go to WoWder</a><br><br>'
+            '<p>Thank you for being with us!</p>'
+            '<em>Wowder shop</em>'
+        )
+        msg = EmailMultiAlternatives(subject, text_content, from_email, to)
+        msg.attach_alternative(html_content, 'text/html')
+        msg.send()
