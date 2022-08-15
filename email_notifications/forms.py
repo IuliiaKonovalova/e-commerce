@@ -8,15 +8,19 @@ class EmailNewsNotificationForm(forms.ModelForm):
     class Meta:
         """Meta class for email news notifications."""
         model = EmailNewsNotification
-        fields = ['email_name', 'content']
+        fields = ['email_name', 'content', 'code']
 
         widgets = {
             'email_name': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Email name',
+                'placeholder': 'Add email name',
             }),
             'content': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Content',
+                'placeholder': 'Add email content',
+            }),
+            'code': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Add code if the email is promotional',
             }),
         }
