@@ -81,20 +81,20 @@
           <div class="products__table--cell">Values</div>
           <div class="products__table--cell">Quantity</div>
         </div>
-        {% for request in stock_requests %}
-          <a class="products__table--row" href="{% url 'product_detail_full' pk=request.requested_product.id %}" aria-label="Go to product detail page">
+        {% for stock_request in stock_requests %}
+          <a class="products__table--row" href="{% url 'product_detail_full' pk=stock_request.requested_product.id %}" aria-label="Go to product detail page">
             {% comment %} Requested product's name {% endcomment %}
             <div class="products__table--cell">
-              <strong>{{ request.requested_product }}</strong>
+              <strong>{{ stock_request.requested_product }}</strong>
             </div>
             {% comment %} Requested values {% endcomment %}
             <div class="products__table--cell">
-              {% for values in  request.requested_attributes_values.all  %}
+              {% for values in  stock_request.requested_attributes_values.all  %}
                 {{ values.attribute_value }}
               {% endfor %}
             </div>
             {% comment %} Requested quantity {% endcomment %}
-            <div class="products__table--cell">{{ request.requested_quantity }}</div>
+            <div class="products__table--cell">{{ stock_request.requested_quantity }}</div>
           </a>
         {% endfor %}
       </div>
