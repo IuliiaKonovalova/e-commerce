@@ -149,7 +149,7 @@ class StockEmailNotification(models.Model):
     def save(self, *args, **kwargs):
         super().save()
         subject, from_email, to = (
-            self.email_name, 'wowder', self.user.email
+            'Stock email notification', 'wowder', [self.user.email]
         )
         text_content = ''
         html_content = (
@@ -157,8 +157,7 @@ class StockEmailNotification(models.Model):
             'Stock email notification</h1><br><p>Your request has been sent '
             'to the administrator.</p><br><p>Product: ' +
             self.requested_product.name + '</p><br><p>Quantity: ' +
-            str(self.requested_quantity) + '</p><br><p>' +
-            self.get_all_requested_attributes_values_objects() + '</p>'
+            str(self.requested_quantity) + '</p>'
             '<br><br><strong>Visit our shop now! </strong><br><br>'
             '<a href="http://wowder.herokuapp.com/inventory/store/">'
             'Go to WoWder</a><br><br>'
