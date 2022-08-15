@@ -770,7 +770,7 @@ class Stock(models.Model):
                 '<h1 style="color:indigo; text-align:center">'
                 'Stock email notification</h1><br><p>Product: '
                 '<strong>' + self.product_inventory.product.name + '</strong>'
-                'is now in stock.</p><br><br><strong>Visit our shop '
+                ' is now in stock.</p><br><br><strong>Visit our shop '
                 'to purchase! </strong><br><br><a '
                 'href="http://wowder.herokuapp.com/inventory/store/">'
                 'Go to WoWder</a><br><br>'
