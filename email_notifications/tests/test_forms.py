@@ -8,7 +8,7 @@ class EmailNewsNotificationFormTest(TestCase):
     def test_email_news_notification_form_has_fields(self):
         """Test for email news notification form has fields"""
         form = EmailNewsNotificationForm()
-        self.assertEqual(len(form.fields), 2)
+        self.assertEqual(len(form.fields), 3)
 
     def test_email_news_notification_form_is_valid(self):
         """Test for email news notification form is valid"""
