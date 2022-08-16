@@ -192,6 +192,14 @@ WoWder Instagram page for marketing purposes to post adverts, interesting conten
 
 [WoWder Instagram Page](documentation/web_marketing/wowder_instagram_mockup.pdf)
 
+5. Twitter
+
+Twitter has become a place for people from different backgrounds to meet each other and discuss various topics! That is way WoWder presence is important on this platform as well.
+
+WoWder Twitter page is for marketing purposes to post adverts, interesting content and get users engaged.
+
+[WoWder Twitter Page](documentation/web_marketing/wowder_twitter_mockup.pdf)
+
 ---
 
 ## Future Development
@@ -922,6 +930,9 @@ from django.views.decorators.csrf import csrf_exempt
 - [maggie](https://www.maggie.com/): for providing a free products' data and images to fill out the store with maggie products.
 - [barilla](https://www.barilla.com/): for providing a free products' data and images to fill out the store with pasta.
 - [LG electronics](https://www.lg.com/): for providing a free products' data and images to fill out the store with electronics.
+- [Elon Musk](https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor): for providing a template for the twitter mock-up page;
+- [fashionunited](https://www.fashionunited.com/): for providing content for the newsletter;
+
 
 ---
 
