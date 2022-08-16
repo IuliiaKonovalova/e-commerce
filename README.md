@@ -178,9 +178,19 @@ For the purpose of sending a newsletter about new loyalty programs with promo co
 
 3. Facebook
 
+Facebook is essential for the store to be able to reach the customers. According to the statistics, the store has a good reach among people who are preferring to use facebook. Facebook has great coverage in the world among the people how are able to purchase products online.
+
 WoWder facebook page for marketing purposes to post adverts, interesting content and get users engaged.
 
 [WoWder Facebook Page](documentation/web_marketing/wowder_facebook_mockup.pdf)
+
+4. Instagram
+
+Instagram attracts people of younger age and is essential for the store to be able to reach this age group. According to the statistics, 90% of Instagram users are under 35 years old. [See report](https://info.lse.ac.uk/staff/divisions/communications-division/digital-communications-team/assets/documents/guides/A-Guide-To-Social-Media-Platforms-and-Demographics.pdf)
+
+WoWder Instagram page for marketing purposes to post adverts, interesting content and get users engaged.
+
+[WoWder Instagram Page](documentation/web_marketing/wowder_instagram_mockup.pdf)
 
 ---
 
