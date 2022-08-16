@@ -159,6 +159,20 @@ WoWder is difficult to compete online store with due to its wide variety of prod
 
 ---
 
+## Web Marketing
+
+Newsletters were implemented in the email_notification app. Manager can create a newsletter and send it to all customers. It also handles the sending of the newsletters about new loyalty programs with promo codes.
+
+1. News Letter
+
+For the purpose of sending a newsletter to all customers, the manager can create a newsletter and send it to all customers.
+I have used django EmailMultiAlternatives to send the newsletter.
+
+![NewsLetter](documentation/web_marketing/newsletter.png)
+
+2. Promo Codes
+
+For the purpose of sending a newsletter about new loyalty programs with promo codes to all customers, the manager can create a newsletter using the same form with promo code field filled with code. Django EmailMultiAlternatives is also responsible for it.
 
 ---
 
