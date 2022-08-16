@@ -176,6 +176,12 @@ For the purpose of sending a newsletter about new loyalty programs with promo co
 
 ![Promo Codes](documentation/web_marketing/promo_email.png)
 
+3. Facebook
+
+WoWder facebook page for marketing purposes to post adverts, interesting content and get users engaged.
+
+[WoWder Facebook Page](documentation/web_marketing/wowder_facebook_mockup.png)
+
 ---
 
 ## Future Development
