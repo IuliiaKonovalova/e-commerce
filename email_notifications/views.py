@@ -84,7 +84,6 @@ class EmailStockNotificationFormAJAX(View):
                         requested_quantity=requested_quantity,
                         answer_sent=False,
                     )
-                # stock_email_notification_this.save()
                 for attribute_value_id in attribute_values_ids:
                     # get the product attribute value
                     product_attribute_value = get_object_or_404(
