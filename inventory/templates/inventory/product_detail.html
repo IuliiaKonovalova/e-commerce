@@ -816,12 +816,12 @@
             },
             success: function(data) {
               if (data.alert_message) {
-                messagesAlertData(data.message_alert);
+                messagesAlertData(data.alert_message);
               }
             },
             error: function(data) {
               if (data.alert_message) {
-                messagesAlertData(data.message_alert);
+                messagesAlertData(data.alert_message);
               } else {
                 messagesAlertError();
               }
