@@ -180,7 +180,7 @@ For the purpose of sending a newsletter about new loyalty programs with promo co
 
 WoWder facebook page for marketing purposes to post adverts, interesting content and get users engaged.
 
-[WoWder Facebook Page](documentation/web_marketing/wowder_facebook_mockup.png)
+[WoWder Facebook Page](documentation/web_marketing/wowder_facebook_mockup.pdf)
 
 ---
 
