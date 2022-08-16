@@ -775,7 +775,7 @@ class Stock(models.Model):
                 'href="http://wowder.herokuapp.com/inventory/store/">'
                 'Go to WoWder</a><br><br>'
                 '<p>Thank you for being with us!</p>'
-                '<em>Wowder shop</em>'
+                '<em>WoWder shop</em>'
             )
             msg = EmailMultiAlternatives(subject, text_content, from_email, to)
             msg.attach_alternative(html_content, "text/html")
