@@ -298,12 +298,7 @@
             form.find('select').prop('disabled', false);
             // make all textareas enabled
             form.find('textarea').prop('disabled', false);
-            // show error message
-            $('#profile-save-btn').after('<span class="error-message">Error!</span>');
-            // remove error message after 3 seconds
-            setTimeout(() => {
-              $('.error-message').remove();
-            }, 3000);
+            messagesAlertError();
           }
         })
       })
@@ -331,12 +326,7 @@
             form.find('input').prop('disabled', false);
             // make all buttons enabled
             form.find('button').prop('disabled', false);
-            // show success message
             messagesAlertData('Password successfully updated');
-            // remove success message after 3 seconds
-            setTimeout(() => {
-              $('.success-message').remove();
-            }, 3000);
           },
           error: function (data) {
             // remove loading icon
@@ -346,10 +336,7 @@
             // make all buttons enabled
             form.find('button').prop('disabled', false);
             // show error message for 3 seconds
-            $('#save-password-btn').after('<span class="error-message">Error!</span>');
-            setTimeout(() => {
-              $('.error-message').remove();
-            }, 3000);
+            messagesAlertError();
           }
         })
       })
