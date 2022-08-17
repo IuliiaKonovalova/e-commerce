@@ -308,6 +308,19 @@ The minimalistic approach was used to create something meaningful without moving
 
 ### Color Scheme
 
+The color scheme of the application is based on the combination of bold colors and neutral colors. The bold colors are used to create a more vibrant and attractive user experience. The neutral colors are used to create a more calm and relaxed user experience.
+
+  ![Color Scheme](documentation/design/colors_main.png)
+
+The navbar and footer are colored with the dark purple color (`#151422`) to create emphasis on the main content of the application. Navbar for admin was colored with the purplish color (`#4f378b`) to separate is from the main navbar and put an accent on the admin functionality. It also help personnel to distinguish that they enter as personnel.
+
+The color scheme for the text is quite simple to create a more readable user experience.
+
+  ![Text Scheme](documentation/design/colors_text.png)
+
+As the application is highly complex and has lots of functionality, I have made a decision to implement accent colors to help users to navigate the application. The accent colors are used to create a more vibrant and attractive user experience.
+
+  ![Accent Scheme](documentation/design/color_accent.png)
 
 ### Typography
 The main font used in the application is Lato. During my learning experience, I found that the Lato font is very easy to use and has a very good readability, which increases user experience. This fon is also consistent with the color scheme.
