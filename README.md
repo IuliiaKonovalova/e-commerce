@@ -1073,24 +1073,28 @@ To get stripe public key, secret key, and webhook secret:
 - [Postgresql](https://www.postgresql.org/): for providing a free database.
 - [geonames](https://www.geonames.org/): for providing a free database on countries, regions, cities.
 - [Multiple Video & Image Upload Plugin - jQuery Miv.js](https://www.jqueryscript.net/form/multi-video-image-upload.html): for providing a free plugin to upload multiple videos and images.
+- [Stripe](https://stripe.com/): for providing a free payment gateway.
 - [htmlcolorcodes.com](https://htmlcolorcodes.com/): for providing a free database on colors.
 - [Very Academy Youtube Channel](https://www.youtube.com/c/veryacademy): for brilliant tutorials, which shed the light on the implementation of database with multi-values products, precise explanations of the stripe API, and many other things!
-- [Stripe](https://stripe.com/): for providing a free payment gateway.
-- [unsplash](https://unsplash.com/): for providing a free products' images.
 - [birme](https://www.birme.net/): for providing free service to center and crop images.
 - [fontawesome](https://fontawesome.com/): for providing free icons.
 - [googlefonts](https://fonts.google.com/): for providing free fonts.
-- [wordstream](https://www.wordstream.com/) for the great insights on the keywords and the search engine.
 - [BGJar](https://www.bgjar.com/): for the free access to the background images build tool.
 - [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en): for providing a free platform to test website responsiveness
 - [GoFullPage](chrome://extensions/?id=fdpohaocaechififmbbbbbknoalclacl): for allowing to create free full web page screenshots;
 - [Favicon Generator. For real.](https://realfavicongenerator.net/): for providing a free platform to generate favicons.
 - [Sitemap Generator](https://www.xml-sitemaps.com/): for providing a free platform to generate sitemaps.
 - [Coolors](https://coolors.co/): for providing a free platform to generate your own palette.
+- [Elon Musk](https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor): for providing a template for the twitter mock-up page;
+
+### Content and Images
+
+- [unsplash](https://unsplash.com/): for providing a free products' images.
 - [Icons8](https://icons8.com/): for providing free access to amazing icons and illustrations to fill out the store.
 - [unsplash](https://unsplash.com/): for providing a free products' images to fill out the store.
 - [chrome developer tools](https://developer.chrome.com/extensions/devtools_inspector): for providing a free platform to test website.
 - [adidas](https://www.adidas.com/): for providing a free products' data and images to fill out the store on clothes and shoes.
+- [fashionunited](https://www.fashionunited.com/): for providing content for the newsletter;
 - [dell](https://www.dell.com/): for providing a free products' data and images to fill out the store on computers and laptops.
 - [nike](https://www.nike.com/): for providing a free products' data and images to fill out the store on clothes and shoes.
 - [artsaber](https://www.artsabers.com/): for providing a free products' images to fill out the store on lightsabers data and images.
@@ -1100,10 +1104,6 @@ To get stripe public key, secret key, and webhook secret:
 - [maggie](https://www.maggie.com/): for providing a free products' data and images to fill out the store with maggie products.
 - [barilla](https://www.barilla.com/): for providing a free products' data and images to fill out the store with pasta.
 - [LG electronics](https://www.lg.com/): for providing a free products' data and images to fill out the store with electronics.
-- [Elon Musk](https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor): for providing a template for the twitter mock-up page;
-- [fashionunited](https://www.fashionunited.com/): for providing content for the newsletter;
-
-
 ---
 
 ## Acknowledgments
