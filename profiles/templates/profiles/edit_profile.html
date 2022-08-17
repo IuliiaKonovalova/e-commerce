@@ -112,6 +112,36 @@
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script>
     $(document).ready(function () {
+      // reusable function for alert message
+      const messagesAlertData = function(data) {
+        if (data) {
+          if ($('#messages-notes').length) {
+            $('#messages-notes').remove();
+          }
+          $('.profile').before('<div class="message-container" id="messages-notes">' +
+            '<div class="message-container__message">' +
+              '<p class="message-container__message--text">' + data + '</p>' +
+              '</div>' +
+            '</div>');
+        }
+        setTimeout(() => {
+          $('#messages-notes').remove();
+        }, 3000);
+      };
+      const messagesAlertError = function() {
+        if ($('#messages-notes').length) {
+          $('#messages-notes').remove();
+        }
+        $('.fa-spinner').remove();
+        $('.profile').before('<div class="message-container" id="messages-notes">' +
+        '<div class="message-container__message">' +
+        '<p class="message-container__message--text">Something went wrong</p>' +
+        '</div>' +
+        '</div>');
+        setTimeout(() => {
+          $('#messages-notes').remove();
+        } , 3000);
+      };
       $('#edit-avatar-btn').on('click', () => {
         let fileInput = document.createElement('input');
         fileInput.type = 'file';
@@ -157,10 +187,7 @@
                 $('#save-avatar-btn').remove();
                 $('#cancel-avatar-btn').remove();
                 // show success message for 3 seconds
-                $('#reset-avatar-btn').after('<span class="success-message">Saved!</span>');
-                setTimeout(() => {
-                  $('.success-message').remove();
-                }, 3000);
+                messagesAlertData('Avatar successfully updated');
               },
               error: function (data) {
                 $('.avatar').attr('src', currentAvatarUrl);
@@ -168,10 +195,7 @@
                 $('#save-avatar-btn').remove();
                 $('#cancel-avatar-btn').remove();
                 // show error message for 3 seconds
-                $('#reset-avatar-btn').after('<span class="error-message">Error!</span>');
-                setTimeout(() => {
-                  $('.error-message').remove();
-                }, 3000);
+                messagesAlertError();
               }
             });
           })
@@ -200,11 +224,9 @@
               // enable buttons
               $('#reset-avatar-btn').prop('disabled', false);
               $('#edit-avatar-btn').prop('disabled', false);
-              // show success message for 3 seconds
-              $('#reset-avatar-btn').after('<span class="success-message">Saved!</span>');
-              setTimeout(() => {
-                $('.success-message').remove();
-              }, 3000);
+              //add content to reset avatar button
+
+              messagesAlertData('Avatar successfully reset');
             },
             error: function (data) {
               // remove loading icon
@@ -213,10 +235,7 @@
               $('#reset-avatar-btn').prop('disabled', false);
               $('#edit-avatar-btn').prop('disabled', false);
               // show error message for 3 seconds
-              $('#reset-avatar-btn').after('<span class="error-message">Error!</span>');
-              setTimeout(() => {
-                $('.error-message').remove();
-              }, 3000);
+              messagesAlertError();
             }
           });
         }
@@ -273,11 +292,7 @@
             // make all textareas enabled
             form.find('textarea').prop('disabled', false);
             // show success message
-            $('#profile-save-btn').after('<span class="success-message">Saved!</span>');
-            // remove success message after 3 seconds
-            setTimeout(() => {
-              $('.success-message').remove();
-            }, 3000);
+            messagesAlertData('Profile successfully updated');
           },
           error: function (data) {
             // remove loading icon
@@ -324,7 +339,7 @@
             // make all buttons enabled
             form.find('button').prop('disabled', false);
             // show success message
-            $('#save-password-btn').after('<span class="success-message">Saved!</span>');
+            messagesAlertData('Password successfully updated');
             // remove success message after 3 seconds
             setTimeout(() => {
               $('.success-message').remove();
