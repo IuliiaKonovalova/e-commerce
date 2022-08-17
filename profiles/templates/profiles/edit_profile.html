@@ -142,6 +142,12 @@
           $('#messages-notes').remove();
         } , 3000);
       };
+      const resetBtnControl = function() {
+        $('#reset-avatar-btn i').remove();
+        $('#reset-avatar-btn').prop('disabled', false);
+        $('#edit-avatar-btn').prop('disabled', false);
+        $('#reset-avatar-btn').html('<i class="fas fa-trash"></i>Delete');
+      }
       $('#edit-avatar-btn').on('click', () => {
         let fileInput = document.createElement('input');
         fileInput.type = 'file';
@@ -186,7 +192,6 @@
                 $('#edit-avatar-btn').show();
                 $('#save-avatar-btn').remove();
                 $('#cancel-avatar-btn').remove();
-                // show success message for 3 seconds
                 messagesAlertData('Avatar successfully updated');
               },
               error: function (data) {
@@ -194,7 +199,6 @@
                 $('#edit-avatar-btn').show();
                 $('#save-avatar-btn').remove();
                 $('#cancel-avatar-btn').remove();
-                // show error message for 3 seconds
                 messagesAlertError();
               }
             });
@@ -219,22 +223,11 @@
               'csrfmiddlewaretoken': "{{ csrf_token }}"
             },
             success: function (data) {
-              // remove loading icon
-              $('#reset-avatar-btn i').remove();
-              // enable buttons
-              $('#reset-avatar-btn').prop('disabled', false);
-              $('#edit-avatar-btn').prop('disabled', false);
-              //add content to reset avatar button
-
+              resetBtnControl();
               messagesAlertData('Avatar successfully reset');
             },
             error: function (data) {
-              // remove loading icon
-              $('#reset-avatar-btn i').remove();
-              // enable buttons
-              $('#reset-avatar-btn').prop('disabled', false);
-              $('#edit-avatar-btn').prop('disabled', false);
-              // show error message for 3 seconds
+              resetBtnControl();              
               messagesAlertError();
             }
           });
