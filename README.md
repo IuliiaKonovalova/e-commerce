@@ -310,7 +310,15 @@ The minimalistic approach was used to create something meaningful without moving
 
 
 ### Typography
+The main font used in the application is Lato. During my learning experience, I found that the Lato font is very easy to use and has a very good readability, which increases user experience. This fon is also consistent with the color scheme.
 
+  ![Typography](documentation/design/lato_400.png)
+
+  ![Typography](documentation/design/lato_700.png)
+
+  ![Typography](documentation/design/lato_900.png)
+
+To emphasize the importance of the text, the font-weight was set to 900. To make the accent on the buttons, the font-weight was set to 700. For the rest of the text, the font-weight was set to 400.
 
 ### Imagery
 
