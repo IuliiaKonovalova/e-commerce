@@ -335,6 +335,14 @@ To emphasize the importance of the text, the font-weight was set to 900. To make
 
 ### Imagery
 
+- The main background image was generated with the user of the [BGJar](https://www.bgjar.com/) tool.
+
+  ![Background](documentation/design/background.svg)
+
+- Images were downloaded from the the websites listed in the **Credits section**. [Content and Images](#content-and-images)
+ only for the home page. However, the original images were changed manually to match the color scheme.
+
+- The main part is allocated to the use of icons from the [font awesome](https://fontawesome.com/) website. The use of icons is essential for the user experience when it comes to multifunctional websites.
 
 ### Wireframes
 
