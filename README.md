@@ -943,6 +943,99 @@ from django.views.decorators.csrf import csrf_exempt
 *If you are using Gitpod, you can skip steps 1-3 by clicking this [link](https://gitpod.io/#https://github.com/IuliiaKonovalova/e-commerce), and start from step 4.*
 ### Heroku Deployment
 
+1. Create a Heroku account if you don't already have one.
+
+2. Create a new app on Heroku.
+
+    1. Go to the [Heroku dashboard](https://dashboard.heroku.com/apps).
+    2. Click on the "New" button.
+    3. Click on the "Create new app" button.
+    4. Choose a name for your app.
+    5. Choose a region.
+    6. Click on the "Create app" button.
+
+3. In your app go to the "Resources" tab.
+
+    1. Add a Heroku Postgres database.
+
+4. In your app go to the "Settings" tab, press "Reveal Config Vars", and add the following config vars if they are not already set:
+
+    1. ```ALLOWED_HOSTS``` = your heroku domain name.
+    2. ```CLOUDINARY_CLOUD_NAME``` = the cloud name you used when creating your cloudinary account.
+    3. ```CLOUDINARY_API_KEY``` = the api key you got when created your cloudinary account.
+    4. ```CLOUDINARY_API_SECRET``` = the api secret you got when created your cloudinary account.
+    5. ```DATABASE_URL``` = the url of your heroku postgres database.
+    6. ```REDIS_URL``` = the url of your heroku redis database.
+    7. ```SECRET_KEY``` = a secret key for your app.
+    8. ```EMAIL_HOST_USER``` = the email address you going to use to send emails.
+    9. ```EMAIL_HOST_PASSWORD``` = the password for the email address you are using.
+    10. ```DEBUG``` = True during development, False during production.
+    11. ```DISABLE_COLLECTSTATIC``` = 1 during development. Remove this when deploying to production.
+    12. ```STRIPE_PUBLIC_KEY``` = the public key you got when created your stripe account.
+    13. ```STRIPE_SECRET_KEY``` = the secret key you got when created your stripe account.
+    14. ```STRIPE_WEBHOOK_SECRET``` = the secret key you got when created your stripe webhook.
+
+5. In your app go to the "Deploy" tab.
+
+    1. If it's already possible, connect your Heroku account to your GitHub account and then click on the "Deploy" button.
+    2. If not, you need to copy the Heroku CLI command to connect your heroku app and your local repository.
+
+        - ```heroku git:remote -a <your-heroku-app-name>```
+
+6. Go to your local repository.
+
+7. Login to your Heroku account in your terminal and connect your local repository to your heroku app.
+
+    1. ```heroku login -i``` - Enter all your Heroku credentials it will ask for.
+    2. Paste the command you copied from step 5 into your terminal.
+
+8. Create Procfile.
+
+    This project uses Daphne server for its ability to run asynchronous applications in order to implement tech support chats in the future, so in this case if you want to implement chat functionality as well, you have to add the following to Procfile:
+
+    - ```release: python manage.py migrate``` - this command will apply all migrations every time you re-deploy the app.
+    - ```web: daphne ecommerce_project.asgi:application --port $PORT --bind 0.0.0.0 -v2``` - this command will run the app.
+    - ```worker: python manage.py runworker -v2 channel_layer``` - this command will run the worker for the channel layer to run the async tasks.
+
+9. Create ```requirements.txt```. This can be done by running the following command:
+
+    - ```pip freeze > requirements.txt```
+    or
+    - ```pipreqs requirements.txt``` - if you have pipreqs installed.
+
+10. Add and commit all changes.
+
+11. Push your changes to Heroku.
+
+    - ```git push heroku master```
+    or
+    - ```git push heroku main```
+
+12. Check the logs of your app in heroku dashboard and make sure everything is working.
+
+13. After the development is done, you can change the ```DEBUG``` config var to ```False``` and remove the ```DISABLE_COLLECTSTATIC``` config var from the config vars on heroku.
+
+To get cloudinary cloud name, api key, and api secret:
+
+1. Go to the [Cloudinary website](https://cloudinary.com/).
+
+2. Log in to your account or sign up if you don't have an account.
+
+3. Go to the [Cloudinary dashboard](https://cloudinary.com/console/).
+
+4. At the top of the page you will see your cloud name, api key, and api secret.
+
+5. To reveal api secret, hover over the api key container and click on the button that looks like an eye.
+
+6. Copy these values and paste them into the config vars on heroku and into your `env.py` file.
+
+To get stripe public key, secret key, and webhook secret:
+
+**Please go to Payment Setup section in the readme file for more information.**
+
+[Payment Setup](#payment-setup)
+
+*If you find any difficulties with the installation, please, visit the following project's [GitHub repository](https://github.com/IuliiaKonovalova/school_app), where you can find the images of the installation process.*
 
 ---
 
