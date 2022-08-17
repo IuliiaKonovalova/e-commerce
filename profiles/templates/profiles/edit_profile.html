@@ -69,7 +69,7 @@
           </a>
           </div>
         </form>
-        <form class="profile__password--form">
+        <form class="profile__password--form" method="POST">
           <h2 class="profile__password--title">Edit password</h2>
           {% csrf_token %}
           {% for field in password_form %}
@@ -254,51 +254,34 @@
       $('#id_subscription').on('change', () => {
         subscriptionTextCheck();
       });
+      const profileFormSubmit = function() {
+        $('#profile-save-btn i').remove();
+        form.find('input').prop('disabled', false);
+        form.find('button').prop('disabled', false);
+        form.find('select').prop('disabled', false);
+        form.find('textarea').prop('disabled', false);
+      }
       $('#profile-save-btn').on('click', () => {
         let form = $('.profile__edit--form');
         let data = form.serialize();
         // append 'form_type' to the data
         data += '&form_type=profile';
-        // make all inputs disabled
         form.find('input').prop('disabled', true);
-        // make all buttons disabled
         form.find('button').prop('disabled', true);
-        // make all selects disabled
         form.find('select').prop('disabled', true);
-        // make all textareas disabled
         form.find('textarea').prop('disabled', true);
-        // add loading icon next to save button
         $('#profile-save-btn').append('<i class="fas fa-spinner fa-spin"></i>');
         $.ajax({
           url: "{% url 'edit_profile' user=request.user %}",
           type: 'POST',
           data: data,
           success: function (data) {
-            // remove loading icon
-            $('#profile-save-btn i').remove();
-            // make all inputs enabled
-            form.find('input').prop('disabled', false);
-            // make all buttons enabled
-            form.find('button').prop('disabled', false);
-            // make all selects enabled
-            form.find('select').prop('disabled', false);
-            // make all textareas enabled
-            form.find('textarea').prop('disabled', false);
-            // show success message
             messagesAlertData('Profile successfully updated');
+            profileFormSubmit();
           },
           error: function (data) {
-            // remove loading icon
-            $('#profile-save-btn i').remove();
-            // make all inputs enabled
-            form.find('input').prop('disabled', false);
-            // make all buttons enabled
-            form.find('button').prop('disabled', false);
-            // make all selects enabled
-            form.find('select').prop('disabled', false);
-            // make all textareas enabled
-            form.find('textarea').prop('disabled', false);
             messagesAlertError();
+            profileFormSubmit();
           }
         })
       })
@@ -335,7 +318,6 @@
             form.find('input').prop('disabled', false);
             // make all buttons enabled
             form.find('button').prop('disabled', false);
-            // show error message for 3 seconds
             messagesAlertError();
           }
         })
