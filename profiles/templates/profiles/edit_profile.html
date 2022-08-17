@@ -177,7 +177,6 @@
           })
         })
       })
-
       $('#reset-avatar-btn').on('click', () => {
         let currentAvatarUrl = $('img.avatar').attr('src');
         let defaultAvatarUrl = "{% static 'images/default_avatar.svg' %}";
@@ -228,8 +227,20 @@
         dateFormat: 'yy-mm-dd',
         yearRange: '-100:-12',
       });
+      const subscriptionTextCheck = () => {
+        if ($('#id_subscription').is(':checked')) {
+          $('label[for="id_subscription"]').text('Click to Unsubscribe');
+        } else {
+          $('label[for="id_subscription"]').text('Click to Subscribe');
+        }
+      }
       $(function () {
         $("#id_subscription").checkboxradio();
+        subscriptionTextCheck();
+      });
+      // set id_subscription placeholder on change
+      $('#id_subscription').on('change', () => {
+        subscriptionTextCheck();
       });
       $('#profile-save-btn').on('click', () => {
         let form = $('.profile__edit--form');
