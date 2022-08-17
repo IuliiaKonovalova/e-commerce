@@ -991,3 +991,7 @@ from django.views.decorators.csrf import csrf_exempt
 ---
 
 ## Acknowledgments
+
+- [Tim Nelson](https://github.com/TravelTimN) was a great supporter of another bold idea of mine for this project. Tim guided me through the development of the project and helped me to learn a lot of new things by challenging me to do something new.
+- [Aleksei Konovalov](https://github.com/lexach91), my husband and coding partner, who assisted me greatly in product values js selection control implementation and helped me to stay sane.
+- [Very Academy Youtube Channel](https://www.youtube.com/c/veryacademy) provided a great insight on the implementation of database with multi-values products, precise explanations of the stripe API, and many other things! This Youtube channel has plenty of brilliant tutorials, which shed the light on the most curious and useful aspects of Django.
