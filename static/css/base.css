@@ -639,6 +639,7 @@ main {
   justify-content: center;
   width: 100%;
   margin: 1em auto;
+  margin-bottom: 0;
 }
 
 .profile__edit--form,
@@ -3414,6 +3415,12 @@ a.ui-button:active,
   .footer__links--social {
     margin-left: 7vw;
   }
+
+  /* Media for order details */
+  .order__item {
+    grid-template-columns: 0.7fr 2fr;
+    gap: 1rem;
+  }
 }
 
 
@@ -3481,6 +3488,13 @@ a.ui-button:active,
   .home__credits--title {
     font-size: 2rem;
     font-weight: 700;
+  }
+
+  /* Media for order details */
+  .order__item {
+    grid-template-columns: 0.7fr 3fr;
+    gap: 1rem;
+    padding: 2.5em 1.5em;
   }
 
   /* Media for the Footer */
@@ -3596,8 +3610,14 @@ a.ui-button:active,
   .product__main--info {
     width: 100%;
     border-left: unset;
-    /* background-color: #009300; */
     border-top: 1px solid var(--clr-text--300);
+  }
+
+  /* Media for order details */
+  .order__item {
+    grid-template-columns: 0.5fr 3fr;
+    gap: 0.5rem;
+    padding: 3em 1em;
   }
 
   /* Media for the Footer */
