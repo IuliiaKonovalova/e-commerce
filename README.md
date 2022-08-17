@@ -294,7 +294,6 @@ This decision to postpone the implementation of the features described above was
 
 ### Access to pages according to the user role:
 
----
 
 ---
 ## Design
@@ -302,9 +301,15 @@ This decision to postpone the implementation of the features described above was
 
 
 
+
+
+
+
 ### Color Scheme
 
+
 ### Typography
+
 
 ### Imagery
 
@@ -877,20 +882,69 @@ from django.views.decorators.csrf import csrf_exempt
 
 ## Deployment
 
-- The app was deployed to [Heroku](https://heroku.com).
-- The app can be reached by the [Deployed website](https://wowder.herokuapp.com/)
+- The app was deployed to [Heroku](https://wowder.herokuapp.com/)
+- The repository can be found [github](https://github.com/IuliiaKonovalova/e-commerce)
 
 ### Local deployment
 
+1. Clone the repository.
+
+    - ```git clone https://github.com/IuliiaKonovalova/e-commerce.git```
+
+2. Go to the ```ecommerce_project``` directory.
+
+    - ```cd ecommerce_project```
+
+3. Create a virtual environment.
+
+    - ```python3 -m venv venv```
+
+    - ```source venv/bin/activate```
+
+4. Install all dependencies.
+
+    - ```pip install -r requirements.txt```
+
+5. Create a ```env.py``` file.
+
+    - ```touch env.py```
+
+6. Add the following lines to ```env.py```:
+
+    - ```import os```
+    - ```os.environ["SECRET_KEY"]``` = your secret key.
+    - ```os.environ["DEBUG"]``` = "True" or "False" depending on whether you are in development or production.
+    - ```os.environ["DEVELOPMENT"]``` = "True" or "False" depending on whether you are in development or production.
+    - ```os.environ["ALLOWED_HOSTS"]``` = your domain name.
+    - ```os.environ["DATABASE_URL"]``` = your database url.
+    - ```os.environ["CLOUDINARY_CLOUD_NAME"]``` = your cloudinary cloud name.
+    - ```os.environ["CLOUDINARY_API_KEY"]``` = your cloudinary api key.
+    - ```os.environ["CLOUDINARY_API_SECRET"]``` = your cloudinary api secret.
+    - ```os.environ["STRIPE_PUBLIC_KEY"]``` = your stripe public key.
+    - ```os.environ["STRIPE_SECRET_KEY"]``` = your stripe secret key.
+    - ```os.environ["STRIPE_WEBHOOK_SECRET"]``` = your stripe webhook secret key.
+
+7. Create and migrate the database.
+
+    - ```python manage.py makemigrations```
+    - ```python manage.py migrate```
+
+8. Create the superuser.
+
+    - ```python manage.py createsuperuser```
+
+9. Run the server.
+
+    - ```python manage.py runserver```
+
+10. Access the website by the link provided in terminal. Add ```/admin/``` at the end of the link to access the admin panel.
 
 
+*If you are using Gitpod, you can skip steps 1-3 by clicking this [link](https://gitpod.io/#https://github.com/IuliiaKonovalova/e-commerce), and start from step 4.*
 ### Heroku Deployment
 
 
 ---
-
-
-
 
 ## Credits
 
