@@ -133,6 +133,9 @@ This website is intended for people who are interested in purchasing products on
 **PDF version**
 [PDF version](documentation/user_stories/user_stories.pdf)
 
+## Business Model
+
+The Business Model is B2C, meaning that the company sells products to customers only.
 
 ### A Persona Summary of the customer
 
@@ -300,11 +303,6 @@ This decision to postpone the implementation of the features described above was
 
 The design of the application is based on the Material Design principles. The colors are chosen to be consistent with the [Material Design principles](https://www.creative-tim.com/blog/web-design/12-absolute-principles-material-design/)
 The minimalistic approach was used to create something meaningful without moving out of customer's focus. As this application is a multifunctional (provides full customer experience and business management) application and consists of many components, the decision to implement white spaces was made as it helps to create a more pleasant user experience. It also helps users, whether customers or personnel, to focus on the main content of the application.
-
-
-
-
-
 
 ### Color Scheme
 
