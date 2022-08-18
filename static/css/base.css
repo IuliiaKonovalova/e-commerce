@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap');
 
 :root {
-  /* --clr-primary--100: #545454; */
   --clr-primary--100: #eaddff;
   --clr-primary--200: #d0bcff;
   --clr-primary--300: #4f378b;
@@ -69,7 +68,6 @@ nav {
   padding: 0;
   font-size: var(--fs);
   background-color: transparent;
-
 }
 
 ul {
@@ -163,7 +161,6 @@ button {
   width: 100%;
   max-width: 120rem;
   margin: 0 auto;
-
 }
 
 .navbar__item:not(:first-child) {
@@ -272,7 +269,6 @@ button.navbar-toggler:focus {
   display: flex;
 }
 
-
 .navbar__item--admin:not(:last-child) {
   padding: 0.8em 0.2em 0.8em 0.2em;
   border-bottom: 1px solid var(--clr-accent--100) !important;
@@ -291,7 +287,7 @@ button.navbar-toggler:focus {
   margin-right: 0.5em;
 }
 
-/* -----MAIN ---- */
+/* ---------- MAIN --------- */
 main {
   background-image: url('/static/images/bg1.svg');
   background-size: cover;
@@ -330,7 +326,6 @@ main {
 
 /* --------------- Home page --------------- */
 .home__main {
-  /* background-color: #fff2ff; */
   background-color: var(--clr-accent--100);
   background-color: #f8eaee;
   box-shadow: var(--box-shadow-card);
@@ -355,7 +350,6 @@ main {
   color: var(--clr-primary--500);
   margin: 0.1em 0 1em 14rem;
 }
-
 
 .parallelogram {
   padding: 8px;
@@ -643,7 +637,7 @@ main {
 }
 
 .profile__edit--form,
-.rofile__password--form {
+.profile__password--form {
   width: 100%;
 }
 
@@ -741,8 +735,6 @@ label[for="id_subscription"] {
   margin: 0 auto;
   margin-top: 2rem;
 }
-
-
 
 .btn {
   font-weight: 900;
@@ -993,7 +985,6 @@ div.address__card--primary {
   outline: none;
   background-color: var(--clr-text--100);
   color: var(--clr-primary--500);
-  /* font-size: 1.2rem; */
   padding: 0.1em 1em;
   border-radius: 0.3em;
 }
@@ -1156,11 +1147,9 @@ div.address__card--primary {
   padding-top: 1rem;
 }
 
-
 .carousel-indicators li {
   background-color: var(--clr-primary--200)
 }
-
 
 .carousel-indicators .active {
   background-color: var(--clr-primary--400);
@@ -1295,7 +1284,6 @@ div.address__card--primary {
 
 .product__main--info {
   padding-left: 1em;
-  /* background-color: #bab6ec; */
   border-left: 1px solid var(--clr-text--300);
 }
 
@@ -1358,13 +1346,10 @@ div.address__card--primary {
 
 .request__stock--email {
   display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
   margin-top: 1.3em;
 }
 
 /* Options */
-
 .product__options--title,
 .request__stock--email p {
   font-size: 1.3rem;
@@ -1377,7 +1362,6 @@ div.address__card--primary {
 button:active {
   color: var(--clr-accent--100);
 }
-
 
 .btn-outline-primary {
   color: var(--clr-primary--500);
@@ -1605,7 +1589,6 @@ input[name=quantity] {
   padding: 1em;
 }
 
-
 .bag__item div,
 .promotion a,
 .bag__item--values,
@@ -1724,7 +1707,6 @@ input[name=quantity] {
 .alert {
   padding: 0.2em 0.5em !important;
 }
-
 
 /* Minus, Plus, Remove, Like buttons */
 .bag__item--remove,
@@ -1894,12 +1876,8 @@ input[name=quantity] {
   box-shadow: var(--box-shadow-card);
 }
 
-
-
-/* --------- Staff pages ---------- */
+/* ---//------ PERSONNEL PAGES -----//----- */
 /* --------- Promotions ---------- */
-.promotions {}
-
 .promotion__header {
   width: 100%;
   display: flex;
@@ -2228,7 +2206,6 @@ a.brand__table--row:hover {
 }
 
 /* Tags */
-
 .data__main--link {
   background-color: var(--clr-primary--100);
   color: var(--clr-text--900);
@@ -2278,7 +2255,6 @@ a.brand__table--row:hover {
   align-items: center;
   justify-content: center;
   height: 100%;
-  /* margin: auto; */
 }
 
 .image__container img {
@@ -2348,7 +2324,6 @@ td {
 
 .data__accent--yellow {
   background-color: #ffff5c;
-
 }
 
 .data__accent--orange {
@@ -2375,7 +2350,6 @@ td {
   background-color: #7fff7f;
 }
 
-
 /* ---------- Brands Table -------------- */
 .brand__table {
   max-width: 50rem;
@@ -2384,7 +2358,6 @@ td {
 .brand__table--row {
   grid-template-columns: 1fr 0.2fr 0.7fr;
 }
-
 
 /* ---------- Warning messages -------------- */
 .warning__msg {
@@ -2401,7 +2374,6 @@ td {
 .dashboard__main a {
   top: -1.7rem;
 }
-
 
 /* --------------- Payment ---------------- */
 .payment p {
@@ -2441,9 +2413,7 @@ td {
   margin-right: 1em;
 }
 
-
 /* -------------- Stock All --------------- */
-
 .data__main--stock,
 .products__stock--no {
   width: 100%;
@@ -2466,7 +2436,6 @@ td {
   margin: 0.5em;
   width: 100%;
   max-width: 47.2rem;
-
   border-radius: var(--br);
 }
 
@@ -2538,8 +2507,6 @@ td {
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  /* grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr)); */
   grid-gap: 1rem;
   padding: 1em 0.5em;
 }
@@ -2704,14 +2671,6 @@ div.data__main--order:hover {
   align-items: flex-start !important;
 }
 
-
-
-
-
-
-
-
-
 /* --------- REVIEWS, ProductTypes ---------- */
 .data__main--details {
   width: 100%;
@@ -2745,7 +2704,6 @@ div.data__main--order:hover {
   align-items: flex-start !important;
   margin-bottom: 0.4em;
 }
-
 
 .review__details--customer {
   font-weight: 900;
@@ -2816,7 +2774,6 @@ div.data__main--order:hover {
   margin: auto;
 }
 
-
 /* --------- Category -------- */
 .categories {
   margin-top: 1em;
@@ -2826,7 +2783,6 @@ div.data__main--order:hover {
 
 .category {
   width: 100%;
-  /* max-width: 50rem; */
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -2881,7 +2837,6 @@ div.data__main--order:hover {
   color: #e2ff00 !important;
 }
 
-
 .multiple__images {
   display: flex;
   flex-direction: column;
@@ -2894,7 +2849,6 @@ div.data__main--order:hover {
   padding: 1em;
   background-color: var(--clr-text--100);
   margin-top: 1em;
-
 }
 
 .multiple__images a {
@@ -2928,7 +2882,6 @@ div.data__main--order:hover {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
   color: var(--clr-primary--500);
   padding: 1em;
-  /* background-color: var(--clr-text--100); */
   background-color: #ffffffb3;
   padding: 1.5em 1em;
   border-radius: var(--br);
@@ -3023,7 +2976,6 @@ a.dashboard__main--list--item:hover {
   max-width: 100%;
 }
 
-
 /* Select True/False styling*/
 .ui-state-default,
 .ui-widget-content .ui-state-default,
@@ -3103,13 +3055,10 @@ a.ui-button:active,
   z-index: 99999999999;
 }
 
-
 /* Pagination */
-
 .pagination {
   max-width: 14rem;
   width: 50vw;
-  /* width: 100%; */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -3175,18 +3124,6 @@ a.ui-button:active,
 .blink {
   background-color: red;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ------------- Footer -------------- */
 .footer {
@@ -3316,7 +3253,6 @@ a.ui-button:active,
   margin-bottom: 1em;
 }
 
-
 /* ------------- Allauth Account -------------- */
 .account {
   background-color: #381e73;
@@ -3338,12 +3274,6 @@ a.ui-button:active,
 .account h1 {
   font-size: 2em;
   margin-bottom: 0.5em;
-}
-
-.account p {
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
 }
 
 .account p label[for='id_remember'] {
@@ -3452,7 +3382,6 @@ a.ui-button:active,
   }
 }
 
-
 @media all and (max-width: 1511px) {
 
   /* Media for home credits section */
@@ -3463,10 +3392,13 @@ a.ui-button:active,
 }
 
 @media all and (max-width: 1075px) {
+
+  /* Media for navbar */
   .navbar__customer .navbar__item a .navbar__item--name {
     display: none;
   }
 
+  /* Media for home page */
   .credits__subsection {
     width: 40rem;
   }
@@ -3708,7 +3640,6 @@ a.ui-button:active,
 
 @media all and (max-width: 461px) {
 
-
   /* ------ Media for Home page ------- */
   .home__main {
     padding: 2em 1em;
@@ -3748,6 +3679,7 @@ a.ui-button:active,
 
 @media all and (max-width: 431px) {
 
+  /* Media for tables */
   th,
   td {
     padding: 0.2em;
