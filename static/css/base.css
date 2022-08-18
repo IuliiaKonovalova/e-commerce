@@ -3017,7 +3017,7 @@ a.ui-button:active,
 
 /* Promotions forms */
 .promo__form label[for="id_active"] {
-  margin-top: 1em;
+  margin-top: 0.5em;
 }
 
 .promo__form #id_promotion_reduction {
@@ -3046,11 +3046,6 @@ a.ui-button:active,
 }
 
 .promo__form label[for="id_start_date"],
-.promo__form label[for="id_end_date"],
-.promo__form label[for="id_products_inventory_in_promotion"] {
-  margin-top: 1em;
-}
-
 .promo__form label[for="id_promotion_reduction"] {
   width: 100%;
 }
