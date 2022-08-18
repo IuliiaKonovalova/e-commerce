@@ -1,38 +1,62 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .reviews__title {
+      font-size: 2rem !important;
+    }
+    {% comment %} .content__container {
+      flex-direction: column;
+      justify-content: start !important;
+      align-items: center !important;
+      flex: 1 0 auto !important;
+      padding: 3em !important;
+      max-width: 100%;
+    }
+
+    .search__navbar .btn i {
+      margin-right: 0 !important;
+    } {% endcomment %}
+  </style>
+{% endblock %}
+
 {% comment %} Extra Title {% endcomment %}
 {% block extra_title %}Your review{% endblock %}
 
 {% block content %}
   {% comment %} User's profile page {% endcomment %}
   <div class="profile">
-    <h1>My Reviews</h1>
+    <h1 class=reviews__title>Your Reviews</h1>
     <div class="reviews__all">
-      {% for review in reviews %}
-        <a href="{% url 'review' order_id=review.order.id product_id=review.product.id %}" aria-label="Go to full review page" class="review__details">
-          <strong>{{ review.product }}</strong>
-          <div class="review__details--data">
-            <span class="review__details--data--rating">
-              {% spaceless %}
-                {% for star in "12345"|make_list %}
-                  {% if forloop.counter <= review.rating|add:"0" %}
-                    <i class="fas fa-star"></i>
-                  {% else %}
-                    <i class="far fa-star"></i>
-                  {% endif %}
-                {% endfor %}
-              {% endspaceless %}
-            </span>
-          </div>
-          <div class="review__details--data">
-            <strong>Date: </strong>
-            <span class="review__details--data--date">
-              {{ review.created_at|date }}
-            </span>
-          </div>
-        </a>
-      {% endfor %}
+      {% if reviews %}
+        {% for review in reviews %}
+          <a href="{% url 'review' order_id=review.order.id product_id=review.product.id %}" aria-label="Go to full review page" class="review__details">
+            <strong>{{ review.product }}</strong>
+            <div class="review__details--data">
+              <span class="review__details--data--rating">
+                {% spaceless %}
+                  {% for star in "12345"|make_list %}
+                    {% if forloop.counter <= review.rating|add:"0" %}
+                      <i class="fas fa-star"></i>
+                    {% else %}
+                      <i class="far fa-star"></i>
+                    {% endif %}
+                  {% endfor %}
+                {% endspaceless %}
+              </span>
+            </div>
+            <div class="review__details--data">
+              <strong>Date: </strong>
+              <span class="review__details--data--date">
+                {{ review.created_at|date }}
+              </span>
+            </div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <p>You have no reviews</p>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
