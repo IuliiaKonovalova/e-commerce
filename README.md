@@ -340,7 +340,6 @@ To emphasize the importance of the text, the font-weight was set to 900. To make
   ![Background](documentation/design/background.svg)
 
 - Images were downloaded from the the websites listed in the **Credits section**. [Content and Images](#content-and-images)
- only for the home page. However, the original images were changed manually to match the color scheme.
 
 - The main part is allocated to the use of icons from the [font awesome](https://fontawesome.com/) website. The use of icons is essential for the user experience when it comes to multifunctional websites.
 
@@ -549,6 +548,7 @@ When the user signs up, a new wishlist is created.
 | ------------- | ------------- | ------------- | ---------- |
 | email_name    | email_name    | CharField    | max_length=100, null=False, unique=True, blank=False, verbose_name='Email name' |
 | content       | content       | TextField    | null=False, blank=False, verbose_name='Content' |
+| code          | code          | CharField    | max_length=100, null=True, blank=True, verbose_name='Code' |
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 
 #### StockEmailNotification Model
