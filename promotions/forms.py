@@ -12,10 +12,10 @@ class PromotionForm(forms.ModelForm):
             'description',
             'promotion_code',
             'promotion_reduction',
-            'active',
             'start_date',
             'end_date',
             'products_inventory_in_promotion',
+            'active',
         ]
         promotion_reduction = forms.DecimalField()
         widgets = {
