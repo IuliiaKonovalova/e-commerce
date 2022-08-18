@@ -591,6 +591,8 @@ def payment_confirmation(data):
 
 - [EmailNotification app HTML validation report](documentation/validation/email_notification_html_validation.pdf)
 
+- [Home app HTML validation report](documentation/validation/home_html_validation.pdf)
+
 
 
 
