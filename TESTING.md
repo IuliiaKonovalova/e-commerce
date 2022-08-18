@@ -587,6 +587,13 @@ def payment_confirmation(data):
 - No errors or warnings were found when passing through the official [W3C](https://validator.w3.org/) validator. This checking was done manually by copying the view page source code (Ctrl+U) and pasting it into the validator.
 
 
+- [Bag app HTML validation report](documentation/validation/bag_html_validation.pdf)
+
+- [EmailNotification app HTML validation report](documentation/validation/email_notification_html_validation.pdf)
+
+
+
+
 ### Python Validation:
 
 - No errors were found when the code was passed through Valentin Bryukhanov's [online validation tool](http://pep8online.com/). According to the reports, the code is [Pep 8-compliant](https://legacy.python.org/dev/peps/pep-0008/). This checking was done manually by copying python code and pasting it into the validator.
