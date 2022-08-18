@@ -597,6 +597,8 @@ def payment_confirmation(data):
 
 - [Orders app HTML validation report](documentation/validation/orders_html_validation.pdf)
 
+- [Payment app HTML validation report](documentation/validation/payment_html_validation.pdf)
+
 
 
 
