@@ -43,7 +43,6 @@ class PromotionForm(forms.ModelForm):
             'active': forms.CheckboxInput(
                 attrs={
                     'class': 'form-control',
-                    'placeholder': 'Active',
                     'title': 'Promotion Active',
                 }
             ),
