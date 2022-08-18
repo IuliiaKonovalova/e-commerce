@@ -3,31 +3,6 @@
 
 {% block extra_css %}
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-  <style>
-    label[for="id_active"] {
-      margin-top: 0.5em;
-      margin-bottom: 0.5em;
-    }
-
-    #id_promotion_reduction {
-      padding: 0.375rem 0.75rem;
-      font-size: 1rem;
-      font-weight: 400;
-      line-height: 1.5;
-      color: #212529;
-      background-color: #fff;
-      background-clip: padding-box;
-      border: 1px solid #ced4da;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      border-radius: 0.375rem;
-    }
-
-    textarea {
-      max-height: 5rem;
-    }
-  </style>
 {% endblock %}
 
 {% comment %} Extra Title {% endcomment %}
@@ -37,7 +12,7 @@
   <div class="dashboard">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <form method="POST" class="dashboard__form">
+      <form method="POST" class="dashboard__form promo__form">
         <h1 class="dashboard__main--name">Edit Promotion</h1>
         {% csrf_token %}
         {{ form }}
