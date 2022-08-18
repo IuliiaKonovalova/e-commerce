@@ -586,7 +586,6 @@ def payment_confirmation(data):
 ### HTML Validation:
 - No errors or warnings were found when passing through the official [W3C](https://validator.w3.org/) validator. This checking was done manually by copying the view page source code (Ctrl+U) and pasting it into the validator.
 
-
 - [Bag app HTML validation report](documentation/validation/bag_html_validation.pdf)
 
 - [EmailNotification app HTML validation report](documentation/validation/email_notification_html_validation.pdf)
