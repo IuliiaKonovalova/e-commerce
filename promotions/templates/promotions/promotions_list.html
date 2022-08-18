@@ -7,6 +7,10 @@
       justify-content: start !important;
       align-items: flex-start !important;
     }
+    .btn__small {
+      font-size: 0.9rem;
+      padding: 0.2em 0.5rem;
+    }
   </style>
 {% endblock %}
 
@@ -67,11 +71,11 @@
               <div class="promotion__products--list">
                 {% if request.user.profile.role.id == 3 %}
                   <div class="promotion__btns">
-                    <a href="{% url 'edit_promotion' pk=promotion.id %}" class="btn btn__edit" aria-label="Edit promotion">
+                    <a href="{% url 'edit_promotion' pk=promotion.id %}" class="btn btn__edit btn__small" aria-label="Edit promotion">
                       <i class="fa fa-pencil"></i>
                       Edit
                     </a>
-                    <button type="button" class="btn btn__delete" data-bs-toggle="modal" data-bs-target="#exampleModal" data-delete="{{ promotion.id }}">
+                    <button type="button" class="btn btn__delete btn__small" data-bs-toggle="modal" data-bs-target="#exampleModal" data-delete="{{ promotion.id }}">
                       <i class="fa fa-trash"></i>
                       Delete
                     </button>
@@ -154,7 +158,7 @@
   {% endif %}
   {% comment %} Modal for promo deletion {% endcomment %}
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Delete Promo</h5>
