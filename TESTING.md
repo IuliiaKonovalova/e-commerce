@@ -593,6 +593,8 @@ def payment_confirmation(data):
 
 - [Home app HTML validation report](documentation/validation/home_html_validation.pdf)
 
+- [Inventory app HTML validation report](documentation/validation/inventory_html_validation.pdf)
+
 
 
 
