@@ -65,7 +65,7 @@
         {% for type in product_types %}
           <div class="type__details">
             <strong>{{ type.name }}</strong>
-            ({{ type.description }})
+            ({{ type.description|truncatechars:27 }})
             <div class="type_attributes">
               {% if type.product_type_attributes.all %}
                 <div class="dropdown">
