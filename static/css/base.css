@@ -3096,6 +3096,15 @@ a.ui-button:active,
   width: 100%;
 }
 
+/* Email form */
+.email__form .helptext {
+  display: none;
+}
+
+.email__form textarea {
+  margin-bottom: 0 !important;
+}
+
 /* --------- Modal ----------- */
 .modal {
   z-index: 99999999999;
