@@ -602,6 +602,8 @@ def payment_confirmation(data):
 
 - [Promotions app HTML validation report](documentation/validation/promotions_html_validation.pdf)
 
+- [Reviews app HTML validation report](documentation/validation/reviews_html_validation.pdf)
+
 
 
 
