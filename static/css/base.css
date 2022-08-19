@@ -2048,7 +2048,7 @@ input[name=quantity] {
   margin-top: 0 !important;
 }
 
-/* ----------------- STOCK ----------------- */
+/* ----------------- PERSONNEL ----------------- */
 .dashboard {
   width: 100%;
   display: flex;
@@ -2060,7 +2060,8 @@ input[name=quantity] {
   color: var(--clr-text--900);
 }
 
-.products__table--row,
+.product__table__personnel .products__table--row,
+.stock__requests .products__table--row,
 .brand__table--row {
   grid-template-columns: 0.1fr 0.7fr 0.8fr 0.4fr 0.4fr 0.2fr 0.2fr 0.1fr;
   color: var(--clr-text--900);
@@ -2068,14 +2069,14 @@ input[name=quantity] {
   gap: 0;
 }
 
-a.products__table--row:hover,
+.stock__requests a.products__table--row:hover,
 a.brand__table--row:hover {
   background-color: rebeccapurple;
 }
 
 .products__table--cell,
+.stock__requests .products__table--cell,
 .brand__table--cell {
-
   width: 100%;
   height: 100%;
   display: flex;
@@ -2547,7 +2548,7 @@ td {
 }
 
 .dashboard.stock__requests .products__table--row.table__titles,
-.products__table--row {
+.dashboard.stock__requests .products__table--row {
   grid-template-columns: 2fr 1fr 0.5fr;
 }
 
