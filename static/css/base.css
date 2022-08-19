@@ -2501,6 +2501,48 @@ td {
   text-decoration: underline;
 }
 
+/* -------------- Stock Requests --------------- */
+.dashboard.stock__requests .dashboard__main strong {
+  margin-bottom: 0.4em;
+}
+
+.dashboard.stock__requests .content__container {
+  justify-content: start !important;
+  align-items: flex-start !important;
+}
+
+.dashboard.stock__requests .btn i {
+  margin-right: 0 !important;
+}
+
+.dashboard.stock__requests .search__navbar {
+  background-color: transparent !important;
+  margin-top: 0.5em !important;
+  max-width: 70rem;
+}
+
+.dashboard.stock__requests .search__container {
+  width: 100% !important;
+}
+
+.dashboard.stock__requests .search__select {
+  padding: 0.5em 0 !important;
+  width: 100% !important;
+}
+
+.dashboard.stock__requests .products__table {
+  max-width: 70rem;
+}
+
+.dashboard.stock__requests .products__table--row.table__titles,
+.products__table--row {
+  grid-template-columns: 2fr 1fr 0.5fr;
+}
+
+.dashboard.stock__requests .fa-external-link {
+  margin-left: 0.5em;
+}
+
 /* --------- Orders --------- */
 .data__main--orders {
   width: 100%;
