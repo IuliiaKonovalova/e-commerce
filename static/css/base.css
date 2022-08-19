@@ -786,6 +786,10 @@ label[for="id_subscription"] {
   color: var(--clr-text--100) !important;
 }
 
+.btn__dropdown {
+  background-color: var(--clr-primary--300) !important;
+}
+
 .btn__edit,
 .btn__settings {
   background-color: var(--clr-btn-edit--500) !important;
