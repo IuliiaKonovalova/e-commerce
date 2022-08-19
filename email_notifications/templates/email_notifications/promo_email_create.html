@@ -1,14 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extra_css %}
-  <style>
-    .helptext {
-      display: none;
-    }
-  </style>
-{% endblock %}
-
 
 {% comment %} Extra Title {% endcomment %}
 {% block extra_title %}Create Promo Email{% endblock %}
@@ -16,7 +8,7 @@
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <form method="POST" class="dashboard__form">
+      <form method="POST" class="dashboard__form email__form">
         <h1 class="dashboard__main--name">Create New Customer Email</h1>
         {% csrf_token %}
         {% for field in form %}
