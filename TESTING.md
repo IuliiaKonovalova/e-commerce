@@ -600,6 +600,8 @@ def payment_confirmation(data):
 
 - [Profiles app HTML validation report](documentation/validation/profiles_html_validation.pdf)
 
+- [Promotions app HTML validation report](documentation/validation/promotions_html_validation.pdf)
+
 
 
 
