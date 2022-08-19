@@ -1,52 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block extra_css %}
-  <style>
-    .dashboard__main strong {
-      margin-bottom: 0.4em;
-    }
-    
-    .content__container {
-      justify-content: start !important;
-      align-items: flex-start !important;
-    }
-
-    .btn i {
-      margin-right: 0 !important;
-    }
-
-    .search__navbar {
-      background-color: transparent !important;
-      margin-top: 0.5em !important;
-      max-width: 70rem;
-    }
-
-    .search__container {
-      width: 100% !important;
-    }
-
-    .search__select {
-      padding: 0.5em 0 !important;
-      width: 100% !important;
-    }
-
-    .products__table {
-      max-width: 70rem;
-    }
-
-    .products__table--row.table__titles, .products__table--row {
-      grid-template-columns: 2fr 1fr 0.5fr ;
-    }
-  </style>
-{% endblock %}
-
 
 {% comment %} Extra Title {% endcomment %}
 {% block extra_title %}Requests{% endblock %}
 
 {% block content %}
-  <div class="dashboard">
+  <div class="dashboard stock__requests">
     {% comment %} Limit access for customers {% endcomment %}
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
       <section class="dashboard__main">
@@ -82,10 +42,10 @@
           <div class="products__table--cell">Quantity</div>
         </div>
         {% for stock_request in stock_requests %}
-          <a class="products__table--row" href="{% url 'product_detail_full' pk=stock_request.requested_product.id %}" aria-label="Go to product detail page">
+          <a class="products__table--row" href="{% url 'product_detail_full' pk=stock_request.requested_product.id %}" aria-label="Go to product detail page" rel=>
             {% comment %} Requested product's name {% endcomment %}
             <div class="products__table--cell">
-              <strong>{{ stock_request.requested_product }}</strong>
+              <strong>{{ stock_request.requested_product }}<i class="fa fa-external-link" aria-hidden="true"></i></strong>
             </div>
             {% comment %} Requested values {% endcomment %}
             <div class="products__table--cell">
