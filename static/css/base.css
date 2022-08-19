@@ -787,7 +787,11 @@ label[for="id_subscription"] {
 }
 
 .btn__dropdown {
-  background-color: var(--clr-primary--300) !important;
+  background-color: var(--clr-primary--200) !important;
+  font-size: 1rem;
+  margin-top: 0.5em;
+  margin-bottom: 0.3em;
+  color: var(--clr-text--500) !important;
 }
 
 .btn__edit,
