@@ -609,51 +609,29 @@ def payment_confirmation(data):
 
 - No errors were found when the code was passed through Valentin Bryukhanov's [online validation tool](http://pep8online.com/). According to the reports, the code is [Pep 8-compliant](https://legacy.python.org/dev/peps/pep-0008/). This checking was done manually by copying python code and pasting it into the validator.
 
-#### Bag app
+- [Bag. Validation Report](documentation/validation/pep8_validation_bag.pdf)
 
-[Bag. Validation Report](documentation/validation/pep8_validation_bag.pdf)
+- [Email_notifications. Validation Report](documentation/validation/pep8_validation_email_notifications.pdf)
 
-#### Email_notifications app
+- [Home. Validation Report](documentation/validation/pep8_validation_home.pdf)
 
-[Email_notifications. Validation Report](documentation/validation/pep8_validation_email_notifications.pdf)
+- [Inventory. Validation Report](documentation/validation/pep8_validation_inventory.pdf)
 
-#### Home app
+- [Orders. Validation Report](documentation/validation/pep8_validation_orders.pdf)
 
-[Home. Validation Report](documentation/validation/pep8_validation_home.pdf)
+- [Payment. Validation Report](documentation/validation/pep8_validation_payment.pdf)
 
-#### Inventory app
+- [Personnel. Validation Report](documentation/validation/pep8_validation_personnel.pdf)
 
-[Inventory. Validation Report](documentation/validation/pep8_validation_inventory.pdf)
+- [Profiles. Validation Report](documentation/validation/pep8_validation_profiles.pdf)
 
-#### Orders app
+- [Promotions. Validation Report](documentation/validation/pep8_validation_promotions.pdf)
 
-[Orders. Validation Report](documentation/validation/pep8_validation_orders.pdf)
+- [Reviews. Validation Report](documentation/validation/pep8_validation_reviews.pdf)
 
-#### Payment app
+- [Wishlist. Validation report](documentation/validation/pep8_validation_wishlist.pdf)
 
-[Payment. Validation Report](documentation/validation/pep8_validation_payment.pdf)
-
-#### Personnel app
-
-[Personnel. Validation Report](documentation/validation/pep8_validation_personnel.pdf)
-
-#### Profiles app
-
-[Profiles. Validation Report](documentation/validation/pep8_validation_profiles.pdf)
-
-#### Promotions app
-
-[Promotions. Validation Report](documentation/validation/pep8_validation_promotions.pdf)
-
-#### Reviews app
-
-[Reviews. Validation Report](documentation/validation/pep8_validation_reviews.pdf)
-
-#### Wishlist app
-
-[Wishlist. Validation report](documentation/validation/pep8_validation_wishlist.pdf)
-
-#### Errors:
+### Errors:
 
 The errors were made in the following commits:
 
