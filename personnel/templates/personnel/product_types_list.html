@@ -65,15 +65,21 @@
         {% for type in product_types %}
           <div class="type__details">
             <strong>{{ type.name }}</strong>
-            {{ type.description }}
-            <strong>Attributes: </strong>
+            ({{ type.description }})
             <div class="type_attributes">
               {% if type.product_type_attributes.all %}
-                {% for attribute in type.product_type_attributes.all %}
-                  <span>{{ attribute.name }}</span>
-                {% endfor %}
+                <div class="dropdown">
+                  <button class="btn btn__dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <strong>{{ type.product_type_attributes.count }}</strong> Attributes
+                  </button>
+                  <ul class="dropdown-menu">
+                    {% for attribute in type.product_type_attributes.all %}
+                      <li><a class="dropdown-item" href="#">{{ attribute.name }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
               {% else %}
-                <span>No attributes</span>
+                <span>(No attributes)</span>
               {% endif %}
             </div>
             <div class="type__buttons">
