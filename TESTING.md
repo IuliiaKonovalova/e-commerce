@@ -604,7 +604,7 @@ def payment_confirmation(data):
 
 - [Reviews app HTML validation report](documentation/validation/reviews_html_validation.pdf)
 
-
+- [Wishlist app HTML validation report](documentation/validation/wishlist_html_validation.pdf)
 
 
 ### Python Validation:
