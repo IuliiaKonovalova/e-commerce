@@ -324,7 +324,7 @@ This decision to postpone the implementation of the features described above was
 | Add promotion | No         | No         | No     | Yes   |
 | Edit promotion | No         | No         | No     | Yes   |
 | Delete promotion | No         | No         | No     | Yes   |
-| Create newletter-promo Email | No         | No         | Yes     | Yes   |
+| Create newsletter-promo Email | No         | No         | Yes     | Yes   |
 | Categories | No         | No         | Yes     | Yes   |
 | Add category | No         | No         | Yes     | Yes   |
 | Edit category | No         | No         | Yes     | Yes   |
@@ -374,6 +374,47 @@ This decision to postpone the implementation of the features described above was
 | Edit order's item | No         | No         | No     | Yes   |
 | Delete order's item | No         | No         | No     | Yes   |
 
+
+- Each page has a navbar and a footer
+
+**Navbar**
+
+Navbar has 2 subsections:
+
+1. Customer's section, which is visible for all users:
+
+    - if the user is logged in, the navbar has the following features:
+
+      ![Navbar](documentation/features/navbar/navbar_customer.png)
+      
+        - logo:
+        
+        ![Logo](documentation/features/navbar/navbar_logo.png)
+        
+        - Store button, which redirects the user to the store page
+
+        - Wishlist button, which redirects the user to the wishlist page
+
+        - Bag button, which redirects the user to the bag page
+
+        - Profile button, which redirects the user to the profile page
+
+        - Logout button, which redirects the user to the login page
+
+
+    - if the user is logged out, the navbar has the following features:
+    
+      ![Navbar](documentation/features/navbar/navbar_logged_out.png)
+      
+        - logo:
+        
+        ![Logo](documentation/features/navbar/navbar_logo.png)
+        
+        - It has only Store, Wishlist and Bag buttons, which redirects the user to the store page, wishlist page and bag page respectively.
+
+        - Login button, which redirects the user to the login page
+
+        - SignUp button, which redirects the user to the register page
 
 
 
