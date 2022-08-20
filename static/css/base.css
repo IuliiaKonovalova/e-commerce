@@ -2496,6 +2496,7 @@ td {
   width: 100%;
   max-width: 60rem;
   border: none !important;
+  min-width: 51.5rem !important;
 }
 
 .stock__item--link {
@@ -3591,6 +3592,13 @@ a.ui-button:active,
 
   .footer__links--social {
     margin-left: 5vw;
+  }
+
+  .stock__table {
+    width: 100%;
+    max-width: 60rem;
+    border: none !important;
+    min-width: 90vw !important;
   }
 }
 
