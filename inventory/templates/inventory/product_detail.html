@@ -287,6 +287,18 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function() {
+      // code to compare two objects
+      function compareObjects(obj1, obj2) {
+        var result = true;
+        for (var key in obj1) {
+          if (obj1.hasOwnProperty(key)) {
+            if (obj1[key] !== obj2[key]) {
+              result = false;
+            }
+          }
+        }
+        return result;
+      }
       // reusable function for alert message
       const messagesAlertData = function(data) {
         if (data) {
@@ -336,7 +348,7 @@
           $('#messages-stock').remove();
         });
       }
-      let product_inventory_id = 0
+      let product_inventory_id = null;
       let itemQuantity = 1
       let quantityFinal = 0;
       let is_match = false;
@@ -345,15 +357,86 @@
       let values_list = JSON.stringify({{ values_list|safe }});
       // convert to array
       let values_list_array = JSON.parse(values_list);
-      let valuesSetActive = {{ values_set_active_list|safe }};
-      // check if the product is out of stock
-      if (product_inventory_id == 0) {
-        // do nothing
-      }
+      let valuesSetActive = eval("{{ values_set_active_list|safe }}");
+      console.log(valuesSetActive);
+      console.log(values_list_array);
+
+      
+      const checkReadyToPurchase = (values_list, chosen_attributes) => {
+        console.log("Checking ready to purchase");
+        for (let stockOption of values_list) {
+          let stockOptionCopy = {};
+          for (let key in stockOption) {
+            stockOptionCopy[key] = stockOption[key];
+          }
+          // remove the quantity from the copy
+          delete stockOptionCopy["Quantity"];
+          delete stockOptionCopy["Price"];
+          delete stockOptionCopy["id"];
+          if (compareObjects(stockOptionCopy, chosen_attributes)) {
+            console.log("Found match");
+            console.log(stockOption);
+            product_inventory_id = stockOption["id"];
+            // enable '#add-to-bag-button'
+            $('#add-to-bag-button').removeClass('disabled');
+            let quantityCheck = $('input[name="quantity"]').val();
+            id = stockOption["id"];
+            //check type of id
+            quantityFinal = $('input[name="quantity"]').val();
+            //convert to int
+            quantityFinal = parseInt(quantityFinal);
+            // STOCK WARNING MESSAGE
+            //get max value in the input with the name quantity
+            let quantityMax = $('input[name="quantity"]').attr('max');
+            if ((quantityMax <= 10) && (quantityMax != 0)) {
+              $('#quantity-warning').removeClass('hidden');
+              $('#quantity-warning-message').text('Only ' + quantityMax + ' items available');
+            } else {
+              $('#quantity-warning').addClass('hidden');
+            }
+          }
+        }
+      };         
+        
+
+
+      const findPriceAndQuantity = (values_list, chosen_attributes) => {
+        //[{"size-shoes":"36","Color":"red","Quantity":10,"Price":"102.00"},{"size-shoes":"35","Color":"yellow","Quantity":10,"Price":"101.00"},{"Color":"yellow","size-shoes":"38","Quantity":10,"Price":"102.00"}]
+        console.log("Finding price and quantity");
+        let price = 0;
+        let quantity = 0;
+        for (let stockOption of values_list) {
+          let stockOptionCopy = {};
+          for (let key in stockOption) {
+            stockOptionCopy[key] = stockOption[key];
+          }
+          // remove the quantity from the copy
+          delete stockOptionCopy["Quantity"];
+          delete stockOptionCopy["Price"];
+          delete stockOptionCopy["id"];
+          if (compareObjects(stockOptionCopy, chosen_attributes)) {
+            console.log("Found match");
+            console.log(stockOption);
+            price = stockOption["Price"];
+            quantity = stockOption["Quantity"];
+          } 
+        }
+        if (price !== 0) {
+          $('.product__price').text('\$ '+ price);
+          $('.product__price').addClass('price__sale');
+          $('.product__price').addClass('product__card--price');
+          
+        }
+        $('input[name="quantity"]').attr('max', quantity);
+        itemQuantity = quantity;
+        $('#minus-button').removeClass('disabled');
+        $('#plus-button').removeClass('disabled');
+      };
       // Reset options:
       const reset = function(e) {
         // prevent default
         e.preventDefault();
+        $('#add-to-bag-button').addClass('disabled');
         // reset all values
         $('input[name="quantity"]').val(1);
         $('#minus-button').removeClass('disabled');
@@ -413,6 +496,9 @@
       // Call reset on click
       $('#reset-button').click(reset);
       // IF PRODUCT HAS ATTRIBUTES AND VALUES
+      console.log(valuesSetActive);
+      console.log(valuesSetActive.length);
+      console.log(values_list_array)
       if (valuesSetActive.length > 0) {
         if ($('.item__not__available').length) {
           messageRequestItem();
@@ -453,9 +539,9 @@
             if (stockOption[attribute_name] == attribute_value && stockOption["Quantity"] > 0) {
               for(let key in stockOption) {
                 if (key != "Quantity" && key != attribute_name) {
-                  if (key == "id") {
-                    product_inventory_id = stockOption[key];
-                  }
+                  //if (key == "id") {
+                  //  product_inventory_id = stockOption[key];
+                  //}
                   availableAttrsFromOtherGroups.push(stockOption[key]);
                 }
               }
@@ -545,35 +631,7 @@
             }
           })
         });
-        const findPriceAndQuantity = (values_list, chosen_attributes) => {
-          //[{"size-shoes":"36","Color":"red","Quantity":10,"Price":"102.00"},{"size-shoes":"35","Color":"yellow","Quantity":10,"Price":"101.00"},{"Color":"yellow","size-shoes":"38","Quantity":10,"Price":"102.00"}]
-          let price = 0;
-          let quantity = 0;
-          for (let stockOption of values_list) {
-            is_match = true;
-            for (let key in stockOption) {
-              if (key != "Quantity" && key != "Price" && key != "id") {
-                if (stockOption[key] != chosen_attributes[key]) {
-                  is_match = false;
-                }
-              }
-            }
-            if (is_match) {
-              price = stockOption["Price"];
-              quantity = stockOption["Quantity"];
-            }
-          }
-          if (price !== 0) {
-            $('.product__price').text('\$ '+ price);
-            $('.product__price').addClass('price__sale');
-            $('.product__price').addClass('product__card--price');
-            
-          }
-          $('input[name="quantity"]').attr('max', quantity);
-          itemQuantity = quantity;
-          $('#minus-button').removeClass('disabled');
-          $('#plus-button').removeClass('disabled');
-        };
+        
         // Control the quantity of the item
         $('#minus-button').on('click', function(e) {
           e.preventDefault();
@@ -607,40 +665,11 @@
               }
           }
         });
-        const checkReadyToPurchase = (values_list, chosen_attributes) => {
-          for (let stockOption of values_list) {
-            is_match = true;
-            for (let key in stockOption) {
-              if (key != "Quantity" && key != "Price" && key != "id") {
-                if (stockOption[key] != chosen_attributes[key]) {
-                  is_match = false;
-                }
-              }
-              if (is_match) {
-                // enable '#add-to-bag-button'
-                $('#add-to-bag-button').removeClass('disabled');
-                let quantityCheck = $('input[name="quantity"]').val();
-                id = stockOption["id"];
-                //check type of id
-                quantityFinal = $('input[name="quantity"]').val();
-                //convert to int
-                quantityFinal = parseInt(quantityFinal);
-                // STOCK WARNING MESSAGE
-                //get max value in the input with the name quantity
-                let quantityMax = $('input[name="quantity"]').attr('max');
-                if ((quantityMax <= 10) && (quantityMax != 0)) {
-                  $('#quantity-warning').removeClass('hidden');
-                  $('#quantity-warning-message').text('Only ' + quantityMax + ' items available');
-                } else {
-                  $('#quantity-warning').addClass('hidden');
-                }
-              }
-            }
-          }
-        }
+        
       } else if (valuesSetActive.length == 0 && values_list_array.length == 1) {
         //get id of the product from [{"Quantity":100,"Price":"7.00","id":9}]
         //let quantityForSingle;
+        console.log('values_list_array', values_list_array);
         let idForSingle;
         //item__not__available
         for (let stockOption of values_list_array) {
