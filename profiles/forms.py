@@ -56,7 +56,7 @@ class AddressForm(forms.ModelForm):
             'county_region': forms.Select(attrs={'class': 'form-control'}),
             'city': forms.Select(attrs={'class': 'form-control'}),
             'address_line': forms.TextInput(attrs={'class': 'form-control'}),
-            'zip_code': forms.NumberInput(attrs={'class': 'form-control'}),
+            'zip_code': forms.TextInput(attrs={'class': 'form-control'}),
             'phone_number': forms.NumberInput(attrs={'class': 'form-control'}),
             'is_primary': forms.CheckboxInput(
                 attrs={'class': 'form-check-input'}
@@ -69,5 +69,4 @@ class AddressForm(forms.ModelForm):
             self.fields['county_region'].widget.attrs.pop('maxlength', None)
             self.fields['city'].widget.attrs.pop('maxlength', None)
             self.fields['address_line'].widget.attrs.pop('maxlength', None)
-            self.fields['zip_code'].widget.attrs.pop('maxlength', None)
             self.fields['phone_number'].widget.attrs.pop('maxlength', None)
