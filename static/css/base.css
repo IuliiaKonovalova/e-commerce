@@ -2364,6 +2364,11 @@ td {
   background-color: #7fff7f;
 }
 
+/* Stock not found */
+.data__accent--no--stock {
+  color: var(--clr-btn-delete--500);
+}
+
 /* ---------- Brands Table -------------- */
 .brand__table {
   max-width: 50rem;

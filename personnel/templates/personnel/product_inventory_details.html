@@ -158,20 +158,22 @@
                 </td>
               </tr>
             </table>
-            <a href="{% url 'update_stock' pk=product.id inventory_pk=inventory.pk stock_pk=inventory.stock.pk %}"
-                aria-label="Go to Update stock page" class="btn btn__add">
-                  <i class="fa fa-refresh"></i>
-                  Update Stock
-            </a>
-            <a href="{% url 'delete_stock' pk=product.id inventory_pk=inventory.pk stock_pk=inventory.stock.pk %}"
-                aria-label="Go to Delete stock page" class="btn btn__delete">
-                  <i class="fas fa-trash-alt"></i>
-                  Delete Stock
-            </a>
+            {% if request.user.profile.role.id == 3 %}
+              <a href="{% url 'update_stock' pk=product.id inventory_pk=inventory.pk stock_pk=inventory.stock.pk %}"
+                  aria-label="Go to Update stock page" class="btn btn__add">
+                    <i class="fa fa-refresh"></i>
+                    Update Stock
+              </a>
+              <a href="{% url 'delete_stock' pk=product.id inventory_pk=inventory.pk stock_pk=inventory.stock.pk %}"
+                  aria-label="Go to Delete stock page" class="btn btn__delete">
+                    <i class="fas fa-trash-alt"></i>
+                    Delete Stock
+              </a>
+            {% endif %}
           {% else %}
           {% comment %} If there is no stock yet {% endcomment %}
             <div>
-              <strong class="data__accent--red unit">
+              <strong class="data__accent--no--stock unit">
                 <i class="fa fa-exclamation-triangle"></i>
                 Stock not found
               </strong>
