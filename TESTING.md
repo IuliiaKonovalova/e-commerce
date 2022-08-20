@@ -606,6 +606,8 @@ def payment_confirmation(data):
 
 - [Wishlist app HTML validation report](documentation/validation/wishlist_html_validation.pdf)
 
+- [Allauth app HTML validation report](documentation/validation/allauth_html_validation.pdf)
+
 
 ### Python Validation:
 
