@@ -3108,8 +3108,8 @@ a.ui-button:active,
 .address__form .select2-selection.select2-selection--single.select2-selection--clearable,
 .address__form .select2-container--default .select2-selection--single,
 .address__form #id_address_line {
-  padding: 0.75rem 0.75rem;
-  font-size: 1.5rem;
+  padding: 0.75rem 0.25rem;
+  font-size: 1.2rem;
   font-weight: 400;
   line-height: 1.5;
   color: #212529;
