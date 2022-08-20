@@ -358,12 +358,7 @@
       // convert to array
       let values_list_array = JSON.parse(values_list);
       let valuesSetActive = eval("{{ values_set_active_list|safe }}");
-      console.log(valuesSetActive);
-      console.log(values_list_array);
-
-      
       const checkReadyToPurchase = (values_list, chosen_attributes) => {
-        console.log("Checking ready to purchase");
         for (let stockOption of values_list) {
           let stockOptionCopy = {};
           for (let key in stockOption) {
@@ -374,8 +369,6 @@
           delete stockOptionCopy["Price"];
           delete stockOptionCopy["id"];
           if (compareObjects(stockOptionCopy, chosen_attributes)) {
-            console.log("Found match");
-            console.log(stockOption);
             product_inventory_id = stockOption["id"];
             // enable '#add-to-bag-button'
             $('#add-to-bag-button').removeClass('disabled');
@@ -397,12 +390,8 @@
           }
         }
       };         
-        
-
-
       const findPriceAndQuantity = (values_list, chosen_attributes) => {
         //[{"size-shoes":"36","Color":"red","Quantity":10,"Price":"102.00"},{"size-shoes":"35","Color":"yellow","Quantity":10,"Price":"101.00"},{"Color":"yellow","size-shoes":"38","Quantity":10,"Price":"102.00"}]
-        console.log("Finding price and quantity");
         let price = 0;
         let quantity = 0;
         for (let stockOption of values_list) {
@@ -415,8 +404,6 @@
           delete stockOptionCopy["Price"];
           delete stockOptionCopy["id"];
           if (compareObjects(stockOptionCopy, chosen_attributes)) {
-            console.log("Found match");
-            console.log(stockOption);
             price = stockOption["Price"];
             quantity = stockOption["Quantity"];
           } 
@@ -465,27 +452,27 @@
               {% elif product.get_same_sale_price %}
                 {% if product.get_sale_price_is_lower_than_store_price %}
                   <div class="product__card--price price__regular">
-                    {{ product.get_lowest_store_price }}
+                    $ {{ product.get_lowest_store_price }}
                   </div>
                   <div class="product__card--price price__sale">
                     {{ product.get_lowest_price }}
                   </div>
                 {% else %}
                   <div class="product__card--price">
-                    {{ product.get_lowest_price }}
+                    $ {{ product.get_lowest_price }}
                   </div>
                 {% endif %}
               {% else %}
                 {% if product.get_sale_price_is_lower_than_store_price %}
                   <div class="product__card--price price__regular">
-                    {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                    $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
                   </div>
                   <div class="product__card--price price__sale">
-                    {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
                   </div>
                 {% else %}
                   <div class="product__card--price">
-                    {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                    $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
                   </div>
                 {% endif %}
               {% endif %}
@@ -496,9 +483,6 @@
       // Call reset on click
       $('#reset-button').click(reset);
       // IF PRODUCT HAS ATTRIBUTES AND VALUES
-      console.log(valuesSetActive);
-      console.log(valuesSetActive.length);
-      console.log(values_list_array)
       if (valuesSetActive.length > 0) {
         if ($('.item__not__available').length) {
           messageRequestItem();
@@ -600,27 +584,27 @@
                   {% elif product.get_same_sale_price %}
                     {% if product.get_sale_price_is_lower_than_store_price %}
                       <div class="product__card--price price__regular">
-                        {{ product.get_lowest_store_price }}
+                        $ {{ product.get_lowest_store_price }}
                       </div>
                       <div class="product__card--price price__sale">
                         {{ product.get_lowest_price }}
                       </div>
                     {% else %}
                       <div class="product__card--price">
-                        {{ product.get_lowest_price }}
+                        $ {{ product.get_lowest_price }}
                       </div>
                     {% endif %}
                   {% else %}
                     {% if product.get_sale_price_is_lower_than_store_price %}
                       <div class="product__card--price price__regular">
-                        {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
+                        $ {{ product.get_lowest_store_price }} - {{ product.get_highest_store_price }}
                       </div>
                       <div class="product__card--price price__sale">
-                        {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                        $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
                       </div>
                     {% else %}
                       <div class="product__card--price">
-                        {{ product.get_lowest_price }} - {{ product.get_highest_price }}
+                        $ {{ product.get_lowest_price }} - {{ product.get_highest_price }}
                       </div>
                     {% endif %}
                   {% endif %}
@@ -667,9 +651,6 @@
         });
         
       } else if (valuesSetActive.length == 0 && values_list_array.length == 1) {
-        //get id of the product from [{"Quantity":100,"Price":"7.00","id":9}]
-        //let quantityForSingle;
-        console.log('values_list_array', values_list_array);
         let idForSingle;
         //item__not__available
         for (let stockOption of values_list_array) {
