@@ -642,6 +642,20 @@ def payment_confirmation(data):
 
 - [Wishlist. Validation report](documentation/validation/pep8_validation_wishlist.pdf)
 
+---
+
+## Compatibility
+
+Testing was conducted on the following browsers;
+
+- Brave;
+- Chrome;
+- Firefox;
+
+[Compatibility Report](documentation/validation/compatibility.pdf)
+
+---
+
 ### Errors:
 
 The errors were made in the following commits:
