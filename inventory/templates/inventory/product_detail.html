@@ -430,6 +430,9 @@
         $('#plus-button').removeClass('disabled');
         $('.btn-check').removeClass('active');
         $('#quantity-warning').addClass('hidden');
+        if($('#messages-stock')) {
+          $('#messages-stock').remove();
+        }
         // check if product value is valuesSetActive
         $('.btn-check').each(function() {
           let value = $(this).val();
@@ -610,7 +613,11 @@
                   {% endif %}
                 </div>
               `);
+              $('#add-to-bag-button').addClass('disabled');
               $('#quantity-warning').addClass('hidden');
+              if($('#messages-stock')) {
+                $('#messages-stock').remove();
+              }
               $(document).off('click');
             }
           })
