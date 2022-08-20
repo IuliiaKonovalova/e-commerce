@@ -416,6 +416,50 @@ Navbar has 2 subsections:
 
         - SignUp button, which redirects the user to the register page
 
+2. Personnel's section, which is visible only for store personnel:
+      
+      ![Navbar](documentation/features/navbar/navbar_personnel.png)
+
+    It has Personnel's button, which is visible only for store personnel. When this buttons is clicked, the user will see a dropdown menu with following navbar features:
+
+    ![Navbar](documentation/features/navbar/navbar_personnel_dropdown.png)
+
+    - Promo button, which redirects the user to the promotions page
+
+    - Email button, which redirects the user to the create newsletter or promotional email page;
+
+    - Categories button, which redirects the user to the categories page;
+
+    - Brands button, which redirects the user to the brands page;
+
+    - Tags button, which redirects the user to the tags page;
+
+    - Products' Types button, which redirects the user to the products' types page;
+
+    - Products' Attributes button, which redirects the user to the products' attributes page;
+
+    - Products' Values button, which redirects the user to the products' values page;
+
+    - Personnel Products Table button, which redirects the user to the personnel products table page;
+
+    - Units button, which redirects the user to the units table page;
+
+    - Stock button, which redirects the user to the stock table page;
+
+    - Orders button, which redirects the user to the orders page;
+
+    - Stock requests button, which redirects the user to the stock requests page;
+
+The simplistic design of the navbar is based on the decision to make the use of the webapp easy for the all users.
+
+*Navbar is slightly different on the tablet devices*
+
+![Navbar](documentation/features/navbar/navbar_tablets.png)
+
+*Navbar looks as following on the mobile devices*
+
+![Navbar](documentation/features/navbar/navbar_mobile.png)
+
 
 
 
