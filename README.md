@@ -136,6 +136,9 @@ This website is intended for people who are interested in purchasing products on
 ## Business Model
 
 The Business Model is B2C, meaning that the company sells products to customers only.
+It focuses on individual transactions only.
+
+
 
 ### A Persona Summary of the customer
 
@@ -342,6 +345,8 @@ To emphasize the importance of the text, the font-weight was set to 900. To make
 - The main part is allocated to the use of icons from the [font awesome](https://fontawesome.com/) website. The use of icons is essential for the user experience when it comes to multifunctional websites.
 
 ### Wireframes
+
+  [WoWder Wireframes](documentation/design/wowder_wireframes.pdf)
 
 ---
 
