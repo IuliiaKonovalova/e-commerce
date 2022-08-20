@@ -1,20 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_css %}
+  <style>
+    .dashboard__main a {
+      top: 0;
+    }
+  </style>
+{% endblock %}
+
 {% comment %} Extra Title {% endcomment %}
 {% block extra_title %}Order Details{% endblock %}
 
 {% block content %}
   <div class="dashboard">
     {% if request.user.is_authenticated and not request.user.profile.role.id == 1 %}
-      <div class="dashboard__main">
-        <a href="{% url 'orders' %}" aria-label="Back to all orders"
-            class="btn btn__redirect btn_go--back">
-          <i class="fas fa-arrow-circle-left"></i>
-          Back to orders
-        </a>
-      </div>
       <div class="data__main--order" id="order-id" data-id="{{ order.id }}">
+        <div class="dashboard__main">
+          <a href="{% url 'orders' %}" aria-label="Back to all orders"
+              class="btn btn__redirect btn_go--back">
+            <i class="fas fa-arrow-circle-left"></i>
+            Go to orders
+          </a>
+        </div>
         <h1 class="dashboard__main--name">Order ID {{ order.id }}</h1>
         {% if request.user.profile.role.id == 3 %}
           <div class="order__review--btns">
