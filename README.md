@@ -614,6 +614,37 @@ Under this section the user may find the reviews of the product and overall rati
 
 When the user clicks "View reviews", the user will be redirected to the product's reviews page.
 
+The right side of the product card has the following features:
+
+  ![Product's details page](documentation/features/product_details/product_details_right.png)
+
+  *"Add to bag button will be disable if there are any options which are specified by the customer.** 
+
+  - Product's full name;
+  
+  - Product's description;
+
+  - Reset button, which allows the user to reset the values of the product;
+
+    ![Product's details page](documentation/features/product_details/product_option_reset_button.png)
+
+  - Product's options' section:
+  
+    ![Product's details page](documentation/features/product_details/product_options.png)
+
+    - User can select the value of the product's option.
+
+    If options have colors, the user can see the example of the color right away.
+
+    - if the product has no options, the section is not displayed;
+
+    ![Product's details page](documentation/features/product_details/product_no_options.png)
+
+    *If there are no options at all for a particular product, this button will be enable.*
+
+    - If product is out of stock, the button "Add to bag" is disabled;
+
+    ![Product's details page](documentation/features/product_details/product_out_of_stock.png)
 
 
 
