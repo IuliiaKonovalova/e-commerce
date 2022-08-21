@@ -712,7 +712,28 @@ The right side of the product card has the following features:
 
     - If product is out of stock, the request product section is displayed right away.
     
-      ![Product's details page](documentation/features/product_details/request_msg_displayed_right_away.png.png)
+      ![Product's details page](documentation/features/product_details/request_msg_displayed_right_away.png)
+
+  - Modal for requesting a product:
+
+    ![Product's details page](documentation/features/product_details/modal_product_request.png)
+
+    - There are 2 buttons: "Cancel" and "Send" request. "Cancel" button will cancel the request and closes the modal. "Send" button allows user to request a stock notification email when the product is available.
+
+    - If there are options for a particular product and the user hasn't specified with options combinations he/she wants and user clicks "Send" button, there will a visible highlighted title to remind user to select options and the request will not be sent
+    
+      ![Product's details page](documentation/features/product_details/modal_product_request_options_not_chosen.png)
+
+    - If the user has specified with options combinations he/she wants and user clicks "Send" button, the request will be sent, modal window will be closed and the user will see a message confirming the success of the operation.
+    
+      ![Product's details page](documentation/features/product_details/modal_request_sent_msg.png)
+
+    - If the user has specified with options combinations he/she wants and user clicks "Cancel" button, the request will not be sent and modal window will be closed.
+
+    - If the user has specified with the options combinations he/she wants and user clicks "Send" button, and these options combinations are available in the store at this moment, the request will not be sent, modal window will be closed and the user will see a message:
+
+      ![Product's details page](documentation/features/product_details/modal_enough_in_stock_msg.png)
+
 
 
 
