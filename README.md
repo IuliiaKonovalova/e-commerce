@@ -734,6 +734,16 @@ The right side of the product card has the following features:
 
       ![Product's details page](documentation/features/product_details/modal_enough_in_stock_msg.png)
 
+  - Email notifications on stock request:
+
+    When the user requested a product, the user will receive an email notification when the product is available.
+
+    ![Product's details page](documentation/features/product_details/stock_request_email.png)
+
+    When the requested product is available, the user will receive an email notification.
+
+    ![Product's details page](documentation/features/product_details/stock_answer_email.png)
+
 
 
 
