@@ -387,7 +387,7 @@ Navbar has 2 subsections:
 
       ![Navbar](documentation/features/navbar/navbar_customer.png)
       
-        - logo:
+        - logo, which redirects to the home page;
         
         ![Logo](documentation/features/navbar/navbar_logo.png)
         
@@ -460,8 +460,33 @@ The simplistic design of the navbar is based on the decision to make the use of 
 
 ![Navbar](documentation/features/navbar/navbar_mobile.png)
 
+**Footer**
 
+![Footer](documentation/features/footer/footer.png)
 
+Footer has the following features:
+
+- logo;
+
+- contact information;
+
+- About us button, which redirects the home page;
+
+- Jobs button, which redirects the Linkedin page (the implementation is necessary for the future);
+
+- Products button, which redirects the store page;
+
+- Contact us button, which allows the user to send an email to the store personnel;
+
+- Privacy Policy button, which redirects the privacy policy page;
+
+- Social media buttons: instagram, facebook, twitter (the implementation is necessary for the future);
+
+- And the information about the creator of the webapp with the link to github.
+
+*Footer is slightly different on the mobile devices*
+
+![Footer](documentation/features/footer/footer_mobile.png)
 
 
 
