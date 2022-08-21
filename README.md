@@ -678,6 +678,19 @@ The right side of the product card has the following features:
 
       ![Product's details page](documentation/features/product_details/limited_quantity_plus_enable_after_clicking_minus.png)
 
+  - Request product section:
+
+    - When the user opens the product's details page, the request product section is not displayed till the user starts choosing combinations of the product's options
+    
+      ![Product's details page](documentation/features/product_details/request_msg_not_displayed.png)
+
+    - When the user chooses some product's options and there are some units of the products are not present in the store at this moment, he/she will see are message. This message will give the user a chance to request the particular product's options from the store and get notification email when the product is available.
+    
+      ![Product's details page](documentation/features/product_details/request_msg_displayed.png)
+
+    - If product is out of stock, the request product section is displayed right away.
+    
+      ![Product's details page](documentation/features/product_details/request_msg_displayed_right_away.png.png)
 
 
 
