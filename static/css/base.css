@@ -2439,6 +2439,11 @@ td {
   margin-right: 1em;
 }
 
+/* Message-container for product_list */
+.message-container#messages-notes-list {
+  margin-top: 5.1rem !important;
+}
+
 /* -------------- Stock All --------------- */
 .data__main--stock,
 .products__stock--no {
@@ -3511,6 +3516,10 @@ a.ui-button:active,
     grid-template-columns: 0.7fr 2fr;
     gap: 1rem;
   }
+
+  .message-container#messages-notes-list {
+    margin-top: 4.8rem !important;
+  }
 }
 
 @media all and (max-width: 1511px) {
@@ -3519,6 +3528,10 @@ a.ui-button:active,
   .credits__subsection {
     padding: 1em 2em 2em 2em;
     width: 50rem;
+  }
+
+  .message-container#messages-notes-list {
+    margin-top: 4.5rem !important;
   }
 }
 
@@ -3546,6 +3559,10 @@ a.ui-button:active,
     align-items: center;
     justify-content: center;
     position: relative;
+  }
+
+  .message-container#messages-notes-list {
+    margin-top: 4.25rem !important;
   }
 
   /* ------ Media for Home page ------- */
@@ -3661,7 +3678,12 @@ a.ui-button:active,
     max-width: 35rem;
   }
 
-  /* Product Page */
+  /* Media for Products page */
+  .message-container#messages-notes-list {
+    margin-top: 3.9rem !important;
+  }
+
+  /* Media for Product Page */
   .product__main {
     width: 100%;
     max-width: 70rem;
