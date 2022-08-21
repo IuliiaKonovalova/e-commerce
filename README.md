@@ -377,7 +377,7 @@ This decision to postpone the implementation of the features described above was
 
 - Each page has a navbar and a footer
 
-**Navbar**
+### Navbar:
 
 Navbar has 2 subsections:
 
@@ -460,7 +460,7 @@ The simplistic design of the navbar is based on the decision to make the use of 
 
 ![Navbar](documentation/features/navbar/navbar_mobile.png)
 
-**Footer**
+### Footer:
 
 ![Footer](documentation/features/footer/footer.png)
 
@@ -487,6 +487,38 @@ Footer has the following features:
 *Footer is slightly different on the mobile devices*
 
 ![Footer](documentation/features/footer/footer_mobile.png)
+
+### Home page:
+
+![Home page](documentation/features/home/home_page.png)
+
+Home page has:
+
+- Hero section:
+
+![Hero section](documentation/features/home/home_hero_section.png)
+
+This section has a logo in the left top corner. There is also a eye-catching image on the right side of hero section.
+Underneath the logo is a description of the store and button. If user is logged in, the button has the following text "Start Shopping", which redirects the user to the store page.
+If user is logged out, the button has the following text "Get Started", which redirects the user to the SignUp page.
+
+![Hero section](documentation/features/home/home_hero_section_user_logged_out.png)
+
+- About Us section:
+
+![About Us section](documentation/features/home/about_us_section_1.png)
+
+![About Us section](documentation/features/home/about_section_2.png)
+
+This section describes the benefits of being a customer of the store, such as "The best quality", "The best prices", "Your privacy is our priority", "Fast delivery", and "Being in touch".
+
+- Testimonials section:
+
+![Testimonials section](documentation/features/home/testimonials_section.png)
+
+This section presents the testimonials of the store customers and aimed at giving the user an idea of the quality of the store.
+
+
 
 
 
