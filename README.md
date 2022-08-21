@@ -522,6 +522,51 @@ This section presents the testimonials of the store customers and aimed at givin
 
 ![Home page](documentation/features/home/home_page_mobile.png)
 
+### Store page:
+
+![Store page](documentation/features/store/store_page.png)
+
+This page has the following features:
+
+  - Search-select bar:
+
+    ![Search-select bar](documentation/features/store/store_search_bar.png)
+
+    - Search bar:
+
+    User can simply type the name of the product in the search bar and the system will show the products that match the search.
+
+    ![Search bar](documentation/features/store/search_tomatoes.png)
+
+    - Select bar:
+
+    User can select the category of the product in the select bar and the system will show the products that match the category.
+
+    ![Select bar](documentation/features/store/sort_by_category.png)
+
+  - Products:
+
+    User can see the products that are in the store. The products are displayed in a grid with the following features:
+    
+    **Product card:**
+
+    ![Products](documentation/features/store/store_product_card.png)
+
+    It has the main image of the product, the name of the product, the price of the product, the button "Add to wishlist", and special labels. If the product in new, the label "New" is displayed. If the product is on sale, the label "Sale" is displayed.
+
+    If the user didn't like the product, the button outline heart is displayed. If the user likes the product, the button filled heart is displayed. And etc.
+
+    ![Products](documentation/features/store/store_product_card_liked.png)
+
+    The spin icon is displayed when the user call is processing the request.
+
+    ![Products](documentation/features/store/store_product_card_processing.png)
+
+    Special features of the product card:
+
+    The price of products can be different depending on the product's values. For example, if the product has a value "Size", the price of the product can be different depending on the size of the product. If the product out of stock, the price is displayed as "Out of stock".
+
+    ![Products](documentation/features/store/store_products_cards_prices.png)
 
 
 
