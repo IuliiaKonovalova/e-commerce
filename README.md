@@ -618,7 +618,9 @@ The right side of the product card has the following features:
 
   ![Product's details page](documentation/features/product_details/product_details_right.png)
 
-  *"Add to bag button will be disable if there are any options which are specified by the customer.** 
+  *"Add to bag button will be disable if there are any options which are specified by the customer.**
+
+  ![Product's details page](documentation/features/product_details/add_to_bag_diable.png)
 
   - Product's full name;
   
@@ -633,6 +635,10 @@ The right side of the product card has the following features:
     ![Product's details page](documentation/features/product_details/product_options.png)
 
     - User can select the value of the product's option.
+
+    *If the options are chosen, the "Add to bag" button will be enabled.*
+
+    ![Product's details page](documentation/features/product_details/add_to_bag_enable.png)
 
     If options have colors, the user can see the example of the color right away.
 
@@ -677,6 +683,22 @@ The right side of the product card has the following features:
       - If the user reduces the quantity of the product, the plus button will be enabled.
 
       ![Product's details page](documentation/features/product_details/limited_quantity_plus_enable_after_clicking_minus.png)
+
+  - Add to bag button:
+
+    The functionality of this button has been described above in the values options. It has 2 stages:
+
+    - disabled: the button is disabled when the user has not chosen the values of the product or the product is out of stock;
+
+    ![Product's details page](documentation/features/product_details/add_to_bag_button_disable.png)
+
+    - enabled: the button is enabled when the user has chosen the values of the product and the product is not out of stock and there are not options for a particular product;
+
+    ![Product's details page](documentation/features/product_details/add_to_bag_button_enable.png)
+
+    - If button is enabled, the user can add the product to the bag and the message will appear in the top right corner of the page confirming the success of the operation:
+    
+      ![Product's details page](documentation/features/product_details/add_to_bag_msg.png)
 
   - Request product section:
 
