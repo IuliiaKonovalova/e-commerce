@@ -646,7 +646,23 @@ The right side of the product card has the following features:
 
     ![Product's details page](documentation/features/product_details/product_out_of_stock.png)
 
+  - Product's price:
+  
+    ![Product's details page](documentation/features/product_details/values_for_spider.png)
 
+    The price of the product can be different depending on the product's values. In the above example, the price for the tarantula starts from $40  and increases to $120.
+    
+      - If the user chooses the particular value of the product, the price of the product will be specified:
+
+      ![Product's details page](documentation/features/product_details/show_price_on_value.png)
+
+      ![Product's details page](documentation/features/product_details/show_price_on_value_change.png)
+
+    - If there is a discount, the price of the product will be displayed with the discount.
+    
+      ![Product's details page](documentation/features/product_details/product_detail_discount.png)
+      
+  
 
 
 
