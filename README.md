@@ -662,7 +662,21 @@ The right side of the product card has the following features:
     
       ![Product's details page](documentation/features/product_details/product_detail_discount.png)
       
-  
+  - Product's quantity:
+
+    ![Product's details page](documentation/features/product_details/quantity_section.png)
+
+      - If the quantity is limited, the user will see a warning message.
+
+      ![Product's details page](documentation/features/product_details/quantity_warning_msg.png)
+
+      - If the user adds the exact quantity of the product that is available right now (7 items in this example), the plus button will be disabled.
+
+      ![Product's details page](documentation/features/product_details/limited_quantity_plus_disable.png)
+
+      - If the user reduces the quantity of the product, the plus button will be enabled.
+
+      ![Product's details page](documentation/features/product_details/limited_quantity_plus_enable_after_clicking_minus.png)
 
 
 
