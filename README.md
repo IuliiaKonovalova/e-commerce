@@ -744,10 +744,41 @@ The right side of the product card has the following features:
 
     ![Product's details page](documentation/features/product_details/stock_answer_email.png)
 
+  *For the mobile version of the site, the product's details page is displayed in a different way.*
 
+  ![Product's details page](documentation/features/product_details/product_details_page_mobile.png)
 
+### Wishlist page:
 
+![Wishlist page](documentation/features/wishlist/wishlist_page.png)
 
+This page has following features:
+
+  - Empty wishlist button:
+  
+    ![Wishlist page](documentation/features/wishlist/wishlist_empty_wishlist_button.png)
+    
+    - if user unlikes the product, the product will be removed from the wishlist and the user will see a message confirming the success of the operation.
+
+    ![Wishlist page](documentation/features/wishlist/wishlist_remove_item_msg.png)
+
+    - If the user clicks the button, a container with the confirmation will appear:
+
+    ![Wishlist page](documentation/features/wishlist/wishlist_empty_wishlist_container.png)
+
+    - if the user clicks "No", the container will be closed and the wishlist will not be emptied.
+
+    - If the user click "Yes" button, the wishlist will be emptied and the user will see a message confirming the success of the operation.
+
+    ![Wishlist page](documentation/features/wishlist/wishlist_empty_msg.png)
+
+    - If there are no items in the wishlist, the user will see a message:
+
+    ![Wishlist page](documentation/features/wishlist/wishlist_empty.png)
+
+    - If there too many items in the wishlist, the user will see a functional page navigation:
+
+    ![Wishlist page](documentation/features/wishlist/wishlist_pagination.png)
 
 
 
