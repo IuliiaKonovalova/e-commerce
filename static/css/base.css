@@ -712,11 +712,16 @@ label[for="id_subscription"] {
 }
 
 .profile__delete--dropdown .btn__container,
-.address__delete--dropdown .btn__container {
+.address__delete--dropdown .btn__container,
+.wishlist__clean--buttons {
   padding-top: 1em !important;
 }
 
 .profile__delete--dropdown .btn__container a,
+.wishlist__clean--buttons button {
+  font-size: 0.9rem;
+}
+
 .address__delete--dropdown {
   font-size: 0.9rem;
 }
@@ -1884,7 +1889,7 @@ input[name=quantity] {
   align-items: center;
   width: 100%;
   margin-top: 1rem;
-  background-color: var(--clr-text--100);
+  background-color: var(--clr-accent--100);
   padding: 0.5em 1em 1em 1em;
   border-radius: var(--br);
   box-shadow: var(--box-shadow-card);
