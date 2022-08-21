@@ -185,6 +185,22 @@
 {% block postloadjs_extra %}
   <script>
     $(document).ready(function () {
+      // reusable function for alert message
+      const messagesAlertData = function(data) {
+        if (data) {
+          if ($('#messages-notes-list').length) {
+            $('#messages-notes-list').remove();
+          }
+          $('.products__all').after('<div class="message-container" id="messages-notes-list">' +
+            '<div class="message-container__message">' +
+              '<p class="message-container__message--text">' + data + '</p>' +
+              '</div>' +
+            '</div>');
+        }
+        setTimeout(() => {
+          $('#messages-notes-list').remove();
+        }, 3000);
+      };
       // add-to/remove-from wishlist
       //loop through .wishlist__control
       $('.wishlist__control').each(function () {
@@ -215,28 +231,11 @@
                 $('.wishlist__control[data-id=' + product_id + ']').html('<i class="far fa-heart"></i>');
               }
               if (data.message_alert) {
-                $('.products__all').before('<div class="message-container" id="messages-notes">' +
-                  '<div class="message-container__message">' +
-                  '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-                  '</div>' +
-                  '</div>');
+                messagesAlertData(data.message_alert);
               }
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 3000);
             },
             error: function(data) {
-              $('.fa-spinner').remove();
-              $('#messages-notes').remove();
-              $('.products__all').before('<div class="message-container" id="messages-notes">' +
-                '<div class="message-container__message">' +
-                '<p class="message-container__message--text">' + data.message_alert + '</p>' +
-                '</div>' +
-                '</div>');
-              // remove the message block after 3 seconds
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 3000);
+              messagesAlertData(data.message_alert);
             }
           })
         });
