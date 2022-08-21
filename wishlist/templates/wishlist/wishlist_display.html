@@ -254,9 +254,15 @@
             if (data.message_alert) {
               messagesAlertData(data.message_alert);
             }
-            $('#wishlist').append('<div class="wishlist__empty">' +
-              '<p>You have no items in your wishlist.</p>' +
-              '</div>');
+            if ('.pagination') {
+              $('.pagination').remove();
+            }
+            if ('.wishlist__empty') {
+              $('.wishlist__empty').remove();
+              $('#wishlist').append('<div class="wishlist__empty">' +
+                '<p>You have no items in your wishlist.</p>' +
+                '</div>');
+            }
           },
           error: function (data) {
             messagesAlertData(data.message_alert);
