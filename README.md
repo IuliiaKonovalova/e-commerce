@@ -568,6 +568,64 @@ This page has the following features:
 
     ![Products](documentation/features/store/store_products_cards_prices.png)
 
+  - Pages:
+
+    ![Pages](documentation/features/store/store_page_navigation.png)
+
+### Product's details page:
+
+![Product's details page](documentation/features/product_details/product_details_page.png)
+
+This page has the product's card with full data.
+
+The left side of the products card has the following features:
+
+![Product's details page](documentation/features/product_details/product_details_left.png)
+
+It has the main image of the product with carousel. When the user clicks on the left or right arrow, the carousel will change the image.
+
+  ![Product's details page](documentation/features/product_details/carousel1.png)
+  ![Product's details page](documentation/features/product_details/carousel2.png)
+  ![Product's details page](documentation/features/product_details/carousel3.png)
+
+It also has labels:
+
+  - if product is on sale, the label "Sale" is displayed;
+
+  - if product is new, the label "New" is displayed;
+
+Underneath the main image of the product is the "Add to wishlist" section. When the user clicks on the outline heart button, the product is added to the wishlist.
+
+And the message will appear in the top right corner of the page:
+
+![Product's details page](documentation/features/product_details/add_to_wishlist_msg.png)
+
+And the heart icon button will turn to be filled heart button.
+
+![Product's details page](documentation/features/product_details/added_to_wishlist.png)
+
+*While the request is processing, the spin icon is displayed*
+
+![Product's details page](documentation/features/product_details/adding_to_wishlist.png)
+
+Under this section the user may find the reviews of the product and overall rating of the product.
+
+![Product's details page](documentation/features/product_details/product_rating_reviews.png)
+
+When the user clicks "View reviews", the user will be redirected to the product's reviews page.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
