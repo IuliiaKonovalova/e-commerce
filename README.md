@@ -518,6 +518,10 @@ This section describes the benefits of being a customer of the store, such as "T
 
 This section presents the testimonials of the store customers and aimed at giving the user an idea of the quality of the store.
 
+*Home page is slightly different on the mobile devices*
+
+![Home page](documentation/features/home/home_page_mobile.png)
+
 
 
 
