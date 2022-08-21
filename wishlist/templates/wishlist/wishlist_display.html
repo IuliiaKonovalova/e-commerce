@@ -233,9 +233,7 @@
         e.preventDefault();
         // add hidden class to the clean wishlist dropdown
         $('#wishlist__clean--dropdown').toggleClass('hidden');
-        $('html, body').animate({
-          scrollTop: $(document).height()
-        }, 'slow');
+
       });
       // cancel clean wishlist
       $('#clean-cancel').on('click', (e) => {
