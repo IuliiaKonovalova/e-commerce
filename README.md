@@ -624,6 +624,29 @@ It also has 2 buttons:
   
   - Cancel button, which redirects the user to the my addresses page.
 
+### Edit address page:
+
+![Edit address page](documentation/features/edit_address/edit_address_form.png)
+
+This form has the same fields as the add address form. However, it has prefilled data on the address.
+
+I has 2 buttons:
+
+  - Save address button, which redirects the user to the my addresses page and saves changes to the address;
+  
+  - Cancel button, which redirects the user to the my addresses page.
+
+**Under the edit address page, the user can find delete address button**
+
+If user clicks the delete address button, the user will be asked to confirm the deletion.
+
+![Edit address page. Confirmation](documentation/features/edit_address/delete_address.png)
+
+- If user confirms the deletion, the user will be redirected to the my addresses page.
+
+- If user doesn't confirm the deletion, the delete address form will be closed.
+
+
 
 
 ### Store page:
