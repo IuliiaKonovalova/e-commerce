@@ -726,6 +726,13 @@ Where user can type the comment.
   - Cancel button, which redirects the user to the my order detail page.
 
 
+### All reviews page:
+
+![All reviews page](documentation/features/my_reviews/all_my_reviews.png)
+
+This page has all reviews that the user has left. It presented by reviews' cards. If user clicks on the review card, the user will be redirected to the review detail page.
+
+
 ### My review page:
 
 ![My reviews page](documentation/features/my_review/my_reviews_page.png)
@@ -741,6 +748,7 @@ This decision was made based on the fact that the shop owner has to evaluate all
 It has been made to prevent the user from editing the review with no reason.
 
 This trend is highly appreciated by Chinese online shopping community.
+
 
 
 
