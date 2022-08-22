@@ -1026,3 +1026,63 @@ This page is accessible only to the admin. It has a form and the list of the pro
 When the admin clicks "Cancel" button, the admin will be redirected to the brands page.
 
 When the admin clicks "Delete" button, the admin will be redirected to the brands page.
+
+
+### Tags Page:
+
+![Tags page](documentation/features/personnel/tags/tags_page.png)
+
+This page is accessible only to the personnel. It has tags table with all tags.
+
+It has a title, "Add tag" button, which will redirect the personnel member to the add tag page. It also has search field, which allows the admin to search for tags.
+
+The main part of the page is dedicated to the tags table.
+If the admin or other personnel members click on the tag in the tags table, the admin will be redirected to the tag's details page.
+
+
+### Tag details Page:
+
+![Tag details page](documentation/features/personnel/tags/tag_detail.png)
+
+This page is accessible only to the personnel.
+
+It has full data on the tag:
+
+  - Name;
+  - Status;
+  - How many products are in the tag;
+  - All products in the tag;
+  - Edit button;
+      - if the personnel member clicks on the edit button, the personnel member will be redirected to the edit tag page;
+  - Delete button;
+      - if the personnel member clicks on the delete button, the personnel member will be redirected to the delete tag page;
+
+### Add Tag Page:
+
+![Add Tag page](documentation/features/personnel/tags/add_tag.png)
+
+This page is accessible only to the personnel. It has a form with fields for the tag name and status.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the tags page.
+
+When the personnel clicks "Add tag" button, the personnel will be redirected to the tags page.
+
+### Edit Tag Page:
+
+![Edit Tag page](documentation/features/personnel/tags/edit_tag.png)
+
+This page is accessible only to the personnel. It has a pre-filled form with fields for the tag name and status.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the tags page.
+
+When the personnel clicks "Save changes" button, the personnel will be redirected to the tags page.
+
+### Delete Tag Page:
+
+![Delete Tag page](documentation/features/personnel/tags/delete_tag.png)
+
+This page is accessible only to the personnel. It has a form with the warning message.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the tags page.
+
+When the personnel clicks "Delete" button, the personnel will be redirected to the tags page.
