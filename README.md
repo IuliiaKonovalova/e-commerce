@@ -780,6 +780,91 @@ This page has following features:
 
     ![Wishlist page](documentation/features/wishlist/wishlist_pagination.png)
 
+### Bag page:
+
+![Bag page](documentation/features/bag/bag_page.png)
+
+This page has following features:
+
+  - Title with the arrow down button. If user clicks this button, he/she will be redirected to checkout button immediately.
+  
+    ![Bag page. Title](documentation/features/bag/bag_title.png)
+    
+    - If user clicks the button, the bag page will be redirected to the checkout page.
+    
+  - Alert message. It can have to options:
+
+    - If user has subscribed to the newsletter, the message will be displayed:
+    
+      ![Bag page. User has subscribed](documentation/features/bag/bag_warning_message_coupon.png)
+
+    - If user hasn't subscribed to the newsletter, the message will be displayed:
+
+      ![Bag page. User hasn't subscribed](documentation/features/bag/bag_warning_message.png)
+
+  - Bag table with all items in the bag:
+  
+    ![Bag page. Bag Table](documentation/features/bag/bag_table.png)
+
+    - If there are no items in the bag, the user will see a message and there would be no bag table:
+    
+      ![Bag page. No items in the bag](documentation/features/bag/your_bag_is_empty_now.png)
+
+    - Items of the bag:
+
+    ![Bag page. Bag Item](documentation/features/bag/bag_item.png)
+
+      - It has an image of the product, the name of the product, the quantity, the price for the single item, quantity control, the total price for the item, and the remove button.
+
+      - Quantity control provides the user a possibility to change the quantity of the item in the bag.
+
+      ![Bag page. Quantity control](documentation/features/bag/bag_buttons_quantity_control.png)
+
+      - If user clicks the "+" button, the quantity of the item will be increased by 1 and the user will see the message:
+
+      ![Bag page. Quantity control. Message](documentation/features/bag/bag_product_updated_msg.png)
+
+      - If user clicks the "-" button, the quantity of the item will be decreased by 1 (If user has more than 1 items) and the user will see the message:
+
+      ![Bag page. Quantity control. Message](documentation/features/bag/bag_product_updated_msg.png)
+
+      - If user clicks the "-" button and the quantity of the item is 1, the item will be removed from the bag and the user will see the message:
+
+      ![Bag page. Quantity control. Message](documentation/features/bag/product_remove_from_bag_msg.png)
+
+      **Note!** When user updates the quantity of the item in the bag, the total price for the item and the total spending will be updated as well.
+
+      - There is an remove from the bag button, which helps the user to remove the item from the bag regardless of the quantity.
+
+      ![Bag page. Quantity control. Empty Bag button](documentation/features/bag/bag_button_empty_bag.png)
+
+      - When user clicks the button, all items will be removed from the bag and the user will see the message:
+
+      ![Bag page. Empty Bag button. Message](documentation/features/bag/bag_is_empty_now_msg.png)
+
+  - Bag Summary section:
+
+    ![Bag page. Bag Summary](documentation/features/bag/bag_summary.png)
+
+    It has Total sum of the bag and quantity of the items in the bag.
+
+  - Under this section the user may see coupon section for loyal customers:
+
+    ![Bag page. Coupon section](documentation/features/bag/bag_coupon_section.png)
+
+    - If the user inputs the correct coupon code, the price will be reduced by the coupon value
+
+    - If the user inputs the incorrect coupon code, the user will see the message:
+    
+      ![Bag page. Coupon section. Message](documentation/features/bag/bag_coupon_invalid_msg.png)
+
+  - Checkout button. When the user clicks the button, the bag page will be redirected to the checkout page.
+  
+    ![Bag page. Checkout button](documentation/features/bag/bag_checkout_button.png)
+
+
+
+
 
 
 
