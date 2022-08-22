@@ -610,7 +610,19 @@ The primary address card is distinguished by the "Primary" label and purple back
 ![My addresses page. Table. Not primary address card](documentation/features/my_addresses/address_card_not_primary.png)
 
 
+### Add address page:
 
+![Add address page](documentation/features/add_address/add_new_address_form.png)
+
+This page allows the user to add a new address by selecting the country, state, city, and typing the address, zip code, and phone number. The user can also select the address as primary.
+
+![Add address page. Primary address](documentation/features/add_address/address_form_dropdown.png)
+
+It also has 2 buttons:
+
+  - Save address button, which redirects the user to the my addresses page and saves the address;
+  
+  - Cancel button, which redirects the user to the my addresses page.
 
 
 
