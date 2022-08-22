@@ -750,25 +750,6 @@ It has been made to prevent the user from editing the review with no reason.
 This trend is highly appreciated by Chinese online shopping community.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Store page:
 
 ![Store page](documentation/features/store/store_page.png)
@@ -1026,6 +1007,15 @@ This page has following features:
     - If there too many items in the wishlist, the user will see a functional page navigation:
 
     ![Wishlist page. Pages navigation](documentation/features/wishlist/wishlist_pagination.png)
+
+
+### Product's Review page:
+
+![Product's review page](documentation/features/product_review/product_review_page.png)
+
+This page has all reviews for the product that has been left by the users who purchased the product.
+
+*Due to the lack of time, the database wasn't fully filled; However, all reviews my be seen on this page with page navigation. If there are more than 20 reviews, the user will see a functional page navigation.*
 
 ### Bag page:
 
