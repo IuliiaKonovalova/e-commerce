@@ -418,11 +418,11 @@ Navbar has 2 subsections:
 
 2. Personnel's section, which is visible only for store personnel:
       
-      ![Navbar](documentation/features/navbar/navbar_personnel.png)
+      ![Navbar. Personnel](documentation/features/navbar/navbar_personnel.png)
 
     It has Personnel's button, which is visible only for store personnel. When this buttons is clicked, the user will see a dropdown menu with following navbar features:
 
-    ![Navbar](documentation/features/navbar/navbar_personnel_dropdown.png)
+    ![Navbar. Personnel. Dropdown](documentation/features/navbar/navbar_personnel_dropdown.png)
 
     - Promo button, which redirects the user to the promotions page
 
@@ -454,11 +454,11 @@ The simplistic design of the navbar is based on the decision to make the use of 
 
 *Navbar is slightly different on the tablet devices*
 
-![Navbar](documentation/features/navbar/navbar_tablets.png)
+![Navbar. Tablets](documentation/features/navbar/navbar_tablets.png)
 
 *Navbar looks as following on the mobile devices*
 
-![Navbar](documentation/features/navbar/navbar_mobile.png)
+![Navbar. Mobiles](documentation/features/navbar/navbar_mobile.png)
 
 ### Footer:
 
@@ -486,7 +486,7 @@ Footer has the following features:
 
 *Footer is slightly different on the mobile devices*
 
-![Footer](documentation/features/footer/footer_mobile.png)
+![Footer. Mobile](documentation/features/footer/footer_mobile.png)
 
 ### Home page:
 
@@ -496,19 +496,19 @@ Home page has:
 
 - Hero section:
 
-![Hero section](documentation/features/home/home_hero_section.png)
+![Hero section. Hero Section](documentation/features/home/home_hero_section.png)
 
 This section has a logo in the left top corner. There is also a eye-catching image on the right side of hero section.
 Underneath the logo is a description of the store and button. If user is logged in, the button has the following text "Start Shopping", which redirects the user to the store page.
 If user is logged out, the button has the following text "Get Started", which redirects the user to the SignUp page.
 
-![Hero section](documentation/features/home/home_hero_section_user_logged_out.png)
+![Hero section. Hero section. User logged out](documentation/features/home/home_hero_section_user_logged_out.png)
 
 - About Us section:
 
-![About Us section](documentation/features/home/about_us_section_1.png)
+![About Us section. Part 1](documentation/features/home/about_us_section_1.png)
 
-![About Us section](documentation/features/home/about_section_2.png)
+![About Us section. Part 2](documentation/features/home/about_section_2.png)
 
 This section describes the benefits of being a customer of the store, such as "The best quality", "The best prices", "Your privacy is our priority", "Fast delivery", and "Being in touch".
 
@@ -520,7 +520,7 @@ This section presents the testimonials of the store customers and aimed at givin
 
 *Home page is slightly different on the mobile devices*
 
-![Home page](documentation/features/home/home_page_mobile.png)
+![Home page. Mobile](documentation/features/home/home_page_mobile.png)
 
 ### Store page:
 
@@ -550,23 +550,23 @@ This page has the following features:
     
     **Product card:**
 
-    ![Products](documentation/features/store/store_product_card.png)
+    ![Products. Product Card](documentation/features/store/store_product_card.png)
 
     It has the main image of the product, the name of the product, the price of the product, the button "Add to wishlist", and special labels. If the product in new, the label "New" is displayed. If the product is on sale, the label "Sale" is displayed.
 
     If the user didn't like the product, the button outline heart is displayed. If the user likes the product, the button filled heart is displayed. And etc.
 
-    ![Products](documentation/features/store/store_product_card_liked.png)
+    ![Products. Product Card. Liked](documentation/features/store/store_product_card_liked.png)
 
     The spin icon is displayed when the user call is processing the request.
 
-    ![Products](documentation/features/store/store_product_card_processing.png)
+    ![Products. Product Card. Spinner](documentation/features/store/store_product_card_processing.png)
 
     Special features of the product card:
 
     The price of products can be different depending on the product's values. For example, if the product has a value "Size", the price of the product can be different depending on the size of the product. If the product out of stock, the price is displayed as "Out of stock".
 
-    ![Products](documentation/features/store/store_products_cards_prices.png)
+    ![Products. Product Card. Prices variation](documentation/features/store/store_products_cards_prices.png)
 
   - Pages:
 
@@ -580,13 +580,13 @@ This page has the product's card with full data.
 
 The left side of the products card has the following features:
 
-![Product's details page](documentation/features/product_details/product_details_left.png)
+![Product's details page. Left side of the card](documentation/features/product_details/product_details_left.png)
 
 It has the main image of the product with carousel. When the user clicks on the left or right arrow, the carousel will change the image.
 
-  ![Product's details page](documentation/features/product_details/carousel1.png)
-  ![Product's details page](documentation/features/product_details/carousel2.png)
-  ![Product's details page](documentation/features/product_details/carousel3.png)
+  ![Product's details page. carousel 1](documentation/features/product_details/carousel1.png)
+  ![Product's details page. carousel 2](documentation/features/product_details/carousel2.png)
+  ![Product's details page. carousel 3](documentation/features/product_details/carousel3.png)
 
 It also has labels:
 
@@ -598,29 +598,29 @@ Underneath the main image of the product is the "Add to wishlist" section. When 
 
 And the message will appear in the top right corner of the page:
 
-![Product's details page](documentation/features/product_details/add_to_wishlist_msg.png)
+![Product's details page. Add to wishlist msg success](documentation/features/product_details/add_to_wishlist_msg.png)
 
 And the heart icon button will turn to be filled heart button.
 
-![Product's details page](documentation/features/product_details/added_to_wishlist.png)
+![Product's details page. Liked](documentation/features/product_details/added_to_wishlist.png)
 
 *While the request is processing, the spin icon is displayed*
 
-![Product's details page](documentation/features/product_details/adding_to_wishlist.png)
+![Product's details page. Liked Spinner](documentation/features/product_details/adding_to_wishlist.png)
 
 Under this section the user may find the reviews of the product and overall rating of the product.
 
-![Product's details page](documentation/features/product_details/product_rating_reviews.png)
+![Product's details page. Reviews section](documentation/features/product_details/product_rating_reviews.png)
 
 When the user clicks "View reviews", the user will be redirected to the product's reviews page.
 
 The right side of the product card has the following features:
 
-  ![Product's details page](documentation/features/product_details/product_details_right.png)
+  ![Product's details page. Right side of the card](documentation/features/product_details/product_details_right.png)
 
   *"Add to bag button will be disable if there are any options which are specified by the customer.**
 
-  ![Product's details page](documentation/features/product_details/add_to_bag_diable.png)
+  ![Product's details page. Add to bag disable](documentation/features/product_details/add_to_bag_diable.png)
 
   - Product's full name;
   
@@ -628,61 +628,61 @@ The right side of the product card has the following features:
 
   - Reset button, which allows the user to reset the values of the product;
 
-    ![Product's details page](documentation/features/product_details/product_option_reset_button.png)
+    ![Product's details page. Reset button](documentation/features/product_details/product_option_reset_button.png)
 
   - Product's options' section:
   
-    ![Product's details page](documentation/features/product_details/product_options.png)
+    ![Product's details page. Products values](documentation/features/product_details/product_options.png)
 
     - User can select the value of the product's option.
 
     *If the options are chosen, the "Add to bag" button will be enabled.*
 
-    ![Product's details page](documentation/features/product_details/add_to_bag_enable.png)
+    ![Product's details page. Add to bag enable](documentation/features/product_details/add_to_bag_enable.png)
 
     If options have colors, the user can see the example of the color right away.
 
     - if the product has no options, the section is not displayed;
 
-    ![Product's details page](documentation/features/product_details/product_no_options.png)
+    ![Product's details page. Product without options](documentation/features/product_details/product_no_options.png)
 
     *If there are no options at all for a particular product, this button will be enable.*
 
     - If product is out of stock, the button "Add to bag" is disabled;
 
-    ![Product's details page](documentation/features/product_details/product_out_of_stock.png)
+    ![Product's details page. Product out of stock](documentation/features/product_details/product_out_of_stock.png)
 
   - Product's price:
   
-    ![Product's details page](documentation/features/product_details/values_for_spider.png)
+    ![Product's details page. Values variations](documentation/features/product_details/values_for_spider.png)
 
     The price of the product can be different depending on the product's values. In the above example, the price for the tarantula starts from $40  and increases to $120.
     
       - If the user chooses the particular value of the product, the price of the product will be specified:
 
-      ![Product's details page](documentation/features/product_details/show_price_on_value.png)
+      ![Product's details page. Change price on checked values 1](documentation/features/product_details/show_price_on_value.png)
 
-      ![Product's details page](documentation/features/product_details/show_price_on_value_change.png)
+      ![Product's details page. Change price on checked value 2](documentation/features/product_details/show_price_on_value_change.png)
 
     - If there is a discount, the price of the product will be displayed with the discount.
     
-      ![Product's details page](documentation/features/product_details/product_detail_discount.png)
+      ![Product's details page. Price with discount](documentation/features/product_details/product_detail_discount.png)
       
   - Product's quantity:
 
-    ![Product's details page](documentation/features/product_details/quantity_section.png)
+    ![Product's details page. Quantity](documentation/features/product_details/quantity_section.png)
 
       - If the quantity is limited, the user will see a warning message.
 
-      ![Product's details page](documentation/features/product_details/quantity_warning_msg.png)
+      ![Product's details page. Quantity warning message](documentation/features/product_details/quantity_warning_msg.png)
 
       - If the user adds the exact quantity of the product that is available right now (7 items in this example), the plus button will be disabled.
 
-      ![Product's details page](documentation/features/product_details/limited_quantity_plus_disable.png)
+      ![Product's details page. Disable plus button](documentation/features/product_details/limited_quantity_plus_disable.png)
 
       - If the user reduces the quantity of the product, the plus button will be enabled.
 
-      ![Product's details page](documentation/features/product_details/limited_quantity_plus_enable_after_clicking_minus.png)
+      ![Product's details page. Enable plus button](documentation/features/product_details/limited_quantity_plus_enable_after_clicking_minus.png)
 
   - Add to bag button:
 
@@ -690,63 +690,63 @@ The right side of the product card has the following features:
 
     - disabled: the button is disabled when the user has not chosen the values of the product or the product is out of stock;
 
-    ![Product's details page](documentation/features/product_details/add_to_bag_button_disable.png)
+    ![Product's details page. Add to bag is disable](documentation/features/product_details/add_to_bag_button_disable.png)
 
     - enabled: the button is enabled when the user has chosen the values of the product and the product is not out of stock and there are not options for a particular product;
 
-    ![Product's details page](documentation/features/product_details/add_to_bag_button_enable.png)
+    ![Product's details page. Add to bag is enable](documentation/features/product_details/add_to_bag_button_enable.png)
 
     - If button is enabled, the user can add the product to the bag and the message will appear in the top right corner of the page confirming the success of the operation:
     
-      ![Product's details page](documentation/features/product_details/add_to_bag_msg.png)
+      ![Product's details page. Add to bag message](documentation/features/product_details/add_to_bag_msg.png)
 
   - Request product section:
 
     - When the user opens the product's details page, the request product section is not displayed till the user starts choosing combinations of the product's options
     
-      ![Product's details page](documentation/features/product_details/request_msg_not_displayed.png)
+      ![Product's details page. No request message](documentation/features/product_details/request_msg_not_displayed.png)
 
     - When the user chooses some product's options and there are some units of the products are not present in the store at this moment, he/she will see are message. This message will give the user a chance to request the particular product's options from the store and get notification email when the product is available.
     
-      ![Product's details page](documentation/features/product_details/request_msg_displayed.png)
+      ![Product's details page. Request Product message](documentation/features/product_details/request_msg_displayed.png)
 
     - If product is out of stock, the request product section is displayed right away.
     
-      ![Product's details page](documentation/features/product_details/request_msg_displayed_right_away.png)
+      ![Product's details page. Request message displayed on load](documentation/features/product_details/request_msg_displayed_right_away.png)
 
   - Modal for requesting a product:
 
-    ![Product's details page](documentation/features/product_details/modal_product_request.png)
+    ![Product's details page. Modal](documentation/features/product_details/modal_product_request.png)
 
     - There are 2 buttons: "Cancel" and "Send" request. "Cancel" button will cancel the request and closes the modal. "Send" button allows user to request a stock notification email when the product is available.
 
     - If there are options for a particular product and the user hasn't specified with options combinations he/she wants and user clicks "Send" button, there will a visible highlighted title to remind user to select options and the request will not be sent
     
-      ![Product's details page](documentation/features/product_details/modal_product_request_options_not_chosen.png)
+      ![Product's details page. Options not chosen for the request](documentation/features/product_details/modal_product_request_options_not_chosen.png)
 
     - If the user has specified with options combinations he/she wants and user clicks "Send" button, the request will be sent, modal window will be closed and the user will see a message confirming the success of the operation.
     
-      ![Product's details page](documentation/features/product_details/modal_request_sent_msg.png)
+      ![Product's details page. Request sent success](documentation/features/product_details/modal_request_sent_msg.png)
 
     - If the user has specified with options combinations he/she wants and user clicks "Cancel" button, the request will not be sent and modal window will be closed.
 
     - If the user has specified with the options combinations he/she wants and user clicks "Send" button, and these options combinations are available in the store at this moment, the request will not be sent, modal window will be closed and the user will see a message:
 
-      ![Product's details page](documentation/features/product_details/modal_enough_in_stock_msg.png)
+      ![Product's details page. Enough in stock message](documentation/features/product_details/modal_enough_in_stock_msg.png)
 
   - Email notifications on stock request:
 
     When the user requested a product, the user will receive an email notification when the product is available.
 
-    ![Product's details page](documentation/features/product_details/stock_request_email.png)
+    ![Product's details page. Stock request email](documentation/features/product_details/stock_request_email.png)
 
     When the requested product is available, the user will receive an email notification.
 
-    ![Product's details page](documentation/features/product_details/stock_answer_email.png)
+    ![Product's details page. Stock notification email](documentation/features/product_details/stock_answer_email.png)
 
   *For the mobile version of the site, the product's details page is displayed in a different way.*
 
-  ![Product's details page](documentation/features/product_details/product_details_page_mobile.png)
+  ![Product's details page. Mobile](documentation/features/product_details/product_details_page_mobile.png)
 
 ### Wishlist page:
 
@@ -756,29 +756,29 @@ This page has following features:
 
   - Empty wishlist button:
   
-    ![Wishlist page](documentation/features/wishlist/wishlist_empty_wishlist_button.png)
+    ![Wishlist page. Empty wishlist button](documentation/features/wishlist/wishlist_empty_wishlist_button.png)
     
     - if user unlikes the product, the product will be removed from the wishlist and the user will see a message confirming the success of the operation.
 
-    ![Wishlist page](documentation/features/wishlist/wishlist_remove_item_msg.png)
+    ![Wishlist page. Empty wishlist message](documentation/features/wishlist/wishlist_remove_item_msg.png)
 
     - If the user clicks the button, a container with the confirmation will appear:
 
-    ![Wishlist page](documentation/features/wishlist/wishlist_empty_wishlist_container.png)
+    ![Wishlist page. Empty wishlist container](documentation/features/wishlist/wishlist_empty_wishlist_container.png)
 
     - if the user clicks "No", the container will be closed and the wishlist will not be emptied.
 
     - If the user click "Yes" button, the wishlist will be emptied and the user will see a message confirming the success of the operation.
 
-    ![Wishlist page](documentation/features/wishlist/wishlist_empty_msg.png)
+    ![Wishlist page. Empty wishlist message](documentation/features/wishlist/wishlist_empty_msg.png)
 
     - If there are no items in the wishlist, the user will see a message:
 
-    ![Wishlist page](documentation/features/wishlist/wishlist_empty.png)
+    ![Wishlist page. Wishlist empty](documentation/features/wishlist/wishlist_empty.png)
 
     - If there too many items in the wishlist, the user will see a functional page navigation:
 
-    ![Wishlist page](documentation/features/wishlist/wishlist_pagination.png)
+    ![Wishlist page. Pages navigation](documentation/features/wishlist/wishlist_pagination.png)
 
 ### Bag page:
 
