@@ -726,6 +726,22 @@ Where user can type the comment.
   - Cancel button, which redirects the user to the my order detail page.
 
 
+### My review page:
+
+![My reviews page](documentation/features/my_review/my_reviews_page.png)
+
+This page has oll data on the review left by the user.
+
+**However, the edition of the review is not allowed**
+
+![My reviews page. Table](documentation/features/my_review/my_review_details_alert_msg.png)
+
+This decision was made based on the fact that the shop owner has to evaluate all aspects of the customer's experience: product quality, delivery speed, and customer service.
+
+It has been made to prevent the user from editing the review with no reason.
+
+This trend is highly appreciated by Chinese online shopping community.
+
 
 
 
