@@ -1199,6 +1199,83 @@ When the personnel clicks "Cancel" button, the personnel will be redirected to t
 
 When the personnel clicks "Save" button, the personnel will be redirected to the emails page.
 
+### Categories Page:
+
+![Categories page](documentation/features/personnel/categories/categories_page.png)
+
+This page is accessible only to the personnel. It has categories table with all categories.
+
+However, only admin is able to delete categories.
+
+The following image shows the categories table for managers:
+
+![Categories page. Disable](documentation/features/personnel/categories/category_manager.png)
+
+Under the title of the Categories title, the personnel member can see a button to add a category.
+
+If the personnel member clicks on the button, the personnel member will be redirected to the add category page.
+
+- Category card for the admin:
+
+  ![Categories page. Category card](documentation/features/personnel/categories/category_card.png)
+
+  - If the admin or other personnel members click on the edit button, the admin will be redirected to the edit category page;
+
+  - If the admin clicks on the delete button, the admin will be redirected to the delete category page;!
+
+### Add Category Page:
+
+![Add Category page](documentation/features/personnel/categories/add_category.png)
+
+This page is accessible only to the personnel. It has a form with fields for the category name and status.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the categories page.
+
+When the personnel clicks "Save" button, the personnel will be redirected to the categories page.
+
+### Edit Category Page:
+
+![Edit Category page](documentation/features/personnel/categories/edit_category.png)
+
+This page is accessible only to the personnel. It has a form with fields for the category name and status.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the categories page.
+
+When the personnel clicks "Save" button, the personnel will be redirected to the categories page.
+
+### Delete Category Page:
+
+![Delete Category page](documentation/features/personnel/categories/delete_category.png)
+
+This page is accessible only to the admin. It has a form and the list of the products in the category.
+
+When the admin clicks "Cancel" button, the admin will be redirected to the categories page.
+
+When the admin clicks "Delete" button, the admin will be redirected to the categories page.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 ## Design
