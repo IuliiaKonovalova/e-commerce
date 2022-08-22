@@ -544,9 +544,41 @@ This page has the main data on the customer for the logged in user.
 
   - My reviews button, which redirects the user to the my reviews page;
 
+### Edit Profile page:
 
+![Edit Profile page](documentation/features/edit_profile/edit_profile_page.png)
 
+This page has the main data on the customer for the logged in user and allows user to edit this data.
 
+It has four forms:
+
+  - Edit avatar form;
+
+    ![Edit avatar form](documentation/features/edit_profile/edit_avatar_form.png)
+
+    - if user wants to upload an avatar, he can do it by clicking the "Edit" button, and the user will be able to select an image from his computer. When the user selects and image, the form will be filled with the image's data:
+
+    ![Edit avatar form. Image selected](documentation/features/edit_profile/edit_avatar_new.png)
+
+  - Edit Profile Data Form;
+  
+    ![Edit Profile Data Form](documentation/features/edit_profile/edit_profile_data_form.png)
+    
+  - Change Password Form;
+  
+    ![Change Password Form](documentation/features/edit_profile/change_password_form.png)
+
+  - Delete Account Form;
+
+    ![Delete Account Form](documentation/features/edit_profile/delete_account_form.png)
+
+    - If the user clicks the "Delete" button, the user will be asked to confirm the deletion.
+
+    ![Delete Account Form. Confirmation](documentation/features/edit_profile/delete_profile_form_dropdown.png)
+
+    - If user confirms the deletion, the user will be redirected to the home page.
+
+    - If user doesn't confirm the deletion, the delete account form will be closed.
 
 
 
