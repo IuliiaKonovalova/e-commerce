@@ -1138,7 +1138,25 @@ This page has following features:
 
 This page has a success message and a button to go to review a customer's orders.
 
+### Promotions Page:
 
+![Promotions page](documentation/features/personnel/promotions/promotions_page.png)
+
+This page is accessible only to the personnel. And only admin is able to add a promotion, render the promotion page and delete the promotion.
+
+The following image shows the promotion page for managers:
+
+![Promotions page. Add promotion Disable](documentation/features/personnel/promotions/no_add_button_manager.png)
+
+When the personnel member clicks on the promotion in the promotions table, the dropdown menu will be displayed with all items in the promotion and link to these items.
+
+![Promotions page. Dropdown menu](documentation/features/personnel/promotions/promo_items.png)
+
+However, only the admin is able to see edit and delete buttons.
+
+The following image shows the promotion dropdown menu for managers:
+
+![Promotions page. Dropdown menu Disable](documentation/features/personnel/promotions/no_buttons_promo_manager.png)
 
 
 
