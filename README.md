@@ -864,9 +864,33 @@ This page has following features:
   
     ![Bag page. Checkout button](documentation/features/bag/bag_checkout_button.png)
 
+### Payment page:
 
+![Payment page](documentation/features/payment/payment_page.png)
 
+This page has following features:
 
+  - Title and prefilled form:
+  
+    ![Payment page. Title and form](documentation/features/payment/payment_form.png)
+
+    - This form is editable and the user can change the data.
+
+    - If the user hasn't set the full name in the profile, the "Customer Name" will be empty:
+
+    ![Payment page. Customer Name](documentation/features/payment/payemnt_form_no_customer_name.png)
+    
+    - If user has subscribed to the newsletter, the form will be prefilled with the email address.
+
+    - Alert message if the user hasn't set a primary address with empty form:
+
+    ![Payment page. Alert message](documentation/features/payment/payment_form_no_primary_address.png)
+
+  - Under the from the user will see a payment card field with a "Pay button" This button will show the exact price for the order.
+  
+    ![Payment page. Payment card](documentation/features/payment/payment_form_stripe.png)
+    
+    - If the user clicks the button, the payment page will be redirected to the confirmation page.
 
 
 
