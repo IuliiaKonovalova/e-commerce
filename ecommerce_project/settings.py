@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'payment',
     'orders',
     'reviews',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -233,3 +234,8 @@ else:
         },
     }
     django_heroku.settings(locals())
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
