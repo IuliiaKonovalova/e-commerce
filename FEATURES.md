@@ -1149,3 +1149,60 @@ And has only "Go back" button.
 
 When the personnel clicks "Go back" button, the personnel will be redirected to the product types page.
 
+### Attributes Page:
+
+![Attributes page](documentation/features/personnel/attributes/attributes.png)
+
+This page is accessible only to the personnel. It has attributes table with all attributes.
+
+It has a title, "Add attribute" button, which will redirect the personnel member to the add attribute page. It also has search field, which allows the admin to search for attributes.
+
+The main part of the page is dedicated to the attributes table. Attributes table has cards with data on each attribute:
+  - Name;
+  - Description;
+  - Values associated with the attribute;
+      - If this click on the value, the personnel member will see all list of values associated with the attribute;
+      ![Attributes](documentation/features/personnel/attributes/attribut_card_dropdown.png)
+  - Edit button;
+      - if the personnel member clicks on the edit button, the personnel member will be redirected to the edit attribute page;
+
+  **The attribute card will be viewed as following for managers**
+
+  ![Attribute card](documentation/features/personnel/attributes/attribute_card_manager.png)
+
+  - Delete button; (Only for admin)
+      - if the admin clicks on the delete button, the admin will be redirected to the delete attribute page;
+
+
+### Add Attribute Page:
+
+![Add Attribute page](documentation/features/personnel/attributes/add_attribute.png)
+
+This page is accessible only to the personnel. It has a form with fields for the attribute name, description and values.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the attributes page.
+
+When the personnel clicks "Add attribute" button, the personnel will be redirected to the attributes page.
+
+### Edit Attribute Page:
+
+![Edit Attribute page](documentation/features/personnel/attributes/edit_attribute.png)
+
+This page is accessible only to the personnel. It has a pre-filled form with fields for the attribute name, description and values.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the attributes page.
+
+When the personnel clicks "Save changes" button, the personnel will be redirected to the attributes page.
+
+### Delete Attribute Page:
+
+![Delete Attribute page](documentation/features/personnel/attributes/delete_attribute.png)
+
+This page is accessible only to the personnel. It has no form as the deletion may be dangerous.
+
+It provides a warning message.
+
+And has only "Go back" button.
+
+When the personnel clicks "Go back" button, the personnel will be redirected to the attributes page.
+
