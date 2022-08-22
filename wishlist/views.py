@@ -14,7 +14,7 @@ class WishlistDisplayView(View):
         if request.user.is_authenticated:
             wishlist = Wishlist.objects.get(user=request.user)
             # get products in the wishlist
-            p = Paginator(wishlist.products.all(), 20)
+            p = Paginator(wishlist.products.all(), 21)
             page = request.GET.get('page')
             products = p.get_page(page)
             context = {
