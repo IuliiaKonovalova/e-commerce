@@ -1206,3 +1206,57 @@ And has only "Go back" button.
 
 When the personnel clicks "Go back" button, the personnel will be redirected to the attributes page.
 
+### Values Page:
+
+![Values page](documentation/features/personnel/values/values.png)
+
+This page is accessible only to the personnel. It has values table with all values.
+
+It has a title, "Add value" button, which will redirect the personnel member to the add value page. It also has search field, which allows the admin to search for values.
+
+The main part of the page is dedicated to the values table. Values table has cards with data on each value:
+  - Name;
+  - Description;
+  - number of units assigned to the value;
+  - Edit button;
+      - if the personnel member clicks on the edit button, the personnel member will be redirected to the edit value page;
+    
+    **The value card will be viewed as following for managers**
+
+    ![Value card](documentation/features/personnel/values/value_card_manager.png)
+
+  - Delete button; (Only for admin)
+      - if the admin clicks on the delete button, the admin will be redirected to the delete value page;
+
+
+### Add Value Page:
+
+![Add Value page](documentation/features/personnel/values/add_value.png)
+
+This page is accessible only to the personnel. It has a form with fields for the value name, description and number of units.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the values page.
+
+When the personnel clicks "Add value" button, the personnel will be redirected to the values page.
+
+### Edit Value Page:
+
+![Edit Value page](documentation/features/personnel/values/edit_value.png)
+
+This page is accessible only to the personnel. It has a pre-filled form with fields for the value name, description and number of units.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the values page.
+
+When the personnel clicks "Save changes" button, the personnel will be redirected to the values page.
+
+### Delete Value Page:
+
+![Delete Value page](documentation/features/personnel/values/delete_value.png)
+
+This page is accessible only to the personnel. It has no form as the deletion may be dangerous.
+
+It provides a warning message.
+
+And has only "Go back" button.
+
+When the personnel clicks "Go back" button, the personnel will be redirected to the values page.
