@@ -293,6 +293,7 @@ This decision to postpone the implementation of the features described above was
     + [birme.net](https://www.birme.net/): was used to crop and center unsplash images.
     + [Sitemap Generator](https://www.xml-sitemaps.com/) was used to create the sitemap.xml file.
     + [Privacy Policy Generator](https://www.privacypolicygenerator.info/) was used to create the privacy policy.
+    + [Django-extensions](https://django-extensions.readthedocs.io/en/latest/) was used to create a Entity-Relationship Diagram.
 
 ---
 
@@ -579,6 +580,34 @@ It has four forms:
     - If user confirms the deletion, the user will be redirected to the home page.
 
     - If user doesn't confirm the deletion, the delete account form will be closed.
+
+### My addresses page:
+
+![My addresses page](documentation/features/my_addresses/my_addresses_page.png)
+
+This page empowers customers to store their addresses. And easily allows them to edit and delete them as well as set the primary address.
+
+It has a button: "Add new address", which redirects the user to the add address page.
+
+![My addresses page. Add new address button](documentation/features/my_addresses/add_new_address_button.png)
+
+It has table of address's cards:
+
+Only one address can be primary.
+
+Each card has address data and 2 buttons.
+
+  - Edit button, which redirects the user to the edit address page;
+  
+  - Primary address card has also a "Disable as Primary" button, which allows the user to disable the primary address.
+
+![My addresses page. Table](documentation/features/my_addresses/address_card_primary.png)
+
+The primary address card is distinguished by the "Primary" label and purple background.
+
+  - Not primary address card has also a "Enable as Primary" button, which allows the user to make the address primary, and disable the previous primary address.
+
+![My addresses page. Table. Not primary address card](documentation/features/my_addresses/address_card_not_primary.png)
 
 
 
