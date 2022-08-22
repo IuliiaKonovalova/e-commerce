@@ -1086,3 +1086,66 @@ This page is accessible only to the personnel. It has a form with the warning me
 When the personnel clicks "Cancel" button, the personnel will be redirected to the tags page.
 
 When the personnel clicks "Delete" button, the personnel will be redirected to the tags page.
+
+
+
+### Product Types Page:
+
+![Product Types page](documentation/features/personnel/product_types/product_types.png)
+
+This page is accessible only to the personnel. It has product types table with all product types.
+
+It has a title, "Add product type" button, which will redirect the personnel member to the add product type page. It also has search field, which allows the admin to search for product types.
+
+The main part of the page is dedicated to the product types table. Product types table has cards with data on each product type:
+
+  - Name;
+  - Description;
+  - Attributes;
+      - If this click on the attribute, the personnel member will see all list of attributes associated with the product type;
+
+      ![Attributes](documentation/features/personnel/product_types/product_types_dropwdown.png)
+
+  - Edit button;
+      - if the personnel member clicks on the edit button, the personnel member will be redirected to the edit product type page;
+
+  **The product type card will be viewed as following for managers**
+
+  ![Product type card](documentation/features/personnel/product_types/product_type_manager.png)
+
+  - Delete button; (Only for admin)
+      - if the admin clicks on the delete button, the admin will be redirected to the delete product type page;
+
+
+### Add Product Type Page:
+
+![Add Product Type page](documentation/features/personnel/product_types/add_product_type.png)
+
+This page is accessible only to the personnel. It has a form with fields for the product type name, attributes and description.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the product types page.
+
+When the personnel clicks "Add product type" button, the personnel will be redirected to the product types page.
+
+### Edit Product Type Page:
+
+![Edit Product Type page](documentation/features/personnel/product_types/edit_product_type.png)
+
+This page is accessible only to the personnel. It has a pre-filled form with fields for the product type name, attributes and description.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the product types page.
+
+When the personnel clicks "Save changes" button, the personnel will be redirected to the product types page.
+
+### Delete Product Type Page:
+
+![Delete Product Type page](documentation/features/personnel/product_types/delete_product_type.png)
+
+This page is accessible only to the personnel. It has no form as the deletion may be dangerous.
+
+It provides a warning message.
+
+And has only "Go back" button.
+
+When the personnel clicks "Go back" button, the personnel will be redirected to the product types page.
+
