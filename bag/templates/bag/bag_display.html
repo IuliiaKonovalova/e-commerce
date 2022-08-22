@@ -465,7 +465,11 @@
             }
           },
           error: function (data) {
-            messagesAlertError();
+            let couponError = 'There is no promo code with this name';
+            messagesAlertData(couponError);
+            $('.bag__promotion--input').parent().after(
+              '<div class="data__promo--total">' + couponError + '</div>'
+              );
           }
         })
       });
