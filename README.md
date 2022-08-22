@@ -522,6 +522,37 @@ This section presents the testimonials of the store customers and aimed at givin
 
 ![Home page. Mobile](documentation/features/home/home_page_mobile.png)
 
+### My profile page:
+
+![My profile page](documentation/features/my_profile/my_profile_page.png)
+
+This page has the main data on the customer for the logged in user.
+
+- It has avatar, full name, primary address (if it is set), profile navigation:
+
+![My profile Card](documentation/features/my_profile/my_profile_card.png)
+
+- Profile navigation has the following buttons:
+
+  - Edit profile button, which redirects the user to the edit profile page;
+
+  - My addresses button, which redirects the user to the my addresses page; (*If user hasn't added any addresses, the button will say: add address, and the user will be redirected to add address page*)
+
+  - My orders button, which redirects the user to the my orders page;
+
+  - My wishlist button, which redirects the user to the my wishlist page;
+
+  - My reviews button, which redirects the user to the my reviews page;
+
+
+
+
+
+
+
+
+
+
 ### Store page:
 
 ![Store page](documentation/features/store/store_page.png)
