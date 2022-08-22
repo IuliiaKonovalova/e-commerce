@@ -892,8 +892,14 @@ This page has following features:
     
     - If the user clicks the button, the payment page will be redirected to the confirmation page.
 
+    *If there are any errors in the form, the user will see the messages*
+    *Uses is enable to double click on the button to pay the order.*
 
+### Order Placed page:
 
+![Order Placed page](documentation/features/order_placed/order_placed_page.png)
+
+This page has a success message and a button to go to review a customer's orders.
 
 
 
