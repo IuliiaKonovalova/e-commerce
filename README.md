@@ -658,7 +658,37 @@ Each card has a short description of the order, the date of the order, the total
 
 If the user clicks on the order card, the user will be redirected to the order detail page.
 
+### My Order detail page:
 
+![My Order detail page](documentation/features/my_order_details/my_order_detail_page.png)
+
+This page has an store order number as a title and "Back to my orders" button, which redirects the user to the my orders page. 
+
+![My Order detail page. Title. Button](documentation/features/my_order_details/my_order_detail_title_button.png)
+
+Under the title, the user can find the order's data shown as a table:
+
+1. Order summary:
+
+![My Order detail page. Table. Order summary](documentation/features/my_order_details/my_order_detail_data.png)
+
+2. Order items:
+
+![My Order detail page. Table. Order items](documentation/features/my_order_details/my_order_detail_item.png)
+
+For each item, the user can find the product's name with the link to the product in store, quantity, price, and total price. If user clicks on the product's name or product's image, the user will be redirected to the product detail page.
+
+**If order is completed, Customer is allowed to add reviews on the products**
+
+![My Order detail page. Table. Order items. Reviews](documentation/features/my_order_details/my_order_details_completed_order.png)
+
+Each item got the same button: "Add review".
+
+If user clicks on the button, the user will be redirected to the add review page.
+
+If user has already added a review, the button be "View review".
+
+![My Order detail page. Table. Order items. Reviews. Button](documentation/features/my_order_details/order_details_view_review.png)
 
 
 ### Store page:
