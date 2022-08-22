@@ -1186,6 +1186,19 @@ When the admin clicks "Cancel" button, the admin will be redirected to the promo
 
 When the admin clicks "Save" button, the admin will be redirected to the promotions page.
 
+### Create Email Page:
+
+![Create Email page](documentation/features/personnel/create_email/create_email_page.png)
+
+This page is accessible only by personnel. It has a form with fields for the email name, Content and coupon code.
+
+The coupon code field is optional.
+
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the emails page.
+
+When the personnel clicks "Save" button, the personnel will be redirected to the emails page.
+
 
 ---
 ## Design
