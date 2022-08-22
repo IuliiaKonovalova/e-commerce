@@ -1836,9 +1836,18 @@ input[name=quantity] {
 }
 
 .wishlist__item--image {
-  max-height: 100%;
+  width: 100%;
+  min-height: 10rem;
   align-self: center;
   justify-self: center;
+}
+
+.wishlist__item--image img {
+  display: block;
+  width: unset;
+  object-fit: contain !important;
+  max-height: 10rem;
+  object-position: center;
 }
 
 .wishlist__item--name {
