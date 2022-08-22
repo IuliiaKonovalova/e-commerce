@@ -690,6 +690,60 @@ If user has already added a review, the button be "View review".
 
 ![My Order detail page. Table. Order items. Reviews. Button](documentation/features/my_order_details/order_details_view_review.png)
 
+If user forgot to close the window with the add review page, and review has already been added, the user will be redirected to the review already added page.
+
+![My Order detail page. Table. Order items. Reviews. Button. Review already added](documentation/features/my_order_details/order_details_review_already_added.png)
+
+
+### Add review page:
+
+![Add review page](documentation/features/add_review/add_review_page.png)
+
+This page has a form to add a review.
+
+1. Rating:
+
+![Add review page. Rating](documentation/features/add_review/add_review_rating.png)
+
+Where user can select the rating.
+
+2. Comment:
+
+Where user can type the comment.
+
+3. Images:
+
+  - If user has uploaded images, they will be shown in the form;
+  
+  - If user has not uploaded images, they will be shown in the form.
+
+![Add review page. Images](documentation/features/add_review/add_review_images.png)
+
+4. Form control buttons:
+
+  - Save review button, which redirects the user to the my order detail page and saves the review;
+  
+  - Cancel button, which redirects the user to the my order detail page.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Store page:
 
