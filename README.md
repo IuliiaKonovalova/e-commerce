@@ -1253,10 +1253,74 @@ When the admin clicks "Cancel" button, the admin will be redirected to the categ
 
 When the admin clicks "Delete" button, the admin will be redirected to the categories page.
 
+### Brands Page:
+
+![Brands page](documentation/features/personnel/brands/brands_page.png)
+
+This page is accessible only to the personnel. It has brands table with all brands.
+
+It has a title, "Add brand" button, which will redirect the personnel member to the add brand page. It also has search field, which allows the admin to search for brands.
+
+The main part of the page is dedicated to the brands table.
+
+if the admin or other personnel members click on the brand in the brands table, the admin will be redirected to the brand's details page.
+
+### Add Brand Page:
+
+![Add Brand page](documentation/features/personnel/brands/add_brand.png)
+
+This page is accessible only to the personnel. It has a form with fields for the brand name, description, and status.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the brands page.
+
+When the personnel clicks "Add brand" button, the personnel will be redirected to the brands page.
+
+### Brand Details Page:
+
+![Brand Details page](documentation/features/personnel/brands/brand_detail.png)
+
+This page is accessible only to the personnel.
+
+It has full data on the brand:
+
+*Admin view*
+
+![Brand card](documentation/features/personnel/brands/brand_card.png)
+
+*Manager view*
+
+![Brand card](documentation/features/personnel/brands/brand_details_manager.png)
+
+- Name;
+- Status;
+- How many products are in the brand;
+- All products in the brand;
+- Description;
+- Edit button;
+    - if the personnel member clicks on the edit button, the personnel member will be redirected to the edit brand page;
+- Delete button; (Only for admin)
+    - if the admin clicks on the delete button, the admin will be redirected to the delete brand page;
 
 
+### Edit Brand Page:
 
+![Edit Brand page](documentation/features/personnel/brands/edit_brand.png)
 
+This page is accessible only to the personnel. It has a pre-filled form with fields for the brand name, description, and status.
+
+When the personnel clicks "Cancel" button, the personnel will be redirected to the brands page.
+
+When the personnel clicks "Save changes" button, the personnel will be redirected to the brands page.
+
+### Delete Brand Page:
+
+![Delete Brand page](documentation/features/personnel/brands/delete_brand.png)
+
+This page is accessible only to the admin. It has a form and the list of the products in the brand.
+
+When the admin clicks "Cancel" button, the admin will be redirected to the brands page.
+
+When the admin clicks "Delete" button, the admin will be redirected to the brands page.
 
 
 
