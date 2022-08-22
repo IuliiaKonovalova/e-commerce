@@ -1158,7 +1158,33 @@ The following image shows the promotion dropdown menu for managers:
 
 ![Promotions page. Dropdown menu Disable](documentation/features/personnel/promotions/no_buttons_promo_manager.png)
 
+- If admin clicks add promotion button, he will be redirected to add promotion page;
 
+- If admin clicks on the edit button, he will be redirected to edit promotion page;
+
+- If admin clicks on the delete button, the modal will be displayed with a confirmation message;
+
+![Promotions page. Modal](documentation/features/personnel/promotions/promotions_delete_modal.png)
+
+### Add Promotion Page:
+
+![Add Promotion page](documentation/features/personnel/add_promotion/add_promotion_page.png)
+
+This page is accessible only to the admin. It has a form with fields for the promotion name, description, coupon code, discount, start date, end date, and the items that will be included in the promotion.
+
+When the admin clicks "Cancel" button, the admin will be redirected to the promotions page.
+
+When the admin clicks "Save" button, the admin will be redirected to the promotions page.
+
+### Edit Promotion Page:
+
+![Edit Promotion page](documentation/features/personnel/edit_promotion/edit_promotion_page.png)
+
+This page is accessible only to the admin. It has a form with fields for the promotion name, description, coupon code, discount, start date, end date, and the items that will be included in the promotion.
+
+When the admin clicks "Cancel" button, the admin will be redirected to the promotions page.
+
+When the admin clicks "Save" button, the admin will be redirected to the promotions page.
 
 
 ---
