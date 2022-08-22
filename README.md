@@ -646,6 +646,18 @@ If user clicks the delete address button, the user will be asked to confirm the 
 
 - If user doesn't confirm the deletion, the delete address form will be closed.
 
+### My orders page:
+
+![My orders page](documentation/features/my_orders/my_orders_page.png)
+
+This page has a full data on the customer's orders and presented by orders' cards.
+
+![My orders page. Table](documentation/features/my_orders/orders_cards.png)
+
+Each card has a short description of the order, the date of the order, the total price of the order, and the status of the order.
+
+If the user clicks on the order card, the user will be redirected to the order detail page.
+
 
 
 
