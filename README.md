@@ -854,6 +854,8 @@ This page has following features:
 
     - If the user inputs the correct coupon code, the price will be reduced by the coupon value
 
+      ![Bag page. Coupon section. Message](documentation/features/bag/bag_coupon_msg.png)
+
     - If the user inputs the incorrect coupon code, the user will see the message:
     
       ![Bag page. Coupon section. Message](documentation/features/bag/bag_coupon_invalid_msg.png)
