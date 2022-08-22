@@ -1031,7 +1031,7 @@ To emphasize the importance of the text, the font-weight was set to 900. To make
 
 ### Entity-Relationship Diagram
 
-
+![ERD](documentation/my_project_visualized.png)
 
 
 
