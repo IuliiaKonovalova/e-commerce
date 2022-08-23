@@ -1582,3 +1582,17 @@ The form includes the following fields:
   - If the admin clicks on the "Add Stock" button, the stock will be saved and the form will be cleared in order to let the admin to add another stock;
 
 The checking date and units purchased fields are necessary for the admin to control any possible inconsistency in the store.
+
+### Update Stock Page:
+
+![Update Stock page](documentation/features/personnel/stock/update_stock.png)
+
+This page is accessible only to the admin. It has a pre-filled form for updating a stock.
+
+The form includes the same fields as the add stock form.
+
+It also has 2 buttons: "Cancel" and "Update Stock";
+
+  - If the admin clicks on the "Cancel" button, the admin will be redirected to the unit page;
+  - If the admin clicks on the "Update Stock" button, the stock will be updated and the admin will be redirected to the unit page;
+
