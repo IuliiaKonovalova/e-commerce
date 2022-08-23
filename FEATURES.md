@@ -1435,3 +1435,18 @@ It has the the same fields as the add product page. The only difference is that 
 
   - If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the product full data page and changes will be lost;
   - If the personnel member clicks on the "Save changes" button, the personnel member will be redirected to the product full data page and changes will be saved;
+
+
+### Delete Product Page:
+
+![Delete Product page](documentation/features/personnel/product_full/delete_product.png)
+
+This page is accessible only to the personnel. It has a form for deleting a product.
+
+It also has a name of the product, the number of units related to this product, and a warning message.
+
+Under the warning message, there is a "Cancel" button and a "Delete" button.
+
+- If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the product full data page;
+
+- If the personnel member clicks on the "Delete" button, the personnel member will be redirected to the products page;
