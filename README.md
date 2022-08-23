@@ -352,6 +352,20 @@ To emphasize the importance of the text, the font-weight was set to 900. To make
 
 ---
 
+## Agile Methodology
+
+### GitHub Project Management
+
+  ![GitHub Project Management](documentation/agile/github_project_management.png)
+
+GitHub Project Management were used to manage the project. If it hasn't been for the github project management, I wouldn't have been able to manager the development of the application. It help me to prioritize the tasks and to keep track of the progress.
+
+![GitHub Project Management](documentation/agile/kanban.png)
+
+![GitHub Project Management](documentation/agile/tasks.png)
+
+---
+
 ## Flowcharts
 
 ---
