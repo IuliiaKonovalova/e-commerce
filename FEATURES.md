@@ -1723,3 +1723,47 @@ Each item has the following data:
 5. Customer's order data including customer's name, phone number, email, address and phone number:
 
 ![Order full detail Page. Customer's order data](documentation/features/personnel/orders/order_full_details_customer_data.png)
+
+### Edit Order Item Page:
+
+![Edit Order Item Page](documentation/features/personnel/orders/edit_order_item_page.png)
+
+Accessible only to the admin. This page has the following features:
+
+  - Heading with the title;
+  - Form with all necessary data on the order item;
+  - "Save" button;
+  - "Cancel" button;
+
+### Delete Order Item Page:
+
+![Delete Order Item Page](documentation/features/personnel/orders/delete_order_item.png)
+
+Accessible only to the admin. This page has the following features:
+
+  - Heading with the title;
+  - Warning message;
+  - "Delete" button;
+  - "Cancel" button;
+
+### Edit Order Page:
+
+![Edit Order Page](documentation/features/personnel/orders/edit_order.png)
+
+Accessible only to the admin. This page has the following features:
+
+  - Heading with the title;
+  - Form with all necessary data on the order;
+  - "Save" button;
+  - "Cancel" button;
+
+### Delete Order Page:
+
+![Delete Order Page](documentation/features/personnel/orders/delete_order.png)
+
+  - Heading with the title;
+  - Warning message;
+  - "Delete" button;
+  - "Cancel" button;
+
+  
