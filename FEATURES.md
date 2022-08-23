@@ -1766,4 +1766,28 @@ Accessible only to the admin. This page has the following features:
   - "Delete" button;
   - "Cancel" button;
 
-  
+### Stock Requests Page:
+
+![Stock Requests Page](documentation/features/personnel/stock_requests/stock_requests.png)
+
+This page is accessible only to personnel. It has all stock requests data and a sort bar.
+
+1. Heading with the title and the number of requests;
+
+![Stock Requests Page. Heading](documentation/features/personnel/stock_requests/stock_requests_heading.png)
+
+2. Sort bar with dropdown menu where all requested products are shown. It allows to sort requests by product.
+
+![Stock Requests Page. Sort bar](documentation/features/personnel/stock_requests/stock_requests_search.png)
+
+3. Stock requests Table:
+
+![Stock Requests Page. Stock requests Table](documentation/features/personnel/stock_requests/stock_requests_table.png)
+
+The table has the following data:
+
+- Product name with a link to the product in store;
+
+- Values of the product requested;
+
+- Quantity;
