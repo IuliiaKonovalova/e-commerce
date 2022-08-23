@@ -1477,4 +1477,47 @@ The stock units table has unit's cards with the data on the unit:
 
   - Stock numbers with colorful background to make sure the stock is in noticed:
 
-Page navigation if there more than one page:
+Page navigation if there more than one page.
+
+### Unit Page:
+
+![Unit page](documentation/features/personnel/units/unit_card.png)
+
+This page has the following features:
+
+- "Back to products" button, which will redirect the personnel member to the products page;
+- Name of the product  of the unit and the label if the product is new;
+- "Edit" button, which will redirect the personnel member to the edit unit page;
+- "Delete" button, which will redirect the personnel member to the delete unit page;
+- Data on the unit:
+  - status;
+  - SKU;
+  - UPC;
+  - Values;
+  - Weight;
+  - Promo;
+  - Price table;
+  - Stock table:
+    - Stock numbers with colorful background to make sure the stock is in noticed;
+    - Purchased units' amount;
+    - Left units' amount;
+    - Sold units' amount;
+    - Last checked date;
+    - Inconsistency; (if there is some inconsistency, the personnel member will see a red background);
+
+    ![Unit page. Stock inconsistency](documentation/features/personnel/units/stock_inconsistency.png)
+
+  *If the personnel member is admin, the admin will see additional buttons:*
+    - "Update stock" button, which will redirect the personnel member to the update stock page;
+    - "Delete" button, which will redirect the personnel member to the delete unit page;
+
+    If there is not stock for the unit, the personnel member will not see a stock table and there will be a message: "Stock not found" and "Add stock" button, which leads to the add stock page;
+
+    ![Unit page. Stock not found](documentation/features/personnel/units/unit_card_no_stock.png)
+
+
+  *For the managers this unit detail card will look as follows:*
+
+![Unit page. Manager](documentation/features/personnel/units/unit_stock_manager.png)
+
+![Unit page. Manager. Stock inconsistency](documentation/features/personnel/units/stock_not_found_manager.png)
