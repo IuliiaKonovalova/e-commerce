@@ -1604,3 +1604,37 @@ This page is accessible only to the admin. It has a form for deleting a stock. I
 
   - If the admin clicks on the "Cancel" button, the admin will be redirected to the unit page;
   - If the admin clicks on the "Delete" button, the stock will be deleted and the admin will be redirected to the unit page;
+
+### Stock Table Page:
+
+![Stock table page](documentation/features/personnel/stock_table/stock_table.png)
+
+This page is accessible only to personnel. It has the following features:
+
+- Heading with the title, data on how many product's units do not have stock and the "Show" button to see these units;
+
+![Stock table page. Show units without stock button](documentation/features/personnel/stock_table/stock_table_heading.png)
+
+- If "Show" button is clicked, the personnel member may see a table with unit, where each unit has SKU, name of the product, and a link to the unit's product:
+
+![Stock table. Show units without stock table](documentation/features/personnel/stock_table/stock_table_units_without_stock.png)
+
+When personnel member clicks the unit, he/she will be redirected to unit's page to see full data on the unit.
+
+Under this table the used can find a select bar.
+
+![Stock table. Select bar](documentation/features/personnel/stock_table/stock_table_select_bar.png)
+
+When the personnel member/admin clicks particular option, units will be filtered in the table.
+
+![Stock table. Select bar. fewer than 20](documentation/features/personnel/stock_table/stock_table_selected_fewer_than_20.png)]
+
+As it is shown in above example, personnel may find out the number of units, which have < 20 stock units and the full data. In addition, there is also a link to go to the unit details page to find more data on this unit.
+
+The main accent of this page is devoted to stock table itself:
+
+![Stock table](documentation/features/personnel/stock_table/stock_table_units.png)]
+
+It has all necessary data on the stock for each unit.
+
+Under the table, the user can find page navigation.
