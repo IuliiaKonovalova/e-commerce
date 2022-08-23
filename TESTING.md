@@ -20,7 +20,22 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 8           | Sign In with the same email/username and password | Takes user to schedule page with pop-up confirming successful sign in. Get started button now missing in main nav, replaced by Menu | Y |          |
 | 9           | Click "Logout" button  in the center of the page| Redirects user to home page | Y |          |
 | 10          | Click browser back button | You are still logged out | Y |          |
-
+| Log In      |                        |                  |      |             |
+| 1           | Click on Log In button | Redirection to Log In page | Y |          |
+| 2           | Click on the Sign Up link in the form | Redirection to Sign Up page | Y |          |
+| 3           | Enter valid email | Field will only accept email address format | Y |          |
+| 4           | Enter valid password | Field will only accept password format | Y |          |
+| 5           | Click on Log In button | Redirects user to blank In page | Y |          |
+| 6           | click logout button | Redirects user to home page | Y |          |
+| 7           | Click browser back button | You are still logged out | Y |          |
+| 8           | Click on Log In button | Redirection to Log In page | Y |          |
+| 9           | Enter valid email | Field will only accept email address format | Y |          |
+| 10          | Enter valid password | Field will only accept password format | Y |          |
+| 11          | Click Remember Me checkbox | Remembers user | Y |          |
+| 12          | Click on Log In button | Redirects user to blank In page | Y |          |
+| 13          | Click logout button | Redirects user to home page | Y |          |
+| 14          | Click browser back button | You are still logged out | Y |          |
+| 15          | Click on Log In button | Redirection to Log In page prefilled | Y |          |
 
 ---
 
