@@ -919,7 +919,7 @@ class ProductInventoriesTableView(View):
                     'profiles/access_denied.html',
                 )
             else:
-                p = Paginator(ProductInventory.objects.all(), 25)
+                p = Paginator(ProductInventory.objects.all(), 28)
                 page = request.GET.get('page')
                 inventories = p.get_page(page)
                 # promotions active now
