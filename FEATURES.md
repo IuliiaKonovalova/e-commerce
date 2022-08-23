@@ -1260,3 +1260,86 @@ It provides a warning message.
 And has only "Go back" button.
 
 When the personnel clicks "Go back" button, the personnel will be redirected to the values page.
+
+### Product full data Page:
+
+![Product full data page](documentation/features/personnel/product_full/product_full.png)
+
+This page is accessible only to the personnel. It has a table with all products.
+
+It has a heading section, full data on the product, images, units for the product
+
+- Heading section has a title, label "New" (if product is added recently to the store), Id, status, and 3 buttons:
+
+  ![Product full data page](documentation/features/personnel/product_full/product_full_heading.png)
+
+  - Edit button;
+      - if the personnel member clicks on the edit button, the personnel member will be redirected to the edit product page;
+
+  - Delete button;
+      - if the personnel member clicks on the delete button, the personnel member will be redirected to the delete product page;
+
+  - View in store button;
+      - if the personnel member clicks on the view in store button, the personnel member will be redirected to the product's store page;
+
+- Additional data on the product:
+  ![Product full data page](documentation/features/personnel/product_full/product_full_add_data.png)
+
+    It has the following  features:
+    
+    - description;
+
+    - Category;
+        - if the personnel member clicks on the category, the personnel member will be redirected to the category page;
+
+    - Brand;
+        - if the personnel member clicks on the brand, the personnel member will be redirected to the brand page;
+
+    - Tags associated with the product and their total number;
+        - if the personnel member clicks on the tag, the personnel member will be redirected to the tag page;
+
+- Images section:
+
+![Product full data page](documentation/features/personnel/product_full/product_full_images.png)
+
+It has the following  features:
+
+  - Title with the number of images;
+
+  - Add image button;
+      - if the personnel member clicks on the add image button, the personnel member will see a modal window with a form for uploading an image;
+
+      ![Product full data page](documentation/features/personnel/product_full/add_image_modal.png)
+
+      - Modal has the following features:
+
+          - Image id (automatically generated).
+
+          - Choose file button;
+
+          - Alt text field;
+
+          - Checkbox for default image;
+
+          - Checkbox for active image;
+
+          - 2 buttons: "Close" and "Save changes"
+
+      - If the personnel member didn't fill out the form correctly, the personnel member will see a message with the error.
+
+      ![Product full data page](documentation/features/personnel/product_full/add_image_modal_error.png)
+    
+  - Image cards with the setting displayed for default and active images, edit, delete buttons and the image itself:
+
+      - if the personnel member clicks on the edit button, the personnel member will a modal window with a form for editing the image;
+
+      ![Product full data page](documentation/features/personnel/product_full/edit_image_modal.png)
+
+      - If the personnel member clicks delete button, the personnel member will see a confirmation window with a warning message.
+
+      ![Product full data page](documentation/features/personnel/product_full/delete_image_modal.png)
+
+
+- Units section:
+
+  ![Product full data page](documentation/features/personnel/product_full/product_full_units.png)
