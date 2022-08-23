@@ -1633,8 +1633,24 @@ As it is shown in above example, personnel may find out the number of units, whi
 
 The main accent of this page is devoted to stock table itself:
 
-![Stock table](documentation/features/personnel/stock_table/stock_table_units.png)]
+![Stock table. Units](documentation/features/personnel/stock_table/stock_table_units.png)
 
 It has all necessary data on the stock for each unit.
 
 Under the table, the user can find page navigation.
+
+### Orders Page:
+
+![Orders Page](documentation/features/personnel/orders/orders_page.png)
+
+This page is accessible only to personnel. It has all orders data and a search-sort bar.
+
+1. Sort-search bar:
+
+![Orders Page.Sort-search bar](documentation/features/personnel/orders/orders_bar.png)
+
+It allows to search orders by numbers, key and ID. It also empowers personnel to sort orders according to their status.
+
+2. Order's cards.
+
+They include short data on the order and their status. If the personnel member clicks on the order card, he/she will be redirected to order full  details page
