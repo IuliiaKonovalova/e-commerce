@@ -1654,3 +1654,72 @@ It allows to search orders by numbers, key and ID. It also empowers personnel to
 2. Order's cards.
 
 They include short data on the order and their status. If the personnel member clicks on the order card, he/she will be redirected to order full  details page
+
+### Order full detail Page:
+
+![Order full detail Page](documentation/features/personnel/orders/order_full_detail_admin.png)
+
+This page is accessible only to personnel. It has all data on the order.
+
+However, only the admin can see the rendering order buttons:
+
+*View for the manager*:
+
+![Order full detail Page. View for the manager](documentation/features/personnel/orders/order_full_detail_manager.png)
+
+This page has the following features:
+
+1. "Go to orders" button:
+
+![Order full detail Page. "Go to orders" button](documentation/features/personnel/orders/go_to_orders_button.png)
+
+This button redirects the personnel member to the orders page.
+
+2. "Edit order" and "Delete order" buttons:
+
+![Order full detail Page. "Edit order" and "Delete order" buttons](documentation/features/personnel/orders/edit_delete_order_buttons.png)
+
+Accessible only to the admin.
+
+  - If the admin clicks on the "Edit order" button, the admin will be redirected to the order edit page;
+
+  - If the admin clicks on the "Delete order" button, the order will be deleted and the admin will be redirected to the orders page;
+
+3. Order full details:
+
+![Order full detail Page. Order full details](documentation/features/personnel/orders/order_full_data_admin.png)
+
+*However, only admin or logistics manager are able to see the rendering order status buttons*:
+
+- If the admin or logistics manager clicks on the "Edit" button, the dropdown menu will be opened; the admin can change the order status to "Pending", "Processing", "Completed", "Refunded", "Cancelled" or "In delivery";
+
+Examples:
+
+![Order full detail Page. Order full details. "Edit" button](documentation/features/personnel/orders/order_status_update.png)
+
+![Order full detail Page. Order full details. "Edit" button. "Completed" option](documentation/features/personnel/orders/order_status_completed.png)
+
+![Order full detail Page. Order full details. "Edit" button. "Processing" option](documentation/features/personnel/orders/order_status_processing.png)
+
+![Order full detail Page. Order full details. "Edit" button. "Pending" option](documentation/features/personnel/orders/order_status_refund.png)
+
+
+4. Order items table:
+
+![Order full detail Page. Order items table](documentation/features/personnel/orders/order_item_admin.png)
+
+Each item has the following data:
+
+- Product name with a link to the product in store;
+- Image of the product;
+- Product's values;
+- Quantity;
+- Price;
+- Total price;
+- 2 buttons accessible only to the admin: "Edit" and "Delete";
+    - If the admin clicks on the "Edit" button, the admin will be redirected to the order item edit page;
+    - If the admin clicks on the "Delete" button, the order item will be deleted and the admin will be redirected to the order full detail page;
+
+5. Customer's order data including customer's name, phone number, email, address and phone number:
+
+![Order full detail Page. Customer's order data](documentation/features/personnel/orders/order_full_details_customer_data.png)
