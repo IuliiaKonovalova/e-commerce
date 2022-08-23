@@ -1261,6 +1261,39 @@ And has only "Go back" button.
 
 When the personnel clicks "Go back" button, the personnel will be redirected to the values page.
 
+
+### Products table:
+
+![Products table](documentation/features/personnel/products_table/products_table.png)
+
+THis page is accessible only to the personnel. It has products table with all products.
+
+It has a title, "Add product" button, which will redirect the personnel member to the add product page. 
+
+![Products table](documentation/features/personnel/products_table/products_table_heading.png)
+
+It includes a summary on the products in store as well.
+
+It also has search field, which allows the admin/personnel to search for products.
+
+![Products table](documentation/features/personnel/products_table/products_table_search_bar.png)
+
+The main part of the page is dedicated to the products table. Products table has cards with data on each product:
+
+![Products table](documentation/features/personnel/products_table/products_table_item.png)
+
+  - ID;
+  - Name;
+  - Category;
+  - Number of tags;
+  - Brand;
+  - Number of images;
+  - If the product is on sale;
+  - Number of units;
+  
+  
+  If the personnel member clicks on the product, the personnel member will be redirected to the product page.
+
 ### Product full data Page:
 
 ![Product full data page](documentation/features/personnel/product_full/product_full.png)
@@ -1343,3 +1376,30 @@ It has the following  features:
 - Units section:
 
   ![Product full data page](documentation/features/personnel/product_full/product_full_units.png)
+
+  It has the following  features:
+
+    - Title with the number of units;
+
+    - Add unit button, which will redirect the personnel member to the add unit page;
+    
+    - Unit cards with the data on the unit:
+      - status;
+
+      - SKU;
+
+      - UPC;
+
+      - Values;
+
+      - Weight;
+
+      - Promo;
+
+      - Price options;
+
+      - Stock numbers with colorful background to make sure the stock is in noticed:
+
+      ![Product full data page](documentation/features/personnel/product_full/units_cards_stock.png)
+
+    If the user click on the unit card, the personnel member will be redirected to the unit page;
