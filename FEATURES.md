@@ -1554,3 +1554,31 @@ It has 2 buttons: "Back to product" and "Confirm changes";
   - If the personnel member clicks on the "Back to product" button, the personnel member will be redirected to the units page;
   - If the personnel member clicks on the "Confirm changes" button, the changes will be saved and the personnel member will be able to return to the unit page by clicking on the "Back to product" button;
 
+### Delete Unit Page:
+
+![Delete Unit page](documentation/features/personnel/units/delete_unit.png)
+
+This page is accessible only to the personnel. It has a form for deleting a unit. It has a name of the unit, warning message, and 2 buttons: "Cancel" and "Delete";
+
+- If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the unit page;
+
+- If the personnel member clicks on the "Delete" button, the personnel member will be redirected to the product page;
+
+### Add Stock Page:
+
+![Add Stock page](documentation/features/personnel/stock/add_stock.png)
+
+This page is accessible only to the admin. It has a form for adding a stock.
+
+The form includes the following fields:
+
+- Checking date;
+- Units purchased;
+- Units left;
+- Units sold;
+- 2 buttons: "Cancel" and "Add Stock";
+
+  - If the admin clicks on the "Cancel" button, the admin will be redirected to the unit page;
+  - If the admin clicks on the "Add Stock" button, the stock will be saved and the form will be cleared in order to let the admin to add another stock;
+
+The checking date and units purchased fields are necessary for the admin to control any possible inconsistency in the store.
