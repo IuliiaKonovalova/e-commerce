@@ -1,5 +1,29 @@
 # TESTING
 
+## Manual Testing
+
+Testing was done throughout site development, for each feature before it was merged into the master file.
+
+Usability was tested with the below user acceptance testing, sent to new users to ensure testing from different users, on different devices and browsers to ensure issues were caught and where possible fixed during development.
+
+
+|     | User Actions           | Expected Results | Y/N | Comments    |
+|-------------|------------------------|------------------|------|-------------|
+| Sign Up     |                        |                  |      |             |
+| 1           | Click on Sign Up button | Redirection to Sign Up page | Y |          |
+| 2           | Click on the Login link in the form | Redirection to Login page | Y |          |
+| 3           | Enter valid email 2 times | Field will only accept email address format | Y |          |
+| 4           | Enter valid password 2 times | Field will only accept password format | Y |          |
+| 5           | Click on Sign Up button | asks user to confirm email page Sends address a confirmation request email | Y |          |
+| 6           | Confirm email | Redirects user to blank Sign In page | Y |          |
+| 7           | Sign In | Redirects user to blank In page | Y |          |
+| 8           | Sign In with the same email/username and password | Takes user to schedule page with pop-up confirming successful sign in. Get started button now missing in main nav, replaced by Menu | Y |          |
+| 9           | Click "Logout" button  in the center of the page| Redirects user to home page | Y |          |
+| 10          | Click browser back button | You are still logged out | Y |          |
+
+
+---
+
 ## Automated testing
 
 ### Django unit testing
