@@ -205,6 +205,10 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | Personnel Delete Promotion |                        |                  |      | Access only to administrators           |
 | 1 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the promotions page | Y | |
 | 10 | Click on the confirm button | Changes will be confirmed and the admin will be redirected to the promotions page | Y | |
+| Personnel Create Newsletter-Promo Email |                        |                  |      | |
+| 1 | Type in the email name | Email name is changed | Y | |
+| 2 | Type in the email content | Email content is changed | Y | |
+| 3 | Select the coupon code | Coupon code is selected | Y | if code is typed, it will be a promo-email, if code is not typed, it will be a newsletter-email |
 
 
 ---
