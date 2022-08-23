@@ -181,6 +181,30 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 10 | Click on the pay button | The pay button will be disabled and the user will see a message to notify them | Y | If the payment card is not valid, the user will see a message to notify them. If the payment was successful, the user will be redirected to the order placed page and user will also receive an email notification |
 | Order Placed |                        |                  |      |             |
 | 1 | Click on the View my orders button | User will be redirected to the My Orders page | Y | |
+| Personnel Apps |                        |                  |      | Access only to personnel members |
+| Personnel Promotions |                        |                  |      |             |
+| 1 | Click add promotion button | User will be redirected to the add promotion page | Y | Access only to administrators |
+| 2 | Click on promotion | User will see a dropdown with all items that have been added to the promotion | Y | |
+| 3 | Click on the item in the dropdown | User will be redirected to the item page | Y | |
+| 4 | Click on the edit button | User will be redirected to the edit promotion page | Y | Access only to the admin |
+| 5 | Click on the delete button | User will be redirected to the promotions page | Y | Access only to the admin |
+| Personnel Add Promotion |                        |                  |      |  Access only to administrators           |
+| 1 | Type in the promotion name | Promotion name is changed | Y | |
+| 2 | Type in the promotion description | Promotion description is changed | Y | |
+| 3 | Type in the promotions coupon code | Promotion coupon code is changed | Y | |
+| 4 | Type in the promotion discount | Promotion discount is changed | Y | |
+| 5 | Select the promotion start date | Promotion start date is changed | Y | |
+| 6 | Select the promotion end date | Promotion end date is changed | Y | |
+| 7 | Select items to add to the promotion | Items are added to the promotion | Y | |
+| 8 | Click cancel button | Changes will not be confirmed | Y | |
+| 9 | Click Add promotion button | Changes will be confirmed and the admin will be redirected to the promotions page | Y | |
+| Personnel Edit Promotion |                        |                  |      | Access only to administrators           |
+| 1 | Select items to add to the promotion | Items are added to the promotion | Y | |
+| 2 | Click cancel button | Changes will not be confirmed | Y | |
+| 3 | Click Add promotion button | Changes will be confirmed and the admin will be redirected to the promotions page | Y | |
+| Personnel Delete Promotion |                        |                  |      | Access only to administrators           |
+| 1 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the promotions page | Y | |
+| 10 | Click on the confirm button | Changes will be confirmed and the admin will be redirected to the promotions page | Y | |
 
 
 ---
