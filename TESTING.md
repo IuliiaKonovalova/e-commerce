@@ -7,7 +7,7 @@ Testing was done throughout site development, for each feature before it was mer
 Usability was tested with the below user acceptance testing, sent to new users to ensure testing from different users, on different devices and browsers to ensure issues were caught and where possible fixed during development.
 
 
-|     | User Actions           | Expected Results | Y/N | Comments    |
+| Page    | User Actions           | Expected Results | Y/N | Comments    |
 |-------------|------------------------|------------------|------|-------------|
 | Sign Up     |                        |                  |      |             |
 | 1           | Click on Sign Up button | Redirection to Sign Up page | Y |          |
@@ -36,6 +36,29 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 13          | Click logout button | Redirects user to home page | Y |          |
 | 14          | Click browser back button | You are still logged out | Y |          |
 | 15          | Click on Log In button | Redirection to Log In page prefilled | Y |          |
+| Navigation  |                        |                  |      |             |
+| 1           | Click on the logo | Redirection to home page | Y |          |
+| 2           | Click Store | Redirection to Store page | Y |          |
+| 3           | Click wishlist button | Redirection to wishlist page | Y |          |
+| 4           | Click bag button | Redirection to bag page | Y |          |
+| 5           | Click Profile button | Redirection to Profile page | Y |          |
+| 6           | Click Logout button | Redirection to logout page | Y |          |
+| Admin Navigation |                        |                  |      |             |
+| 1           | Click Personnel dashboard | Dropdown menu opens | Y |          |
+| 2           | Click on Promo | Redirection to Promo page | Y |          |
+| 3           | Click on Emails | Redirection to create email page | Y |          |
+| 4           | Click Categories | Redirection to Categories page | Y |          |
+| 5           | Click Brands | Redirection to Brands page | Y |          |
+| 6           | Click on Tags | Redirection to Tags page | Y |          |
+| 7           | Click on Product Types | Redirection to Product Types page | Y |          |
+| 8           | Click on Product attributes | Redirection to Product attributes page | Y |          |
+| 9           | Click on Attributes values | Redirection to Attributes values page | Y |          |
+| 11          | Click on Products | Redirection to Products page | Y |          |
+| 12 | Click on Users | Redirection to Users page | Y |          |
+| 13 | Click on Stock | Redirection to Stock page | Y |          |
+| 14 | Click on Orders | Redirection to Orders page | Y |          |
+| 15 | Click on Stock Requests | Redirection to Stock Requests page | Y |          |
+
 
 ---
 
