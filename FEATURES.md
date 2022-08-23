@@ -1530,16 +1530,27 @@ This page is accessible only to the personnel. It has a form for adding a unit.
 
 It has also different fields for different types of products:
 
-![Add Unit page](documentation/features/personnel/units/product_type_selected1.png)
+![Add Unit page. Selected type. Variant 1](documentation/features/personnel/units/product_type_selected1.png)
 
 
-![Add Unit page](documentation/features/personnel/units/product_type_selected2.png)
+![Add Unit page. Selected type. Variant 2](documentation/features/personnel/units/product_type_selected2.png)
 
 The fields with values are appearing on the selected product type and allow personnel member to add all required values.
 
-It has 2 buttons: "Cancel" and "Add Product Unit"
+It has 2 buttons: "Back to product" and "Add Product Unit"
 
-- If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the units page;
+- If the personnel member clicks on the "Back to product" button, the personnel member will be redirected to the units page;
 
 - If the personnel member clicks on the "Add Product Unit" button, the unit will be saved and the form will be cleared in order to let the personnel member to add another unit;
+
+### Edit Unit Page:
+
+![Edit Unit page](documentation/features/personnel/units/edit_unit.png)
+
+This page is accessible only to the personnel. It has a form for editing a unit with pre-filled data.
+
+It has 2 buttons: "Back to product" and "Confirm changes";
+
+  - If the personnel member clicks on the "Back to product" button, the personnel member will be redirected to the units page;
+  - If the personnel member clicks on the "Confirm changes" button, the changes will be saved and the personnel member will be able to return to the unit page by clicking on the "Back to product" button;
 
