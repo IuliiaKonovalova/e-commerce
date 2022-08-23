@@ -139,7 +139,13 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 10 | Click on Delete address button | User will see a dropdown menu with the confirmation message | Y | |
 | 11 | Click Yes button in the dropdown menu | User will be redirected to the manage addresses page and the message will appear to notify user | Y | |
 | 12 | Click No button in the dropdown menu | The dropdown menu will be closed | Y | |
-
+| My Orders |                        |                  |      |             |
+| 1 | Click on the order card | User will be redirected to the order page | Y | |
+| My Order Details |                        |                  |      |             |
+| 1 | Click on the Back to my orders button | User will be redirected to the My Orders page | Y | |
+| 2 | Click on the Add review button | User will be redirected to the Add review page | Y | This button is available only if the order is completed |
+| 3 | Click on the View review button | User will be redirected to the View review page | Y | This button is available only if the order is completed  and the user has already reviewed the order |
+| 4 | Click on the product's name | User will be redirected to the product page | Y | |
 
 ---
 
