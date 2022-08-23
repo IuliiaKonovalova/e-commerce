@@ -1596,3 +1596,11 @@ It also has 2 buttons: "Cancel" and "Update Stock";
   - If the admin clicks on the "Cancel" button, the admin will be redirected to the unit page;
   - If the admin clicks on the "Update Stock" button, the stock will be updated and the admin will be redirected to the unit page;
 
+### Delete Stock Page:
+
+![Delete Stock page](documentation/features/personnel/stock/delete_stock.png)
+
+This page is accessible only to the admin. It has a form for deleting a stock. It has a name of the units for which this stock was created, warning message, and 2 buttons: "Cancel" and "Delete";
+
+  - If the admin clicks on the "Cancel" button, the admin will be redirected to the unit page;
+  - If the admin clicks on the "Delete" button, the stock will be deleted and the admin will be redirected to the unit page;
