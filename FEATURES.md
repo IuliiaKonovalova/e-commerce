@@ -1791,3 +1791,47 @@ The table has the following data:
 - Values of the product requested;
 
 - Quantity;
+
+## Allauth and Access pages:
+
+
+### Access Page:
+
+![Access Page](documentation/features/allauth_access/access_denied.png)
+
+### 404 and 500 pages:
+
+It handles 2 types of errors:
+
+- 404 error;
+- 500 error;
+
+Example of 404 error:
+
+![404 error](documentation/features/allauth_access/404.png)
+
+
+### Logout Page:
+
+![Logout Page](documentation/features/allauth_access/logout.png)
+
+### Signup Page:
+
+![Signup Page](documentation/features/allauth_access/sign_up.png)
+
+
+### Login Page:
+
+![Login Page](documentation/features/allauth_access/login.png)
+
+### Forgot Password Page:
+
+![Forgot Password Page](documentation/features/allauth_access/reset_password_request.png)
+
+### Reset password Page:
+
+![Reset password Page](documentation/features/allauth_access/change_password_form.png)
+
+### Change Password Page Success:
+
+![Change Password Page Success](documentation/features/allauth_access/change_password_successful.png)
