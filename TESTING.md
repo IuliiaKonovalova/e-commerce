@@ -168,6 +168,19 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 8 | Click on the confirm button | Changes will be confirmed and the bag will be emptied and the user will see a message to notify them | Y | |
 | 9 | Type in the coupon code and click on the apply button | Coupon is applied and the user will see a message to notify them | Y | If the coupon is not valid, the user will see a message to notify them |
 | 10 | Click on the checkout button | User will be redirected to the checkout page | Y | |
+| Checkout |                        |                  |      |             |
+| 1 | Type in the Full name | Full name is changed | Y | If user has filled out the profile fully, the filled will be filled automatically |
+| 2 | Type in the email | Email is changed | Y | |
+| 3 | Type in the phone number | Phone number is changed | Y | If user has set the primary address, the phone number will be set automatically |
+| 4 | Type in the address | Address is changed | Y | If user has set the primary address, the address will be set automatically |
+| 5 | Type in the zip code | Zip code is changed | Y | If user has set the primary address, the zip code will be set automatically |
+| 6 | Select country | Country is selected | Y | If user has set the primary address, the country will be set automatically |
+| 7 | Select state | State is selected | Y | If user has set the primary address, the state will be set automatically |
+| 8 | Select city | City is selected | Y | If user has set the primary address, the city will be set automatically |
+| 9 | Type payment card data | Payment card data is changed | Y | |
+| 10 | Click on the pay button | The pay button will be disabled and the user will see a message to notify them | Y | If the payment card is not valid, the user will see a message to notify them. If the payment was successful, the user will be redirected to the order placed page and user will also receive an email notification |
+| Order Placed |                        |                  |      |             |
+| 1 | Click on the View my orders button | User will be redirected to the My Orders page | Y | |
 
 
 ---
