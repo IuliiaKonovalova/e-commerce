@@ -82,6 +82,35 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 2 | Click Yes button in the empty wishlist dropdown menu | User will be redirected to the wishlist page  and the message will appear to notify user| Y | If user is logged out, the user will see a message to login and the click will be ignored |
 | 3 | Click on the not empty wishlist button | User will see a dropdown menu with the confirmation message | Y | If user is logged out, the user will see a message to login and the click will be ignored |
 | 4 | Click on the product card's heart button | The product will be removed from the wishlist and the message will appear to notify user | Y | If user is logged out, the user will see a message to login and the click will be ignored |
+| Profile |                        |                  |      |             |
+| 1 | Click on the edit button | User will be redirected to the edit profile page | Y | |
+| 2 | Click on the add address button | User will be redirected to the add address page | Y | |
+| 3 | Click on the manage addresses button | User will be redirected to the manage addresses page | Y |  |
+| 4 | Click on the My Orders button | User will be redirected to the My Orders page | Y | |
+| 5 | Click on the My Reviews button | User will be redirected to the My Reviews page | Y | |
+| 6 | Click on the My Wishlist button | User will be redirected to the My Wishlist page | Y | |
+| Edit Profile |                        |                  |      |             |
+| Edit profile Avatar | | | | |
+| 1 | Click on the edit button | User will see a pop up window to upload an avatar | Y | |
+| 2 | Click on the upload button | User will see a pop up window to upload an avatar | Y | |
+| 3 | Click on the cancel button | Changes will not be confirmed | Y | |
+| 4 | Click on the save button | Changes will be confirmed and the avatar will be changed | Y | |
+| 5 | Click on the Delete button | User will see a pop up window to confirm the deletion | Y | |
+| Edit Profile Data |                        |                  |      |             |
+| 1 | Type in the first name | First name is changed | Y | |
+| 2 | Type in the last name | Last name is changed | Y | |
+| 3 | Select birth date | Birth date is changed | Y | |
+| 4 | Click subscribe checkbox | User will be subscribed to the newsletter | Y | |
+| 5 | Click Save changes button | Changes will be confirmed and the user will see a message to notify them | Y | |
+| Edit Password |                        |                  |      |             |
+| 1 | Type in the old password | Old password is changed | Y | |
+| 2 | Type in the new password | New password is changed | Y | |
+| 3 | Type in the new password confirmation | New password confirmation is changed | Y | |
+| 4 | Click Save changes button | Changes will be confirmed and the user will see a message to notify them | Y | |
+| Delete Account |                        |                  |      |             |
+| 1 | Click on the Delete button | User will see a dropdown menu with the confirmation message | Y | |
+| 2 | Click Yes button in the dropdown menu | User will be redirected to the home page and the message will appear to notify user | Y | |
+| 3 | Click No button in the dropdown menu | The dropdown menu will be closed | Y | |
 
 ---
 
