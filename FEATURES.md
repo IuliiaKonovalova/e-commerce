@@ -1403,3 +1403,23 @@ It has the following  features:
       ![Product full data page](documentation/features/personnel/product_full/units_cards_stock.png)
 
     If the user click on the unit card, the personnel member will be redirected to the unit page;
+
+
+### Add Product Page:
+
+![Add Product page](documentation/features/personnel/product_full/add_product.png)
+
+This page is accessible only to the personnel. It has a form for adding a product.
+
+It has the following fields:
+
+- Name;
+- Description;
+- Category;
+- Tags;
+- Brand;
+- Status;
+- 2 buttons: "Cancel" and "Save changes";
+
+  - If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the products page;
+  - If the personnel member clicks on the "Save changes" button, the personnel member will be redirected to the products page;
