@@ -111,6 +111,35 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 1 | Click on the Delete button | User will see a dropdown menu with the confirmation message | Y | |
 | 2 | Click Yes button in the dropdown menu | User will be redirected to the home page and the message will appear to notify user | Y | |
 | 3 | Click No button in the dropdown menu | The dropdown menu will be closed | Y | |
+| My addresses |                        |                  |      |             |
+| 1 | Click on the add address button | User will be redirected to the add address page | Y | |
+| 2 | Click on the edit button on the address card | User will be redirected to the edit address page | Y | |
+| 3 | Click on Enable as Primary button | Address is set as primary | Y | If there were another primary address, it will be set as not primary |
+| 4 | Click on Disable as Primary button | Address is set as not primary | Y | |
+| Add Address |                        |                  |      |             |
+| 1 | Select country | Country is selected | Y | |
+| 2 | Select state | State is selected | Y | |
+| 3 | Select city | City is selected | Y | |
+| 4 | Type in the address | Address is changed | Y | |
+| 5 | Type in a zip code | Zip code is changed | Y | |
+| 6 | Type in the phone number | Phone number is changed | Y | |
+| 7 | Check primary checkbox | Address is set as primary | Y | |
+| 8 | Click Save changes button | Changes will be confirmed and the user will see a message to notify them | Y | |
+| 9 | Click on the cancel button | Changes will not be confirmed and the user will be redirected to the manage addresses page | Y | |
+| Edit Address |                        |                  |      |             |
+| 1 | Select country | Country is selected | Y | |
+| 2 | Select state | State is selected | Y | |
+| 3 | Select city | City is selected | Y | |
+| 4 | Type in the address | Address is changed | Y | |
+| 5 | Type in a zip code | Zip code is changed | Y | |
+| 6 | Type in the phone number | Phone number is changed | Y | |
+| 7 | Check primary checkbox | Address is set as primary | Y | |
+| 8 | Click Save changes button | Changes will be confirmed and the user will see a message to notify them | Y | |
+| 9 | Click on the cancel button | Changes will not be confirmed and the user will be redirected to the manage addresses page | Y | |
+| 10 | Click on Delete address button | User will see a dropdown menu with the confirmation message | Y | |
+| 11 | Click Yes button in the dropdown menu | User will be redirected to the manage addresses page and the message will appear to notify user | Y | |
+| 12 | Click No button in the dropdown menu | The dropdown menu will be closed | Y | |
+
 
 ---
 
