@@ -959,18 +959,123 @@ from django.views.decorators.csrf import csrf_exempt
 
 7. Create and migrate the database.
 
-    - ```python manage.py makemigrations```
-    - ```python manage.py migrate```
+
+
+**NOTE!**
+As the app requires assigning a role for each user, you will need to apply some changes Profile model for the role field.:
+
+```python
+    class Profile(models.Model):
+        """Model for the profiles."""
+        user = models.OneToOneField(
+            User,
+            on_delete=models.CASCADE,
+            related_name='profile',
+            verbose_name='User',
+            help_text=(
+                'format: required, unique=True'
+            )
+        )
+        first_name = models.CharField(
+            max_length=50,
+            blank=True,
+            null=True,
+            verbose_name='First name',
+            help_text=(
+                'format: not required, max_length=50'
+            )
+        )
+        last_name = models.CharField(
+            max_length=50,
+            blank=True,
+            null=True,
+            verbose_name='Last name',
+            help_text=(
+                'format: not required, max_length=50'
+            )
+        )
+        birthday = models.DateField(
+            blank=True,
+            null=True,
+            verbose_name='Birthday',
+            help_text=(
+                'format: not required'
+            )
+        )
+        avatar = CloudinaryField(
+            'avatar',
+            folder='avatars',
+            blank=True,
+            null=True,
+        )
+        subscription = models.BooleanField(
+            default=False,
+            verbose_name='Subscription',
+            help_text=(
+                'format: not required'
+            )
+        )
+        role = models.ForeignKey(
+            Role,
+            on_delete=models.SET_NULL,
+            null=True,
+            # default=1, # 1 is the default role should be commented out before the first migrations
+            verbose_name='Role',
+            help_text=(
+                'format: not required'
+            )
+        )
+        created_at = models.DateTimeField(
+            auto_now_add=True,
+            verbose_name='Created at',
+        )
+        updated_at = models.DateTimeField(
+            auto_now=True,
+            verbose_name='Updated at',
+        )
+```
+
+- ```python manage.py makemigrations```
+- ```python manage.py migrate```
+
+- After migration, you will need to create a superuser.
+
 
 8. Create the superuser.
 
     - ```python manage.py createsuperuser```
 
-9. Run the server.
+9. Create roles as following:
+
+For example:
+
+```python
+    Role.objects.create(name='Customer')
+    Role.objects.create(name='Manager')
+    Role.objects.create(name='Admin')
+```
+
+
+10. Set the role for the superuser with the role field with id 3.
+
+```python
+    superuser.profile.role_id = 3
+    superuser.save()
+```
+
+11. Go to Profiles and uncomment the default role. Make new migrations and migrate.
+
+    - ```python manage.py makemigrations```
+    - ```python manage.py migrate```
+
+**After the following steps, you will make sure that the app is working correctly and any other user registered in your app will have an access only as a customer. The rest of the roles will be controlled by the admin.**
+
+
+12. Run the server.
 
     - ```python manage.py runserver```
 
-10. Access the website by the link provided in terminal. Add ```/admin/``` at the end of the link to access the admin panel.
+13. Access the website by the link provided in terminal. Add ```/admin/``` at the end of the link to access the admin panel.
 
 
 *If you are using Gitpod, you can skip steps 1-3 by clicking this [link](https://gitpod.io/#https://github.com/IuliiaKonovalova/e-commerce), and start from step 4.*
