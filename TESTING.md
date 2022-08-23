@@ -58,6 +58,25 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 13 | Click on Stock | Redirection to Stock page | Y |          |
 | 14 | Click on Orders | Redirection to Orders page | Y |          |
 | 15 | Click on Stock Requests | Redirection to Stock Requests page | Y |          |
+| Store |                        |                  |      |             |
+| 1 | Type in search bar | Search results are displayed | Y |          |
+| 2  | Select a category | Products are displayed | Y |          |
+| 3  | Click on like button | Product is added to wishlist and message will appear to notify user | Y | If user is logged out, the user will see a message to login and the click will be ignored |
+| 4 | Click on the unlike button | Product is removed from wishlist and message will appear to notify user | Y | If user is logged out, the user will see a message to login and the click will be ignored |
+| 5 | Click on the product cart | User will be redirected to the product details page | Y | |
+| 6 | Click on page navigation | User will be redirected to the correct page | Y | |
+| Product Details |                        |                  |      |             |
+| 1 | Click on left or right carousel | Carousel will change | Y | If there is only 1 image, there will be no arrow to click |
+| 2 | Click on heart button | Product is added to wishlist and message will appear to notify user | Y | If user is logged out, the user will see a message to login and the click will be ignored |
+| 3 | Click on the unlike button | Product is removed from wishlist and message will appear to notify user | Y | If user is logged out, the user will see a message to login and the click will be ignored |
+| 4 | Click on View Reviews button | User will be redirected to the product reviews page | Y | If product hasn't been reviewed, user will not see the button |
+| 5 | Click on the product options (color, size, etc) | User will see price changes | Y | |
+| 6 | Click reset button | All selections are reset | Y | |
+| 7 | User selects all options | User will see price changes and add to bag button will be enable| Y | |
+| 8 | Click on plus-minus quantity | Quantity will change | Y | If there is not enough stock, the quantity will not change, plus button will be disabled when the user reach the limited number, and a warning message will be displayed |
+| 9 | Click on add to bag button | Product is added to bag and message will appear to notify user | Y | If user is logged out, the user will see a message to login and the click will be ignored |
+| 10 | Click Yes on request item pop-up | User will see a modal with products options and quantity | Y | Displayed only if the product inventory not in stock at this moment |
+| 11 | Click on the product options (color, size, etc) and clicks send request button | Modal will be closed, and user will see a message to notify user, the user will also receive an email with the product options and quantity | Y |  If user requested a product inventory which is not in stock, modal will be closed, notification will not be sent and user will see a message that he/she may purchase the product right now |
 
 
 ---
