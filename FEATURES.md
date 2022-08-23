@@ -1423,3 +1423,15 @@ It has the following fields:
 
   - If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the products page;
   - If the personnel member clicks on the "Save changes" button, the personnel member will be redirected to the products page;
+
+
+### Edit Product Page:
+
+![Edit Product page](documentation/features/personnel/product_full/edit_product.png)
+
+This page is accessible only to the personnel. It has a form for editing a product.
+
+It has the the same fields as the add product page. The only difference is that the personnel member will see the product's data in the fields.
+
+  - If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the product full data page and changes will be lost;
+  - If the personnel member clicks on the "Save changes" button, the personnel member will be redirected to the product full data page and changes will be saved;
