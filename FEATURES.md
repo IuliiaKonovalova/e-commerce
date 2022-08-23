@@ -1450,3 +1450,31 @@ Under the warning message, there is a "Cancel" button and a "Delete" button.
 - If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the product full data page;
 
 - If the personnel member clicks on the "Delete" button, the personnel member will be redirected to the products page;
+
+### Stock Units table:
+
+![Stock Units table](documentation/features/personnel/units/units_table.png)
+
+This page is accessible only to the personnel. It has a table with all stock units.
+
+It has search field, where the personnel member can search for a unit by SKU, UPC, or values.
+
+The stock units table has unit's cards with the data on the unit:
+
+  - status;
+
+  - SKU;
+
+  - UPC;
+
+  - Values;
+
+  - Weight;
+
+  - Promo;
+
+  - Price options;
+
+  - Stock numbers with colorful background to make sure the stock is in noticed:
+
+Page navigation if there more than one page:
