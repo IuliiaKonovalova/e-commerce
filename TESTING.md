@@ -146,7 +146,17 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 2 | Click on the Add review button | User will be redirected to the Add review page | Y | This button is available only if the order is completed |
 | 3 | Click on the View review button | User will be redirected to the View review page | Y | This button is available only if the order is completed  and the user has already reviewed the order |
 | 4 | Click on the product's name | User will be redirected to the product page | Y | |
-
+| Add Review |                        |                  |      |             |
+| 1 | Select rating | Rating is selected | Y | |
+| 2 | Type in the review | Review is changed | Y | |
+| 3 | Click on the add review image button | User will see a pop up window to upload an image | Y | |
+| 4 | Click on the upload button | User will see a pop up window to upload an image | Y | |
+| 5 | Click on the cancel button | Changes will not be confirmed | Y | |
+| 6 | Click on the save button | Changes will be confirmed and the review will be added | Y | |
+| View Review |                        |                  |      |             |
+| 1 | Click on the Product card | User will be redirected to the product page | Y | |
+| My Reviews |                        |                  |      |             |
+| 1 | Click on the review card | User will be redirected to the review page | Y | |
 ---
 
 ## Automated testing
