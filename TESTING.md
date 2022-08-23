@@ -157,6 +157,19 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 1 | Click on the Product card | User will be redirected to the product page | Y | |
 | My Reviews |                        |                  |      |             |
 | 1 | Click on the review card | User will be redirected to the review page | Y | |
+| Bag |                        |                  |      |             |
+| 1 | Click on ready to purchase button | the page will smoothly scroll to the bottom of the page | Y | |
+| 2 | Click on the product's name | User will be redirected to the product page | Y | |
+| 3 | Click on the minus button | Quantity is decreased and the user will see a message to notify them | Y | If there was only one product in the bag, the product will be removed and the user will see a message to notify them |
+| 4 | Click on the plus button | Quantity is increased and the user will see a message to notify them | Y | If there was not enough products in the stock, the quantity will not be increased and the user will see a message to notify them |
+| 5 | Click on the remove button | Product is removed from the bag and the user will see a message to notify them | Y | |
+| 6 | Click on empty bag button | The user will see a modal window to confirm the empty bag | Y | |
+| 7 | Click on the cancel button | Changes will not be confirmed | Y | |
+| 8 | Click on the confirm button | Changes will be confirmed and the bag will be emptied and the user will see a message to notify them | Y | |
+| 9 | Type in the coupon code and click on the apply button | Coupon is applied and the user will see a message to notify them | Y | If the coupon is not valid, the user will see a message to notify them |
+| 10 | Click on the checkout button | User will be redirected to the checkout page | Y | |
+
+
 ---
 
 ## Automated testing
