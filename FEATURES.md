@@ -1521,3 +1521,25 @@ This page has the following features:
 ![Unit page. Manager](documentation/features/personnel/units/unit_stock_manager.png)
 
 ![Unit page. Manager. Stock inconsistency](documentation/features/personnel/units/stock_not_found_manager.png)
+
+### Add Unit Page:
+
+![Add Unit page](documentation/features/personnel/units/add_unit.png)
+
+This page is accessible only to the personnel. It has a form for adding a unit.
+
+It has also different fields for different types of products:
+
+![Add Unit page](documentation/features/personnel/units/product_type_selected1.png)
+
+
+![Add Unit page](documentation/features/personnel/units/product_type_selected2.png)
+
+The fields with values are appearing on the selected product type and allow personnel member to add all required values.
+
+It has 2 buttons: "Cancel" and "Add Product Unit"
+
+- If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the units page;
+
+- If the personnel member clicks on the "Add Product Unit" button, the unit will be saved and the form will be cleared in order to let the personnel member to add another unit;
+
