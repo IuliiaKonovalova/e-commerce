@@ -272,6 +272,26 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 1 | Click on the product | User will be redirected to the product page | Y | |
 | 2 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the tags page | Y | |
 | 3 | Click on the confirm button | Changes will be confirmed and the admin will be redirected to the tags page | Y | |
+| Personnel Products types |                        |                  |      |             |
+| 1 | Click on the add product type button | User will be redirected to the add product type page | Y | |
+| 2 | Click on the Attributes button | User will see a dropdown menu with the attributes | Y | If product type does not have attributes, the user will see: no attributes |
+| 3 | Type in the product type name in the search field and click on the search button | If product type is found, it will be displayed in the search results | Y | |
+| 4 | Click on the edit button | User will be redirected to the edit product type page | Y | |
+| 5 | Click on the delete button | User will be redirected to the product types page | Y | access only to administrators |
+| Personnel Add Product type |                        |                  |      | |
+| 1 | Type in the product type name | Product type name is changed | Y | |
+| 2 | Select attributes | Attributes are selected | Y | |
+| 3 | Type product type description | Product type description is changed | Y | |
+| 4 | click cancel button | Changes will not be confirmed and the admin will be redirected to the product types page | Y | |
+| 5 | click add product type button | Changes will be confirmed and the admin will be redirected to the product types page | Y | |
+| Personnel Edit Product type |                        |                  |      | |
+| 1 | Type in the product type name | Product type name is changed | Y | |
+| 2 | Select attributes | Attributes are selected | Y | |
+| 3 | Type product type description | Product type description is changed | Y | |
+| 4 | click cancel button | Changes will not be confirmed and the admin will be redirected to the product types page | Y | |
+| 6 | click save changes button | Changes will be confirmed and the admin will be redirected to the product types page | Y | |
+| Personnel Delete Product type |                        |                  |      | access only to administrators           |
+| 1 | Click on go back button | User will be redirected to the product types page | Y | Deletion is forbidden |
 
 ---
 
