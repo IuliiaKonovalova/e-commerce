@@ -489,6 +489,17 @@ Usability was tested with the below user acceptance testing, sent to new users t
 
 ---
 
+## Testing User Story
+
+| First Time Visitor Goals | Requirement met | Image |
+| ------------------------- | --------------- | ----- |
+| As a First Time Visitor, I want to be able to register my account, so that I can learn the benefits of the app as a user | Y | ![Signup Page](documentation/features/allauth_access/sign_up.png) |
+|  As a First Time Visitor, I want to be able to easily understand the main purpose of the app, so that I can learn more about this app. | Y | ![Home Page](documentation/features/home/home_page.png) |
+| As a First Time Visitor, I want to be able to easily navigate through the app, so that I can find the content. | Y | ![Navigation](documentation/features/navbar/navbar_customer.png) |
+|As a First Time Visitor, I want to be able to find the app useful, so that I can use it according to my needs. | Y | ![Benefits](documentation/features/home/about_us_section_1.png) ![Benefits](documentation/features/home/about_section_2.png)|
+| As a First Time Visitor, I want to be informed clearly if I am making any errors when registering my account, so that I can be able to fix any errors quickly if I make some. | Y | ![Signup Page](documentation/features/allauth_access/sign_up.png) |
+| As a First Time Visitor, I want to be able to see the list of products, so that I can learn the benefits of the app as a user. | Y | ![Products](documentation/features/store/store_page.png) |
+
 
 
 ---
