@@ -434,7 +434,18 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 8 | Click on > sales button | Units with high sales will be displayed | Y | |
 | 9 | Click on < sales button | Units with low sales will be displayed | Y | |
 | 10 | Click on SKU link | User will be redirected to the unit page | Y | |
-
+| Personnel All Orders Table |                        |                  |      |             |
+| 1 | Type in order number/order/key or id in the search field | orders are filtered | Y | |
+| 2 | Select order status in the dropdown | orders are filtered | Y | |
+| 3 | Click on the order card | User will be redirected to the order page | Y | |
+| Personnel Order Details |                        |                  |      |             |
+| 1 | Click on go to orders button | User will be redirected to the personnel orders page | Y | |
+| 2 | Click on the edit button | User will be redirected to the edit order page | Y | access only to administrators |
+| 3 | Click on the delete button | User will be redirected to the personnel orders page | Y | access only to administrators |
+| 4 | Click on edit order status button | Dropdown with order statuses will be displayed | Y | access only to administrators and logistic |
+| 5 | Click on order item product name link | User will be redirected to the product page | Y | |
+| 6 | Click on order item edit button | User will be redirected to the edit order item page | Y | access only to administrators |
+| 7 | Click on order item delete button | User will be redirected to the personnel orders page | Y | access only to administrators |
 
 ---
 
