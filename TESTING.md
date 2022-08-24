@@ -226,7 +226,33 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | Personnel Delete Category |                        |                  |      | Access only to administrators           |
 | 1 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the categories page | Y | |
 | 6 | Click on the confirm button | Changes will be confirmed and the admin will be redirected to the categories page | Y | |
+| Personnel Brands |                        |                  |      |             |
+| 1 | Click on the add brand button | User will be redirected to the add brand page | Y | |
+| 2 | Click on the brand | User will be redirected to the brand page | Y | |
+| 3 | type in the brand name in search field | if brand is found, it will be displayed in the search results | Y | |
+| Personnel Brand |                        |                  |      |             |
+| 1 | Click on the product | User will be redirected to the product page | Y | |
+| 2 | Click on the edit button | User will be redirected to the edit brand page | Y | |
+| 3 | Click on the delete button | User will be redirected to the brands page | Y | Access only to administrators |
+| Personnel Add Brand |                        |                  |      | |
+| 1 | Type in the brand name | Brand name is changed | Y | |
+| 2 | Check the brand description | Brand description is changed | Y | |
+| 3 | Check the brand status | Brand status is changed | Y | |
+| 4 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the brands page | Y | |
+| 5 | Click on the add brand button | Changes will be confirmed and the admin will be redirected to the brands page | Y | |
+| Personnel Edit Brand |                        |                  |      | |
+| 1 | Type in the brand name | Brand name is changed | Y | |
+| 2 | Check the brand description | Brand description is changed | Y | |
+| 3 | Check the brand status | Brand status is changed | Y | |
+| 4 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the brands page | Y | |
+| 6 | Click on the save changes button | Changes will be confirmed and the admin will be redirected to the brands page | Y | |
+| Personnel Delete Brand |                        |                  |      | access only to administrators           |
+| 1 | Click on the product | User will be redirected to the product page | Y | |
+| 2 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the brands page | Y | |
+| 3 | Click on the confirm button | Changes will be confirmed and the admin will be redirected to the brands page | Y | |
 
+
+---
 
 ## Automated testing
 
