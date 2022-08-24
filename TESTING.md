@@ -420,7 +420,9 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | Personnel Delete stock |                        |                  |      | access only to administrators           |
 | 1 | Click on the cancel button | User will be redirected to the personnel product unit page | Y | |
 | 2 | Click on the delete button | User will be redirected to the personnel product unit page and stock is deleted | Y | |
-
+| Personnel Units Table |                        |                  |      |             |
+| 1 | Type in SKU or UPC in the search field | units are filtered | Y | |
+| 2 | Click on the unit card | User will be redirected to the unit page | Y | |
 
 ---
 
