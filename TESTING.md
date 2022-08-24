@@ -348,6 +348,27 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 15 | Click on delete image button on the image card | User will see a confirm window | Y | If user clicks yes, image is deleted, if not - the modal window is closed |
 | 16 | Click on add unit button | User will be redirected to the add unit page | Y | |
 | 17 | Click on the unit card | User will be redirected to the unit page | Y | |
+| Personnel Add product |                        |                  |      | |
+| 1 | Type in the product name | Product name is changed | Y | |
+| 2 | Type in the product description | Product description is changed | Y | |
+| 3 | Select category | Category is selected | Y | |
+| 4 | Select brand | Brand is selected | Y | |
+| 5 | Select tags | Tags are selected | Y | |
+| 6 | Check the product is active | Product is active | Y | |
+| 7 | Click cancel button | Changes will not be confirmed and the admin will be redirected to the personnel product page | Y | |
+| 8 | Click save button | Changes will be confirmed and the admin will be redirected to the personnel product page | Y | |
+| Personnel Edit product |                        |                  |      | pre-filled |
+| 1 | Type in the product name | Product name is changed | Y | |
+| 2 | Type in the product description | Product description is changed | Y | |
+| 3 | Select category | Category is selected | Y | |
+| 4 | Select brand | Brand is selected | Y | |
+| 5 | Select tags | Tags are selected | Y | |
+| 6 | Check the product is active | Product is active | Y | |
+| 7 | Click cancel button | Changes will not be confirmed and the admin will be redirected to the personnel product page | Y | |
+| 8 | Click save button | Changes will be confirmed and the admin will be redirected to the personnel product page | Y | |
+| Personnel Delete product |                        |                  |      | access only to administrators           |
+| 1 | Click on the cancel button | User will be redirected to the personnel product page | Y | |
+| 2 | Click on the delete button | User will be redirected to the personnel product page and product is deleted | Y | |
 
 
 ---
