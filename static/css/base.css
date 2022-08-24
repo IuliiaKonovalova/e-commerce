@@ -3529,6 +3529,11 @@ a.ui-button:active,
   .message-container#messages-notes-list {
     margin-top: 4.8rem !important;
   }
+
+  /* --- Media for store Search --- */
+  .store__products .search__select {
+    min-width: 20rem;
+  }
 }
 
 @media all and (max-width: 1511px) {
@@ -3804,6 +3809,22 @@ a.ui-button:active,
   .bag__items--title.image,
   .bag__item--image.image {
     display: none;
+  }
+
+  /* --- Media for store Search --- */
+  .search__container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 120rem;
+    margin: 0 auto;
+  }
+
+  .store__products .search__input,
+  .store__products .search__select {
+    min-width: 100%;
   }
 }
 
