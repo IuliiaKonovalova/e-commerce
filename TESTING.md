@@ -326,7 +326,11 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 5 | click save changes button | Changes will be confirmed and the admin will be redirected to the attributes values page | Y | |
 | Personnel Delete Attribute value |                        |                  |      | access only to administrators           |
 | 1 | Click on go back button | User will be redirected to the attributes values page | Y | Deletion is forbidden |
-I can inform loyal customers about special offers. | Y | ![Product Details. Promo  Emails](documentation/web_marketing/promo_email.png)|
+| Personnel Product table |                        |                  |      |             |
+| 1 | Click on the add product button | User will be redirected to the add product page | Y | |
+| 2 | Type in the product name in the search field and click on the search button | If product is found, it will be displayed in the search results | Y | |
+| 3 | Click on the product | User will be redirected to the personnel product page | Y | |
+
 
 ---
 
