@@ -1811,6 +1811,8 @@ Example of 404 error:
 ![404 error](documentation/features/allauth_access/404.png)
 
 
+![500 error](documentation/features/allauth_access/500.png)
+
 ### Logout Page:
 
 ![Logout Page](documentation/features/allauth_access/logout.png)
