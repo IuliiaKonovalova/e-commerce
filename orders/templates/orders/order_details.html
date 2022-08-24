@@ -121,8 +121,6 @@
                 <div>
                   <a href="{% url 'product_detail_full' pk=item.product_inventory.product.id %}"
                     aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link"> 
-                    {{ item.product_inventory.product.name }}
-                    <i class="fa fa-external-link" aria-hidden="true"></i>
                     <div class="bag__item--image">
                       {% if item.product_inventory.product.images.all %}
                         <img src="{{ item.product_inventory.product.get_main_image }}"
@@ -134,6 +132,13 @@
                   </a>
                 </div>
                 <div class="order__item--details">
+                  <a href="{% url 'product_detail' pk=item.product_inventory.product.id %}"
+                    aria-label="Go to {{ item.product_inventory.product.name }}" class="bag__item--link"> 
+                    <strong>
+                      {{ item.product_inventory.product.name|truncatechars:25 }}<i class="fa fa-external-link" aria-hidden="true"></i>
+                      </strong>
+                    
+                  </a>
                   <div>
                     {% if item.product_inventory.get_attribute_values %}
                       <strong>Options:</strong>
