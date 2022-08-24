@@ -292,6 +292,23 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 6 | click save changes button | Changes will be confirmed and the admin will be redirected to the product types page | Y | |
 | Personnel Delete Product type |                        |                  |      | access only to administrators           |
 | 1 | Click on go back button | User will be redirected to the product types page | Y | Deletion is forbidden |
+| Personnel Product attributes |                        |                  |      |             |
+| 1 | Click on the add product attribute button | User will be redirected to the add product attribute page | Y | |
+| 2 | Click on the edit button | User will be redirected to the edit product attribute page | Y | |
+| 3 | Click on the delete button | User will be redirected to the product attributes page | Y | access only to administrators |
+| 4 | Type in the product attribute name in the search field and click on the search button | If product attribute is found, it will be displayed in the search results | Y | |
+| Personnel Add Product attribute |                        |                  |      | |
+| 1 | Type in the product attribute name | Product attribute name is changed | Y | |
+| 2 | Type product attribute description | Product attribute description is changed | Y | |
+| 3 | click cancel button | Changes will not be confirmed and the admin will be redirected to the product attributes page | Y | |
+| 4 | click add product attribute button | Changes will be confirmed and the admin will be redirected to the product attributes page | Y | |
+| Personnel Edit Product attribute |                        |                  |      | |
+| 1 | Type in the product attribute name | Product attribute name is changed | Y | |
+| 2 | Type product attribute description | Product attribute description is changed | Y | |
+| 3 | click cancel button | Changes will not be confirmed and the admin will be redirected to the product attributes page | Y | |
+| 5 | click save changes button | Changes will be confirmed and the admin will be redirected to the product attributes page | Y | |
+| Personnel Delete Product attribute |                        |                  |      | access only to administrators           |
+| 1 | Click on go back button | User will be redirected to the product attributes page | Y | Deletion is forbidden |
 
 ---
 
