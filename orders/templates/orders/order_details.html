@@ -6,6 +6,11 @@
     .dashboard__main a {
       top: 0;
     }
+    .btn_go--back {
+      font-size: 0.7rem;
+      top: -0.3rem !important;
+      left: -0.4rem !important;
+    }
   </style>
 {% endblock %}
 
@@ -28,11 +33,11 @@
           <div class="order__review--btns">
             <a href="{% url 'edit' order_id=order.id %}" aria-label="Edit order" class="btn btn__edit">
               <i class="fas fa-edit"></i>
-              Edit Order
+              Edit
             </a>
             <a href="{% url 'delete' order_id=order.id %}" aria-label="Delete order" class="btn btn__delete">
               <i class="fas fa-trash-alt"></i>
-              Delete Order
+              Delete
             </a>
           </div>
         {% endif %}
