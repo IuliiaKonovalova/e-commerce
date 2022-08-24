@@ -330,6 +330,24 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 1 | Click on the add product button | User will be redirected to the add product page | Y | |
 | 2 | Type in the product name in the search field and click on the search button | If product is found, it will be displayed in the search results | Y | |
 | 3 | Click on the product | User will be redirected to the personnel product page | Y | |
+| Personnel Product details |                        |                  |      | |
+| 1 | Click view in store button | User will be redirected to the product page | Y | |
+| 2 | Click on the edit button | User will be redirected to the edit product page | Y | |
+| 3 | Click on the delete button | User will be redirected to the personnel product page | Y | |
+| 4 | Click on category assigned button | User will be redirected to the categories page | Y | |
+| 5 | Click on the brand assigned button | User will be redirected to the brand details page | Y | |
+| 6 | Click on the tags assigned button | User will be redirected to the tag which was clicked | Y | |
+| 7 | Click on add image button | User will see a modal window with the image upload form | Y | |
+| 8 | Click on upload image button | User will see window to upload image | Y | |
+| 9 | Type in the image alt text | Image alt text is changed | Y | |
+| 10 | Check the image is default | Image is default | Y | |
+| 11 | Check the image is active | Image is active | Y | |
+| 12 | Click cancel button in modal window | the modal window is closed and image isn't added | Y | |
+| 13 | Click save button in modal window | the modal window is closed and image is added | Y | |
+| 14 | Click on the edit image button on the image card | User will see a modal window with the image upload form | Y | The same result as with add image modal |
+| 15 | Click on delete image button on the image card | User will see a confirm window | Y | If user clicks yes, image is deleted, if not - the modal window is closed |
+| 16 | Click on add unit button | User will be redirected to the add unit page | Y | |
+| 17 | Click on the unit card | User will be redirected to the unit page | Y | |
 
 
 ---
