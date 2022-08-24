@@ -476,6 +476,19 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | Page Navigation |                        |                  |      |             |
 | 1 | Click on the arrow left page button | Previous page is displayed | Y | If there not many items on the page, there no arrow left and right buttons + if there is no previous page, there arrow left button is disabled |
 | 2 | Click on the arrow right page button | Next page is displayed | Y | If there not many items on the page, there no arrow left and right buttons + if there is no next page, there arrow right button is disabled |
+| Footer |                        |                  |      |             |
+| 1 | Click on the About us link | User will be redirected to the home page | Y | |
+| 2 | Click on the Contact us link | the email form is displayed | Y | |
+| 3 | Click on the Privacy Policy link | User will be redirected to privacy policy page | Y | |
+| 4 | Click on the Jobs link | User will be redirected to the linked page | Y | This feature is created for the real world project and this it will help the shop owner to display the jobs on Linkedin |
+| 5 | Click on the Products link | User will be redirected to the Stock page | Y | |
+| 6 | Click on the Instagram icon | User will be redirected to the Instagram page | Y | This feature is created for the real world project and this it will help the shop owner to create presence on Instagram |
+| 7 | Click on the Facebook icon | User will be redirected to the Facebook page | Y | This feature is created for the real world project and this it will help the shop owner to create presence on Facebook |
+| 8 | Click on the Twitter icon | User will be redirected to the Twitter page | Y | This feature is created for the real world project and this it will help the shop owner to create presence on Twitter |
+| 9 | Click on created by ... | User will be redirected to developer GitHub page | Y | |
+
+---
+
 
 
 ---
