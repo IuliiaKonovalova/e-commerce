@@ -446,6 +446,24 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 5 | Click on order item product name link | User will be redirected to the product page | Y | |
 | 6 | Click on order item edit button | User will be redirected to the edit order item page | Y | access only to administrators |
 | 7 | Click on order item delete button | User will be redirected to the personnel orders page | Y | access only to administrators |
+| Edit Order |                        |                  |      | Access only to administrators, form pre-filled |
+| 1 | Change customer full name | Customer full name is changed | Y | |
+| 2 | Change customer email | Customer email is changed | Y | |
+| 3 | Change customer phone | Customer phone is changed | Y | |
+| 4 | Change customer address | Customer address is changed | Y | |
+| 5 | Change customer city | Customer city is changed | Y | |
+| 6 | Change customer state | Customer state is changed | Y | |
+| 7 | Change customer country | Customer country is changed | Y | |
+| 8 | Change customer zip | Customer zip is changed | Y | |
+| 9 | Change customer total paid | Customer total paid is changed | Y | |
+| 11 | Render billing status | Billing status is rendered | Y | |
+| 12 | Render Order status | Order status is rendered | Y | |
+| 13 | Click on the cancel button | User will be redirected to the personnel orders page | Y | |
+| 14 | Click on the save button | User will be redirected to the personnel orders page | Y | |
+| Delete Order |                        |                  |      | Access only to administrators           |
+| 1 | Click on the cancel button | User will be redirected to the personnel orders page | Y | |
+| 2 | Click on the delete button | User will be redirected to the personnel orders page and order is deleted | Y | |
+
 
 ---
 
