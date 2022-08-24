@@ -119,7 +119,7 @@
               </div>
             </a>
             {% comment %} Like button to add to wishlist {% endcomment %}
-            <button class="like btn wishlist__control" data-id="{{ product.id }}">
+            <button class="like btn wishlist__control" data-id="{{ product.id }}" aria-label="like button">
               {% if request.user.is_authenticated %}
                 {% if product in request.user.wishlist.get_products %}
                   <i class="fas fa-heart"></i>
