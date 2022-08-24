@@ -250,7 +250,28 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 1 | Click on the product | User will be redirected to the product page | Y | |
 | 2 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the brands page | Y | |
 | 3 | Click on the confirm button | Changes will be confirmed and the admin will be redirected to the brands page | Y | |
-
+| Personnel Tags |                        |                  |      |             |
+| 1 | Click on the add tag button | User will be redirected to the add tag page | Y | |
+| 2 | Click on the tag | User will be redirected to the tag page | Y | |
+| 3 | type in the tag name in search field | if tag is found, it will be displayed in the search results | Y | |
+| Personnel Tag |                        |                  |      |             |
+| 1 | Click on the product | User will be redirected to the product page | Y | |
+| 2 | Click on the edit button | User will be redirected to the edit tag page | Y | |
+| 3 | Click on the delete button | User will be redirected to the tags page | Y | |
+| Personnel Add Tag |                        |                  |      | |
+| 1 | Type in the tag name | Tag name is changed | Y | |
+| 2 | | Check the tag status | Tag status is changed | Y | |
+| 3 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the tags page | Y | |
+| 4 | Click on the add tag button | Changes will be confirmed and the admin will be redirected to the tags page | Y | |
+| Personnel Edit Tag |                        |                  |      | |
+| 1 | Type in the tag name | Tag name is changed | Y | |
+| 2 | Check the tag status | Tag status is changed | Y | |
+| 3 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the tags page | Y | |
+| 5 | Click on the save changes button | Changes will be confirmed and the admin will be redirected to the tags page | Y | |
+| Personnel Delete Tag |                        |                  |      | |
+| 1 | Click on the product | User will be redirected to the product page | Y | |
+| 2 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the tags page | Y | |
+| 3 | Click on the confirm button | Changes will be confirmed and the admin will be redirected to the tags page | Y | |
 
 ---
 
