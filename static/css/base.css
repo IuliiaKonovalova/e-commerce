@@ -3826,6 +3826,10 @@ a.ui-button:active,
   .store__products .search__select {
     min-width: 100%;
   }
+
+  .store__products .search__select {
+    padding-top: 0;
+  }
 }
 
 @media all and (max-width: 461px) {
