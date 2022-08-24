@@ -423,6 +423,18 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | Personnel Units Table |                        |                  |      |             |
 | 1 | Type in SKU or UPC in the search field | units are filtered | Y | |
 | 2 | Click on the unit card | User will be redirected to the unit page | Y | |
+| Personnel Stock Table |                        |                  |      |             |
+| 1 | Click on show units with no stock button | User will see a dropdown table with units with no stock | Y | Available only when there are any units with no stock |
+| 2 | Click on All units button | All units will be displayed | Y | |
+| 3 | Click on Irregularity button | Units with irregularity will be displayed | Y | |
+| 4 | Click on < 50 Units button | Units with less than 50 stock items will be displayed | Y | |
+| 5 | Click on < 20 Units button | Units with less than 20 stock items will be displayed | Y | |
+| 6 | Click on < 10 Units button | Units with less than 10 stock items will be displayed | Y | |
+| 7 | Click on Out of stock button | Units with no stock will be displayed | Y | |
+| 8 | Click on > sales button | Units with high sales will be displayed | Y | |
+| 9 | Click on < sales button | Units with low sales will be displayed | Y | |
+| 10 | Click on SKU link | User will be redirected to the unit page | Y | |
+
 
 ---
 
