@@ -369,7 +369,40 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | Personnel Delete product |                        |                  |      | access only to administrators           |
 | 1 | Click on the cancel button | User will be redirected to the personnel product page | Y | |
 | 2 | Click on the delete button | User will be redirected to the personnel product page and product is deleted | Y | |
-
+| Personnel Unit details |                        |                  |      |             |
+| 1 | Click on the go to products button | User will be redirected to the personnel product page | Y | |
+| 2 | Click on the edit button | User will be redirected to the edit unit page | Y | |
+| 3 | Click on the delete button | User will be redirected to the personnel product page | Y | |
+| 4 | Click on the add stock button | User will be redirected to the add stock page | Y | access only to administrators and if stock has not been added |
+| 5 | Click on the Update stock button | User will be redirected to the Update stock page | Y | access only to administrators and if stock has been added |
+| 6 | Click on the delete stock button | User will be redirected to the personnel product page | Y | access only to administrators and if stock has been added |
+| Personnel Add unit |                        |                  |      | |
+| 1 | Type in the unit SKU | Unit SKU is changed | Y | |
+| 2 | Type in the unit UPC | Unit UPC is changed | Y | |
+| 3 | Select Product type | Product type is selected and assigned attributes fields are displayed | Y | |
+| 4 | Select attributes values | Attributes values are selected | Y | |
+| 5 | Type in the retail price | Retail price is changed | Y | |
+| 6 | Type in the store price | Store price is changed | Y | |
+| 7 | Type in the sale price | Sale price is changed | Y | |
+| 8 | Type in the weight | Weight is changed | Y | |
+| 9 | Check the unit is active | Unit is active | Y | |
+| 10 | Click back to products button | User will be redirected to the personnel product page and changes will not be saved | Y | |
+| 11 | Click add product Unit button | Unit will be added and the form will be empty to let user add another unit | Y | |
+| Personnel Edit unit |                        |                  |      | pre-filled |
+| 1 | Type in the unit SKU | Unit SKU is changed | Y | |
+| 2 | Type in the unit UPC | Unit UPC is changed | Y | |
+| 3 | Select Product type | Product type is selected and assigned attributes fields are displayed | Y | |
+| 4 | Select attributes values | Attributes values are selected | Y | |
+| 5 | Type in the retail price | Retail price is changed | Y | |
+| 6 | Type in the store price | Store price is changed | Y | |
+| 7 | Type in the sale price | Sale price is changed | Y | |
+| 8 | Type in the weight | Weight is changed | Y | |
+| 9 | Check the unit is active | Unit is active | Y | |
+| 10 | Click back to products button | User will be redirected to the personnel product page and changes will not be saved | Y | |
+| 11 | Click add product Unit button | Unit will be added and the form will be empty to let user check the unit | Y | |
+| Personnel Delete unit |                        |                  |      | access only to administrators           |
+| 1 | Click on the cancel button | User will be redirected to the personnel product page | Y | |
+| 2 | Click on the delete button | User will be redirected to the personnel product page and unit is deleted | Y | |
 
 ---
 
