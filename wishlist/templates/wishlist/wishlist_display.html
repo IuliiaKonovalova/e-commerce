@@ -32,10 +32,10 @@
             <div class="wishlist__clean--dropdown hidden" id="wishlist__clean--dropdown">
               <p class="wishlist__clean--text">Do you want to delete all items from your wishlist?</p>
               <div class="wishlist__clean--buttons">
-                <button class="wishlist__clean--clean btn btn__delete wishlist__clean--yes" id="clean-confirm">
+                <button class="wishlist__clean--clean btn btn__delete wishlist__clean--yes" id="clean-confirm"  aria-label="clean wishlist yes button">
                   Yes
                 </button>
-                <button class="wishlist__clean--clean btn btn__cancel wishlist__clean--no" id="clean-cancel">
+                <button class="wishlist__clean--clean btn btn__cancel wishlist__clean--no" id="clean-cancel"  aria-label="clean wishlist no button">
                   No
                 </button>
               </div>
@@ -102,7 +102,7 @@
                       </div>
                     </div>
                   </a>
-                  <button class="like btn add wishlist__control" data-id="{{ product.id }}">
+                  <button class="like btn add wishlist__control" data-id="{{ product.id }}"  aria-label="like button">
                     <i class="fas fa-heart"></i>
                   </button>
                 </div>
