@@ -309,6 +309,24 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 5 | click save changes button | Changes will be confirmed and the admin will be redirected to the product attributes page | Y | |
 | Personnel Delete Product attribute |                        |                  |      | access only to administrators           |
 | 1 | Click on go back button | User will be redirected to the product attributes page | Y | Deletion is forbidden |
+| Personnel Attributes Values |                        |                  |      |             |
+| 1 | Click on the add attribute value button | User will be redirected to the add attribute value page | Y | |
+| 2 | Click on the edit button | User will be redirected to the edit attribute value page | Y | |
+| 3 | Click on the delete button | User will be redirected to the attributes values page | Y | access only to administrators |
+| 4 | Type in the attribute value name in the search field and click on the search button | If attribute value is found, it will be displayed in the search results | Y | |
+| Personnel Add Attribute value |                        |                  |      | |
+| 1 | Select attribute | Attribute is selected | Y | |
+| 2 | Type in the attribute value name | Attribute value name is changed | Y | |
+| 3 | click cancel button | Changes will not be confirmed and the admin will be redirected to the attributes values page | Y | |
+| 4 | click add attribute value button | Changes will be confirmed and the admin will be redirected to the attributes values page | Y | |
+| Personnel Edit Attribute value |                        |                  |      | |
+| 1 | Select attribute | Attribute is selected | Y | |
+| 2 | Type in the attribute value name | Attribute value name is changed | Y | |
+| 3 | click cancel button | Changes will not be confirmed and the admin will be redirected to the attributes values page | Y | |
+| 5 | click save changes button | Changes will be confirmed and the admin will be redirected to the attributes values page | Y | |
+| Personnel Delete Attribute value |                        |                  |      | access only to administrators           |
+| 1 | Click on go back button | User will be redirected to the attributes values page | Y | Deletion is forbidden |
+I can inform loyal customers about special offers. | Y | ![Product Details. Promo  Emails](documentation/web_marketing/promo_email.png)|
 
 ---
 
