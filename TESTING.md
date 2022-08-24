@@ -470,6 +470,12 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | Delete order Item |                        |                  |      | Access only to administrators           |
 | 1 | Click on the cancel button | User will be redirected to the personnel orders page | Y | 
 | 2 | Click on the delete button | User will be redirected to the personnel orders page and order item is deleted and the total price is recalculated | Y | |
+| Personnel Stock Requests Table |                        |                  |      |             |
+| 1 | Select product in requests in dropdown and click search | requests are filtered | Y | |
+| 2 | Click on the requested product | User will be redirected to the personnel product page | Y | |
+| Page Navigation |                        |                  |      |             |
+| 1 | Click on the arrow left page button | Previous page is displayed | Y | If there not many items on the page, there no arrow left and right buttons + if there is no previous page, there arrow left button is disabled |
+| 2 | Click on the arrow right page button | Next page is displayed | Y | If there not many items on the page, there no arrow left and right buttons + if there is no next page, there arrow right button is disabled |
 
 
 ---
