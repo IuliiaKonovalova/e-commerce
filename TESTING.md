@@ -403,6 +403,24 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | Personnel Delete unit |                        |                  |      | access only to administrators           |
 | 1 | Click on the cancel button | User will be redirected to the personnel product page | Y | |
 | 2 | Click on the delete button | User will be redirected to the personnel product page and unit is deleted | Y | |
+| Personnel Add stock |                        |                  |      | access only to administrators           |
+| 1 | select date | Date is selected | Y | not required | |
+| 2 | type purchased quantity | Purchased quantity is changed | Y | |
+| 3 | type left quantity | Left quantity is changed | Y | |
+| 4 | type sold quantity | Sold quantity is changed | Y | |
+| 5 | click cancel button | User will be redirected to the personnel product unit page | Y | |
+| 6 | click save button | User will be redirected to the personnel product unit page | Y | |
+| Personnel Update stock |                        |                  |      | access only to administrators, pre-filled |
+| 1 | select date | Date is selected | Y | not required | |
+| 2 | type purchased quantity | Purchased quantity is changed | Y | |
+| 3 | type left quantity | Left quantity is changed | Y | |
+| 4 | type sold quantity | Sold quantity is changed | Y | |
+| 5 | click cancel button | User will be redirected to the personnel product unit page | Y | |
+| 6 | click save button | User will be redirected to the personnel product unit page | Y | |
+| Personnel Delete stock |                        |                  |      | access only to administrators           |
+| 1 | Click on the cancel button | User will be redirected to the personnel product unit page | Y | |
+| 2 | Click on the delete button | User will be redirected to the personnel product unit page and stock is deleted | Y | |
+
 
 ---
 
