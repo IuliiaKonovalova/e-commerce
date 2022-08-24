@@ -22,6 +22,11 @@
       border-radius: 0.2em;
     }
 
+    .data__main--link--tag {
+      margin-bottom: 0.5em;
+      display: inline-block;
+    }
+
     .btn__link--internal:hover {
       background-color: #151422;
       color: #ffffff;
@@ -113,7 +118,7 @@
           <strong>Tags: {{ product.get_tags.count }}</strong>
           <div>
             {% for tag in product.get_tags %}
-              <a href="{% url 'tag_detail' tag_pk=tag.id %}" aria-label=" Go to {{ tag.name }} page" class="data__main--link cursor btn__link--internal">
+              <a href="{% url 'tag_detail' tag_pk=tag.id %}" aria-label=" Go to {{ tag.name }} page" class="data__main--link data__main--link--tag cursor btn__link--internal">
                 {{ tag.name }}
                 <i class="fa fa-external-link"></i>
               </a>
