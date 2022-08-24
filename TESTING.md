@@ -209,9 +209,24 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | 1 | Type in the email name | Email name is changed | Y | |
 | 2 | Type in the email content | Email content is changed | Y | |
 | 3 | Select the coupon code | Coupon code is selected | Y | if code is typed, it will be a promo-email, if code is not typed, it will be a newsletter-email |
+| Personnel Categories |                        |                  |      |             |
+| 1 | Click on the add category button | User will be redirected to the add category page | Y | |
+| 2 | Click on the edit button | User will be redirected to the edit category page | Y | |
+| 3 | Click on the delete button | User will be redirected to the categories page | Y |  access only to administrators |
+| Personnel Add Category |                        |                  |      | Access only to administrators           |
+| 1 | Type in the category name | Category name is changed | Y | |
+| 2 | Check the category status | Category status is changed | Y | |
+| 3 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the categories page | Y | |
+| 4 | Click on the add category button | Changes will be confirmed and the admin will be redirected to the categories page | Y | |
+| Personnel Edit Category |                        |                  |      | Access only to administrators           |
+| 1 | Render the category name | Category name is changed | Y | |
+| 2 | Check the category status | Category status is changed | Y | |
+| 3 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the categories page | Y | |
+| 5 | Click on the save changes button | Changes will be confirmed and the admin will be redirected to the categories page | Y | |
+| Personnel Delete Category |                        |                  |      | Access only to administrators           |
+| 1 | Click on the cancel button | Changes will not be confirmed and the admin will be redirected to the categories page | Y | |
+| 6 | Click on the confirm button | Changes will be confirmed and the admin will be redirected to the categories page | Y | |
 
-
----
 
 ## Automated testing
 
