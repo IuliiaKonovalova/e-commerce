@@ -537,6 +537,26 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | As a Regular User, I want to be able to add, edit, and delete addresses, so that I can be sure that I will receive my order at the correct address. | Y | ![My Addresses](documentation/features/my_addresses/my_addresses_page.png) ![Add address](documentation/features/my_addresses/my_addresses_page.png) ![Edit address](documentation/features/my_addresses/add_new_address_button.png) ![Edit address](documentation/features/edit_address/edit_address_form.png) |
 | As a Regular User, I want to be able to change primary address, so that I can set the primary address without editing it. | Y | ![My Addresses](documentation/features/my_addresses/my_addresses_page.png) ![Edit address](documentation/features/my_addresses/address_card_not_primary.png) ![Edit address](documentation/features/my_addresses/address_card_primary.png) |
 
+| Manager + Admin Visitor Goals    | Requirement met | Image |
+| ------------------------- | --------------- | ----- |
+| As a Manager, I want to be able to add, edit, and delete category, so that I can keep products’ categories up to date. | Y | ![Category](documentation/features/personnel/categories/categories_page.png) |
+| As a Manager, I want to be able to add, edit, and delete products, so that I can keep shop products up to date.  | Y | ![Product full heading](documentation/features/personnel/products_table/products_table_heading.png) ![Product full heading](documentation/features/personnel/product_full/product_full_heading.png) |
+| As a Manager, I want to be able to add, edit, delete tags, so that I can keep products’ sorting up to date and, as a result, increase sales.  | Y | ![Personnel Tags](documentation/features/personnel/tags/tags_page.png) ![Personnel tag details](documentation/features/personnel/tags/tag_detail.png) |
+| As a Manager, I want to be able to change tags for a product, so that I can increase sales for a particular product.  | Y | ![Personnel Product full edit](documentation/features/personnel/product_full/edit_product.png) |
+| As a Manager, I want to be able to Add, edit, and delete products’ options (attributes and values), so that I can keep products’ options up to date. | Y | ![Personnel Product full edit](documentation/features/personnel/product_full/edit_product.png) |
+| As a Manager, I want to be able to send emails to customers about future promotions, so that I can increase sales by notifying customers about promotions. | Y | ![Product Details. Newsletter Emails](documentation/web_marketing/newsletter.png) ![Product Details. Promo  Emails](documentation/web_marketing/promo_email.png)|
+| As a Manager, I want to be able to view customers' data, so that I can contact customers if needed and solve possible problems with purchases.  | Y | ![Personnel Order Details](documentation/features/personnel/orders/order_full_details_customer_data.png) |
+| As a Manager, I want to be able to control product status (active/not active), so that I can keep shop stock up to date.  | Y | ![Personnel Product Stock](documentation/features/personnel/stock/update_stock.png) |
+| As a Manager, I want to be able to Review user’s requests on a product that is out of stock, so that I can understand customers' urgent needs. As a Manager, I want to be able to review user’s requests on a product that is about to go out of stock, so that I can understand customers' urgent needs and products’ popularity. | Y | ![Personnel Product Stock](documentation/features/personnel/stock_requests/stock_requests.png) |
+| As a Manager, I want to be able to send emails to customers who left notification letters about products coming back to the shop, so that I can enhance customer loyalty and increase sales.  | Y | ![Personnel Product Stock](documentation/features/product_details/stock_answer_email.png) |
+| As a Admin, I want to be able to review and edit orders’ status, so that I can control customers’ orders and sales.  | Y | ![Personnel Order Details](documentation/features/personnel/orders/order_full_detail_admin.png) |
+| As a Manager, I want to be able to sort products by stock number, so that I can control stock numbers.  | Y | ![Personnel Product Stock](documentation/features/personnel/stock_table/stock_table_select_bar.png) |
+| As a Manager, I want to be able to review customers’ orders, so that I can control orders.  | Y | ![Personnel Order Details](documentation/features/personnel/orders/orders_page.png) |
+| As a Manager, I want to be able to sort orders by date and status, so that I can prioritize orders.  | Y | ![Personnel Order Details](documentation/features/personnel/orders/orders_bar.png) |
+ As a Manager, I want to be able to display new products label, so that I can be sure that customers will be aware of new products in the shop.  | Y | ![Personnel Product Stock](documentation/features/store/store_product_card.png) |
+| As a Manager, I want to be able to Allow customers to leave reviews only after they receive a product, so that I can control that reviews are relevant.  | Y | ![Personnel Product Stock](documentation/features/my_order_details/my_order_detail_page.png) |
+
+
 ---
 
 ## Automated testing
