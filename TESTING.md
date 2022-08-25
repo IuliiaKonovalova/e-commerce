@@ -557,6 +557,21 @@ Usability was tested with the below user acceptance testing, sent to new users t
 | As a Manager, I want to be able to Allow customers to leave reviews only after they receive a product, so that I can control that reviews are relevant.  | Y | ![Personnel Product Stock](documentation/features/my_order_details/my_order_detail_page.png) |
 
 
+
+| Logistics Manager + Admin Visitor Goals    | Requirement met | Image |
+| ------------------------- | --------------- | ----- |
+| As a Logistics Manager or Admin, I want to be able to render order status, so that I can track at which stage the order is in.  | Y | ![Personnel Order Details](documentation/features/personnel/orders/order_status_update.png) |
+
+
+| Admin Visitor Goals    | Requirement met | Image |
+| ------------------------- | --------------- | ----- |
+| As an Admin, I want to be able to add promotions, so that I can increase sales and enhance customers’ loyalty.  | Y |  ![Promotions](documentation/features/personnel/add_promotion/add_promotion_page.png) |
+| As an Admin, I want to be able to get a visible notice about products that are running in stock, so that I can keep stock up to date. | Y | ![Product Details. Stock Select](documentation/features/personnel/stock_table/stock_table_selected_fewer_than_20.png) ![Product Details full. Units in stock](documentation/features/personnel/product_full/units_cards_stock.png) |
+|  As an Admin, I want to be able to be aware of units sold, so that I can be aware of sales on a particular product. | Y | ![Product Details. Units in stock](documentation/features/personnel/units/unit_card.png) |
+| As an Admin, I want to be able to get a visible notice if there is some inconsistency in sales, so that I can be aware of possible stealing.  | Y | ![Product Details. Units in stock](documentation/features/personnel/units/stock_inconsistency.png) |
+| As an Admin, I want to be able to get a visible notice if there a product is not salable, so that I can make a decision about stopping purchasing this product for my store.  | Y | ![Product Details. Units in stock](documentation/features/personnel/stock_table/stock_table_select_bar.png) |
+|  As an Admin, I want to be able to send special discounts email notifications, so that I can inform loyal customers about special offers. | Y | ![Product Details. Promo  Emails](documentation/web_marketing/promo_email.png)|
+
 ---
 
 ## Automated testing
