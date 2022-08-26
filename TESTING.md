@@ -1229,8 +1229,14 @@ Testing was conducted on the following browsers;
 [Compatibility Report](documentation/validation/compatibility.pdf)
 
 ---
+## Responsiveness
 
-### Errors:
+The responsiveness was checked manually by using devtools (Chrome) throughout the whole development. It was also checked with [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en) Chrome extension.
+
+[Responsiveness Report](documentation/testing/responisveness.pdf)
+
+---
+## Errors in commit messages:
 
 The errors were made in the following commits:
 
