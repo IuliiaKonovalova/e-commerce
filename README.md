@@ -1059,7 +1059,7 @@ As the app requires assigning a role for each user, you will need to apply some 
             Role,
             on_delete=models.SET_NULL,
             null=True,
-            # default=1, # 1 is the default role should be commented out before the first migrations
+            # default=1, # 1 is the default role that should be commented out before the first migrations
             verbose_name='Role',
             help_text=(
                 'format: not required'
@@ -1108,7 +1108,7 @@ For example:
     - ```python manage.py makemigrations```
     - ```python manage.py migrate```
 
-**After the following steps, you will make sure that the app is working correctly and any other user registered in your app will have an access only as a customer. The rest of the roles will be controlled by the admin.**
+**After the following steps, you will ensure that the app is working correctly, and any other user registered in your app will only have access as a customer. The rest of the roles will be controlled by the admin.**
 
 
 12. Run the server.
@@ -1119,6 +1119,7 @@ For example:
 
 
 *If you are using Gitpod, you can skip steps 1-3 by clicking this [link](https://gitpod.io/#https://github.com/IuliiaKonovalova/e-commerce), and start from step 4.*
+
 ### Heroku Deployment
 
 
