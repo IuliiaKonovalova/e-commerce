@@ -847,27 +847,27 @@ This page has a success message and a button to review a customer's orders.
 
 ![Promotions page](documentation/features/personnel/promotions/promotions_page.png)
 
-This page is accessible only to the personnel. And only admin is able to add a promotion, render the promotion page and delete the promotion.
+This page is accessible only to the personnel. And only the admin can add a promotion, render the promotion page, and delete the promotion.
 
 The following image shows the promotion page for managers:
 
 ![Promotions page. Add promotion Disable](documentation/features/personnel/promotions/no_add_button_manager.png)
 
-When the personnel member clicks on the promotion in the promotions table, the dropdown menu will be displayed with all items in the promotion and link to these items.
+When the personnel member clicks on the promotion in the promotions table, the dropdown menu will display all items in the promotion and link to these items.
 
 ![Promotions page. Dropdown menu](documentation/features/personnel/promotions/promo_items.png)
 
-However, only the admin is able to see edit and delete buttons.
+However, only the admin can see the edit and delete buttons.
 
 The following image shows the promotion dropdown menu for managers:
 
 ![Promotions page. Dropdown menu Disable](documentation/features/personnel/promotions/no_buttons_promo_manager.png)
 
-- If admin clicks add promotion button, he will be redirected to add promotion page;
+- If the admin clicks add promotion button, he will be redirected to add promotion page;
 
-- If admin clicks on the edit button, he will be redirected to edit promotion page;
+- If the admin clicks on the edit button, he will be redirected to the edit promotion page;
 
-- If admin clicks on the delete button, the modal will be displayed with a confirmation message;
+- If the admin clicks on the delete button, the modal will be displayed with a confirmation message;
 
 ![Promotions page. Modal](documentation/features/personnel/promotions/promotions_delete_modal.png)
 
@@ -875,42 +875,42 @@ The following image shows the promotion dropdown menu for managers:
 
 ![Add Promotion page](documentation/features/personnel/add_promotion/add_promotion_page.png)
 
-This page is accessible only to the admin. It has a form with fields for the promotion name, description, coupon code, discount, start date, end date, and the items that will be included in the promotion.
+This page is accessible only to the admin. It has a form with fields for the promotion name, description, coupon code, discount, start date, end date, and the items included in the promotion.
 
-When the admin clicks "Cancel" button, the admin will be redirected to the promotions page.
+When the admin clicks the "Cancel" button, the admin will be redirected to the promotions page.
 
-When the admin clicks "Save" button, the admin will be redirected to the promotions page.
+When the admin clicks the "Save" button, the admin will be redirected to the promotions page.
 
 ### Edit Promotion Page:
 
 ![Edit Promotion page](documentation/features/personnel/edit_promotion/edit_promotion_page.png)
 
-This page is accessible only to the admin. It has a form with fields for the promotion name, description, coupon code, discount, start date, end date, and the items that will be included in the promotion.
+This page is accessible only to the admin. It has a form with fields for the promotion name, description, coupon code, discount, start date, end date, and the items included in the promotion.
 
-When the admin clicks "Cancel" button, the admin will be redirected to the promotions page.
+When the admin clicks the "Cancel" button, the admin will be redirected to the promotions page.
 
-When the admin clicks "Save" button, the admin will be redirected to the promotions page.
+When the admin clicks the "Save" button, the admin will be redirected to the promotions page.
 
 ### Create Email Page:
 
 ![Create Email page](documentation/features/personnel/create_email/create_email_page.png)
 
-This page is accessible only by personnel. It has a form with fields for the email name, Content and coupon code.
+This page is accessible only by personnel. It has a form with fields for the email name, Content, and coupon code.
 
 The coupon code field is optional.
 
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the emails page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the emails page.
 
-When the personnel clicks "Save" button, the personnel will be redirected to the emails page.
+When the personnel clicks the "Save" button, the personnel will be redirected to the emails page.
 
 ### Categories Page:
 
 ![Categories page](documentation/features/personnel/categories/categories_page.png)
 
-This page is accessible only to the personnel. It has categories table with all categories.
+This page is accessible only to the personnel. It has a categories table with all categories.
 
-However, only admin is able to delete categories.
+However, only the admin can delete categories.
 
 The following image shows the categories table for managers:
 
@@ -934,9 +934,9 @@ If the personnel member clicks on the button, the personnel member will be redir
 
 This page is accessible only to the personnel. It has a form with fields for the category name and status.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the categories page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the categories page.
 
-When the personnel clicks "Save" button, the personnel will be redirected to the categories page.
+When the personnel clicks the "Save" button, the personnel will be redirected to the categories page.
 
 ### Edit Category Page:
 
@@ -944,41 +944,41 @@ When the personnel clicks "Save" button, the personnel will be redirected to the
 
 This page is accessible only to the personnel. It has a form with fields for the category name and status.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the categories page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the categories page.
 
-When the personnel clicks "Save" button, the personnel will be redirected to the categories page.
+When the personnel clicks the "Save" button, the personnel will be redirected to the categories page.
 
 ### Delete Category Page:
 
 ![Delete Category page](documentation/features/personnel/categories/delete_category.png)
 
-This page is accessible only to the admin. It has a form and the list of the products in the category.
+This page is accessible only to the admin. It has a form and a list of the products in the category.
 
-When the admin clicks "Cancel" button, the admin will be redirected to the categories page.
+When the admin clicks the "Cancel" button, the admin will be redirected to the categories page.
 
-When the admin clicks "Delete" button, the admin will be redirected to the categories page.
+When the admin clicks the "Delete" button, the admin will be redirected to the categories page.
 
 ### Brands Page:
 
 ![Brands page](documentation/features/personnel/brands/brands_page.png)
 
-This page is accessible only to the personnel. It has brands table with all brands.
+This page is accessible only to the personnel. It has a brands table with all brands.
 
-It has a title, "Add brand" button, which will redirect the personnel member to the add brand page. It also has search field, which allows the admin to search for brands.
+The "Add brand" button has a title, which will redirect the personnel member to the add brand page. It also has a search field, which allows the admin to search for brands.
 
-The main part of the page is dedicated to the brands table.
+The central part of the page is dedicated to the brands' table.
 
-if the admin or other personnel members click on the brand in the brands table, the admin will be redirected to the brand's details page.
+If the admin or other personnel members click on the brand in the brands' table, the admin will be redirected to the brand's details page.
 
 ### Add Brand Page:
 
 ![Add Brand page](documentation/features/personnel/brands/add_brand.png)
 
-This page is accessible only to the personnel. It has a form with fields for the brand name, description, and status.
+This page is accessible only to the personnel. It has a form with the brand name, description, and status fields.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the brands page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the brands' page.
 
-When the personnel clicks "Add brand" button, the personnel will be redirected to the brands page.
+When the personnel clicks the "Add brand" button, the personnel will be redirected to the brands' page.
 
 ### Brand Details Page:
 
@@ -986,7 +986,7 @@ When the personnel clicks "Add brand" button, the personnel will be redirected t
 
 This page is accessible only to the personnel.
 
-It has full data on the brand:
+It has complete data on the brand:
 
 *Admin view*
 
@@ -1013,30 +1013,30 @@ It has full data on the brand:
 
 This page is accessible only to the personnel. It has a pre-filled form with fields for the brand name, description, and status.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the brands page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the brands' page.
 
-When the personnel clicks "Save changes" button, the personnel will be redirected to the brands page.
+When the personnel clicks the "Save changes" button, the personnel will be redirected to the brands' page.
 
 ### Delete Brand Page:
 
 ![Delete Brand page](documentation/features/personnel/brands/delete_brand.png)
 
-This page is accessible only to the admin. It has a form and the list of the products in the brand.
+This page is accessible only to the admin. It has a form and a list of the products in the brand.
 
-When the admin clicks "Cancel" button, the admin will be redirected to the brands page.
+When the admin clicks the "Cancel" button, the admin will be redirected to the brands' page.
 
-When the admin clicks "Delete" button, the admin will be redirected to the brands page.
+When the admin clicks the "Delete" button, the admin will be redirected to the brands' page.
 
 
 ### Tags Page:
 
 ![Tags page](documentation/features/personnel/tags/tags_page.png)
 
-This page is accessible only to the personnel. It has tags table with all tags.
+This page is accessible only to the personnel. It has a tags table with all tags.
 
-It has a title, "Add tag" button, which will redirect the personnel member to the add tag page. It also has search field, which allows the admin to search for tags.
+The "Add tag" button has a title, which will redirect the personnel member to the add tag page. It also has a search field, which allows the admin to search for tags.
 
-The main part of the page is dedicated to the tags table.
+The central part of the page is dedicated to the tags table.
 If the admin or other personnel members click on the tag in the tags table, the admin will be redirected to the tag's details page.
 
 
@@ -1046,7 +1046,7 @@ If the admin or other personnel members click on the tag in the tags table, the 
 
 This page is accessible only to the personnel.
 
-It has full data on the tag:
+It has complete data on the tag:
 
   - Name;
   - Status;
@@ -1063,9 +1063,9 @@ It has full data on the tag:
 
 This page is accessible only to the personnel. It has a form with fields for the tag name and status.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the tags page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the tags page.
 
-When the personnel clicks "Add tag" button, the personnel will be redirected to the tags page.
+When the personnel clicks the "Add tag" button, the personnel will be redirected to the tags page.
 
 ### Edit Tag Page:
 
@@ -1073,19 +1073,19 @@ When the personnel clicks "Add tag" button, the personnel will be redirected to 
 
 This page is accessible only to the personnel. It has a pre-filled form with fields for the tag name and status.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the tags page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the tags page.
 
-When the personnel clicks "Save changes" button, the personnel will be redirected to the tags page.
+When the personnel clicks the "Save changes" button, the personnel will be redirected to the tags page.
 
 ### Delete Tag Page:
 
 ![Delete Tag page](documentation/features/personnel/tags/delete_tag.png)
 
-This page is accessible only to the personnel. It has a form with the warning message.
+This page is accessible only to the personnel. It has a form with a warning message.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the tags page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the tags page.
 
-When the personnel clicks "Delete" button, the personnel will be redirected to the tags page.
+When the personnel clicks the "Delete" button, the personnel will be redirected to the tags page.
 
 
 
@@ -1093,11 +1093,11 @@ When the personnel clicks "Delete" button, the personnel will be redirected to t
 
 ![Product Types page](documentation/features/personnel/product_types/product_types.png)
 
-This page is accessible only to the personnel. It has product types table with all product types.
+This page is accessible only to the personnel. It has a product types table with all product types.
 
-It has a title, "Add product type" button, which will redirect the personnel member to the add product type page. It also has search field, which allows the admin to search for product types.
+The "Add product type" button has a title, which will redirect the personnel member to the add product type page. It also has a search field, which allows the admin to search for product types.
 
-The main part of the page is dedicated to the product types table. Product types table has cards with data on each product type:
+The central part of the page is dedicated to the product types table. The product types table has cards with data on each product type:
 
   - Name;
   - Description;
@@ -1109,7 +1109,7 @@ The main part of the page is dedicated to the product types table. Product types
   - Edit button;
       - if the personnel member clicks on the edit button, the personnel member will be redirected to the edit product type page;
 
-  **The product type card will be viewed as following for managers**
+  **The product type card will be viewed as the following for managers**
 
   ![Product type card](documentation/features/personnel/product_types/product_type_manager.png)
 
@@ -1121,43 +1121,44 @@ The main part of the page is dedicated to the product types table. Product types
 
 ![Add Product Type page](documentation/features/personnel/product_types/add_product_type.png)
 
-This page is accessible only to the personnel. It has a form with fields for the product type name, attributes and description.
+This page is accessible only to the personnel. It has a form with fields for the product type name, attributes, and description.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the product types page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the product types page.
 
-When the personnel clicks "Add product type" button, the personnel will be redirected to the product types page.
+When the personnel clicks the "Add product type" button, the personnel will be redirected to the product types page.
 
 ### Edit Product Type Page:
 
 ![Edit Product Type page](documentation/features/personnel/product_types/edit_product_type.png)
 
-This page is accessible only to the personnel. It has a pre-filled form with fields for the product type name, attributes and description.
+This page is accessible only to the personnel. It has a pre-filled form with fields for the product type name, attributes, and description.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the product types page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the product types page.
 
-When the personnel clicks "Save changes" button, the personnel will be redirected to the product types page.
+When the personnel clicks the "Save changes" button, the personnel will be redirected to the product types page.
 
 ### Delete Product Type Page:
 
 ![Delete Product Type page](documentation/features/personnel/product_types/delete_product_type.png)
 
-This page is accessible only to the personnel. It has no form as the deletion may be dangerous.
+This page is accessible only to the personnel. It has no form, as the deletion may be dangerous.
 
 It provides a warning message.
 
-And has only "Go back" button.
+And has only a "Go back" button.
 
-When the personnel clicks "Go back" button, the personnel will be redirected to the product types page.
+When the personnel clicks the "Go back" button, the personnel will be redirected to the product types page.
+
 
 ### Attributes Page:
 
 ![Attributes page](documentation/features/personnel/attributes/attributes.png)
 
-This page is accessible only to the personnel. It has attributes table with all attributes.
+This page is accessible only to the personnel. It has an attributes table with all attributes.
 
-It has a title, "Add attribute" button, which will redirect the personnel member to the add attribute page. It also has search field, which allows the admin to search for attributes.
+The "Add attribute" button has a title, which will redirect the personnel member to the add attribute page. It also has a search field, which allows the admin to search for attributes.
 
-The main part of the page is dedicated to the attributes table. Attributes table has cards with data on each attribute:
+The main part of the page is dedicated to the attributes table. The attributes table has cards with data on each attribute:
   - Name;
   - Description;
   - Values associated with the attribute;
@@ -1166,7 +1167,7 @@ The main part of the page is dedicated to the attributes table. Attributes table
   - Edit button;
       - if the personnel member clicks on the edit button, the personnel member will be redirected to the edit attribute page;
 
-  **The attribute card will be viewed as following for managers**
+  **The attribute card will be viewed as the following for managers**
 
   ![Attribute card](documentation/features/personnel/attributes/attribute_card_manager.png)
 
@@ -1178,50 +1179,50 @@ The main part of the page is dedicated to the attributes table. Attributes table
 
 ![Add Attribute page](documentation/features/personnel/attributes/add_attribute.png)
 
-This page is accessible only to the personnel. It has a form with fields for the attribute name, description and values.
+This page is accessible only to the personnel. It has a form with fields for the attribute name, description, and values.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the attributes page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the attributes page.
 
-When the personnel clicks "Add attribute" button, the personnel will be redirected to the attributes page.
+When the personnel clicks the "Add attribute" button, the personnel will be redirected to the attributes page.
 
 ### Edit Attribute Page:
 
 ![Edit Attribute page](documentation/features/personnel/attributes/edit_attribute.png)
 
-This page is accessible only to the personnel. It has a pre-filled form with fields for the attribute name, description and values.
+This page is accessible only to the personnel. It has a pre-filled form with fields for the attribute name, description, and values.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the attributes page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the attributes page.
 
-When the personnel clicks "Save changes" button, the personnel will be redirected to the attributes page.
+When the personnel clicks the "Save changes" button, the personnel will be redirected to the attributes page.
 
 ### Delete Attribute Page:
 
 ![Delete Attribute page](documentation/features/personnel/attributes/delete_attribute.png)
 
-This page is accessible only to the personnel. It has no form as the deletion may be dangerous.
+This page is accessible only to the personnel. It has no form, as the deletion may be dangerous.
 
 It provides a warning message.
 
-And has only "Go back" button.
+And has only a "Go back" button.
 
-When the personnel clicks "Go back" button, the personnel will be redirected to the attributes page.
+When the personnel clicks the "Go back" button, the personnel will be redirected to the attributes page.
 
 ### Values Page:
 
 ![Values page](documentation/features/personnel/values/values.png)
 
-This page is accessible only to the personnel. It has values table with all values.
+This page is accessible only to the personnel. It has a values table with all values.
 
-It has a title, "Add value" button, which will redirect the personnel member to the add value page. It also has search field, which allows the admin to search for values.
+It has a title, the "Add value" button, which will redirect the personnel member to the add value page. It also has a search field, which allows the admin to search for values.
 
-The main part of the page is dedicated to the values table. Values table has cards with data on each value:
+The central part of the page is dedicated to the values table. The values table has cards with data on each value:
   - Name;
   - Description;
   - number of units assigned to the value;
   - Edit button;
       - if the personnel member clicks on the edit button, the personnel member will be redirected to the edit value page;
     
-    **The value card will be viewed as following for managers**
+    **The value card will be viewed as the following for managers**
 
     ![Value card](documentation/features/personnel/values/value_card_manager.png)
 
@@ -1233,52 +1234,52 @@ The main part of the page is dedicated to the values table. Values table has car
 
 ![Add Value page](documentation/features/personnel/values/add_value.png)
 
-This page is accessible only to the personnel. It has a form with fields for the value name, description and number of units.
+This page is accessible only to the personnel. It has a form with fields for the value name, description, and number of units.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the values page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the values page.
 
-When the personnel clicks "Add value" button, the personnel will be redirected to the values page.
+When the personnel clicks the "Add value" button, the personnel will be redirected to the values page.
 
 ### Edit Value Page:
 
 ![Edit Value page](documentation/features/personnel/values/edit_value.png)
 
-This page is accessible only to the personnel. It has a pre-filled form with fields for the value name, description and number of units.
+This page is accessible only to the personnel. It has a pre-filled form with fields for the value name, description, and number of units.
 
-When the personnel clicks "Cancel" button, the personnel will be redirected to the values page.
+When the personnel clicks the "Cancel" button, the personnel will be redirected to the values page.
 
-When the personnel clicks "Save changes" button, the personnel will be redirected to the values page.
+When the personnel clicks the "Save changes" button, the personnel will be redirected to the values page.
 
 ### Delete Value Page:
 
 ![Delete Value page](documentation/features/personnel/values/delete_value.png)
 
-This page is accessible only to the personnel. It has no form as the deletion may be dangerous.
+This page is accessible only to the personnel. It has no form, as the deletion may be dangerous.
 
 It provides a warning message.
 
-And has only "Go back" button.
+And has only a "Go back" button.
 
-When the personnel clicks "Go back" button, the personnel will be redirected to the values page.
+When the personnel clicks the "Go back" button, the personnel will be redirected to the values page.
 
 
 ### Products table:
 
 ![Products table](documentation/features/personnel/products_table/products_table.png)
 
-THis page is accessible only to the personnel. It has products table with all products.
+This page is accessible only to the personnel. It has a product table with all products.
 
-It has a title, "Add product" button, which will redirect the personnel member to the add product page. 
+The "Add product" button has a title, which will redirect the personnel member to the add product page. 
 
 ![Products table](documentation/features/personnel/products_table/products_table_heading.png)
 
-It includes a summary on the products in store as well.
+It includes a summary of the products in store as well.
 
-It also has search field, which allows the admin/personnel to search for products.
+It also has a search field, which allows the admin/personnel to search for products.
 
 ![Products table](documentation/features/personnel/products_table/products_table_search_bar.png)
 
-The main part of the page is dedicated to the products table. Products table has cards with data on each product:
+The central part of the page is dedicated to the products table. The products table has cards with data on each product:
 
 ![Products table](documentation/features/personnel/products_table/products_table_item.png)
 
@@ -1300,9 +1301,9 @@ The main part of the page is dedicated to the products table. Products table has
 
 This page is accessible only to the personnel. It has a table with all products.
 
-It has a heading section, full data on the product, images, units for the product
+It has a heading section, complete data on the product, images, and units for the product.
 
-- Heading section has a title, label "New" (if product is added recently to the store), Id, status, and 3 buttons:
+- Heading section has a title, label "New" (if the product is added recently to the store), Id, status, and three buttons:
 
   ![Product full data page](documentation/features/personnel/product_full/product_full_heading.png)
 
@@ -1348,13 +1349,13 @@ It has the following  features:
 
           - Image id (automatically generated).
 
-          - Choose file button;
+          - Choose the file button;
 
           - Alt text field;
 
           - Checkbox for default image;
 
-          - Checkbox for active image;
+          - Checkbox for the active image;
 
           - 2 buttons: "Close" and "Save changes"
 
@@ -1362,13 +1363,13 @@ It has the following  features:
 
       ![Product full data page](documentation/features/personnel/product_full/add_image_modal_error.png)
     
-  - Image cards with the setting displayed for default and active images, edit, delete buttons and the image itself:
+  - Image cards with the setting displayed for default and active images, edit, delete buttons, and the image itself:
 
-      - if the personnel member clicks on the edit button, the personnel member will a modal window with a form for editing the image;
+      - if the personnel member clicks on the edit button, the personnel member will see a modal window with a form for editing the image;
 
       ![Product full data page](documentation/features/personnel/product_full/edit_image_modal.png)
 
-      - If the personnel member clicks delete button, the personnel member will see a confirmation window with a warning message.
+      - If the personnel member clicks the delete button, the personnel member will see a confirmation window with a warning message.
 
       ![Product full data page](documentation/features/personnel/product_full/delete_image_modal.png)
 
@@ -1398,11 +1399,11 @@ It has the following  features:
 
       - Price options;
 
-      - Stock numbers with colorful background to make sure the stock is in noticed:
+      - Stock numbers with the colorful background to make sure the stock is noticed:
 
       ![Product full data page](documentation/features/personnel/product_full/units_cards_stock.png)
 
-    If the user click on the unit card, the personnel member will be redirected to the unit page;
+    If the user clicks on the unit card, the personnel member will be redirected to the unit page;
 
 
 ### Add Product Page:
@@ -1431,10 +1432,10 @@ It has the following fields:
 
 This page is accessible only to the personnel. It has a form for editing a product.
 
-It has the the same fields as the add product page. The only difference is that the personnel member will see the product's data in the fields.
+It has the same fields as the add product page. The only difference is that the personnel member will see the product's data in the fields.
 
-  - If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the product full data page and changes will be lost;
-  - If the personnel member clicks on the "Save changes" button, the personnel member will be redirected to the product full data page and changes will be saved;
+  - If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the product full data page, and changes will be lost;
+  - If the personnel member clicks on the "Save changes" button, the personnel member will be redirected to the product full data page, and changes will be saved;
 
 
 ### Delete Product Page:
@@ -1443,7 +1444,7 @@ It has the the same fields as the add product page. The only difference is that 
 
 This page is accessible only to the personnel. It has a form for deleting a product.
 
-It also has a name of the product, the number of units related to this product, and a warning message.
+It also has the name of the product, the number of units related to this product, and a warning message.
 
 Under the warning message, there is a "Cancel" button and a "Delete" button.
 
@@ -1457,9 +1458,9 @@ Under the warning message, there is a "Cancel" button and a "Delete" button.
 
 This page is accessible only to the personnel. It has a table with all stock units.
 
-It has search field, where the personnel member can search for a unit by SKU, UPC, or values.
+It has a field where the personnel member can search for a unit by SKU, UPC, or values.
 
-The stock units table has unit's cards with the data on the unit:
+The stock units table has unit cards with the data on the team:
 
   - status;
 
@@ -1475,9 +1476,9 @@ The stock units table has unit's cards with the data on the unit:
 
   - Price options;
 
-  - Stock numbers with colorful background to make sure the stock is in noticed:
+  - Stock numbers with a colorful background to make sure the stock is noticed:
 
-Page navigation if there more than one page.
+Page navigation if there is more than one page.
 
 ### Unit Page:
 
@@ -1498,7 +1499,7 @@ This page has the following features:
   - Promo;
   - Price table;
   - Stock table:
-    - Stock numbers with colorful background to make sure the stock is in noticed;
+    - Stock numbers with a colorful background to make sure the stock is noticed;
     - Purchased units' amount;
     - Left units' amount;
     - Sold units' amount;
@@ -1511,12 +1512,12 @@ This page has the following features:
     - "Update stock" button, which will redirect the personnel member to the update stock page;
     - "Delete" button, which will redirect the personnel member to the delete unit page;
 
-    If there is not stock for the unit, the personnel member will not see a stock table and there will be a message: "Stock not found" and "Add stock" button, which leads to the add stock page;
+    If there is no stock for the unit, the personnel member will not see a stock table, and there will be a message: "Stock not found" and "Add stock" button, which leads to the additional stock page;
 
     ![Unit page. Stock not found](documentation/features/personnel/units/unit_card_no_stock.png)
 
 
-  *For the managers this unit detail card will look as follows:*
+  *For the managers, this unit detail card will look as follows:*
 
 ![Unit page. Manager](documentation/features/personnel/units/unit_stock_manager.png)
 
@@ -1528,20 +1529,20 @@ This page has the following features:
 
 This page is accessible only to the personnel. It has a form for adding a unit.
 
-It has also different fields for different types of products:
+It also has different fields for different types of products:
 
 ![Add Unit page. Selected type. Variant 1](documentation/features/personnel/units/product_type_selected1.png)
 
 
 ![Add Unit page. Selected type. Variant 2](documentation/features/personnel/units/product_type_selected2.png)
 
-The fields with values are appearing on the selected product type and allow personnel member to add all required values.
+The fields with values appear on the selected product type and allow personnel members to add all required values.
 
-It has 2 buttons: "Back to product" and "Add Product Unit"
+It has two buttons: "Back to product" and "Add Product Unit."
 
 - If the personnel member clicks on the "Back to product" button, the personnel member will be redirected to the units page;
 
-- If the personnel member clicks on the "Add Product Unit" button, the unit will be saved and the form will be cleared in order to let the personnel member to add another unit;
+- If the personnel member clicks on the "Add Product Unit" button, the unit will be saved, and the form will be cleared to let the personnel member add another unit;
 
 ### Edit Unit Page:
 
@@ -1549,16 +1550,16 @@ It has 2 buttons: "Back to product" and "Add Product Unit"
 
 This page is accessible only to the personnel. It has a form for editing a unit with pre-filled data.
 
-It has 2 buttons: "Back to product" and "Confirm changes";
+It has two buttons: "Back to product" and "Confirm changes";
 
   - If the personnel member clicks on the "Back to product" button, the personnel member will be redirected to the units page;
-  - If the personnel member clicks on the "Confirm changes" button, the changes will be saved and the personnel member will be able to return to the unit page by clicking on the "Back to product" button;
+  - If the personnel member clicks on the "Confirm changes" button, the changes will be saved, and the personnel member will be able to return to the unit page by clicking on the "Back to product" button;
 
 ### Delete Unit Page:
 
 ![Delete Unit page](documentation/features/personnel/units/delete_unit.png)
 
-This page is accessible only to the personnel. It has a form for deleting a unit. It has a name of the unit, warning message, and 2 buttons: "Cancel" and "Delete";
+This page is accessible only to the personnel. It has a form for deleting a unit. It has the name of the unit, a warning message, and two buttons: "Cancel" and "Delete";
 
 - If the personnel member clicks on the "Cancel" button, the personnel member will be redirected to the unit page;
 
@@ -1568,7 +1569,7 @@ This page is accessible only to the personnel. It has a form for deleting a unit
 
 ![Add Stock page](documentation/features/personnel/stock/add_stock.png)
 
-This page is accessible only to the admin. It has a form for adding a stock.
+This page is accessible only to the admin. It has a form for adding stock.
 
 The form includes the following fields:
 
@@ -1579,7 +1580,7 @@ The form includes the following fields:
 - 2 buttons: "Cancel" and "Add Stock";
 
   - If the admin clicks on the "Cancel" button, the admin will be redirected to the unit page;
-  - If the admin clicks on the "Add Stock" button, the stock will be saved and the form will be cleared in order to let the admin to add another stock;
+  - If the admin clicks on the "Add Stock" button, the stock will be saved, and the form will be cleared to let the admin add another stock;
 
 The checking date and units purchased fields are necessary for the admin to control any possible inconsistency in the store.
 
@@ -1591,19 +1592,19 @@ This page is accessible only to the admin. It has a pre-filled form for updating
 
 The form includes the same fields as the add stock form.
 
-It also has 2 buttons: "Cancel" and "Update Stock";
+It also has two buttons: "Cancel" and "Update Stock";
 
   - If the admin clicks on the "Cancel" button, the admin will be redirected to the unit page;
-  - If the admin clicks on the "Update Stock" button, the stock will be updated and the admin will be redirected to the unit page;
+  - If the admin clicks on the "Update Stock" button, the stock will be updated, and the admin will be redirected to the unit page;
 
 ### Delete Stock Page:
 
 ![Delete Stock page](documentation/features/personnel/stock/delete_stock.png)
 
-This page is accessible only to the admin. It has a form for deleting a stock. It has a name of the units for which this stock was created, warning message, and 2 buttons: "Cancel" and "Delete";
+This page is accessible only to the admin. It has a form for deleting a stock. It has the name of the units for which this stock was created, a warning message, and two buttons: "Cancel" and "Delete";
 
   - If the admin clicks on the "Cancel" button, the admin will be redirected to the unit page;
-  - If the admin clicks on the "Delete" button, the stock will be deleted and the admin will be redirected to the unit page;
+  - If the admin clicks on the "Delete" button, the stock will be deleted, and the admin will be redirected to the unit page;
 
 ### Stock Table Page:
 
@@ -1615,27 +1616,27 @@ This page is accessible only to personnel. It has the following features:
 
 ![Stock table page. Show units without stock button](documentation/features/personnel/stock_table/stock_table_heading.png)
 
-- If "Show" button is clicked, the personnel member may see a table with unit, where each unit has SKU, name of the product, and a link to the unit's product:
+- If the "Show" button is clicked, the personnel member may see a table with the unit, where each unit has an SKU, the name of the product, and a link to the unit's product:
 
 ![Stock table. Show units without stock table](documentation/features/personnel/stock_table/stock_table_units_without_stock.png)
 
-When personnel member clicks the unit, he/she will be redirected to unit's page to see full data on the unit.
+When a personnel member clicks the unit, they will be redirected to the unit's page to see complete data on the unit.
 
-Under this table the used can find a select bar.
+Under this table, the user can find a select bar.
 
 ![Stock table. Select bar](documentation/features/personnel/stock_table/stock_table_select_bar.png)
 
-When the personnel member/admin clicks particular option, units will be filtered in the table.
+When the personnel member/admin clicks a particular option, units will be filtered in the table.
 
-![Stock table. Select bar. fewer than 20](documentation/features/personnel/stock_table/stock_table_selected_fewer_than_20.png)]
+![Stock table. Select bar. Fewer than 20](documentation/features/personnel/stock_table/stock_table_selected_fewer_than_20.png)]
 
-As it is shown in above example, personnel may find out the number of units, which have < 20 stock units and the full data. In addition, there is also a link to go to the unit details page to find more data on this unit.
+As it is shown in the above example, personnel may find out the number of units which have < 20 stock units and the entire data. In addition, there is also a link to go to the unit details page to find more data on this unit.
 
-The main accent of this page is devoted to stock table itself:
+The main accent of this page is devoted to the stock table itself:
 
 ![Stock table. Units](documentation/features/personnel/stock_table/stock_table_units.png)
 
-It has all necessary data on the stock for each unit.
+It has all the necessary data on the stock for each unit.
 
 Under the table, the user can find page navigation.
 
@@ -1643,23 +1644,23 @@ Under the table, the user can find page navigation.
 
 ![Orders Page](documentation/features/personnel/orders/orders_page.png)
 
-This page is accessible only to personnel. It has all orders data and a search-sort bar.
+This page is accessible only to personnel. It has all order data and a search-sort bar.
 
 1. Sort-search bar:
 
 ![Orders Page.Sort-search bar](documentation/features/personnel/orders/orders_bar.png)
 
-It allows to search orders by numbers, key and ID. It also empowers personnel to sort orders according to their status.
+It allows you to search orders by numbers, key, and ID. It also empowers personnel to sort orders according to their status.
 
-2. Order's cards.
+2. Order cards.
 
-They include short data on the order and their status. If the personnel member clicks on the order card, he/she will be redirected to order full  details page
+They include short data on the order and its status. If the personnel member clicks on the order card, they will be redirected to the order full details page.
 
 ### Order full detail Page:
 
 ![Order full detail Page](documentation/features/personnel/orders/order_full_detail_admin.png)
 
-This page is accessible only to personnel. It has all data on the order.
+This page is accessible only to personnel. It has all data on order.
 
 However, only the admin can see the rendering order buttons:
 
@@ -1683,15 +1684,15 @@ Accessible only to the admin.
 
   - If the admin clicks on the "Edit order" button, the admin will be redirected to the order edit page;
 
-  - If the admin clicks on the "Delete order" button, the order will be deleted and the admin will be redirected to the orders page;
+  - If the admin clicks on the "Delete order" button, the order will be deleted, and the admin will be redirected to the orders page;
 
 3. Order full details:
 
 ![Order full detail Page. Order full details](documentation/features/personnel/orders/order_full_data_admin.png)
 
-*However, only admin or logistics manager are able to see the rendering order status buttons*:
+*However, only admin or logistics manager is able to see the rendering order status buttons*:
 
-- If the admin or logistics manager clicks on the "Edit" button, the dropdown menu will be opened; the admin can change the order status to "Pending", "Processing", "Completed", "Refunded", "Cancelled" or "In delivery";
+- If the admin or logistics manager clicks on the "Edit" button, the dropdown menu will be opened; the admin can change the order status to "Pending," "Processing," "Completed," "Refunded," "Cancelled" or "In delivery";
 
 Examples:
 
@@ -1710,17 +1711,17 @@ Examples:
 
 Each item has the following data:
 
-- Product name with a link to the product in store;
+- Product name with a link to the product in-store;
 - Image of the product;
 - Product's values;
 - Quantity;
 - Price;
 - Total price;
-- 2 buttons accessible only to the admin: "Edit" and "Delete";
-    - If the admin clicks on the "Edit" button, the admin will be redirected to the order item edit page;
-    - If the admin clicks on the "Delete" button, the order item will be deleted and the admin will be redirected to the order full detail page;
+- 2 buttons are accessible only to the admin: "Edit" and "Delete";
+    - If the admin clicks on the "Edit" button, the admin will be redirected to the ordered item edit page;
+    - If the admin clicks on the "Delete" button, the ordered item will be deleted, and the admin will be redirected to the order full detail page;
 
-5. Customer's order data including customer's name, phone number, email, address and phone number:
+5. Customer's order data, including customer's name, phone number, email, address, and phone number:
 
 ![Order full detail Page. Customer's order data](documentation/features/personnel/orders/order_full_details_customer_data.png)
 
@@ -1731,9 +1732,10 @@ Each item has the following data:
 Accessible only to the admin. This page has the following features:
 
   - Heading with the title;
-  - Form with all necessary data on the order item;
+  - Form with all necessary data on the ordered item;
   - "Save" button;
   - "Cancel" button;
+
 
 ### Delete Order Item Page:
 
@@ -1753,7 +1755,7 @@ Accessible only to the admin. This page has the following features:
 Accessible only to the admin. This page has the following features:
 
   - Heading with the title;
-  - Form with all necessary data on the order;
+  - Form with all necessary data on order;
   - "Save" button;
   - "Cancel" button;
 
@@ -1770,13 +1772,13 @@ Accessible only to the admin. This page has the following features:
 
 ![Stock Requests Page](documentation/features/personnel/stock_requests/stock_requests.png)
 
-This page is accessible only to personnel. It has all stock requests data and a sort bar.
+This page is accessible only to personnel. It has all stock request data and a sort bar.
 
 1. Heading with the title and the number of requests;
 
 ![Stock Requests Page. Heading](documentation/features/personnel/stock_requests/stock_requests_heading.png)
 
-2. Sort bar with dropdown menu where all requested products are shown. It allows to sort requests by product.
+2. Sort bar with a dropdown menu showing all requested products. It allows sorting requests by product.
 
 ![Stock Requests Page. Sort bar](documentation/features/personnel/stock_requests/stock_requests_search.png)
 
@@ -1784,9 +1786,9 @@ This page is accessible only to personnel. It has all stock requests data and a 
 
 ![Stock Requests Page. Stock requests Table](documentation/features/personnel/stock_requests/stock_requests_table.png)
 
-The table has the following data:
+The Table has the following data:
 
-- Product name with a link to the product in store;
+- Product name with a link to the product in-store;
 
 - Values of the product requested;
 
@@ -1801,7 +1803,7 @@ The table has the following data:
 
 ### 404 and 500 pages:
 
-It handles 2 types of errors:
+It handles two types of errors:
 
 - 404 error;
 - 500 error;
