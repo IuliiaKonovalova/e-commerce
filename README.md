@@ -321,27 +321,27 @@ Please refer to the [FEATURES.md](FEATURES.md) file for all test-related documen
 ---
 ## Design
 
-The design of the application is based on the Material Design principles. The colors are chosen to be consistent with the [Material Design principles](https://www.creative-tim.com/blog/web-design/12-absolute-principles-material-design/)
-The minimalistic approach was used to create something meaningful without moving out of customer's focus. As this application is a multifunctional (provides full customer experience and business management) application and consists of many components, the decision to implement white spaces was made as it helps to create a more pleasant user experience. It also helps users, whether customers or personnel, to focus on the main content of the application.
+The design of the application is based on Material Design principles. The colors are chosen to be consistent with the [Material Design principles](https://www.creative-tim.com/blog/web-design/12-absolute-principles-material-design/)
+The minimalistic approach was used to create something meaningful without moving out of the customer's focus. As this application is a multifunctional (provides full customer experience and business management) application and consists of many components, the decision to implement white spaces was made as it helps to create a more pleasant user experience. It also helps users, whether customers or personnel, to focus on the main content of the application.
 
 ### Color Scheme
 
-The color scheme of the application is based on the combination of bold colors and neutral colors. The bold colors are used to create a more vibrant and attractive user experience. The neutral colors are used to create a more calm and relaxed user experience.
+The application's color scheme is based on the combination of bold and neutral colors. The bold colors are used to create a more vibrant and attractive user experience. The neutral colors are used to create a more calm and relaxed user experience.
 
   ![Color Scheme](documentation/design/colors_main.png)
 
-The navbar and footer are colored with the dark purple color (`#151422`) to create emphasis on the main content of the application. Navbar for admin was colored with the purplish color (`#4f378b`) to separate is from the main navbar and put an accent on the admin functionality. It also help personnel to distinguish that they enter as personnel.
+The navbar and footer are colored with a dark purple color (`#151422`) to emphasize the application's main content. The navbar for admin was colored with the purplish color (`#4f378b`) to separate is from the main navbar and put an accent on the admin functionality. It also helps personnel to distinguish that they enter as personnel.
 
 The color scheme for the text is quite simple to create a more readable user experience.
 
   ![Text Scheme](documentation/design/colors_text.png)
 
-As the application is highly complex and has lots of functionality, I have made a decision to implement accent colors to help users to navigate the application. The accent colors are used to create a more vibrant and attractive user experience.
+As the application is highly complex and has lots of functionality, I have decided to implement accent colors to help users navigate the application. The accent colors are used to create a more vibrant and attractive user experience.
 
   ![Accent Scheme](documentation/design/color_accent.png)
 
 ### Typography
-The main font used in the application is Lato. During my learning experience, I found that the Lato font is very easy to use and has a very good readability, which increases user experience. This fon is also consistent with the color scheme.
+The main font used in the application is Lato. During my learning experience, I found that the Lato font is straightforward and has perfect readability, increasing user experience. This font is also consistent with the color scheme.
 
   ![Typography](documentation/design/lato_400.png)
 
@@ -357,9 +357,9 @@ To emphasize the importance of the text, the font-weight was set to 900. To make
 
   ![Background](documentation/design/background.svg)
 
-- Images were downloaded from the the websites listed in the **Credits section**. [Content and Images](#content-and-images)
+- Images were downloaded from the websites listed in the **Credits section**. [Content and Images](#content-and-images)
 
-- The main part is allocated to the use of icons from the [font awesome](https://fontawesome.com/) website. The use of icons is essential for the user experience when it comes to multifunctional websites.
+- The main part is allocated to using icons from the [font awesome](https://fontawesome.com/) website. Icons are essential for the user experience when it comes to multifunctional websites.
 
 ### Wireframes
 
@@ -373,7 +373,7 @@ To emphasize the importance of the text, the font-weight was set to 900. To make
 
   ![GitHub Project Management](documentation/agile/github_project_management.png)
 
-GitHub Project Management were used to manage the project. If it hasn't been for the github project management, I wouldn't have been able to manager the development of the application. It help me to prioritize the tasks and to keep track of the progress.
+GitHub Project Management was used to manage the project. If it hadn't been for the GitHub project management, I wouldn't have been able to manage the development of the application. It helped me to prioritize the tasks and to keep track of my progress.
 
 ![GitHub Project Management](documentation/agile/kanban.png)
 
