@@ -11,13 +11,13 @@ In addition, the website has a personnel functionality that allows admin, manage
 
 ## UX
 
-The website created to be eye-catching and user-friendly. The user is given plenty of choices to choose from when they are shoppings. The emphasis is on the user experience and the user is able to easily navigate the website in order to fulfill users goals. The website is designed to be easy to use and easy to understand. Additionally, the website attracts customers to become a part of loyalty programs by giving them additional discounts on their purchases.
+The website was created to be eye-catching and user-friendly. The user is given plenty of choices to choose from when they are shopping. The emphasis is on the user experience; the user can navigate the website easily to fulfill users' goals. The website is designed to be easy to use and easy to understand. Additionally, the website attracts customers to become a part of loyalty programs by giving them additional discounts on their purchases.
 It also handles all personnel functionality moving from admin to manager to logistics to other personnel.
-Business goals were to make the website as scalable as possible as well as reusable in a real world that the store personnel can use it according to the position they have in the company.
+Business goals were to make the website as scalable as possible and reusable in the real world so that the store personnel could use it according to their position in the company.
 
 ### Target Audience
 
-This website is intended for people who are interested in purchasing products online, starting from bread and finishing electronics, such as TV, or smartphones, or other products. It was also aimed to lure people to use this website in their daily lives, which was achieved by implementing a discount system for all customers, additional discounts for loyal customers, and a notification system that allows users to be notified when a product is available. This website may hold a lot of products, and it is important to make sure that the website is easy to use and navigate. 
+This website is intended for people interested in purchasing products online, starting from bread and finishing electronics, such as TV, smartphones, or other products. It was also aimed to lure people into using this website in their daily lives. This was achieved by implementing a discount system for all customers, additional discounts for loyal customers, and a notification system that allows users to be notified when a product is available. This website may hold many products, and it is essential to make sure that the website is easy to use and navigate. 
 
 ### User Stories
 
@@ -142,18 +142,18 @@ It focuses on individual transactions only.
 
 ### A Persona Summary of the customer
 
-The WoWder store is aimed at the diverse group of people considering their needs and wants. As all people have different needs and wants, the store provides for everyone the best possible service.
-The age criteria for the customers is stated as 18 and older. The emphasis was made on providing a good user experience for the customers by giving them the ability to find the products they are looking for, and give them all available options of these products, and offering the best possible service.
+The "WoWder" store is aimed at a diverse group of people considering their needs and wants. As everyone has different needs and wants, the store provides everyone the best possible service.
+The age criteria on this website are customers who are 18 and older. The emphasis was made on providing a good user experience for the customers by allowing them to find the products they are looking for, giving them all available options of these products, and offering the best possible service.
 
 ### A persona summary of the store personnel
 
-The Wowder store is aimed at the company that is interested in selling products online. It may be a small company, or a large one. The emphasis was made on providing a platform for any business that is interested in selling products online. Moreover, the potential growth of the company is taken into consideration.
+The "Wowder" store is aimed at companies interested in selling products online. It may be a small company or a large one. Moreover, the company's potential growth is considered by implementing full personnel functionality with the ability to render all data in the store, starting from cotegories and tags and finishing product inventory and orders.
 
 ### Strategy Trade-Off
 
-WoWder is difficult to compete online store with due to its wide variety of product offerings and low cost products.
+"WoWder" is an online store app that is challenging to compete with due to its wide variety of product offerings and low-cost products.
 
-- wide variety of product offerings;
+- a wide variety of product offerings;
 - product availability;
 - product quality;
 - product choice;
