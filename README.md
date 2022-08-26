@@ -1138,7 +1138,7 @@ For example:
 
     1. Add a Heroku Postgres database.
 
-4. In your app go to the "Settings" tab, press "Reveal Config Vars", and add the following config vars if they are not already set:
+4. In your app, go to the "Settings" tab, press "Reveal Config Vars", and add the following config vars if they are not already set:
 
     1. ```ALLOWED_HOSTS``` = your heroku domain name.
     2. ```CLOUDINARY_CLOUD_NAME``` = the cloud name you used when creating your cloudinary account.
@@ -1191,11 +1191,11 @@ For example:
     or
     - ```git push heroku main```
 
-12. Check the logs of your app in heroku dashboard and make sure everything is working.
+12. Check your app's logs in heroku dashboard and ensure everything is working.
 
 13. After the development is done, you can change the ```DEBUG``` config var to ```False``` and remove the ```DISABLE_COLLECTSTATIC``` config var from the config vars on heroku.
 
-To get cloudinary cloud name, api key, and api secret:
+To get Cloudinary cloud name, API key, and API secret:
 
 1. Go to the [Cloudinary website](https://cloudinary.com/).
 
@@ -1203,15 +1203,15 @@ To get cloudinary cloud name, api key, and api secret:
 
 3. Go to the [Cloudinary dashboard](https://cloudinary.com/console/).
 
-4. At the top of the page you will see your cloud name, api key, and api secret.
+4. At the top of the page, you will see your cloud name, API key, and API secret.
 
-5. To reveal api secret, hover over the api key container and click on the button that looks like an eye.
+5. To reveal API secret, hover over the API key container and click on the button that looks like an eye.
 
-6. Copy these values and paste them into the config vars on heroku and into your `env.py` file.
+6. Copy these values and paste them into the config vars on Heroku and into your `env.py` file.
 
 To get stripe public key, secret key, and webhook secret:
 
-**Please go to Payment Setup section in the readme file for more information.**
+**Please go to the Payment Setup section in the readme file for more information.**
 
 [Payment Setup](#payment-setup)
 
