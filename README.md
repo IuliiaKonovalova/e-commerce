@@ -212,52 +212,53 @@ Twitter has become a place for people from different backgrounds to meet and dis
 
 #### Techsupport chat
 
-The chat support is planned to be implemented in the future to provide the customers with the best possible service.
+Chat support is planned to be implemented to provide the customers with the best possible service.
 
-My application is already using ASGI instead of WSGI. Thus, it would be easier to implement chat support in the future, using Django Channels and Redis channel layers.
+My application is already using ASGI instead of WSGI. Thus, it would be easier to implement chat support using Django Channels and Redis channel layers in the future.
 
 #### Sorting products by rating and reviews
 
-This feature is fully depend on the business requirements. And not all business requirements include this feature due to the customers' personal preferences.
+This feature is fully dependent on the business requirements. And not all business requirements include this feature due to the customers' personal preferences.
 #### Third-party registration
 
-Facebook and Twitter were not considered for the future development at this stage as they require additional information from the business. 
-Google is easily the most popular third-party registration service and fast to implement; however, it is not available in all countries and regions (like China).
+Facebook and Twitter were not considered for future development at this stage as they require additional information from the business. 
+Google is the most popular third-party registration service that is easy to implement; however, it is not available in all countries and regions (like China).
 
 #### Payment system
 
-I would like to implement PayPal payment system in the future as many customers prefer it. I am also considering add Alipay and WeChat payment functionality to the existing stripe payment system as they are widely used not only in China.
+I want to implement PayPal payment system in the future as many customers prefer it. I am also considering adding Alipay and WeChat payment functionality to the existing stripe payment system as they are widely used in Asian countries like China and Thailand.
 
 #### Suppliers app
 
-I want to add suppliers app in the future as it is a very important part of the business. The suppliers app is a platform for the business to manage suppliers and products that they offer to the customers. It will highly increase the business' productivity and sales.
+I want to add the suppliers' app in the future as it is a significant part of the business. The suppliers' app is a platform for businesses to manage suppliers and products they offer customers. It will highly increase the business' productivity and sales.
 The models for this app have already been planned and described in the DB architecture tables.
 
 #### Order cancellation
 
-This feature is requires more research time to implement that is why it is not implemented at this stage.
+This feature requires more research time to implement, which is why it is not implemented at this stage.
 
 #### Elastic search
 
-Elastic search is necessary for the future development of the application as it may increase the speed of the search and the search results.
+Elastic search is necessary for the future development of the application as it may increase the search speed and the quality of search results.
 
 
-This decision to postpone the implementation of the features described above was necessary to make as a developer I have to evaluate the necessity of all features, estimate the time for the development process and the time for the implementation of the features. Moreover, it is crucial to know the exact operating process of real business. For example, understanding business's own products prioritization to set up the recommendation functionality. Thus, I would like leave those features as the window to future learning and development.
+This decision to postpone the this feature's implementation was necessary to make as a developer, I have to evaluate the necessity of all features and estimate the time for the development process and the time for the implementation of the features. Moreover, it is crucial to know the exact operating procedure of a real business. For example, understanding the business's product prioritization to set up the recommendation functionality will play a crucial role in the implementation process. Thus, I would like to leave those features as the opportunity to future learning and development.
 
 #### Delivery cost calculation
 
-This is an interesting feature that has kept me curious during the whole development process as there are many different ways to calculate the delivery cost. It this stage I decided to go with the idea of free delivery based on all Chinese e-commerce stores, where the cost is already set in the product's price. However, to make the application more flexible, I would like to consider the possibility of different delivery cost calculation methods and planning to consult with a logistics specialists to get all necessary information. We have to take into consideration various factors such as:
+This interesting feature has kept me curious during the development process as there are many different ways to calculate the delivery cost. At this stage, I decided to go with the idea of free delivery based in all Chinese e-commerce stores, where the cost is already included in the product's price. However, to make the application more flexible, I would like to consider the possibility of different delivery cost calculation methods and plan to consult with logistics specialists to get all the necessary information. We have to take into consideration various factors such as:
 
 1. The shipping company fees;
 2. the actual distance between a shop warehouse and the customer's address;
 3. The total weight of the products in the order;
 4. The parameters of the package (size, weight, etc.);
 5. The value of the products in the order (whether the order includes golden jewelry, TV, etc.);
-6. Payment method (whether the customer is paying with credit card, PayPal, etc.);
+6. Payment method (whether the customer is paying with a credit card, PayPal, etc.);
 7. Tax rate;
 8. If the customer is located abroad, the border tax rate;
 9. Option to deliver by courier or by self-service;
 10. etc.
+
 ---
 
 
