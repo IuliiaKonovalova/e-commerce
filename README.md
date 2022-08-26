@@ -244,6 +244,20 @@ Elastic search is necessary for the future development of the application as it 
 
 This decision to postpone the implementation of the features described above was necessary to make as a developer I have to evaluate the necessity of all features, estimate the time for the development process and the time for the implementation of the features. Moreover, it is crucial to know the exact operating process of real business. For example, understanding business's own products prioritization to set up the recommendation functionality. Thus, I would like leave those features as the window to future learning and development.
 
+#### Delivery cost calculation
+
+This is an interesting feature that has kept me curious during the whole development process as there are many different ways to calculate the delivery cost. It this stage I decided to go with the idea of free delivery based on all Chinese e-commerce stores, where the cost is already set in the product's price. However, to make the application more flexible, I would like to consider the possibility of different delivery cost calculation methods and planning to consult with a logistics specialists to get all necessary information. We have to take into consideration various factors such as:
+
+1. The shipping company fees;
+2. the actual distance between a shop warehouse and the customer's address;
+3. The total weight of the products in the order;
+4. The parameters of the package (size, weight, etc.);
+5. The value of the products in the order (whether the order includes golden jewelry, TV, etc.);
+6. Payment method (whether the customer is paying with credit card, PayPal, etc.);
+7. Tax rate;
+8. If the customer is located abroad, the border tax rate;
+9. Option to deliver by courier or by self-service;
+10. etc.
 ---
 
 
