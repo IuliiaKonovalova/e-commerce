@@ -1239,7 +1239,7 @@ To get stripe public key, secret key, and webhook secret:
 - [googlefonts](https://fonts.google.com/): for providing free fonts.
 - [BGJar](https://www.bgjar.com/): for the free access to the background images build tool.
 - [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en): for providing a free platform to test website responsiveness
-- [GoFullPage](chrome://extensions/?id=fdpohaocaechififmbbbbbknoalclacl): for allowing to create free full web page screenshots;
+- [GoFullPage](https://gofullpage.com/): for allowing to create free full web page screenshots;
 - [Favicon Generator. For real.](https://realfavicongenerator.net/): for providing a free platform to generate favicons.
 - [Sitemap Generator](https://www.xml-sitemaps.com/): for providing a free platform to generate sitemaps.
 - [Coolors](https://coolors.co/): for providing a free platform to generate your own palette.
