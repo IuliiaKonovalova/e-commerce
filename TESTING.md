@@ -1271,3 +1271,25 @@ Add custom stylings for search buttons -> Change if condition to show all catego
 8. 9091743069373eefd32a46b1365389860fce14e6
 
 Add functions handlers for 400 and 505 errors - > Add functions handlers for 404 and 500 errors
+
+## Project assessment criteria
+
+
+| Requirement    | Done           |  Comments    |
+|-------------|------------------------|------------------|
+| at least 3 original custom models with associated functionalities, markedly different from those present in the Boutique Ado walkthrough project if they have been used as a basis for your project.     |                        |                  |
+| at least one form on the front end, which provides either admin or regular users with CRUD functionality without having to access the admin panel. |                       |                  |
+| at least one UI element on the front end, which allows either admin or regular users to delete records in the database without having to access the admin panel. |                      |                  |
+| evidence of agile methodologies followed during the development of your project in the GitHub repository. |     |                  |
+| a robots.txt file. |     |     |
+| a sitemap.xml file. |     |     |
+| descriptive meta tags in the HTML. |     |     |
+| at least one link to an external resource, which makes use of a rel attribute.  |    |     |
+| a custom 404 error page. |    |     |
+| evidence of either a real Facebook business page, or mockup of one, for the purposes of digital marketing. |    |     |
+| evidence of a newsletter signup form for the purposes of digital marketing. |   |     |
+| a description of the e-commerce business model including marketing strategies in the README file. |   |     |
+| DEBUG mode set to False. |   |     |
+| working functionality for users to register and log in and out of the application without issues. |   |     |
+| working E-commerce functionality for users to make purchases within the application. |   |     |
+| detailed testing write ups, beyond results of validation tools. |   |     |
