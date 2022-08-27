@@ -347,13 +347,13 @@
         $('.btn__no').click(function() {
           $('#messages-stock').remove();
         });
-      }
+      };
       let product_inventory_id = null;
-      let itemQuantity = 1
+      let itemQuantity = 1;
       let quantityFinal = 0;
       let is_match = false;
       let product_id = $('#product').data('id');
-      let options = $('.option')
+      let options = $('.option');
       let values_list = JSON.stringify({{ values_list|safe }});
       // convert to array
       let values_list_array = JSON.parse(values_list);
@@ -482,7 +482,7 @@
             </div>
           `);
         });
-      }
+      };
       // Call reset on click
       $('#reset-button').click(reset);
       // IF PRODUCT HAS ATTRIBUTES AND VALUES
@@ -620,7 +620,7 @@
               }
               $(document).off('click');
             }
-          })
+          });
         });
         
         // Control the quantity of the item
@@ -740,7 +740,7 @@
           error: function(data) {
             messagesAlertError();
           }
-        })
+        });
       });
       // add-to/remove-from wishlist
       $('#wishlist-control').on('click', function(e) {
@@ -776,7 +776,7 @@
           error: function(data) {
             messagesAlertError();
           }
-        })
+        });
       });
       // if modal is opened, $('#messages-notes').remove();
       $('#exampleModal').on('show.bs.modal', function(e) {
@@ -843,7 +843,7 @@
                 messagesAlertError();
               }
             }
-          })
+          });
         } else {
           // change inner text in .modal-title
           $('.modal-title').text('Please select all options');
