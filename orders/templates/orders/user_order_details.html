@@ -157,15 +157,15 @@
   <script>
     $(document).ready(function() {
       $('.order__item').each(function() {
-        let quantity = $(this).find('.quantity')
+        let quantity = $(this).find('.quantity');
         // get data-quantity from quantity div
-        let quantity_value = quantity.data('quantity')
-        let price = $(this).find('.price')
+        let quantity_value = quantity.data('quantity');
+        let price = $(this).find('.price');
         // get data-price from price div
-        let price_value = price.data('price')
-        let items_total = $(this).find('.items-total')
+        let price_value = price.data('price');
+        let items_total = $(this).find('.items-total');
         // multiply data-quantity and data-price and put it in items-total span
-        items_total.text(quantity_value * price_value)
+        items_total.text(quantity_value * price_value);
       });
     });
   </script>
