@@ -262,17 +262,6 @@
                     $(this).prop('disabled', true);
                   });
                   $('#form-check').prop('disabled', true);
-                  {% comment %} $('#sku').addClass('disabled');
-                  $('#upc').addClass('disabled');
-                  $('#retail_price').addClass('disabled');
-                  $('#store_price').addClass('disabled');
-                  $('#sale_price').addClass('disabled');
-                  $('#weight').addClass('disabled');
-                  $('#flexCheckDefault').addClass('disabled');
-                  $('select').each(function() {
-                    $(this).addClass('disabled');
-                  });
-                  $('#attributes').empty(); {% endcomment %}
                 } else if (data.error_message) {
                   alert(data.error_message);
                 }
