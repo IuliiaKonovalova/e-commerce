@@ -94,7 +94,7 @@
             }));
           }
         }
-      })
+      });
       $('#id_country').on('change', () => {
         let countryId = $('#id_country').find(':selected').data('id');
         $.ajax({
@@ -125,8 +125,8 @@
             // select user's county or region by default
             $('#id_county_region').val(user_county_region).trigger('change');
           }
-        })
-      })
+        });
+      });
       $('#id_county_region').on('change', () => {
         let stateName = $('#id_county_region').find(':selected').text();
         let stateNameFirstWord = stateName.split(' ')[0];
@@ -142,7 +142,7 @@
             });
           }
         });
-      })
+      });
       $(function () {
         $("#id_is_primary").checkboxradio();
       });
