@@ -1248,23 +1248,23 @@ To get stripe public key, secret key, and webhook secret:
 
 - [unsplash](https://unsplash.com/): for providing a free products' images.
 - [Icons8](https://icons8.com/): for providing free access to amazing icons and illustrations to fill out the store.
-- [unsplash](https://unsplash.com/): for providing a free products' images to fill out the store.
+- [unsplash](https://unsplash.com/): for providing free products' images to fill out the store.
 - [chrome developer tools](https://developer.chrome.com/extensions/devtools_inspector): for providing a free platform to test website.
-- [adidas](https://www.adidas.com/): for providing a free products' data and images to fill out the store on clothes and shoes.
+- [adidas](https://www.adidas.com/): for providing free products' data and images to fill out the store on clothes and shoes.
 - [fashionunited](https://www.fashionunited.com/): for providing content for the newsletter;
-- [dell](https://www.dell.com/): for providing a free products' data and images to fill out the store on computers and laptops.
-- [nike](https://www.nike.com/): for providing a free products' data and images to fill out the store on clothes and shoes.
-- [artsaber](https://www.artsabers.com/): for providing a free products' images to fill out the store on lightsabers data and images.
-- [backwaterreptiles](https://www.backwaterreptiles.com/): for providing a free products' images to fill out the store on tarantulas' data and images.
-- [Yum Of China](https://www.yumofchina.com/chinese-beer/): for providing a free data on the Chinese beer.
-- [lego](https://www.lego.com/): for providing a free products' data and images to fill out the store with toys.
-- [maggie](https://www.maggie.com/): for providing a free products' data and images to fill out the store with maggie products.
-- [barilla](https://www.barilla.com/): for providing a free products' data and images to fill out the store with pasta.
-- [LG electronics](https://www.lg.com/): for providing a free products' data and images to fill out the store with electronics.
+- [dell](https://www.dell.com/): for providing free products' data and images to fill out the store on computers and laptops.
+- [nike](https://www.nike.com/): for providing free products' data and images to fill out the store on clothes and shoes.
+- [artsaber](https://www.artsabers.com/): for providing free products' images to fill out the store on lightsabers data and images.
+- [backwaterreptiles](https://www.backwaterreptiles.com/): for providing free products' images to fill out the store on tarantulas' data and images.
+- [Yum Of China](https://www.yumofchina.com/chinese-beer/): for providing free data on Chinese beer.
+- [lego](https://www.lego.com/): for providing free products' data and images to fill out the store with toys.
+- [maggie](https://www.maggie.com/): for providing free products' data and images to fill out the store with maggie products.
+- [barilla](https://www.barilla.com/): for providing free products' data and images to fill out the store with pasta.
+- [LG electronics](https://www.lg.com/): for providing free products' data and images to fill out the store with electronics.
 ---
 
 ## Acknowledgments
 
 - [Tim Nelson](https://github.com/TravelTimN) was a great supporter of another bold idea of mine for this project. Tim guided me through the development of the project and helped me to learn a lot of new things by challenging me to do something new.
-- [Aleksei Konovalov](https://github.com/lexach91), my husband and coding partner, who assisted me greatly in product values js selection control implementation and helped me to stay sane.
-- [Very Academy Youtube Channel](https://www.youtube.com/c/veryacademy) provided a great insight on the implementation of database with multi-values products, precise explanations of the stripe API, and many other things! This Youtube channel has plenty of brilliant tutorials, which shed the light on the most curious and useful aspects of Django.
+- [Aleksei Konovalov](https://github.com/lexach91), my husband and coding partner, assisted me greatly in product values js selection control implementation and helped me to stay sane.
+- [Very Academy Youtube Channel](https://www.youtube.com/c/veryacademy) provided great insight on the implementation of the database with multi-values products, precise explanations of the stripe API, and many other things! This Youtube channel has plenty of brilliant tutorials that shed light on Django's most curious and useful aspects.
