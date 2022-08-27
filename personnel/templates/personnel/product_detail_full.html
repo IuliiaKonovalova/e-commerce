@@ -306,7 +306,7 @@
     $(document).ready(function() {
       let imageCount;
       let file;
-      let imgUrl
+      let imgUrl;
       // Add image preview to image modal form:
       const imagePreview = (e) => {
         // temporarily disable the event handler
@@ -513,7 +513,7 @@
             $('#image-alt-text').focus();
           }
         }
-      }
+      };
       $('#modal-form').on('click', addImage);
       const editImage = function(e) {
         let imageId = $(e.target).data('id');
@@ -653,7 +653,7 @@
                 } else {
                   $('img[data-id="' + imageId + '"]').attr('data-active', 'False');
                 }
-                divImageTitleText = $('img[data-id="' + imageId + '"]').parent().prev().find('div')
+                divImageTitleText = $('img[data-id="' + imageId + '"]').parent().prev().find('div');
                 if (data.update_is_active && data.update_default_image) {
                   divImageTitleText.text('Default and active image');
                 } else if (data.update_is_active && !data.update_default_image) {
@@ -696,7 +696,7 @@
           }
         });
         $('#exampleModal').modal('show');
-      }
+      };
       // delete image function
       const deleteImage = function(e) {
         e.preventDefault();
@@ -732,13 +732,13 @@
             }
           });
         }
-      }
+      };
       // edit image on click
       $('.image__settings').on('click', editImage);
       // delete image on click
       $('.image__delete').on('click', deleteImage);
       //reset modal form
-      const myModalEl = document.getElementById('exampleModal')
+      const myModalEl = document.getElementById('exampleModal');
       myModalEl.addEventListener('hide.bs.modal', event => {
         $('#exampleModal').find('div.preview').remove();
         $('#exampleModal').find('.modal-title').text('Add new image');
@@ -753,7 +753,7 @@
           $('#exampleModal').find('#image-default').prop('checked', false);
           $('#exampleModal').find('#image-active').prop('checked', false);
         }
-      })
+      });
     });
   </script>
 {% endblock %}
