@@ -237,56 +237,56 @@
       };
       // if clicked, replace with select box
       orderEditStatus.on('click', editStatusPreset);
-        let orderStatus;
-        // if select box changed, change data-status
-        orderStatusSelect.change(function() {
-          orderStatusValue = $(this).val();
-          orderStatus = $(this).parent().parent().find('.order__status');
-          orderStatus.data('status', orderStatusValue);
-          orderStatus.text(orderStatusValue);
-        });
-        // if save button clicked, create an ajax request to update order status
-        $('#order-save-status').click(function() {
-          // get order id
-          //replace icon with fas fa-spinner
-          $(this).find('i').replaceWith('<i class="fas fa-spinner fa-spin"></i>');
-          let orderId = $('#order-id').data('id');
-          $.ajax({
-            url: "{% url 'update_order_status' %}",
-            type: 'POST',
-            data: {
-              'order_id': orderId,
-              'order_status': orderStatusValue,
-              'csrfmiddlewaretoken': '{{ csrf_token }}'
-            },
-            success: function(data) {
-              $('.fa-spinner').remove();
-              // replace this button with edit button
-              orderStatus.removeClass('hidden');
-              orderStatus.css(
-                'background-color',
-                'red'
-              );
-              orderStatusSelect.addClass('hidden');
-              orderEditStatus.removeClass('hidden');
-              saveBtn.addClass('hidden');
-              orderEditStatus.on('click', editStatusPreset);
-            },
-            error: function(data) {
-              $('.fa-spinner').remove();
+      let orderStatus;
+      // if select box changed, change data-status
+      orderStatusSelect.change(function() {
+        orderStatusValue = $(this).val();
+        orderStatus = $(this).parent().parent().find('.order__status');
+        orderStatus.data('status', orderStatusValue);
+        orderStatus.text(orderStatusValue);
+      });
+      // if save button clicked, create an ajax request to update order status
+      $('#order-save-status').click(function() {
+        // get order id
+        //replace icon with fas fa-spinner
+        $(this).find('i').replaceWith('<i class="fas fa-spinner fa-spin"></i>');
+        let orderId = $('#order-id').data('id');
+        $.ajax({
+          url: "{% url 'update_order_status' %}",
+          type: 'POST',
+          data: {
+            'order_id': orderId,
+            'order_status': orderStatusValue,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+          },
+          success: function(data) {
+            $('.fa-spinner').remove();
+            // replace this button with edit button
+            orderStatus.removeClass('hidden');
+            orderStatus.css(
+              'background-color',
+              'red'
+            );
+            orderStatusSelect.addClass('hidden');
+            orderEditStatus.removeClass('hidden');
+            saveBtn.addClass('hidden');
+            orderEditStatus.on('click', editStatusPreset);
+          },
+          error: function(data) {
+            $('.fa-spinner').remove();
+            $('#messages-notes').remove();
+            $('.bag').before('<div class="message-container" id="messages-notes">' +
+              '<div class="message-container__message">' +
+              '<p class="message-container__message--text">Something went wrong</p>' +
+              '</div>' +
+              '</div>');
+            // remove the message block after 3 seconds
+            setTimeout(() => {
               $('#messages-notes').remove();
-              $('.bag').before('<div class="message-container" id="messages-notes">' +
-                '<div class="message-container__message">' +
-                '<p class="message-container__message--text">Something went wrong</p>' +
-                '</div>' +
-                '</div>');
-              // remove the message block after 3 seconds
-              setTimeout(() => {
-                $('#messages-notes').remove();
-              }, 3000);
-            }
-          });
+            }, 3000);
+          }
         });
+      });
     });
   </script>
 {% endblock %}
