@@ -212,15 +212,15 @@
   <script>
     $(document).ready(function() {
       $('.order__item').each(function() {
-        let quantity = $(this).find('.quantity')
+        let quantity = $(this).find('.quantity');
         // get data-quantity from quantity div
-        let quantity_value = quantity.data('quantity')
-        let price = $(this).find('.price')
+        let quantity_value = quantity.data('quantity');
+        let price = $(this).find('.price');
         // get data-price from price div
-        let price_value = price.data('price')
-        let items_total = $(this).find('.items-total')
+        let price_value = price.data('price');
+        let items_total = $(this).find('.items-total');
         // multiply data-quantity and data-price and put it in items-total span
-        items_total.text(quantity_value * price_value)
+        items_total.text(quantity_value * price_value);
       });
       // edit order status
       let orderEditStatus = $('#order-edit-status');
@@ -228,29 +228,29 @@
       let saveBtn = $('#order-save-status');
       // function to run on edit button click
       const editStatusPreset = function() {
-        let orderStatus = $(this).parent().find('.order__status')
-        let orderStatusValue = orderStatus.data('status')
+        let orderStatus = $(this).parent().find('.order__status');
+        let orderStatusValue = orderStatus.data('status');
         orderStatus.addClass('hidden');
         orderStatusSelect.removeClass('hidden');
         orderEditStatus.addClass('hidden');
         saveBtn.removeClass('hidden');
-      }
+      };
       // if clicked, replace with select box
       orderEditStatus.on('click', editStatusPreset);
         let orderStatus;
         // if select box changed, change data-status
         orderStatusSelect.change(function() {
-          orderStatusValue = $(this).val()
-          orderStatus = $(this).parent().parent().find('.order__status')
-          orderStatus.data('status', orderStatusValue)
-          orderStatus.text(orderStatusValue)
-        })
+          orderStatusValue = $(this).val();
+          orderStatus = $(this).parent().parent().find('.order__status');
+          orderStatus.data('status', orderStatusValue);
+          orderStatus.text(orderStatusValue);
+        });
         // if save button clicked, create an ajax request to update order status
         $('#order-save-status').click(function() {
           // get order id
           //replace icon with fas fa-spinner
-          $(this).find('i').replaceWith('<i class="fas fa-spinner fa-spin"></i>')
-          let orderId = $('#order-id').data('id')
+          $(this).find('i').replaceWith('<i class="fas fa-spinner fa-spin"></i>');
+          let orderId = $('#order-id').data('id');
           $.ajax({
             url: "{% url 'update_order_status' %}",
             type: 'POST',
@@ -266,7 +266,7 @@
               orderStatus.css(
                 'background-color',
                 'red'
-              )
+              );
               orderStatusSelect.addClass('hidden');
               orderEditStatus.removeClass('hidden');
               saveBtn.addClass('hidden');
@@ -285,8 +285,8 @@
                 $('#messages-notes').remove();
               }, 3000);
             }
-          })
-        })
+          });
+        });
     });
   </script>
 {% endblock %}
