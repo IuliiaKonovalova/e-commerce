@@ -201,11 +201,11 @@
             }
           }
         });
-      }
+      };
       $(document).ready(typeControl);
       $('#type').on('change', typeControl);
       // Set form Data
-      let formData
+      let formData;
       let csrfToken = '{{ csrf_token }}';
       //check if all selects are filled
       $('#form-check').on('click', function(e) {
