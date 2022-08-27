@@ -1277,19 +1277,19 @@ Add functions handlers for 400 and 505 errors - > Add functions handlers for 404
 
 | Requirement    | Done           |  Comments    |
 |-------------|------------------------|------------------|
-| at least 3 original custom models with associated functionalities, markedly different from those present in the Boutique Ado walkthrough project if they have been used as a basis for your project.     |          Y              |                  |
-| at least one form on the front end, which provides either admin or regular users with CRUD functionality without having to access the admin panel. |           Y            |                  |
-| at least one UI element on the front end, which allows either admin or regular users to delete records in the database without having to access the admin panel. |          Y            |                  |
+| at least 3 original custom models with associated functionalities, markedly different from those present in the Boutique Ado walkthrough project if they have been used as a basis for your project.     |          Y              |   23 original custom models + 4 for the future implementations |
+| at least one form on the front end, which provides either admin or regular users with CRUD functionality without having to access the admin panel. |           Y            | 4 Full CRUD forms for the user, 8 Full CRUD forms for admin, 2 not full CRUD forms for the user, 3 not full CRUD forms for admin |
+| at least one UI element on the front end, which allows either admin or regular users to delete records in the database without having to access the admin panel. |          Y            |    All forms allow customers and personnel to make changes in the DB without accessing the admin dashboard, except for the edit/delete reviews, edit/delete newsletter/promo letter, delete product type, attribute and value. *Note1: stock requests are rendered automatically, when the user sends a request and when the stock is updated by the user*. *Note2: role to the user is rendered ONLY from the admin dashboard as it is matter of the store security.* | 
 | evidence of agile methodologies followed during the development of your project in the GitHub repository. |  Y   |                  |
 | a robots.txt file. |  Y   |     |
 | a sitemap.xml file. |   Y  |     |
 | descriptive meta tags in the HTML. |   Y  |     |
 | at least one link to an external resource, which makes use of a rel attribute.  |  Y  |     |
 | a custom 404 error page. |  Y  |     |
-| evidence of either a real Facebook business page, or mockup of one, for the purposes of digital marketing. |  Y  |     |
+| evidence of either a real Facebook business page, or mockup of one, for the purposes of digital marketing. |  Y  |  Mockup pages for Facebook, Instagram, Twitter |
 | evidence of a newsletter signup form for the purposes of digital marketing. |  Y  |     |
 | a description of the e-commerce business model including marketing strategies in the README file. | Y  |     |
-| DEBUG mode set to False. | Y  |     |
+| DEBUG mode set to False. | Y  |  was created with `EmailMultiAlternatives` for order confirmation, product requested email, product in store email, newsletter and promo email with coupon for loyal customers  |
 | working functionality for users to register and log in and out of the application without issues. | Y  |     |
 | working E-commerce functionality for users to make purchases within the application. | Y  |     |
 | detailed testing write ups, beyond results of validation tools. | Y  |     |
