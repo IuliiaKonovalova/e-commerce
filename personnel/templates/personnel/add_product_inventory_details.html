@@ -125,7 +125,7 @@
       $('#weight').on('keypress', onlyNumberKey);
       //get selected option from #type
       $('#type').on('change', function() {
-        typeId = $(this).val()
+        typeId = $(this).val();
         $.ajax({
           url: '{% url "get_type_attribute" %}',
           type: 'POST',
@@ -151,7 +151,7 @@
           }
         });
       });
-      let formData
+      let formData;
       let csrfToken = '{{ csrf_token }}';
       //check if all selects are filled
       $('#form-check').on('click', function(e) {
