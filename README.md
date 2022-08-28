@@ -759,6 +759,12 @@ When the user signs up, a new wishlist is created.
 | created_at     | created_at     | DateTimeField | auto_now_add=True, verbose_name='Created at', help_text='Date and time of creation.' |
 | updated_at     | updated_at     | DateTimeField | auto_now=True, verbose_name='Updated at', help_text='Date and time of last update.' |
 
+
+---
+## Testing
+
+Please refer to the [TESTING.md](TESTING.md) file for all test-related documentation.
+
 ---
 
 ## Payment Setup
