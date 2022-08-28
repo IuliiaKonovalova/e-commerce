@@ -2,7 +2,6 @@
 let stripePublicKey = stripe_public_key;
 let stripe = Stripe(stripePublicKey);
 let elem = document.getElementById('submit');
-let paymentForm = document.getElementById('payment-form');
 clientsecret = elem.getAttribute('data-secret');
 
 // Set up Stripe.js and Elements to use in checkout form
@@ -21,7 +20,7 @@ let card = elements.create("card", {
 card.mount("#card-element");
 
 card.on('change', function (event) {
-  let displayError = document.getElementById('card-errors')
+  let displayError = document.getElementById('card-errors');
   if (event.error) {
     displayError.textContent = event.error.message;
     $('#card-errors').addClass('alert alert-info');
