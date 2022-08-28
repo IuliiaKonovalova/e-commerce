@@ -439,7 +439,7 @@ When user signs up, a new profile is created.
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 | updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
 
-
+**Note:** The role field is set to 1 by default. This is because the user is a customer by default. The role can be changed only from the admin panel. The decision to make it mandatory was made due to the store security reasons. **Only the site admin can change the role of the user in order to prevent unauthorized access.**
 
 #### Address Model
 
