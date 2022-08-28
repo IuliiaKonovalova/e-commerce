@@ -247,7 +247,7 @@
           $(this).find('.bag__item--quantity--plus').removeClass('disabled');
         }
       }; 
-      $('.bag__item').each(stockChecker)
+      $('.bag__item').each(stockChecker);
       // minus quantity
       $('.bag__item--quantity--minus').each(function () {
         $(this).click(function (e) {
@@ -305,8 +305,8 @@
             error: function (data) {
               messagesAlertError();
             }
-          })
-        })
+          });
+        });
       });
 
       // plus quantity
@@ -354,7 +354,7 @@
             error: function (data) {
               messagesAlertError();
             }
-          })
+          });
         });
       });
       // remove item from bag
@@ -396,7 +396,7 @@
             error: function (data) {
               messagesAlertError();
             }
-          })
+          });
         });
       });
       // remove all items from bag
@@ -436,7 +436,7 @@
           error: function (data) {
             messagesAlertError();
           }
-        })
+        });
       });
       // promo:
       $('#bag-promotion').on('click', (e) => {
@@ -471,7 +471,7 @@
               '<div class="data__promo--total">' + couponError + '</div>'
               );
           }
-        })
+        });
       });
     });
   </script>
