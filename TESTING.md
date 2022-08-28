@@ -1189,6 +1189,11 @@ def payment_confirmation(data):
 
 - No errors or warnings were found when passing through the official [W3C (Jigsaw)](https://jigsaw.w3.org/css-validator/#validate_by_uri) validator except for the warnings about the use of css root variables and webkits for the box-shadow. However, css code works perfectly on various devices.
 
+### JS Validation:
+
+- [Full JS Validation Report](documentation/validation/js_validation.pdf)
+
+- No errors or warning messages were found when passing through the official [JSHint](https://www.jshint.com/) validator. However, the validator has pointed out that the module variable is not used, but this variable is needed for automated testing. Needless to say, as the modern js syntax was used (the Optional Chaining method - `?.`) `/* jshint esversion: 11 */` was added to the top of the file.
 
 ### Python Validation:
 
@@ -1215,6 +1220,8 @@ def payment_confirmation(data):
 - [Reviews. Validation Report](documentation/validation/pep8_validation_reviews.pdf)
 
 - [Wishlist. Validation report](documentation/validation/pep8_validation_wishlist.pdf)
+
+
 
 ---
 ## Lighthouse Report
