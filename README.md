@@ -286,8 +286,8 @@ This interesting feature has kept me curious during the development process as t
 
     + [Git](https://git-scm.com/): the version control system used to manage the code.
     + [Pip3](https://pypi.org/project/pip/): the package manager used to install the dependencies.
-    + [Gunicorn](https://gunicorn.org/): the webserver used to run the website.
-    + [Spycopg2](https://www.python.org/dev/peps/pep-0249/): the database driver used to connect to the database.
+    + [Gunicorn](https://gunicorn.org/): the web server used to run the website.
+    + [Psycopg2](https://www.psycopg.org/): the database driver used to connect to the database.
     + [Django-allauth](https://django-allauth.readthedocs.io/en/latest/): the authentication library used to create the user accounts.
     + [Django-crispy-forms](https://django-cryptography.readthedocs.io/en/latest/): was used to control the rendering behavior of Django forms.
     + [Heroku](https://dashboard.heroku.com/): the hosting service used to host the website.
@@ -421,6 +421,8 @@ To understand some concepts, I created several flowchart diagrams.
 | name          | name          | CharField    | max_length=50, unique=True, blank=True, null=False, verbose_name='Role name' |
 | description   | description   | TextField    | max_length=500, blank=True, null=True, verbose_name='Role description' |
 
+
+
 #### Profile Model
 
 When user signs up, a new profile is created. 
@@ -436,6 +438,8 @@ When user signs up, a new profile is created.
 | role          | role          | ForeignKey   | Role, default=1, on_delete=models.SET_NULL, null=True, verbose_name='Role' |
 | created_at    | created_at    | DateTimeField | auto_now_add=True, verbose_name='Created at' |
 | updated_at    | updated_at    | DateTimeField | auto_now=True, verbose_name='Updated at' |
+
+
 
 #### Address Model
 
