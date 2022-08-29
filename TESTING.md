@@ -654,7 +654,7 @@ The missing cases in the coverage is simply because I have no idea how test webh
 
 **Personnel app:**
 
-
+![Django unit testing. Personnel. Coverage](documentation/testing/coverage/coverage_personnel.png)
 
 
 
