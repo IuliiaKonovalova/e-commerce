@@ -583,7 +583,7 @@ At the very beginning of the project, I decided to use Django's built-in unit te
 I am running the following testing commands in my terminal to test the code:
 
 ```
-python manage.py test <name of the app>
+python3 manage.py test <name of the app>
 ```
 
 To create the coverage report, I run the following command:
