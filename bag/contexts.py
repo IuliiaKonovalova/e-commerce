@@ -35,12 +35,12 @@ def bag_contents(request):
         promo_decimal = round(
                             Decimal(total_promo), 2
                         )
-        promo_price = promo_decimal
+        total_promo = promo_decimal
     context = {
         'bag_items': bag_items,
         'total': total,
         'product_count': product_count,
         'product_item_total': product_item_total,
-        'promo_price': promo_price,
+        'promo_price': total_promo,
     }
     return context

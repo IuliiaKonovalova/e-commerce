@@ -164,7 +164,9 @@ class PromoCodeAJAXView(View):
                             Decimal(price_after_reduction), 2
                         )
                         total_promo -= price_after_reduction
-                request.session['total_promo'] = str(total_promo)
+                        request.session['total_promo'] = str(total_promo)
+                        bag_contents(request)['total_promo'] = str(total_promo)
+                request.session['bag'] = bag
                 return JsonResponse(
                     {
                         'success': True,

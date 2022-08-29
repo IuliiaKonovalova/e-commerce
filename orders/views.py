@@ -148,6 +148,12 @@ class AddOrderAJAXView(View):
     def post(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             if request.is_ajax():
+                bag = bag_contents(request)
+                promo_price = bag['promo_price']
+                if promo_price and promo_price != 0:
+                    total_final = promo_price
+                else:
+                    total_final = bag['total']
                 user = request.user
                 full_name = request.POST.get('full_name')
                 email = request.POST.get('email')
@@ -160,7 +166,7 @@ class AddOrderAJAXView(View):
                 zip_code = request.POST.get('zip_code')
                 order_key = request.POST.get('order_key')
                 bag = bag_contents(request)
-                total_paid = str(bag['total'])
+                total_paid = str(total_final)
                 bag_items = bag['bag_items']
                 if Order.objects.filter(order_key=order_key).exists():
                     pass

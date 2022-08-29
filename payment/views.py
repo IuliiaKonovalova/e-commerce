@@ -26,10 +26,10 @@ def BasketView(request):
     # get total out of bag dict
     promo_price = bag['promo_price']
     if promo_price and promo_price != 0:
-        total = promo_price
+        total_final = promo_price
     else:
-        total = bag['total']
-    total_sum = str(total)
+        total_final = bag['total']
+    total_sum = str(total_final)
     total = total_sum.replace('.', '')
     total = int(total)
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
