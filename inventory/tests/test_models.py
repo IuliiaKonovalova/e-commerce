@@ -780,11 +780,11 @@ class TestModels(TestCase):
             answer_sent=False
         )
         stock_email_notification.save()
-        self.assertEqual(len(mail.outbox), 3)
-        stock_email_notification2.save()
-        self.assertEqual(len(mail.outbox), 3)
-        stock_email_notification3.save()
         self.assertEqual(len(mail.outbox), 4)
+        stock_email_notification2.save()
+        self.assertEqual(len(mail.outbox), 5)
+        stock_email_notification3.save()
+        self.assertEqual(len(mail.outbox), 6)
         self.assertEqual(
             stock_email_notification.
             get_all_requested_attributes_values_objects(), ''
@@ -800,7 +800,7 @@ class TestModels(TestCase):
         )
         self.stock1.units = 50
         self.stock1.save()
-        self.assertEqual(len(mail.outbox), 5)
+        self.assertEqual(len(mail.outbox), 8)
 
     def test_get_high_sales_fewer_products(self):
         """Test get_high_sales method."""
