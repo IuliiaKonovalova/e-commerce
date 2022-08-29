@@ -255,20 +255,12 @@
       });
       const profileFormSubmit = function() {
         $('#profile-save-btn i').remove();
-        form.find('input').prop('disabled', false);
-        form.find('button').prop('disabled', false);
-        form.find('select').prop('disabled', false);
-        form.find('textarea').prop('disabled', false);
       };
       $('#profile-save-btn').on('click', () => {
         let form = $('.profile__edit--form');
         let data = form.serialize();
         // append 'form_type' to the data
         data += '&form_type=profile';
-        form.find('input').prop('disabled', true);
-        form.find('button').prop('disabled', true);
-        form.find('select').prop('disabled', true);
-        form.find('textarea').prop('disabled', true);
         $('#profile-save-btn').append('<i class="fas fa-spinner fa-spin"></i>');
         $.ajax({
           url: "{% url 'edit_profile' user=request.user %}",
