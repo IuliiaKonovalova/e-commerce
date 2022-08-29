@@ -626,7 +626,7 @@ The missing coverage is due to the fact that I was not able to test fully ```Ema
 
 **Home app:**
 
-
+![Django unit testing. Home. Coverage](documentation/testing/coverage/coverage_home.png)
 
 
 **Inventory app:**
