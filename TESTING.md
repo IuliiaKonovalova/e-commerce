@@ -943,10 +943,11 @@ However, when I was testing string method in my template, I was getting the corr
 
     ![Django unit testing. Payment. Coverage. Missing](documentation/testing/webhooks_work.png)
 
-## Jest unit testing
+### Jest unit testing
 
 I was't able to do the Jest unit testing because it was throwing an error at the very beginning that a variable $ was not defined. The lack of documentation of the official website and around the Internet made it difficult to find the solution. I have tried to find the solution on the internet but I was not able to find it. That's is why the main accent was made on python automation testing during the whole development process.
 
+---
 
 ## Bugs
 
@@ -1158,7 +1159,7 @@ def payment_confirmation(data):
                     attribute
                 ] = s_v.attribute_value
 ```
-
+---
 
 ## Validation
 
@@ -1290,6 +1291,8 @@ Add custom stylings for search buttons -> Change if condition to show all catego
 8. 9091743069373eefd32a46b1365389860fce14e6
 
 Add functions handlers for 400 and 505 errors - > Add functions handlers for 404 and 500 errors
+
+---
 
 ## Project assessment criteria
 
