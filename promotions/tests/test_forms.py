@@ -12,10 +12,10 @@ class PromotionTestCase(TestCase):
             'description',
             'promotion_code',
             'promotion_reduction',
-            'active',
             'start_date',
             'end_date',
             'products_inventory_in_promotion',
+            'active',
         ]
         actual = list(PromotionForm().fields)
         self.assertListEqual(expected, actual)
