@@ -1159,6 +1159,15 @@ def payment_confirmation(data):
                     attribute
                 ] = s_v.attribute_value
 ```
+
+10. The following issue was opened by another GitHub user:
+
+![Issue](documentation/testing/issue_created_by_others.png)
+
+*Solution:*
+
+[Link to the issue and solution](https://github.com/IuliiaKonovalova/e-commerce/issues/335)
+
 ---
 
 ## Validation
