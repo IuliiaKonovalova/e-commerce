@@ -1294,7 +1294,7 @@ Add functions handlers for 400 and 505 errors - > Add functions handlers for 404
 
 ---
 
-## Project assessment criteria
+## Project assessment criteria CHECKLIST. Portfolio 5: Project Submission
 
 
 | Requirement    | Done           |  Comments    |
