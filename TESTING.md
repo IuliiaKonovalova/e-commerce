@@ -1173,6 +1173,13 @@ def payment_confirmation(data):
 
 1. When I was using attributes for the `id=""` and `for=""` attributes for the inputs, I was getting html errors regarding spaces between words. 
 
+*Temporary Solution:*
+
+I was temporary able to resolve this issue by adding `-` rather than ` ` in the DB manually. The decision to take use this shortcut was made because of the lack of time and the js logic and python logic were implemented earlier.
+
+
+
+
 ---
 
 ## Validation
