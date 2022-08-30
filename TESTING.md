@@ -1168,6 +1168,11 @@ def payment_confirmation(data):
 
 [Link to the issue and solution](https://github.com/IuliiaKonovalova/e-commerce/issues/335)
 
+
+**Unsolved bugs:**
+
+1. When I was using attributes for the `id=""` and `for=""` attributes for the inputs, I was getting html errors regarding spaces between words. 
+
 ---
 
 ## Validation
