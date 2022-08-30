@@ -147,8 +147,8 @@
                     <input type="radio" class="btn-check option" name="{{ k }}" id="{{ k }}-{{ forloop.counter }}" value="{{ item }}" aria-label="Choose value">
                     <label class="btn btn-outline-primary" for="{{ k }}-{{ forloop.counter }}" data-labelid="{{ item }}">{{ item }}</label>
                   {% else %}
-                    <input type="radio" class="btn-check option item__not__available" name="{{ k }}" id="{{ item }}" value="{{ item }}" aria-label="Choose value">
-                    <label class="btn btn-outline-primary disabled" for="{{ item }}" data-labelid="{{ item }}">{{ item }}</label>
+                    <input type="radio" class="btn-check option item__not__available" name="{{ k }}" id="{{ k }}-{{ forloop.counter }}" value="{{ item }}" aria-label="Choose value">
+                    <label class="btn btn-outline-primary disabled" for="{{ k }}-{{ forloop.counter }}" data-labelid="{{ item }}">{{ item }}</label>
                   {% endif %}
                 {% endif %}
               {% endfor %}
