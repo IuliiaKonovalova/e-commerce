@@ -1182,6 +1182,15 @@ I was temporary able to resolve this issue by adding `-` rather than ` ` in the 
 
 Replace the ` ` with `-` in ProductDetail View `.replace(" ", "-")`, then adjust javascript logic for the selected elements, then `.replace("-", " ")` in the AddToBagAJAXView, PromoCodeAJAXView, AddRemoveProductWishlistAJAXView, EmailStockNotificationFormAJAX and test the functionality.
 
+
+
+2. The error appeared in console when payment was processing once during the final testing. I've tried many times to reproduce it, but haven't been able to. Include any links you found that show it might be random from stripe, and that it's out of your control at this time, but will keep an eye on it for potential future issues
+
+
+![Stripe error](documentation/bugs/stripe_error.png)
+
+
+
 ---
 
 ## Validation
