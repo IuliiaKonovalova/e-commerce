@@ -1189,7 +1189,11 @@ Replace the ` ` with `-` in ProductDetail View `.replace(" ", "-")`, then adjust
 
 ![Stripe error](documentation/bugs/stripe_error.png)
 
+*Explanation:*
 
+It might be coming from stripe itself because and I'm not able to fix it. Here is the link to the issue from github and the information provided.
+
+[react-stripe-elements. Uncaught (in promise) undefined #408](https://github.com/stripe-archive/react-stripe-elements/issues/408)
 
 ---
 
