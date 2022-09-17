@@ -40,7 +40,7 @@ class TestUrls(SimpleTestCase):
 
     def test_delete_profile_url(self):
         """Test delete profile url."""
-        url = reverse('delete-user')
+        url = reverse('delete_profile')
         self.assertEquals(resolve(url).func.view_class, DeleteProfileView)
 
     def test_addresses_url(self):
