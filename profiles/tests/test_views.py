@@ -53,7 +53,7 @@ class TestViews(TestCase):
         )
         self.edit_avatar_url = reverse('edit_avatar_ajax')
         self.reset_avatar_url = reverse('reset-avatar')
-        self.delete_user_url = reverse('delete-user')
+        self.delete_user_url = reverse('delete_profile')
         self.addresses_url = reverse(
             'my_addresses',
             kwargs={'user': 'testuser'}
@@ -216,26 +216,23 @@ class TestViews(TestCase):
         )
         response = self.client.post(
             self.delete_user_url,
-            data={
-                'password': 'pwd'
-            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['success'], False)
+        self.assertEqual(
+            User.objects.filter(username='testuser33').count(),
+            1
+        )
+        response = self.client.post(
+            self.delete_user_url,
             HTTP_X_REQUESTED_WITH='XMLHttpRequest'
         )
-        self.assertRedirects(response, '/')
-        self.assertEqual(response.status_code, 302)
         self.assertEqual(
             User.objects.filter(username='testuser33').count(),
             0
         )
-        response = self.client.post(
-            self.delete_user_url,
-            data={
-                'password': 'pwd'
-            },
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest'
-        )
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'account/login.html')
+        self.assertEqual(response.json()['success'], True)
 
     def test_addresses_get_view(self):
         """Test addresses get view."""
