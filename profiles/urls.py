@@ -25,9 +25,9 @@ urlpatterns = [
         name='reset-avatar'
     ),
     path(
-        'my_profile/delete/',
+        'delete_profile',
         DeleteProfileView.as_view(),
-        name='delete-user'
+        name='delete_profile'
     ),
     path(
         '<str:user>/',
