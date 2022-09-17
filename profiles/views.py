@@ -123,16 +123,15 @@ class EditUserProfileView(View):
 class DeleteProfileView(View):
     """View for the delete profile page."""
     def post(self, request, *args, **kwargs):
-        """Post request for the delete profile page."""
-        if request.user.is_authenticated:
-            user = request.user
-            user.delete()
-            return redirect('home')
-        else:
-            return render(
-                request,
-                'account/login.html'
-            )
+        """request for the delete profile page."""
+        if request.is_ajax():
+            if request.user.is_authenticated:
+                user = request.user
+                user.delete()
+                return JsonResponse(
+                    {'success': True}
+                )
+        return JsonResponse({'success': False})
 
 
 class AddressesView(View):
