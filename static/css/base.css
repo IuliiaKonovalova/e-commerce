@@ -718,6 +718,7 @@ label[for="id_subscription"] {
 }
 
 .profile__delete--dropdown .btn__container a,
+.profile__delete--dropdown .btn__container div,
 .wishlist__clean--buttons button {
   font-size: 0.9rem;
 }
@@ -726,7 +727,7 @@ label[for="id_subscription"] {
   font-size: 0.9rem;
 }
 
-.profile__delete--dropdown .btn__container a:first-child,
+.profile__delete--dropdown .btn__container div,
 .address__delete--dropdown .btn__container a:first-child {
   margin-right: 0.5em;
 }
