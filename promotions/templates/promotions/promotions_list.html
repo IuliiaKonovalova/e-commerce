@@ -172,7 +172,7 @@
             <i class="fas fa-arrow-circle-left"></i>
             Cancel
           </button>
-          <button type="button" class="btn btn__delete" data-id="">
+          <button type="button" class="btn btn__delete confirm__delete" >
             <i class="fas fa-save"></i>
             Delete
           </button>
@@ -189,6 +189,7 @@
       $('.promotion').each(function(){
         let promotion = $(this);
         let promotionId = promotion.data('id');
+        console.log(promotionId);
         // close modal reusable function
         promotion.on('click', function(){
           // find .promotion__products for this
@@ -197,12 +198,14 @@
             products.removeClass('hidden');
             // find delete button by data-delete="{{ promotion.id }}"
             let deleteBtn = promotion.find('[data-delete="' + promotionId + '"]');
+            console.log(deleteBtn);
             // find .confirm__delete from #exampleModal
             let confirmDelete = $('#exampleModal').find('.confirm__delete');
+            console.log('confirmDelete', confirmDelete);
+            deleteBtnDataDelete = deleteBtn.data('delete');
+            console.log('deleteBtnDataDelete', deleteBtnDataDelete);
             //add data-id attribute to confirmDelete
-            confirmDelete.data('id', promotionId);
-            // add data-id="{{ promotion.id }}" to .confirm__delete
-            confirmDelete.data('id', promotionId);
+            confirmDelete.attr('data-id', deleteBtnDataDelete);
           } else {
             products.addClass('hidden');
           }
