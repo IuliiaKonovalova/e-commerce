@@ -292,7 +292,7 @@ This interesting feature has kept me curious during the development process as t
     + [Psycopg2](https://www.psycopg.org/): the database driver used to connect to the database.
     + [Django-allauth](https://django-allauth.readthedocs.io/en/latest/): the authentication library used to create the user accounts.
     + [Django-crispy-forms](https://django-cryptography.readthedocs.io/en/latest/): was used to control the rendering behavior of Django forms.
-    + [Heroku](https://dashboard.heroku.com/): the hosting service used to host the website.
+    + [Render](https://pypi.org/project/render/): was used to render the README file.
     + [GitHub](https://github.com/): used to host the website's source code.
     + [VSCode](https://code.visualstudio.com/): the IDE used to develop the website.
     + [Chrome DevTools](https://developer.chrome.com/docs/devtools/open/): was used to debug the website.
@@ -788,7 +788,7 @@ Please refer to the [DEPLOYMENT.md](DEPLOYMENT.md) file for all deployment and p
 - [GitHub](https://github.com/) for giving the idea of the project's design.
 - [Django](https://www.djangoproject.com/) for the framework.
 - [Font awesome](https://fontawesome.com/): for the free access to icons.
-- [Heroku](https://www.heroku.com/): for the free hosting of the website.
+- [Render](https://render.com/): for providing a free hosting.
 - [jQuery](https://jquery.com/): for providing varieties of tools to make standard HTML code look appealing.
 - [jQuery UI](https://jqueryui.com/): for providing varieties of tools to make standard HTML code look appealing.
 - [Postgresql](https://www.postgresql.org/): for providing a free database.
