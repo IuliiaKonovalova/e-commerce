@@ -779,6 +779,7 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 - The app can be reached by the [link](https://wowder.onrender.com).
 
 
+Please refer to the [DEPLOYMENT.md](DEPLOYMENT.md) file for all deployment and payment-related documentation.
 
 ---
 
