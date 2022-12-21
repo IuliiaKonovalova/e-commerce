@@ -513,3 +513,133 @@ To get stripe public key, secret key, and webhook secret:
 
     - ![ElephantSQL. DB](documentation/deployment/elephantsql_db_url.png)
 
+### Create a new app on Render
+
+Link to the deployed application on Render: [Cool School](https://cool-school.onrender.com/)
+
+1. Create a new Render account if you don't already have one here [Render](https://render.com/).
+
+2. Create a new application on the following page here [New Render App](https://dashboard.render.com/), choose **Webserver**:
+
+    - ![New Render App](documentation/deployment/render_new_web_service.png)
+
+3. Select the GitHub option and connect the application to the repository you created.
+
+    - ![GitHub Option](documentation/deployment/render_configure_github_account.png)
+
+4. Search for the repository you created and click "Connect."
+
+    - ![Connect to GitHub](documentation/deployment/render_connect_repository.png)
+
+    - ![Connect to GitHub](documentation/deployment/render_connect_repository_connect.png)
+
+5. Create name for the application
+
+    - ![Create Application Name](documentation/deployment/render_create_name.png)
+
+6. Select the region where you want to deploy the application.
+
+    - ![Select Region](documentation/deployment/render_select_region.png)
+
+7. Select branch to deploy.
+
+    - ![Select Branch](documentation/deployment/render_select_branch.png)
+
+8. Select environment.
+
+    - ![Select Environment Variables](documentation/deployment/render_select_environment.png)
+
+9. Render build command: `./build.sh`
+
+    - ![Render Build Command](documentation/deployment/render_build_command.png)
+
+10. Render start command: `daphne <NAME OF YOUR APP>.asgi:application --port $PORT --bind 0.0.0.0 -v2` + You can delete `Procfile` from your repository.
+
+    - ![Render Start Command](documentation/deployment/render_start_command.png)
+
+11. Select Free plan.
+
+    - ![Select Free Plan](documentation/deployment/render_payment_info.png)
+
+12. Click on "Advanced" settings.
+
+    - ![Advanced Settings](documentation/deployment/render_advanced_settings.png)
+
+13. Add the following environment variables:
+
+    | Key      | Value          |
+    |-------------|-------------|
+    | WEB_CONCURRENCY | 4 |
+    | DATABASE_URL | ************* |
+    | SECRET_KEY | ************* |
+    | DEBUG | False |
+    | EMAIL_HOST_USER | ************* |
+    | EMAIL_HOST_PASSWORD | ************* |
+    | DISABLE_COLLECTSTATIC | 1 |
+    | CLOUDINARY_URL | ************* |
+    | CLOUDINARY_CLOUD_NAME | ************* |
+    | CLOUDINARY_API_KEY | ************* |
+    | CLOUDINARY_API_SECRET | ************* |
+    | STRIPE_CURRENCY | ************* |
+    | STRIPE_PUBLIC_KEY | ************* |
+    | STRIPE_SECRET_KEY | ************* |
+    | STRIPE_ENDPOINT_SECRET | ************* |
+
+    *DATABASE_URL value is takes from ElephantSQL dashboard, SECRET_KEY value is takes from your local env.py file, DEBUG value is set to False, EMAIL_HOST_USER and EMAIL_HOST_PASSWORD values are takes from your Gmail account. STRIPE_CURRENCY, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY, STRIPE_ENDPOINT_SECRET values are takes from your Stripe account. CLOUDINARY_URL, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET values are takes from your Cloudinary account.*
+
+
+14. Open VS Code and create a new file called `build.sh` in the root directory of your project.
+
+    - ![Create Build.sh](documentation/deployment/render_create_build_sh.png)
+
+15. Copy the following code into the `build.sh` file:
+
+    ```bash
+      set -o errexit
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py makemigrations && python manage.py migrate
+    ```
+
+    -*pip install -r requirements.txt installs the packages detailed in your requirements.txt file.*
+    - *python manage.py collectstatic collects all static files to allow them to be served in the production environment.*
+    - *The –noinput flag allows the command to run with no additional input from the deploying developer.*
+    - *python manage.py makemigrations && python manage.py migrate are run to ensure all migrations are made to your production database.*
+
+16. Save the file `build.sh`.
+
+17. Go to `settings.py` file and add the following code to add Render.com to allowed hosts:
+
+    ```python
+        RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+        if RENDER_EXTERNAL_HOSTNAME:
+            ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    ```
+
+   *If you have heroku in your allowed hosts, delete it*
+
+18. Save the file `settings.py`.
+
+19. Go to `env.py` and change to DATEBASE_URL value to the one you got from ElephantSQL.
+
+    ```python
+        os.environ["DATABASE_URL"] = '*************'
+    ```
+
+20. Create a superuser for your database.
+
+    ```bash
+        python manage.py createsuperuser
+    ```
+
+21. Commit and push the changes to GitHub.
+
+22. Go back to Render and click "Create Web Service."
+
+    - ![Save Web Service](documentation/deployment/render_create_web_service.png)
+
+23. Wait for the completion of the deployment.
+
+24. Go to admin panel and change the settings for the admin by assigning a role of `Boss` to allow the full control of the website including role assignment.
+
+---
