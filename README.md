@@ -1,10 +1,10 @@
 # E-commerce website
 
-## About
+**Deployed website: [Link to website](https://wowder.onrender.com)**
 
 ![Main image](documentation/readme_header.png)
 
-**Deployed website: [Link to website](https://wowder.herokuapp.com/)**
+## About
 
 "WoWder" is an e-commerce website that allows customers to buy various products. It has a login system, a shopping cart, a checkout system, and a payment system. Loyal customers can get discounts on their purchases by using the coupon system. This website has a notification system that allows users to be notified when a product is available if they submit a request.
 In addition, the website has a personnel functionality that allows admin, manager, logistics, and other personnel to manage the website. The decision to implement multiple personnel roles was made due to the desire to create the project as scalable as possible and reusable in the real world.
