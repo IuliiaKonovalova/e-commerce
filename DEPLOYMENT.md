@@ -201,3 +201,172 @@ from django.views.decorators.csrf import csrf_exempt
   - `STRIPE_SECRET_KEY`
   - `STRIPE_WEBHOOK_SECRET`
 
+---
+
+## Local deployment
+
+1. Clone the repository.
+
+    - ```git clone https://github.com/IuliiaKonovalova/e-commerce.git```
+
+2. Go to the ```ecommerce_project``` directory.
+
+    - ```cd ecommerce_project```
+
+3. Create a virtual environment.
+
+    - ```python3 -m venv venv```
+
+    - ```source venv/bin/activate```
+
+4. Install all dependencies.
+
+    - ```pip install -r requirements.txt```
+
+5. Create a ```env.py``` file.
+
+    - ```touch env.py```
+
+6. Add the following lines to ```env.py```:
+
+    - ```import os```
+    - ```os.environ["SECRET_KEY"]``` = your secret key.
+    - ```os.environ["DEBUG"]``` = "True" or "False" depending on whether you are in development or production.
+    - ```os.environ["DEVELOPMENT"]``` = "True" or "False" depending on whether you are in development or production.
+    - ```os.environ["ALLOWED_HOSTS"]``` = your domain name.
+    - ```os.environ["DATABASE_URL"]``` = your database url.
+    - ```os.environ["CLOUDINARY_CLOUD_NAME"]``` = your cloudinary cloud name.
+    - ```os.environ["CLOUDINARY_API_KEY"]``` = your cloudinary api key.
+    - ```os.environ["CLOUDINARY_API_SECRET"]``` = your cloudinary api secret.
+    - ```os.environ["STRIPE_PUBLIC_KEY"]``` = your stripe public key.
+    - ```os.environ["STRIPE_SECRET_KEY"]``` = your stripe secret key.
+    - ```os.environ["STRIPE_WEBHOOK_SECRET"]``` = your stripe webhook secret key.
+
+7. Create and migrate the database.
+
+---
+
+## Important note
+
+
+**NOTE !**
+
+As the app requires assigning a role for each user, you will need to apply some changes Profile model for the role field.:
+
+```python
+    class Profile(models.Model):
+        """Model for the profiles."""
+        user = models.OneToOneField(
+            User,
+            on_delete=models.CASCADE,
+            related_name='profile',
+            verbose_name='User',
+            help_text=(
+                'format: required, unique=True'
+            )
+        )
+        first_name = models.CharField(
+            max_length=50,
+            blank=True,
+            null=True,
+            verbose_name='First name',
+            help_text=(
+                'format: not required, max_length=50'
+            )
+        )
+        last_name = models.CharField(
+            max_length=50,
+            blank=True,
+            null=True,
+            verbose_name='Last name',
+            help_text=(
+                'format: not required, max_length=50'
+            )
+        )
+        birthday = models.DateField(
+            blank=True,
+            null=True,
+            verbose_name='Birthday',
+            help_text=(
+                'format: not required'
+            )
+        )
+        avatar = CloudinaryField(
+            'avatar',
+            folder='avatars',
+            blank=True,
+            null=True,
+        )
+        subscription = models.BooleanField(
+            default=False,
+            verbose_name='Subscription',
+            help_text=(
+                'format: not required'
+            )
+        )
+        role = models.ForeignKey(
+            Role,
+            on_delete=models.SET_NULL,
+            null=True,
+            # default=1, # 1 is the default role that should be commented out before the first migrations
+            verbose_name='Role',
+            help_text=(
+                'format: not required'
+            )
+        )
+        created_at = models.DateTimeField(
+            auto_now_add=True,
+            verbose_name='Created at',
+        )
+        updated_at = models.DateTimeField(
+            auto_now=True,
+            verbose_name='Updated at',
+        )
+```
+
+- ```python manage.py makemigrations```
+- ```python manage.py migrate```
+
+- After migration, you will need to create a superuser.
+
+
+8. Create the superuser.
+
+    - ```python manage.py createsuperuser```
+
+9. Create roles as following:
+
+For example:
+
+```python
+    Role.objects.create(name='Customer')
+    Role.objects.create(name='Manager')
+    Role.objects.create(name='Admin')
+```
+
+
+10. Set the role for the superuser with the role field with id 3.
+
+```python
+    superuser.profile.role_id = 3
+    superuser.save()
+```
+
+11. Go to Profiles and uncomment the default role. Make new migrations and migrate.
+
+    - ```python manage.py makemigrations```
+    - ```python manage.py migrate```
+
+**After the following steps, you will ensure that the app is working correctly, and any other user registered in your app will only have access as a customer. The rest of the roles will be controlled by the admin.**
+
+
+12. Run the server.
+
+    - ```python manage.py runserver```
+
+13. Access the website by the link provided in terminal. Add ```/admin/``` at the end of the link to access the admin panel.
+
+
+*If you are using Gitpod, you can skip steps 1-3 by clicking this [link](https://gitpod.io/#https://github.com/IuliiaKonovalova/e-commerce), and start from step 4.*
+
+---
