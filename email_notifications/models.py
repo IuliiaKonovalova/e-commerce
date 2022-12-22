@@ -66,7 +66,7 @@ class EmailNewsNotification(models.Model):
                 'text-align:center; font-weight:bold">' +
                 self.code + '</p>'
                 '<br><br><strong>Visit our shop now! </strong><br><br>'
-                '<a href="http://wowder.herokuapp.com/inventory/store/">'
+                '<a href="https://wowder.onrender.com">'
                 'Go to WoWder</a><br><br>'
                 '<p>Thank you for being with us!</p>'
                 '<em>WoWder shop</em>'
@@ -77,7 +77,7 @@ class EmailNewsNotification(models.Model):
                 self.email_name +
                 '</h1><br><p>' + self.content + '</p>'
                 '<br><br><strong>Visit our shop now! </strong><br><br>'
-                '<a href="http://wowder.herokuapp.com/inventory/store/">'
+                '<a href="https://wowder.onrender.com">'
                 'Go to WoWder</a><br><br>'
                 '<p>Thank you for being with us!</p>'
                 '<em>WoWder shop</em>'
@@ -160,7 +160,7 @@ class StockEmailNotification(models.Model):
             '</strong>' + self.requested_product.name + '</p><p><strong>'
             'Quantity: </strong>' + str(self.requested_quantity) + '</p>'
             '<br><br><strong>Visit our shop now! </strong><br><br>'
-            '<a href="http://wowder.herokuapp.com/inventory/store/">'
+            '<a href="https://wowder.onrender.com">'
             'Go to WoWder</a><br><br>'
             '<p>Thank you for being with us!</p>'
             '<em>Wowder shop</em>'
