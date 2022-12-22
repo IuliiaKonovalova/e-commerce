@@ -208,11 +208,17 @@ STRIPE_ENDPOINT_SECRET = os.environ.get("STRIPE_ENDPOINT_SECRET")
 if 'DEVELOPMENT' in os.environ:
     print('Development environment')
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    # Uncomment the following lines to use sqlite3 for testing
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.sqlite3',
+    #         'NAME': BASE_DIR / 'db.sqlite3',
+    #     },
+    # }
+
+    # Comment the following lines to use sqlite3 for testing
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        },
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL")),
     }
     CHANNEL_LAYERS = {
         'default': {
