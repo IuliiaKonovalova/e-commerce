@@ -772,7 +772,7 @@ class Stock(models.Model):
                 '<strong>' + self.product_inventory.product.name + '</strong>'
                 ' is now in stock.</p><br><br><strong>Visit our shop '
                 'to purchase! </strong><br><br><a '
-                'href="http://wowder.herokuapp.com/inventory/store/">'
+                'href="https://wowder.onrender.com">'
                 'Go to WoWder</a><br><br>'
                 '<p>Thank you for being with us!</p>'
                 '<em>WoWder shop</em>'
