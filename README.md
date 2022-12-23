@@ -2,8 +2,10 @@
 
 **Deployed website: [Link to website](https://wowder.onrender.com)**
 
+
 ![Main image](documentation/readme_header.png)
 
+**Card number for payment testing: 4242424242424242**
 ## About
 
 "WoWder" is an e-commerce website that allows customers to buy various products. It has a login system, a shopping cart, a checkout system, and a payment system. Loyal customers can get discounts on their purchases by using the coupon system. This website has a notification system that allows users to be notified when a product is available if they submit a request.
