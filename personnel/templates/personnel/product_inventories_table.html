@@ -42,19 +42,19 @@
           Stock units All
         </h1>
       </section>
-      {% if inventories %}
-        {% comment %} Search product type by input {% endcomment %}
-        <div class="search__navbar">
-          <div class="search__container">
-            <form class="search__input" id="search-all">
-              {% csrf_token %}
-              <input type="text" name="search_query" placeholder="Search by SKU or UPC ..." id="sort-selector">
-              <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
-                <i class="fas fa-search"></i>
-              </button>
-            </form>
-          </div>
+      {% comment %} Search product type by input {% endcomment %}
+      <div class="search__navbar">
+        <div class="search__container">
+          <form class="search__input" id="search-all">
+            {% csrf_token %}
+            <input type="text" name="search_query" placeholder="Search by SKU or UPC ..." id="sort-selector">
+            <button type="submit" id="search-btn" aria-label="Search" class="btn btn__search">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
         </div>
+      </div>
+      {% if inventories %}
         <div class="data__main--inventories">
           {% for inventory in inventories %}
             <a href="{% url 'product_inventory_details' pk=inventory.product.pk inventory_pk=inventory.id %}"
