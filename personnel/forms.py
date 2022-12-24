@@ -217,6 +217,10 @@ class ProductTypeForm(forms.ModelForm):
             ),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['product_type_attributes'].required = False
+
 
 class ProductAttributeValueForm(forms.ModelForm):
     """Form for the ProductAttributeValue model."""
