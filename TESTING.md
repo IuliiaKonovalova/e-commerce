@@ -1168,6 +1168,18 @@ def payment_confirmation(data):
 
 [Link to the issue and solution](https://github.com/IuliiaKonovalova/e-commerce/issues/335)
 
+11. When the admin needed to add a new product type to the store, it wasn't impossible to add a new product type without any attributes. However, it was possible through the admin panel.
+
+*Solution:*
+
+Add __init__ method to the ProductType model and add the following code:
+
+```python
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['product_type_attributes'].required = False
+```
+
 
 **Unsolved bugs:**
 
